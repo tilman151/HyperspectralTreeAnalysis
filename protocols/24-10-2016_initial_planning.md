@@ -1,9 +1,9 @@
 # Protocol - Initial Planning on Oct 24th
 
 ## Task Distribution:
-Task 1 (Evaluation Framework): Tilman
-Task 2 (Feature Extraction): Tuan, Marianne
-Task 3 (Pattern Recognition): Viola, @CornyStyp
+- Task 1 (Evaluation Framework): Tilman
+- Task 2 (Feature Extraction): Tuan, Marianne
+- Task 3 (Pattern Recognition): Viola, Cornelius
 
 ## Schedule:
 Completion Date | Task
