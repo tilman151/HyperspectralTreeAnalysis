@@ -7,6 +7,7 @@
 - CNN (deep learning)
 - Random/Rotation Forest
 - MLRsubMLL
+- Ensemblemethoden (evtl. Kombination verschiedener Klassifikatortypen)
 
 ## geplante Feature Extraction Algorithmen
 
