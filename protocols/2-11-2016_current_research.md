@@ -13,6 +13,11 @@
 -PCA
 -Semi-supervised local discriminent analysis (SELD)
 
+#Termine
+
+- 9.11. nächstes Treffen (mit genaueren Vorstellungen)
+- 16.11. Treffen mit Uwe und Christoph (mit klaren Plänen)
+
 #ToDos
 
 [ ] nach Bibliotheken schauen, octave/matlab bevorzugt (jeder)
