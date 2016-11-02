@@ -1,32 +1,32 @@
 
-#Protocol: 2-11-16
+# Protocol: 2-11-16
 
-#geplante Klassifikatoren
+## geplante Klassifikatoren
 
--Standardansätze (SVM, CART)
--CNN (deep learning)
--Random/Rotation Forest
--MLRsubMLL
+- Standardansätze (SVM, CART)
+- CNN (deep learning)
+- Random/Rotation Forest
+- MLRsubMLL
 
-#geplante Feature Extraction Algorithmen
+## geplante Feature Extraction Algorithmen
 
--PCA
--Semi-supervised local discriminent analysis (SELD)
+- PCA
+- Semi-supervised local discriminent analysis (SELD)
 
-#Termine
+## Termine
 
 - 9.11. nächstes Treffen (mit genaueren Vorstellungen)
 - 16.11. Treffen mit Uwe und Christoph (mit klaren Plänen)
 
-#ToDos
+## ToDos
 
-[ ] nach Bibliotheken schauen, octave/matlab bevorzugt (jeder)
-[ ] SELD Leute ansprechen (MaTu)
-[ ] nach Hyperspectral-Datensätzen gucken (wer grad Zeit hat)
-[ ] Mail: zusagen und nach weiteren Datensätzen fragen (Marianne)
+- [ ] nach Bibliotheken schauen, octave/matlab bevorzugt (jeder)
+- [ ] SELD Leute ansprechen (MaTu)
+- [ ] nach Hyperspectral-Datensätzen gucken (wer grad Zeit hat)
+- [ ] Mail: zusagen und nach weiteren Datensätzen fragen (Marianne)
 
-#Recherche - ToDos
+## Recherche - ToDos
 
-[ ] semi-supervised Klassifikatoren (ViCor)
-[ ] weitere Indizes raussuchen (MaTu)
+- [ ] semi-supervised Klassifikatoren (ViCor)
+- [ ] weitere Indizes raussuchen (MaTu)
 
