@@ -30,8 +30,8 @@
 - Referenzdatensätze aktuell eher unrelevant
 
 ## ToDos
-- [] Daten herunterladen (alle)
-- [] Framework lauffähig machen (Tilman)
-- [] Erste Ansätze implementieren (MaTuCoVi)
-- [] Projektplan erstellen für Christoph (alle)
+- [ ] Daten herunterladen (alle)
+- [ ] Framework lauffähig machen (Tilman)
+- [ ] Erste Ansätze implementieren (MaTuCoVi)
+- [ ] Projektplan erstellen für Christoph (alle)
 
