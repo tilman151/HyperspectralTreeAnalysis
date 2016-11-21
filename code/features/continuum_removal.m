@@ -23,11 +23,11 @@ function [ continuumRemoved ] = continuum_removal( rawFeatures )
 [x,y,spectralBands] = size(rawFeatures);
 % transform the data into a 2-dimensional matrix, such that each pixel and
 % its spectral bands are represented by a row
-transformedFeatures = reshape(rawFeatures, x*y, spectralBands);
+reshapedFeatures = reshape(rawFeatures, x*y, spectralBands);
 % transform the 2-dimensional matrix into a cell-array, so cellfun can be
 % used to apply 'bandsToContinuumRemoved' to each row
 % bandsToContinuumRemoved removes the continuum from a single row vector
-continuumRemovedTranformed = cellfun(@bandsToContinuumRemoved, num2cell(transformedFeatures, 2), 'UniformOutput', false);
+continuumRemovedTranformed = cellfun(@bandsToContinuumRemoved, num2cell(reshapedFeatures, 2), 'UniformOutput', false);
 % transform the 2-dimensional cell-array with its continuum removed into a
 % 3-dimensional matrix, where the structure is the same as in rawFeatures
 continuumRemoved = reshape(cell2mat(continuumRemovedTranformed), x,y,spectralBands);
