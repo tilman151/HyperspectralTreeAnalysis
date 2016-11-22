@@ -23,13 +23,16 @@ classdef tsvm
             obj.k = k;
         end
         
-        function obj = trainOn(obj, X, y)
+        function obj = trainOn(obj, trainFeatures, trainLabels)
+            N = []; % Unlabeled samples
+            
             [obj.f, obj.SX, obj.SY, obj.SA, obj.t] = ...
-                svm_ovo(X, y, N, obj.C1, obj.C2, obj.k);
+                svm_ovo(trainFeatures, trainLabels, N, ...
+                        obj.C1, obj.C2, obj.k);
         end
         
-        function [obj, label] = predict(obj, X)
-            label = obj.f(X);
+        function labels = classifyOn(obj, evalFeatures)
+            labels = obj.f(evalFeatures);
         end
     end
     
