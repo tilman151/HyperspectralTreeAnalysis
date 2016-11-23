@@ -1,4 +1,4 @@
-function [ continuumRemoved ] = continuum_removal( rawFeatures )
+function [ continuumRemoved ] = continuum_removal( rawFeatures , classes)
 %CONTINUUM_REMOVAL remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
 %
