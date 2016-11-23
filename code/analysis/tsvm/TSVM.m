@@ -1,5 +1,5 @@
-classdef tsvm
-    %TSVM Summary of this class goes here
+classdef TSVM < Classifier
+    %TSVM transductive Support Vector Machine
     %   Detailed explanation goes here
     
     properties
