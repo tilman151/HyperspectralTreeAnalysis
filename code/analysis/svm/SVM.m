@@ -62,7 +62,7 @@ classdef SVM < Classifier
         
         function obj = trainOn(obj, trainFeatures, trainLabels)
             % Extract labeled pixels
-            [featureList, labelList] = ...
+            [featureList, labelList, ~] = ...
                 extractLabeledPixels(trainFeatures, trainLabels);
             
             % Train multiclass model
