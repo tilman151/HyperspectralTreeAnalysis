@@ -2,17 +2,30 @@ classdef SVM < Classifier
     %SVM Standard Support Vector Machine for multiclass problems
     %
     %    See detailed explanations on the used algorithms and possible
-    %    arguments here: https://de.mathworks.com/help/stats/fitcecoc.html
+    %    arguments on the following two documentation pages:
+    %    - https://de.mathworks.com/help/stats/fitcecoc.html
+    %    - https://de.mathworks.com/help/stats/templatesvm.html
     %
     %% Properties:
-    %    template ... 
-    %    coding ..... 
-    %    model ...... 
+    %    template ... SVM template for classification.
+    %    coding ..... Coding design for the multiclass model.
+    %    model ...... Trained model.
     %
     %% Methods:
-    %    SVM ........ 
-    %    trainOn .... 
-    %    classifyOn . 
+    %    SVM ........ Constructor. Can take Name, Value pair arguments that
+    %                 change the multiclass strategy and the internal
+    %                 parameters of the SVM. Possible arguments:
+    %        KernelFunction . Kernel function for the SVM.
+    %                         'linear'(default) | 'gaussian' | 'rbf' | 
+    %                         'polynomial'
+    %        Coding ......... Coding design for the ECOC (error-correcting 
+    %                         output codes) multiclass model.
+    %                         'onevsone'(default) | 'allpairs' |
+    %                         'binarycomplete' | 'denserandom' | 'onevsall'
+    %                         | 'ordinal' | 'sparserandom' | 
+    %                         'ternarycomplete'.
+    %    trainOn .... See documentation in superclass Classifier.
+    %    classifyOn . See documentation in superclass Classifier.
     %
     % Version: 2016-11-24
     % Author: Cornelius Styp von Rekowski
@@ -30,17 +43,21 @@ classdef SVM < Classifier
     end
     
     methods
-        function obj = SVM(kernel, coding)
-            % TODO: allow Name Value pairs instead -> use inputParser
-            if nargin < 2
-                kernel = 'linear';
-                coding = 'onevsone';
-            end
+        function obj = SVM(varargin)
+            % Create input parser
+            p = inputParser;
+            p.addParameter('KernelFunction', 'linear');
+            p.addParameter('Coding', 'onevsone');
+            
+            % Parse input arguments
+            p.parse(varargin{:});
             
             % Create SVM template
-            obj.template = templateSVM('KernelFunction', kernel);
+            obj.template = templateSVM(...
+                'KernelFunction', p.Results.KernelFunction);
             
-            obj.coding = coding;
+            % Save coding for the following training
+            obj.coding = p.Results.Coding;
         end
         
         function obj = trainOn(obj, trainFeatures, trainLabels)
