@@ -17,7 +17,7 @@ classdef TSVM < Classifier
     end
     
     methods
-        function obj = tsvm(C1, C2, k)
+        function obj = TSVM(C1, C2, k)
             obj.C1 = C1;
             obj.C2 = C2;
             obj.k = k;
