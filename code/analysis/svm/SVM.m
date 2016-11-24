@@ -1,7 +1,22 @@
 classdef SVM < Classifier
     %SVM Standard Support Vector Machine for multiclass problems
-    %   See detailed explanations on the used algorithms and possible
-    %   arguments here: https://de.mathworks.com/help/stats/fitcecoc.html
+    %
+    %    See detailed explanations on the used algorithms and possible
+    %    arguments here: https://de.mathworks.com/help/stats/fitcecoc.html
+    %
+    %% Properties:
+    %    template ... 
+    %    coding ..... 
+    %    model ...... 
+    %
+    %% Methods:
+    %    SVM ........ 
+    %    trainOn .... 
+    %    classifyOn . 
+    %
+    % Version: 2016-11-24
+    % Author: Cornelius Styp von Rekowski
+    %
     
     properties
         % SVM template
