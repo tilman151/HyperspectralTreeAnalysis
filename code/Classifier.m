@@ -1,4 +1,4 @@
-classdef (Abstract) Classifier
+classdef (Abstract) Classifier < handle
     %CLASSIFIER Abstract classifier superclass
     %
     %    Every classifier should inherit this class and overwrite the
