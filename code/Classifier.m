@@ -1,4 +1,4 @@
-classdef (Abstract) Classifier < handle
+classdef (Abstract) Classifier < matlab.mixin.Copyable
     %CLASSIFIER Abstract classifier superclass
     %
     %    Every classifier should inherit this class and overwrite the
