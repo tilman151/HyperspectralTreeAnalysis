@@ -20,6 +20,9 @@ function [featureList, labelList, unlabeledFeatureList] = ...
 % Author: Cornelius Styp von Rekowski
 %
 
+% TODO: Maybe it is easier to first reshape to 2D and then extract labeled
+% data
+
 % Get logical positions of all labeled pixels (label > 0) and unlabeled 
 % pixels (label = 0), excluding empty pixels (label = -1)
 labeledPos = labelMap > 0;
