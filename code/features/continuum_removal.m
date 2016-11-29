@@ -4,6 +4,11 @@ function [ continuumRemoved ] = continuum_removal( rawFeatures , classes)
 %
 %    The function calculates for every pixel the continuum removed features
 %    and returns it in the same format and size as rawFeatures
+%    
+%    If there is a pixel, where all bands are set to a single value a
+%    convex hull can not be computed, so that there are no features with
+%    its continuum removed. For this pixel the continuum removed features
+%    will be set to zero.
 %
 %% Input:
 %    rawFeatures ...... a 3-dimensional matrix with the dimensions 
@@ -53,20 +58,24 @@ function [continuumRemoved] = bandsToContinuumRemoved(bands)
 % Author: Tuan Pham Minh
 %
 
-% create the corresponding x coordinates to the features
-x = 1:size(bands, 2);
-% calculate the 2-dimensional convex hull of the features and reverse its
-% order, so that the order is clockwise
-convex_hull_2d = fliplr(convhull(x,bands)');
-% select those points of the convex hull, which are all above the features
-% this is achived by taking all points between the first and the first
-% occurence of the last feature (because the order is clockwise and the
-% corresponding x coordinates are increasing)
-upper_convex_hull = convex_hull_2d(1:find(convex_hull_2d == max(convex_hull_2d)));
-% interpolate the convex hull between all x coordinates
-interpolatedX = x;
-% calculate the interpolated features along the convex hull
-interpolatedBands = interp1(x(upper_convex_hull), bands(upper_convex_hull), interpolatedX);
-% divide the real features by the value of the vconvex hull
-continuumRemoved = bands./interpolatedBands;
+if(size(unique(bands)) <= 1)
+    continuumRemoved = zeros(size(bands));
+else
+    % create the corresponding x coordinates to the features
+    x = 1:size(bands, 2);
+    % calculate the 2-dimensional convex hull of the features and reverse its
+    % order, so that the order is clockwise
+    convex_hull_2d = fliplr(convhull(x,bands)');
+    % select those points of the convex hull, which are all above the features
+    % this is achived by taking all points between the first and the first
+    % occurence of the last feature (because the order is clockwise and the
+    % corresponding x coordinates are increasing)
+    upper_convex_hull = convex_hull_2d(1:find(convex_hull_2d == max(convex_hull_2d)));
+    % interpolate the convex hull between all x coordinates
+    interpolatedX = x;
+    % calculate the interpolated features along the convex hull
+    interpolatedBands = interp1(x(upper_convex_hull), bands(upper_convex_hull), interpolatedX);
+    % divide the real features by the value of the vconvex hull
+    continuumRemoved = bands./interpolatedBands;
+end
 end
