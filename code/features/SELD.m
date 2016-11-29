@@ -21,7 +21,7 @@ function [ extractedFeatures ] = SELD(features, labels, parameters)
 % Author: Marianne Stecklina
 %
 
- [~, extractedFeatures] = SELD_main(features, labels, ...
+ [~, extractedFeatures] = SELD.SELD(features, labels, ...
      parameters.numDim, parameters.k);
 
 end
