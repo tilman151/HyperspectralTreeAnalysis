@@ -10,12 +10,14 @@ function runExperiment(configFilePath)
 
     %TODO: Check config validity
 
-    %Read csv file from dataSetPath
-    dataSet = dlmread(dataSetPath,';');
+%     %Read csv file from dataSetPath
+%     dataSet = dlmread(dataSetPath,';');
+% 
+%     %Separate labels from features
+%     labels = dataSet(:,1);
+%     features = dataSet(:,2:end);
 
-    %Separate labels from features
-    labels = dataSet(:,1);
-    features = dataSet(:,2:end);
+    [labels,features] = Importer.loadDataFrom(dataSetPath);
 
     % Order of the group labels for cinfusion matrix
     order = unique(labels);
