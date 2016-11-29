@@ -20,7 +20,9 @@ classdef Importer
             if (strcmp(path(end-2:end), 'mat') == 1)
                 loadedData = load(path, 'cube');
                 cube = loadedData.cube;
+                cube = reshape(cube, [], 1, size(cube, 3));
                 labels = imread([path(1:end-3), 'png']);
+                labels = reshape(labels, [], 1, size(labels, 3));
             end
         end
         
