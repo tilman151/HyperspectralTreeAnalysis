@@ -1,3 +1,3 @@
 k = 5
 classifier = ExampleClassifier
-dataSetPath = '/home/tilman/Programming/HyperspectralTreeAnalysis/ftp-iff2.iff.fraunhofer.de/Data/CSV/400-1000/spatialspectral/samples-32.csv'
+dataSetPath = 'data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/1000-2500/F2G9_02.mat'
