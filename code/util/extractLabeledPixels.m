@@ -8,15 +8,27 @@ function [featureList, labelList, unlabeledFeatureList] = ...
 %    pixels that were used to fill the image are dropped.
 %
 %% Input:
-%    featureMap ........... 
-%    labelMap ............. 
+%    featureMap ........... Map of features for each image pixel.
+%                           Dimensions X x Y x F with X and Y being the
+%                           image dimensions and F being the number of
+%                           features.
+%    labelMap ............. Map of labels for each image pixel. Dimensions
+%                           X x Y x 1 with X and Y being the image
+%                           dimensions.
 %
 %% Output:
-%    featureList .......... 
-%    labelList ............ 
-%    unlabeledFeatureList . 
+%    featureList .......... List of features for the labeled samples.
+%                           Dimensions L x F with L being the number of
+%                           labeled samples and F being the number of
+%                           features.
+%    labelList ............ List of labels. Dimensions L x 1 with L being
+%                           the number of labeled samples.
+%    unlabeledFeatureList . List of features for the unlabeled samples.
+%                           Dimensions U x F with U being the number of
+%                           unlabeled samples and F being the number of
+%                           features.
 %
-% Version: 2016-11-24
+% Version: 2016-11-30
 % Author: Cornelius Styp von Rekowski
 %
 

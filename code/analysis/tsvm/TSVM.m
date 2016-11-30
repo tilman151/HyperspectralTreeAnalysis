@@ -1,7 +1,8 @@
 classdef TSVM < Classifier
     %TSVM transductive Support Vector Machine
     %
-    %    Detailed explanation goes here
+    %    Support vector machine that uses unlabeled data as additional
+    %    information. Also known as Semi-Supervised SVM (S3VM).
     %
     %% Properties:
     %    C1 ......... Misclassification penalty (labeled data).
