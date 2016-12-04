@@ -23,13 +23,13 @@
 ## vorläufige Ergebnisse
 - t-SVM wirkt instabil (siehe results-Ordner)
 
-ToDo's:
-[ ] Fragen an Christoph (Marianne)
-[ ] Uwe nach Daten fragen (Marianne)
-[ ] Zeitplanentwurf (Corny)
-[ ] Rotation Forest implementieren (Viola)
-[ ] PCA implementieren (Marianne)
-[ ] komplexeren Classifier implementieren (Corny)
-[ ] Ensembles implementieren (Tuan)
-[ ] Random seed in Framework (Tilman)
-[ ] Umbau Partionierung (Tilman)
+## ToDo's:
+- [ ] Fragen an Christoph (Marianne)
+- [ ] Uwe nach Daten fragen (Marianne)
+- [ ] Zeitplanentwurf (Corny)
+- [ ] Rotation Forest implementieren (Viola)
+- [ ] PCA implementieren (Marianne)
+- [ ] komplexeren Classifier implementieren (Corny)
+- [ ] Ensembles implementieren (Tuan)
+- [ ] Random seed in Framework (Tilman)
+- [ ] Umbau Partionierung (Tilman)
