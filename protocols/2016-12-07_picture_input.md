@@ -5,23 +5,23 @@
 - Zeitplan
 - Auflistung aller Verfahren und Klassifikatoren
 
-##Klassifikatoren mit Nachbarschaftsinformation
--SpaRSSE benötigt räumliche Informationen
--Deep Learning benötigt 5x5-Pixelfenster, braucht Koordinaten der gelabelten Daten
+## Klassifikatoren mit Nachbarschaftsinformation
+- SpaRSSE benötigt räumliche Informationen
+- Deep Learning benötigt 5x5-Pixelfenster, braucht Koordinaten der gelabelten Daten
 
-##Feature Extraction mit Nachbarschaftsinformation
+## Feature Extraction mit Nachbarschaftsinformation
 - passt alles
 
-##Datenverarbeitung
+## Datenverarbeitung
 - Daten sind zu groß um sie gleichzeitig zu verarbeiten
 - fürs Netzwerk ist das ok
 - Möglichkeit: online SVMS/klassifikatoren
 - Möglichkeit: Bilder zusammensetzen und "-1"-Rand lassen
 ---->Bilder zusammenfügen. Klassen mit nur einem Bild teilen = kleinste Fenstergröße
 
-#Framework
+## Framework
 - "-1" geschwärzt - Features auf Null
-- -"0" ungelabelt - besitzen Featuredaten
+- "0" ungelabelt - besitzen Featuredaten
 - einige Bilder enthalten schon 0-Features
 - Feature Extraction wird vom framework gemacht(aus config aufrufen)
 - statische Feature Extraction
@@ -40,9 +40,10 @@
 - [ ] function handles(Tilman)
 - [ ] für feature extraction DAten rausziehen
 - [ ] Projektplan abschicken
+
 ## zu klären
 - Crossvalidierung -> Testsets sollten dieselbe Größe haben
 
-###
+## Milestone
 14.12. ein Standardansatz plus continuum removal
 
