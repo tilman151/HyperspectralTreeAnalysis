@@ -1,7 +1,8 @@
 classdef TSVM < Classifier
     %TSVM transductive Support Vector Machine
     %
-    %    Detailed explanation goes here
+    %    Support vector machine that uses unlabeled data as additional
+    %    information. Also known as Semi-Supervised SVM (S3VM).
     %
     %% Properties:
     %    C1 ......... Misclassification penalty (labeled data).
@@ -50,7 +51,7 @@ classdef TSVM < Classifier
             p = inputParser;
             p.addParameter('C1', 10);
             p.addParameter('C2', 10);
-            p.addParameter('KernelFunction', kernel_gen_rbf);
+            p.addParameter('KernelFunction', 'linear');
             p.addParameter('Coding', 'onevsone');
             
             % Parse input arguments
@@ -80,14 +81,14 @@ classdef TSVM < Classifier
             % Parse multiclass coding
             switch p.Results.Coding
                 case 'onevsone'
-                    obj.Coding = svm_ovo;
+                    obj.Coding = @svm_ovo;
                 case 'onevsall'
-                    obj.Coding = svm_ova;
+                    obj.Coding = @svm_ova;
                 otherwise
                     disp(['Unrecognized option for Coding: '...
                           p.Results.Coding]);
                     disp('Falling back to default one vs one coding.');
-                    obj.Coding = svm_ovo;
+                    obj.Coding = @svm_ovo;
             end
         end
         
@@ -106,7 +107,8 @@ classdef TSVM < Classifier
             featureList = mapToVec(evalFeatures);
             
             % Predict labels
-            labels = obj.f(featureList);
+            featureRows = num2cell(featureList, 2);
+            labels = cellfun(obj.f, featureRows);
         end
     end
     
