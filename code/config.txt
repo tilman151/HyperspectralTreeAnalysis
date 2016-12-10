@@ -1,3 +1,3 @@
 k = 5
 classifier = ExampleClassifier
-dataSetPath = 'data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/1000-2500/F2G9_02.mat'
+dataSetPath = '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/1000-2500/F2G9_02.mat'
