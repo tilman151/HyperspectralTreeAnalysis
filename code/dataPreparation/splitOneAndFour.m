@@ -1,6 +1,8 @@
 function splitOneAndFour(path)
     %SPLITONEANDFOUR Splits the labels and features of F2G9_01 and F2G9_04
     %
+    %   ONLY TO BE USED AFTER EXECUTION OF PROCESSMATS
+    %
     %   The function takes a path to the data and splits the labels and
     %   features of F2G9_01 and F2G9_04 into 4 new files:
     %
