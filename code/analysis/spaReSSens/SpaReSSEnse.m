@@ -1,8 +1,10 @@
 classdef SpaReSSEnse < Classifier
     %SPARESSENS Spatially regularized semi-supervised ensemble
     %   
-    %    Based on the scientific work presented in [...]. The algorithm
-    %    works as follows:
+    %    Based on the scientific work presented in "Spatially regularized 
+    %    semisupervised Ensembles of Extreme Learning Machines for 
+    %    hyperspectral image segmentation." [Ayerdi, Marqués, Graña 2015].
+    %    The algorithm works as follows:
     %    1. Unsupervised clustering is performed in the spectral domain.
     %    2. For each labeled training sample, the label is propagated to
     %    unlabeled pixels in the spatial neighborhood that belong to the
@@ -42,7 +44,7 @@ classdef SpaReSSEnse < Classifier
     %
     
     properties
-        % The internally used superised classifier (ensemble)
+        % The internally used classifier
         classifier;
         
         % Neighborhood radius
@@ -75,11 +77,12 @@ classdef SpaReSSEnse < Classifier
         function obj = trainOn(obj, trainFeatures, trainLabels)
             if obj.doLabelPropagation
                 % Perform unsupervised clustering
-                clusters = clustering(trainFeatures);
+                clusterIdxMap = clustering(trainFeatures, trainLabels);
                 
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
-                trainLabels = propagateLabels(trainLabels, clusters);
+                trainLabels = propagateLabels(...
+                    trainLabels, clusterIdxMap, obj.r);
             end
             
             % Train classifier on (enriched) data set
@@ -93,7 +96,9 @@ classdef SpaReSSEnse < Classifier
             if obj.doRegularization
                 % Regularize output labels based on spatial smoothness
                 [x, y, ~] = size(evalFeatures);
-                labels = regularize(labels, x, y);
+                labelMap = vecToMap(labels, x, y);
+                regularizedLabelMap = regularize(labelMap);
+                labels = mapToVec(regularizedLabelMap);
             end
         end
     end
@@ -101,15 +106,73 @@ classdef SpaReSSEnse < Classifier
 end
 
 
-function clusters = clustering(features)
-    % TODO: Perform k-means custering
+function clusterIdxMap = clustering(featureMap, labelMap)
+    % Reshape feature map to vector
+    featureVec = mapToVec(featureMap);
+    
+    % Get number of classes (including unlabeled and empty pixels)
+    k = numel(unique(labelMap));
+    
+    % Perform clustering
+    clusterIdx = kmeans(featureVec, k);
+    
+    % Reshape resulting cluster indices to map representation
+    [x, y] = size(labelMap);
+    clusterIdxMap = vecToMap(clusterIdx, x, y);
 end
 
-function enrichedLabels = propagateLabels(labels, clusters)
-    % TODO: Propagate labels
+function enrichedLabels = propagateLabels(labelMap, clusterIdxMap, r)
+    % Get map dimensions
+    mapSize = size(labelMap);
+    maxX = mapSize(1);
+    maxY = mapSize(2);
+    
+    % Create map for counting neighboring labels
+    maxLabel = max(max(labelMap));
+    labelCounts = zeros(maxX, maxY, maxLabel);
+    
+    % Propagate labels from all labeled pixels
+    for labeledIdx = find(labelMap > 0)'
+        [idxX, idxY] = ind2sub(mapSize, labeledIdx);
+        
+        % Get assigned cluster and label
+        cLabeled = clusterIdxMap(labeledIdx);
+        label = labelMap(labeledIdx);
+        
+        % Go through all neighbors
+        for addX = max(1-idxX, -r) : min(maxX-idxX, r)
+            % Use euclidean distance (based on sqrt(x^2 + y^2) = r)
+            euclY = fix(sqrt(r^2 - addX^2));
+            for addY = max(1-idxY, -euclY) : min(maxY-idxY, euclY)
+                propX = idxX + addX;
+                propY = idxY + addY;
+                
+                % Get assigned cluster for the propagating pixel
+                cProp = clusterIdxMap(propX, propY);
+                
+                % Check if pixel is unlabeled and clusters match
+                if labelMap(propX, propY) == 0 && cLabeled == cProp
+                    % Increase count for this label at the pixel position
+                    labelCounts(propX, propY, label) = ...
+                        labelCounts(propX, propY, label) + 1;
+                end
+            end
+        end
+    end
+    
+    % For each unlabeled pixel, assign the label with the highest count
+    % received from the neighborhood
+    enrichedLabels = labelMap;
+    for unlabeledIdx = find(labelMap == 0)'
+        [idxX, idxY] = ind2sub(mapSize, unlabeledIdx);
+        [count, label] = max(labelCounts(idxX, idxY, :));
+        if count > 0
+            enrichedLabels(unlabeledIdx) = label;
+        end
+    end
 end
 
-function regularizedLabels = regularize(labels, x, y)
+function regularizedLabelMap = regularize(labelMap)
     % TODO: Reorder labels to spatial representation
     % TODO: Regularize in spatial domain
 end

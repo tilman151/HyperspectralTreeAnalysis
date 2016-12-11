@@ -19,6 +19,7 @@ function featureVec = mapToVec(featureMap)
 % Author: Cornelius Styp von Rekowski
 %
 
+% TODO: Remove empty pixels (class = -1). This needs a given mask.
 [x, y, f] = size(featureMap);
 featureVec = reshape(featureMap, x*y, f);
 
