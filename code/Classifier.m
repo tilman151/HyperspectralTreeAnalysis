@@ -23,8 +23,8 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %
     
     methods (Abstract)
-        obj = trainOn(obj,trainFeatures,trainLabels);
-        labels = classifyOn(obj,evalFeatures);
+        obj = trainOn(obj, trainFeatures, trainLabels);
+        labels = classifyOn(obj, evalFeatures);
     end
     
 end
