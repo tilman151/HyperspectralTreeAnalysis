@@ -109,6 +109,10 @@ classdef TSVM < Classifier
             % Predict labels
             featureRows = num2cell(featureList, 2);
             labels = cellfun(obj.f, featureRows);
+            
+            % Reshape to map representation
+            [x, y, ~] = size(evalFeatures);
+            labels = vecToMap(labels, x, y);
         end
     end
     

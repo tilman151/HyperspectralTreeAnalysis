@@ -76,6 +76,10 @@ classdef SVM < Classifier
             
             % Predict labels
             labels = obj.model.predict(featureList);
+            
+            % Reshape to map representation
+            [x, y, ~] = size(evalFeatures);
+            labels = vecToMap(labels, x, y);
         end
     end
     
