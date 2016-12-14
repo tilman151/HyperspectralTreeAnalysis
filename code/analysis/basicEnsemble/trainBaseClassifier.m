@@ -1,4 +1,4 @@
-function [out] = trainBaseClassifier( baseClassifier, trainLabels, trainFeatures )
+function [out] = trainBaseClassifier( baseClassifier, trainFeatures , trainLabels)
 %TRAINBASECLASSIFIER trains a classifier with the provided parameter
 %
 %% Input:
@@ -13,6 +13,6 @@ function [out] = trainBaseClassifier( baseClassifier, trainLabels, trainFeatures
 % Author: Tuan Pham Minh
 %
 
-    out = baseClassifier.trainOn(trainLabels, trainFeatures);
+    out = baseClassifier.trainOn( trainFeatures, trainLabels);
 end
 

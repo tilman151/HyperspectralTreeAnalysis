@@ -46,11 +46,11 @@ classdef BasicEnsemble < Classifier
             classifierIndices(classifierIndexStartPoint) = 1;
             classifierIndices = cumsum(classifierIndices);
             % copy the classifier
-            obj.baseClassifier = cellfun(@copy, baseClassifier(classifierIndices), 'UniformOutput', 0);
+            obj.baseClassifier = cellfun(@copy, baseClassifier(classifierIndices), 'UniformOutput', 0)';
             obj.trainingInstanceProportions = num2cell(trainingInstanceProportions(classifierIndices));
         end
         
-        function obj = trainOn(obj, trainLabels, trainFeatures)
+        function obj = trainOn(obj, trainFeatures, trainLabels)
             [x,y,spectralBands] = size(trainFeatures);
             % generate randomized indices
             repmat({x*y}, 1, length(obj.trainingInstanceProportions));
@@ -62,15 +62,14 @@ classdef BasicEnsemble < Classifier
             randomizedTrainFeatures = cellfun(@(x,y)(permute(x(y,:), [1 3 2])), reshapedTrainFeatures, randomizedIndices, 'UniformOutput', 0);
             randomizedTrainLabels = cellfun(@(x,y)(x(y)), reshapedTrainLabels, randomizedIndices, 'UniformOutput', 0);
             % train all classifier
-            cellfun(@trainBaseClassifier, obj.baseClassifier', randomizedTrainLabels, randomizedTrainFeatures, 'UniformOutput', 0);
+            cellfun(@trainBaseClassifier, obj.baseClassifier, randomizedTrainFeatures, randomizedTrainLabels, 'UniformOutput', 0);
         end
         
-        function labels = classifyOn(obj, evalFeaturesIdx, allFeatures)
+        function labels = classifyOn(obj,evalFeatures)
             % make a copy for all classifier
-            reshapedEvalFeatures = repmat({evalFeaturesIdx}, 1, length(obj.trainingInstanceProportions));
-            reshapedAllFeatures = repmat({allFeatures}, 1, length(obj.trainingInstanceProportions));
+            reshapedEvalFeatures = repmat({evalFeatures}, length(obj.trainingInstanceProportions), 1);
             % classify all instances
-            accumulatedLabels = cell2mat(cellfun(@classifyOnAll, obj.baseClassifier, reshapedEvalFeatures, reshapedAllFeatures, 'UniformOutput', 0));
+            accumulatedLabels = cell2mat(cellfun(@classifyOnAll, obj.baseClassifier, reshapedEvalFeatures, 'UniformOutput', 0)');
             % calculate the majority vote
             labels = mode(accumulatedLabels,2);
         end
