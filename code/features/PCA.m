@@ -1,18 +1,14 @@
-classdef SELD < TransformationFeatureExtractor   
-    %SELD semisupervised local discriminant analysis
+classdef PCA
+    %PCA principal component analysis
     %
-    %    SELD finds and applies a feature transformation that preserves 
-    %    local neighborhoods and maximizes class separation. The algorithm 
-    %    was proposed by Wenzhi et al. (2013).
+    %    PCA finds and applies an orthogonal transformation in order to
+    %    obtain linearly uncorrelated features.
     %
     %% Properties:
-    %    k ...... number of neighbors considered in the unsupervised local 
-    %             linear feature extraction method
     %    numDim . desired number of dimensions of the extracted features
     %
     %% Methods:
-    %    SELD ....... Constructor. Internally saves the parameters.
-    %                 k ...... See properties.
+    %    PCA ........ Constructor. Internally saves the parameters.
     %                 numDim . See properties.
     %    calculateTransformation ... See documentation in superclass
     %                                TransformationFeatureExtractor.
@@ -26,27 +22,24 @@ classdef SELD < TransformationFeatureExtractor
     %                                with the extracted features of the  
     %                                (weight x height) input instances.
     %
-    % Version: 2016-12-12
+    % Version: 2016-12-14
     % Author: Marianne Stecklina
     %
     
     properties
-        k;
         numDim;
     end
     
     methods
-        function obj = SELD(k, numDim)
-           obj.k = k; 
+        function obj = PCA(numDim)
            obj.numDim = numDim;
         end
         
-        function transformationMatrix = calculateTransformation(obj, sampleSet)
-            allFeatures = [sampleSet.features; sampleSet.unlabeledFeatures];
-            zeroLabels  = zeros(1, length(sampleSet.labels));
-            allLabels   = [sampleSet.labels zeroLabels];
-            [transformationMatrix, ~] = seld.SELD(allFeatures, ...
-                allLabels, obj.numDim, obj.k);
+        function transformationMatrix = calculateTransformation(obj, ...
+                sampleSet)
+            allFeatures = [sampleSet.features; ...
+                sampleSet.unlabeledFeatures];
+            [transformationMatrix, ~] = pca(allFeatures);
         end
         
         function features = applyTransformation(obj, originalFeatures, ...
@@ -56,13 +49,15 @@ classdef SELD < TransformationFeatureExtractor
             reshapedFeatures = reshape(originalFeatures, ...
                 width * height, numFeatures); 
             
-            features = reshape(reshapedFeatures * transformationMatrix, ...
-                width, height, obj.numDim);
+            features = reshape(reshapedFeatures * ...
+                transformationMatrix(:, 1:obj.numDim), width, height, ...
+                obj.numDim);
         end
         
         function name = getTransformationFilename(obj)
-            name = ['SELD_' int2str(obj.numDim) '_' int2str(obj.k) '.mat'];  
+            name = ['PCA_' int2str(obj.numDim) '.mat'];  
         end
     end
     
 end
+

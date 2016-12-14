@@ -1,4 +1,4 @@
-function unitTest(classifier, dataType)
+function classifierUnitTest(classifier, dataType)
     %UNITTEST A basic test for the provided classifiers
     %
     %   Run the given classifier on one data set and show the resulting

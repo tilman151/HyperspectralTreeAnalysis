@@ -79,6 +79,9 @@ classdef SpaReSSEnse < Classifier
                 % Perform unsupervised clustering
                 clusterIdxMap = clustering(trainFeatures, trainLabels);
                 
+                % Display clustered map
+                visualizeLabels(clusterIdxMap, 'Clusters')
+                
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
                 trainLabels = propagateLabels(...
@@ -97,8 +100,7 @@ classdef SpaReSSEnse < Classifier
                 % Regularize output labels based on spatial smoothness
                 [x, y, ~] = size(evalFeatures);
                 labelMap = vecToMap(labels, x, y);
-                regularizedLabelMap = regularize(labelMap);
-                labels = mapToVec(regularizedLabelMap);
+                labels = regularize(labelMap);
             end
         end
     end
@@ -173,6 +175,6 @@ function enrichedLabels = propagateLabels(labelMap, clusterIdxMap, r)
 end
 
 function regularizedLabelMap = regularize(labelMap)
-    % TODO: Reorder labels to spatial representation
-    % TODO: Regularize in spatial domain
+    %  TODO: Regularize in spatial domain
+    regularizedLabelMap = labelMap;
 end

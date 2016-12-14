@@ -23,7 +23,7 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
 %
 % W. Liao, A. Pizurica, P. Scheunders, W. Philips, Y. Pi, "Semi-Supervised Local Discriminant Analysis for Feature Extraction in Hyperspectral 
 % Images", In IEEE Transactions on Geoscience and Remote Sensing, vol. 51, no. 1, pp. 184- 198, Jan. 2013.
-    import SELD.*
+    import seld.*
 
     if size(X, 2) > size(X, 1)
         error('Number of samples should be higher than number of dimensions.');

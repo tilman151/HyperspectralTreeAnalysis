@@ -37,15 +37,19 @@ classdef RandomForest < Classifier
                 extractLabeledPixels(trainFeatures, trainLabels);
             
              %learn the ensemble with the given number of trees
-            obj.treeEnsemble = TreeBagger(obj.numTrees,featureList,labelList);
+             %tree bagger takes second argument as (observations X feature)
+             %matrix
+            obj.treeEnsemble = TreeBagger(obj.numTrees,featureList.',labelList);
         end
         
         function labels = classifyOn(obj,evalFeatures)
              % Transform input map to vector
             featureList = mapToVec(evalFeatures);
-            
+            %%supposing featureList.' has dimensions Fx(X*Y)
             %predict label using the ensemble
-            labels = predict(obj.treeEnsemble, featureList);
+            labels = predict(obj.treeEnsemble, featureList.');
+            %%labels is a cell array of character vectors
+            %%possible cell2mat(labels)
         end
     end
     

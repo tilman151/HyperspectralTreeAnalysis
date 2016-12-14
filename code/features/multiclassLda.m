@@ -1,5 +1,5 @@
-function [ transformedFeatures ] = multiclass_lda( rawFeatures, classes )
-%MULTICLASS_LDA remove the continuum by dividing the features by its
+function [ transformedFeatures ] = multiclassLda( rawFeatures, classes )
+%MULTICLASSLDA remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
 %
 %    The function calculates for every pixel the continuum removed features
@@ -11,8 +11,8 @@ function [ transformedFeatures ] = multiclass_lda( rawFeatures, classes )
 %                          and Z is the number of features per pixel
 %    classes ............. a 2-dimensional matrix with the dimensions 
 %                          X x Y, where X is the width, Y is the height and
-%                          contains the classes corresponding to the features
-%                          in rawFeatures
+%                          contains the classes corresponding to the
+%                          features in rawFeatures
 %                       
 %
 %% Output:
@@ -37,9 +37,11 @@ reshapedClasses = reshape(classes, x*y, 1);
 [numClasses, ~] = size(unique(classes));
 % calculate the transformed features with the help of the multiclass lda
 % implementation of Sultan Alzahrani
-[reshapedTransformedFeatures,~] = FDA(reshapedFeatures', reshapedClasses, numClasses - 1);
+[reshapedTransformedFeatures,~] = ...
+                FDA(reshapedFeatures', reshapedClasses, numClasses - 1);
 
 % bring the transformed features into the 3-dimensional form
-transformedFeatures = reshape(reshapedTransformedFeatures, x, y,  numClasses - 1);
+transformedFeatures = ...
+                reshape(reshapedTransformedFeatures, x, y, numClasses - 1);
 
 end

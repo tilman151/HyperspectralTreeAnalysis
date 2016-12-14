@@ -1,4 +1,4 @@
-function [ label ] = classifyOnAll(classifier, fIdx, allF)
+function [ label ] = classifyOnAll(classifier, evalFeatures)
 %CLASSIFYONALL classify the data with the given classifier
 %
 %% Input:
@@ -12,7 +12,6 @@ function [ label ] = classifyOnAll(classifier, fIdx, allF)
 % Version: 2016-12-05
 % Author: Tuan Pham Minh
 %
-
-label = classifier.classifyOn(fIdx, allF);
+label = classifier.classifyOn(evalFeatures);
 end
 
