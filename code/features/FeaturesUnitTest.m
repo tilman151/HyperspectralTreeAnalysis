@@ -1,5 +1,5 @@
-function FeaturesUnitTest(featureExtractor, dataType)
-    %UNITTEST A basic test for the provided classifiers
+function featuresUnitTest(featureExtractor, dataType)
+    %FEATURESUNITTEST A basic test for the provided classifiers
     %
     %   Run the given feature extractor on one data set.
     %
@@ -16,8 +16,7 @@ function FeaturesUnitTest(featureExtractor, dataType)
     % Version: 2016-12-12
     % Author: Marianne Stecklina
     %
-    addpath('..');
-    addpath('../lib/features/');
+    addpath('lib/features/');
     
     % test calculation of transformation matrix
     disp('Calculate transformation matrix:');
