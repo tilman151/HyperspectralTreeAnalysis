@@ -79,6 +79,9 @@ classdef SpaReSSEnse < Classifier
                 % Perform unsupervised clustering
                 clusterIdxMap = clustering(trainFeatures, trainLabels);
                 
+                % Display clustered map
+                visualizeLabels(clusterIdxMap, 'Clusters')
+                
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
                 trainLabels = propagateLabels(...

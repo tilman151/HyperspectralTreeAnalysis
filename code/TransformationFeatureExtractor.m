@@ -2,15 +2,20 @@ classdef TransformationFeatureExtractor < FeatureExtractor
     %TRANSFORMATIONFEATUREEXTRACTOR Abstract transformation feature
     %extractor superclass
     %
-    %   Each feature extractor that calculates and applies a
-    %   transformation on the original features should inherit this class.
+    %   Each feature extractor that calculates and applies a transformation
+    %   on the original features should inherit this class.
     %
     %% Abstract Methods:
     %   calculateTransformation ... calculates and permanently saves a
     %                               transformation matrix based on a 
     %                               sample set
+    %       sampleSet . struct containing features (n x numFeatures),
+    %                   labels (n x 1) and unlabeledFeatures
+    %                   (n x numFeatures)
     %   applyTransformation ....... applies a transformation to the 
     %                               original features
+    %       originalFeatures . (width x height x numFeatures) cube
+    %                          containing the data
     %   getTransformationFilename . returns the name of the file that 
     %                               contains the transformation matrix 
     %
@@ -19,7 +24,7 @@ classdef TransformationFeatureExtractor < FeatureExtractor
     %                     calculates the transformation matrix and applies
     %                     it to the original features
     %
-    % Version: 2016-12-09
+    % Version: 2016-12-12
     % Author: Marianne Stecklina
     %
     
@@ -31,10 +36,10 @@ classdef TransformationFeatureExtractor < FeatureExtractor
     end
     
     methods
-        function features = extractFeatures(obj, originalFeatures)
+        function features = extractFeatures(obj, originalFeatures, ...
+                sampleSetPath)
             if ~exist(getTransformationFilename(), 'file')
-                sampleSet = load(['../data/ftp-iff2.iff.fraunhofer.de/' ...
-                    'Data/FeatureExtraction/sampleSet.mat']);
+                sampleSet = load(sampleSetPath);
                 transformationMatrix = calculateTransformation(obj, ...
                     sampleSet);
             else

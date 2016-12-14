@@ -5,7 +5,7 @@ function spaReSSEnseUnitTest()
     featureMap = createFeatureMap();
     labelMap = createLabelMap();
     
-    c = PrintClassifier();
+    c = VisualizingClassifier();
     sparessense = SpaReSSEnse(c, 2, true, false);
     
     disp('Without enrichment');
@@ -16,8 +16,8 @@ function spaReSSEnseUnitTest()
 end
 
 function featureMap = createFeatureMap()
-    featureMap(:,:,1) = [1 1 1 0 0; 1 1 1 1 0; 0 0 0 1 0; 0 0 0 0 0; ...
-                         0 0 0 2 2; 2 2 2 0 0; 0 0 0 0 0];
+    featureMap(:,:,1) = [1 1 1 10 10; 1 1 1 1 10; 10 10 10 1 10; ...
+        10 10 10 10 10; 10 10 10 2 2; 2 2 2 10 10; 0 0 0 0 0];
 end
 
 function labelMap = createLabelMap()
