@@ -1,4 +1,4 @@
-function [ continuumRemoved ] = continuum_removal( rawFeatures , classes)
+function [ continuumRemoved ] = continuumRemoval( rawFeatures , classes)
 %CONTINUUM_REMOVAL remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
 %
@@ -32,10 +32,15 @@ reshapedFeatures = reshape(rawFeatures, x*y, spectralBands);
 % transform the 2-dimensional matrix into a cell-array, so cellfun can be
 % used to apply 'bandsToContinuumRemoved' to each row
 % bandsToContinuumRemoved removes the continuum from a single row vector
-continuumRemovedTranformed = cellfun(@bandsToContinuumRemoved, num2cell(reshapedFeatures, 2), 'UniformOutput', false);
+continuumRemovedTranformed = ...
+                cellfun(@bandsToContinuumRemoved, ...
+                    num2cell(reshapedFeatures, 2), ...
+                    'UniformOutput', 0);
 % transform the 2-dimensional cell-array with its continuum removed into a
 % 3-dimensional matrix, where the structure is the same as in rawFeatures
-continuumRemoved = reshape(cell2mat(continuumRemovedTranformed), x,y,spectralBands);
+continuumRemoved = ...
+                reshape(cell2mat(continuumRemovedTranformed), ...
+                    x,y,spectralBands);
 
 end
 
@@ -63,18 +68,23 @@ if(size(unique(bands)) <= 1)
 else
     % create the corresponding x coordinates to the features
     x = 1:size(bands, 2);
-    % calculate the 2-dimensional convex hull of the features and reverse its
-    % order, so that the order is clockwise
-    convex_hull_2d = fliplr(convhull(x,bands)');
-    % select those points of the convex hull, which are all above the features
-    % this is achived by taking all points between the first and the first
-    % occurence of the last feature (because the order is clockwise and the
-    % corresponding x coordinates are increasing)
-    upper_convex_hull = convex_hull_2d(1:find(convex_hull_2d == max(convex_hull_2d)));
+    % calculate the 2-dimensional convex hull of the features and 
+    % reverse its order, so that the order is clockwise
+    convexHull2d = fliplr(convhull(x,bands)');
+    % select those points of the convex hull, which are all above the
+    % features this is achived by taking all points between the first and
+    % the first occurence of the last feature (because the order is 
+    % clockwise and the  corresponding x coordinates are increasing)
+    upperConvexHull = ...
+                convexHull_2d(1:find(convexHull2d == max(convexHull2d)));
     % interpolate the convex hull between all x coordinates
     interpolatedX = x;
     % calculate the interpolated features along the convex hull
-    interpolatedBands = interp1(x(upper_convex_hull), bands(upper_convex_hull), interpolatedX);
+    interpolatedBands = ...
+                interp1(...
+                    x(upperConvexHull), ...
+                    bands(upperConvexHull), ...
+                    interpolatedX);
     % divide the real features by the value of the vconvex hull
     continuumRemoved = bands./interpolatedBands;
 end
