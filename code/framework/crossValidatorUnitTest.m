@@ -7,6 +7,7 @@ times = zeros(10,1);
 
 for i = 1:10
     tic;
+    [labels, features] = c.getTrainingSet(i);
     [labels, features] = c.getTestSet(i);
     times(i) = toc;
     sizes(i, :) = size(labels);

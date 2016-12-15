@@ -61,6 +61,8 @@ classdef CrossValidator
             fileNums = obj.crossValParts(:, i);
             fileNums = cellfun(@setdiff, obj.filesPerClass, ...
                                num2cell(fileNums), 'UniformOutput', false);
+            fileNums = cellfun(@obj.getFirst, fileNums, ...
+                               'UniformOutput', false);
             fileNums = [fileNums{:}];
             
             [testLabels, testFeatures] = obj.loadData(fileNums);
@@ -108,6 +110,12 @@ classdef CrossValidator
                                              tmpFeatures.(fileNames{i});
                                          
                 xBegin = xEnd+2;
+            end
+        end
+        
+        function c = getFirst(~, c)
+            if ~isempty(c)
+                c = c(1);
             end
         end
         
