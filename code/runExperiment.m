@@ -28,9 +28,7 @@ function confMat = runExperiment(configFilePath)
     addpath(genpath('./'));
 
     % Read and execute config file
-    file = fopen(configFilePath);
-    config = textscan(file, '%s', 'whitespace', '\n');
-    cellfun(@eval, config{1});
+    run(configFilePath);
 
     % TODO: Check config validity
     
@@ -49,6 +47,8 @@ function confMat = runExperiment(configFilePath)
         
         % Load training set
         [trainLabels, trainFeatures] = crossValidator.getTrainingSet(i);
+        % Apply feature extraction
+        trainFeatures = applyFeatureExtraction(trainFeatures, extractors);
         % Train classifier
         classifier.trainOn(trainLabels, trainFeatures);
         % Free RAM
@@ -56,6 +56,8 @@ function confMat = runExperiment(configFilePath)
         
         % Load test set
         [testLabels, testFeatures] = crossValidator.getTestSet(i);
+         % Apply feature extraction
+        testFeatures = applyFeatureExtraction(testFeatures, extractors);
         % Calculate instance mask
         instanceMask = testLabels;
         instanceMask(testLabels > 0) = 1;
@@ -71,4 +73,10 @@ function confMat = runExperiment(configFilePath)
     % Sum up all confusion matrices
     confMat = sum(confMat(2:end, 2:end, :), 3);
     
+end
+
+function features = applyFeatureExtraction(features, extractors)
+    for i = 1:size(extractors, 1)
+        features = extractors(i).extractFeatures(features);
+    end
 end
