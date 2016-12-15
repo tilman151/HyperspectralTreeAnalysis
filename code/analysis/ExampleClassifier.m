@@ -8,13 +8,13 @@ classdef ExampleClassifier < Classifier
     end
     
     methods
-        function obj = trainOn(obj,trainFeatures,trainLabels)
-            obj.trainingFeatures= trainFeatures;
-            obj.trainingLabels = trainLabels;
+        function obj = trainOn(obj,trainLabels, trainFeatures)
+            obj.trainingFeatures= permute(reshape(trainFeatures, [], 1, 160), [1 3 2]);
+            obj.trainingLabels = reshape(trainLabels, [], 1);
         end
         
-        function labels = classifyOn(obj,evalFeatures)
-            labels = classify(evalFeatures,...
+        function labels = classifyOn(obj,evalFeatures, mask)
+            labels = classify(permute(reshape(evalFeatures, [], 1, 160), [1 3 2]),...
                               obj.trainingFeatures,...
                               obj.trainingLabels);
         end
