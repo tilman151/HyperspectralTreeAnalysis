@@ -1,4 +1,4 @@
-function cfMat = runExperiment(configFilePath)
+function confMat = runExperiment(configFilePath)
     %RUNEXPERIMENT Run a machine learning experiment
     %              with the parameters defined in the configuration file
     %
@@ -6,19 +6,19 @@ function cfMat = runExperiment(configFilePath)
     %   statements in the file are executed to initialize the needed
     %   variables for the experiment.
     %   
-    %   The data set is read via the Importer class. The classes of the
-    %   labels are extracted and a cross validation partition is
-    %   calculated. Afterwards cross validation is performed with the
-    %   classifier specified in the config file to obtain a confusion
-    %   matrix.
+    %   The variables crossValParts and filesPerClass are loaded and the
+    %   CrossValidator object is initialized. For each column in
+    %   crossValParts the classifier is trained on the calculated training
+    %   set and evaluated on the test set. Afterwards the accumulated
+    %   confusion matrix is calculated.
     %
     %%  Input:
-    %       configFilePath ... a path to the config file file
+    %       configFilePath ..... a path to the config file file
     %
     %%  Output:
-    %       cfMat ............ a confusion matrix yielded by cross
-    %                          validation using the classifier and the data
-    %                          set defined in the config file.
+    %       confMat ............ a confusion matrix yielded by cross
+    %                            validation using the classifier and the
+    %                            data set defined in the config file.
     %
     % Version: 2016-11-29
     % Author: Tilman Krokotsch
@@ -33,57 +33,42 @@ function cfMat = runExperiment(configFilePath)
     cellfun(@eval, config{1});
 
     % TODO: Check config validity
-
-    % Read csv or mat/png file from dataSetPath
-    [labels, features] = Importer.loadDataFrom(dataSetPath);    
-
-    % Order of the group labels for cinfusion matrix
-    order = unique(labels);
-    % Stratified k-fold cross-validation
-    cp = cvpartition(labels, 'k', k);
-
-    % Curry function to bind order and classifier 
-    func = @(trainFeatures, trainLabels, evalFeatures, evalLabels)...
-        crossValFunc(trainFeatures, trainLabels, evalFeatures,...
-                     evalLabels, order, classifier);
-
-    % Run cross validation
-    cfMat = crossval(func, features, labels, 'partition', cp);
-    % compute confusion matrix over all cross validation instances
-    cfMat = reshape(sum(cfMat), size(order, 1), size(order, 1));
-
-end
-
-function confMat = crossValFunc(trainFeatures, trainLabels, ...
-                                evalFeatures, evalLabels, ...
-                                order, classifier)
-    %CROSSVALFUNC Function for the matlab cross validation.
-    %
-    %             Has to be curried to bind order and classifier
-    %             beforehands.
-    %
-    %%  Input:
-    %       trainFeatures ... a 3-dimensional matrix of instances for the
-    %                         classifier to be trained on
-    %       trainLabels ..... a 2-dimensional matrix of lables of the
-    %                         training instances
-    %       evalFeatures .... a 3-dimensional matrix of instances for the
-    %                         classifier to be evaluated on
-    %       evalLabels ...... a 2-dimensional matrix of lables of the
-    %                         evaluation instances
-    %       order ........... order of the classes in the confusion
-    %                         matrix
-    %       classifier ...... classifier to be trained and evaluated
-    %
-    %%  Output:
-    %       confMat ..........a confusion matrix yielded by evaluating the
-    %                         classifier 
-    %%
-
-    %Learn classifier on trainFeatures/Labels and classify evalFeatures
-    classifier = classifier.trainOn(trainFeatures, trainLabels);
-    labels = classifier.classifyOn(evalFeatures);
-    %Calculate confusion matrix
-    confMat = confusionmat(evalLabels, labels, 'order', order);
+    
+    % Load crossValParts and filesPerClass
+    load('crossValParts.mat');
+    
+    % Initialize CrossValidator object
+    crossValidator = CrossValidator(crossValParts, filesPerClass,...
+                                    dataSetPath);
+    
+    % Initialize confusion matrix
+    confMat = zeros(19, 19, crossValidator.k);
+      
+    % For each test and training set
+    for i = 1:crossValidator.k
+        
+        % Load training set
+        [trainLabels, trainFeatures] = crossValidator.getTrainingSet(i);
+        % Train classifier
+        classifier.trainOn(trainLabels, trainFeatures);
+        % Free RAM
+        clear('trainLabels', 'trainFeatures');
+        
+        % Load test set
+        [testLabels, testFeatures] = crossValidator.getTestSet(i);
+        % Calculate instance mask
+        instanceMask = testLabels;
+        instanceMask(testLabels > 0) = 1;
+        % Apply trained classifier
+        classifiedLabels = classifier.classifyOn...
+                                              (testFeatures, instanceMask);
+        
+        % Calculate confusion matrix
+        confMat(:, :, i) = confusionmat(testLabels, classifiedLabels,...
+                               'order', -1:17);
+    end
+    
+    % Sum up all confusion matrices
+    confMat = sum(confMat(2:end, 2:end, :), 3);
     
 end
