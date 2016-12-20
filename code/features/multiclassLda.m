@@ -41,8 +41,7 @@ classdef MulticlassLda < TransformationFeatureExtractor
                 width * height, numFeatures); 
             
             features = reshape(reshapedFeatures * ...
-                transformationMatrix(:, 1:obj.numDim), width, height, ...
-                obj.numDim);
+                transformationMatrix, width, height, []);
         end
         
         function name = getTransformationFilename(obj)
@@ -78,23 +77,23 @@ function [ transformedFeatures, transformationMatrix ] = multiclassLda( rawFeatu
 %
 
 
-% get the dimensions of the raw features
-[x,y,spectralBands] = size(rawFeatures);
-% transform the data into a 2-dimensional matrix, such that each pixel and
-% its spectral bands are represented by a row
-reshapedFeatures = reshape(rawFeatures, x*y, spectralBands);
-% transform the classes into a 2-dimensional matrix, so that it matches the
-% structure of transformedFeatures
-reshapedClasses = reshape(classes, x*y, 1);
+% % get the dimensions of the raw features
+% [x,spectralBands] = size(rawFeatures);
+% % transform the data into a 2-dimensional matrix, such that each pixel and
+% % its spectral bands are represented by a row
+% reshapedFeatures = reshape(rawFeatures, x, spectralBands);
+% % transform the classes into a 2-dimensional matrix, so that it matches the
+% % structure of transformedFeatures
+% reshapedClasses = reshape(classes, x, 1);
 % get the number of classes in the data set
 [numClasses, ~] = size(unique(classes));
 % calculate the transformed features with the help of the multiclass lda
 % implementation of Sultan Alzahrani
-[reshapedTransformedFeatures, transformationMatrix] = ...
-                FDA(reshapedFeatures', reshapedClasses, numClasses - 1);
+[transformedFeatures, transformationMatrix] = ...
+                FDA(rawFeatures', classes, numClasses - 1);
 
-% bring the transformed features into the 3-dimensional form
-transformedFeatures = ...
-                reshape(reshapedTransformedFeatures, x, y, numClasses - 1);
+% % bring the transformed features into the 3-dimensional form
+% transformedFeatures = ...
+%                 reshape(reshapedTransformedFeatures, x, y, numClasses - 1);
 
 end

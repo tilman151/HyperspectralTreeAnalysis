@@ -41,12 +41,16 @@ seld85Config = @() SELD(8, 5);
 
 pca5Config = @() PCA(5);
 
+mclda5Config = @() MulticlassLda;
+
+continuumRemoval= @() ContinuumRemoval;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
 classifier = exampleClassifierConfig()
 
-extractors = {pca5Config()}
+extractors = {MulticlassLda}
 
 dataSetPath = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/'
