@@ -1,4 +1,57 @@
-function [ transformedFeatures ] = multiclassLda( rawFeatures, classes )
+classdef MulticlassLda < TransformationFeatureExtractor
+    %MulticlassLda multi class linear discriminance analysis
+    %
+    %    MulticlassLda finds a transformationmatrix, which transforms the
+    %    data into a space, where the classes are separated
+    %
+    %% Properties:
+    %    numDim . desired number of dimensions of the extracted features
+    %
+    %% Methods:
+    %    MulticlassLda ............. Constructor. 
+    %    calculateTransformation ... See documentation in superclass
+    %                                TransformationFeatureExtractor.
+    %    applyTransformation ....... See documentation in superclass
+    %                                TransformationFeatureExtractor.
+    %    getTransformationFilename . See documentation in superclass
+    %                                TransformationFeatureExtractor.
+    %    extractFeatures ........... See documentation in superclass
+    %                                TransformationFeatureExtractor.
+    %                                Returns (width x height x numDim) cube 
+    %                                with the extracted features of the  
+    %                                (weight x height) input instances.
+    %
+    % Version: 2016-12-14
+    % Author: Tuan Pham Minh
+    %
+    
+    methods
+        
+        function transformationMatrix = calculateTransformation(obj, ...
+                sampleSet)
+            [~, transformationMatrix] = ...
+                multiclassLda(sampleSet.features, sampleSet.labels);
+        end
+        
+        function features = applyTransformation(obj, originalFeatures, ...
+            transformationMatrix)         
+            [width, height, numFeatures] = size(originalFeatures);
+        
+            reshapedFeatures = reshape(originalFeatures, ...
+                width * height, numFeatures); 
+            
+            features = reshape(reshapedFeatures * ...
+                transformationMatrix(:, 1:obj.numDim), width, height, ...
+                obj.numDim);
+        end
+        
+        function name = getTransformationFilename(obj)
+            name = ['MulticlassLda.mat'];  
+        end
+    end
+end
+
+function [ transformedFeatures, transformationMatrix ] = multiclassLda( rawFeatures, classes)
 %MULTICLASSLDA remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
 %
@@ -37,7 +90,7 @@ reshapedClasses = reshape(classes, x*y, 1);
 [numClasses, ~] = size(unique(classes));
 % calculate the transformed features with the help of the multiclass lda
 % implementation of Sultan Alzahrani
-[reshapedTransformedFeatures,~] = ...
+[reshapedTransformedFeatures, transformationMatrix] = ...
                 FDA(reshapedFeatures', reshapedClasses, numClasses - 1);
 
 % bring the transformed features into the 3-dimensional form

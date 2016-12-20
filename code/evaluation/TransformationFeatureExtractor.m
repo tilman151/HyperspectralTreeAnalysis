@@ -32,16 +32,18 @@ classdef TransformationFeatureExtractor < FeatureExtractor
     
     methods
         function features = extractFeatures(obj, originalFeatures)
-            if ~exist(getTransformationFilename(), 'file')
+            if ~exist(obj.getTransformationFilename(), 'file')
                 sampleSet = load(['../data/ftp-iff2.iff.fraunhofer.de/' ...
                     'Data/FeatureExtraction/sampleSet.mat']);
-                transformationMatrix = calculateTransformation(obj, ...
-                    sampleSet);
+                transformationMatrix = ...
+                    obj.calculateTransformation(sampleSet);
             else
-                transformationMatrix = load(getTransformationFilename());
+                transformationMatrix = ...
+                    load(obj.getTransformationFilename());
             end
-            features = applyTransformation(obj, originalFeatures, ...
-                transformationMatrix);
+            features = obj.applyTransformation( ...
+                                                originalFeatures, ...
+                                                transformationMatrix);
         end
     end
     

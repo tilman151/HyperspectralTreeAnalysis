@@ -9,12 +9,12 @@ classdef ExampleClassifier < Classifier
     
     methods
         function obj = trainOn(obj,trainLabels, trainFeatures)
-            obj.trainingFeatures= permute(reshape(trainFeatures, [], 1, 160), [1 3 2]);
+            obj.trainingFeatures= permute(reshape(trainFeatures, [], 1, size(trainFeatures, 3)), [1 3 2]);
             obj.trainingLabels = reshape(trainLabels, [], 1);
         end
         
         function labels = classifyOn(obj,evalFeatures, mask)
-            labels = classify(permute(reshape(evalFeatures, [], 1, 160), [1 3 2]),...
+            labels = classify(permute(reshape(evalFeatures, [], 1, size(evalFeatures, 3)), [1 3 2]),...
                               obj.trainingFeatures,...
                               obj.trainingLabels);
         end

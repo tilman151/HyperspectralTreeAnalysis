@@ -43,7 +43,7 @@ classdef SELD < TransformationFeatureExtractor
         
         function transformationMatrix = calculateTransformation(obj, sampleSet)
             allFeatures = [sampleSet.features; sampleSet.unlabeledFeatures];
-            zeroLabels  = zeros(1, length(sampleSet.labels));
+            zeroLabels  = zeros(size(sampleSet.labels));
             allLabels   = [sampleSet.labels zeroLabels];
             [transformationMatrix, ~] = seld.SELD(allFeatures, ...
                 allLabels, obj.numDim, obj.k);

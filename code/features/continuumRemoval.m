@@ -1,3 +1,27 @@
+classdef ContinuumRemoval < FeatureExtractor    
+    %ContinuumRemoval continuum removal
+    %
+    %    ContinuumRemoval is a wrapper class for continuumRemoval
+    %
+    %% Methods:
+    %    ContinuumRemoval. Constructor.
+    %    extractFeatures . See documentation in superclass
+    %                      TransformationFeatureExtractor.
+    %                      Returns (width x height x numDim) cube 
+    %                      with the extracted features of the  
+    %                      (weight x height) input instances.
+    %
+    % Version: 2016-12-14
+    % Author: Tuan Pham Minh
+
+    methods
+        function features = extractFeatures(obj, originalFeatures)
+            features = continuumRemoval(originalFeatures);
+        end
+    end
+    
+end
+
 function [ continuumRemoved ] = continuumRemoval( rawFeatures , classes)
 %CONTINUUM_REMOVAL remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
@@ -76,7 +100,7 @@ else
     % the first occurence of the last feature (because the order is 
     % clockwise and the  corresponding x coordinates are increasing)
     upperConvexHull = ...
-                convexHull_2d(1:find(convexHull2d == max(convexHull2d)));
+                convexHull2d(1:find(convexHull2d == max(convexHull2d)));
     % interpolate the convex hull between all x coordinates
     interpolatedX = x;
     % calculate the interpolated features along the convex hull

@@ -64,9 +64,8 @@ function confMat = runExperiment(configFilePath)
         % Apply trained classifier
         classifiedLabels = classifier.classifyOn...
                                               (testFeatures, instanceMask);
-        
         % Calculate confusion matrix
-        confMat(:, :, i) = confusionmat(testLabels, classifiedLabels,...
+        confMat(:, :, i) = confusionmat(reshape(testLabels, [], 1), classifiedLabels,...
                                'order', -1:17);
     end
     
@@ -77,6 +76,6 @@ end
 
 function features = applyFeatureExtraction(features, extractors)
     for i = 1:size(extractors, 1)
-        features = extractors(i).extractFeatures(features);
+        features = extractors{i}.extractFeatures(features);
     end
 end

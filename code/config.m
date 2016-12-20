@@ -46,8 +46,7 @@ pca5Config = @() PCA(5);
 
 classifier = exampleClassifierConfig()
 
-extractors = {seld85Config();
-              pca5Config()}
+extractors = {pca5Config()}
 
 dataSetPath = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/'

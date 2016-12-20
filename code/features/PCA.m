@@ -1,4 +1,4 @@
-classdef PCA
+classdef PCA < TransformationFeatureExtractor
     %PCA principal component analysis
     %
     %    PCA finds and applies an orthogonal transformation in order to
