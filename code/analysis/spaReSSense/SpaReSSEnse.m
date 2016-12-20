@@ -175,6 +175,60 @@ function enrichedLabels = propagateLabels(labelMap, clusterIdxMap, r)
 end
 
 function regularizedLabelMap = regularize(labelMap)
-    %  TODO: Regularize in spatial domain
+    % Get map dimensions
+    mapSize = size(labelMap);
+    maxX = mapSize(1);
+    maxY = mapSize(2);
+    
+    % Create map for counting neighboring labels
+    maxLabel = max(max(labelMap));
+    labelCounts = zeros(maxX, maxY, maxLabel);
+    
+    % For each pixel that is not a fill pixel, count all labels occuring in
+    % the neighborhood
+    % TODO: Is it possible that there are unlabeled pixels?
+    for curIdx = find(labelMap > -1)'
+        [idxX, idxY] = ind2sub(mapSize, curIdx);
+        
+        % Go through all neighbors
+        for addX = max(1-idxX, -r) : min(maxX-idxX, r)
+            % Use euclidean distance (based on sqrt(x^2 + y^2) = r)
+            euclY = fix(sqrt(r^2 - addX^2));
+            for addY = max(1-idxY, -euclY) : min(maxY-idxY, euclY)
+                nX = idxX + addX;
+                nY = idxY + addY;
+                
+                % Get assigned label for the neighboring pixel
+                nLabel = labelMap(nX, nY);
+                
+                % Check if pixel is labeled
+                if nLabel > 0
+                    % Increase count for this label at the current pixel
+                    % position
+                    labelCounts(idxX, idxY, nLabel) = ...
+                        labelCounts(idxX, idxY, nLabel) + 1;
+                end
+            end
+        end
+    end
+    
+    % For each pixel that is not a fill pixel, assign the label with the 
+    % highest count received from the neighborhood
     regularizedLabelMap = labelMap;
+    for curIdx = find(labelMap > -1)'
+        [idxX, idxY] = ind2sub(mapSize, curIdx);
+        [count, label] = max(labelCounts(idxX, idxY, :));
+        if count > 0
+            regularizedLabelMap(curIdx) = label;
+        end
+    end
 end
+
+% TODO:
+% 
+% 1. Create list of neighboring indices
+% 2. Remove elements < 1 or > N
+% 3. Get labels
+% 4. Use histcounts(L, 1:C+1) for counting
+% 5. Insert values in counting map
+% 6. Use arrayfun for final result?
