@@ -22,7 +22,8 @@ classdef SpaReSSEnse < Classifier
     %                         semi-supervised, single or ensemble) to be
     %                         used internally.
     %    r .................. Float value. Radius defining the neighborhood
-    %                         for label propagation.
+    %                         for label propagation. Needs to be lower than
+    %                         half of the image size in either direction.
     %    doLabelPropagation . Boolean. Enables/disables the label
     %                         propagation step.
     %    doRegularization ... Boolean. Enables/disables the regularization
@@ -47,8 +48,9 @@ classdef SpaReSSEnse < Classifier
         % The internally used classifier
         classifier;
         
-        % Neighborhood radius
+        % Neighborhood information
         r = 5;
+        relativeNeighbors;
         
         % Enabled/Disabled processing steps
         doLabelPropagation = true;
@@ -66,6 +68,9 @@ classdef SpaReSSEnse < Classifier
             if nargin > 1
                 obj.r = r;
             end
+            
+            % Compute relative neighbor positions once
+            obj.relativeNeighbors = getRelativeNeighbors(obj.r);
             
             % Processing steps enabled/disabled?
             if nargin > 3
@@ -85,7 +90,7 @@ classdef SpaReSSEnse < Classifier
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
                 trainLabels = propagateLabels(...
-                    trainLabels, clusterIdxMap, obj.r);
+                    trainLabels, clusterIdxMap, obj.relativeNeighbors);
             end
             
             % Train classifier on (enriched) data set
@@ -100,13 +105,25 @@ classdef SpaReSSEnse < Classifier
                 % Regularize output labels based on spatial smoothness
                 [x, y, ~] = size(evalFeatures);
                 labelMap = vecToMap(labels, x, y);
-                labels = regularize(labelMap);
+                labels = regularize(labelMap, obj.relativeNeighbors);
             end
         end
     end
     
 end
 
+
+function neighborIdxs = getRelativeNeighbors(r)
+    % Create relative indices of neighboring pixels in range
+    neighborIdxs = [];
+    for addX = -r : r
+        % Use euclidean distance (based on sqrt(x^2 + y^2) = r)
+        euclY = fix(sqrt(r^2 - addX^2));
+        for addY = -euclY : euclY
+            neighborIdxs = [neighborIdxs; addX addY];
+        end
+    end
+end
 
 function clusterIdxMap = clustering(featureMap, labelMap)
     % Reshape feature map to vector
@@ -123,112 +140,110 @@ function clusterIdxMap = clustering(featureMap, labelMap)
     clusterIdxMap = vecToMap(clusterIdx, x, y);
 end
 
-function enrichedLabels = propagateLabels(labelMap, clusterIdxMap, r)
-    % Get map dimensions
-    mapSize = size(labelMap);
-    maxX = mapSize(1);
-    maxY = mapSize(2);
+function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
+    relativeNeighbors)
     
     % Create map for counting neighboring labels
-    maxLabel = max(max(labelMap));
-    labelCounts = zeros(maxX, maxY, maxLabel);
+    labelCounts = initLabelCounts(labelMap);
     
     % Propagate labels from all labeled pixels
     for labeledIdx = find(labelMap > 0)'
-        [idxX, idxY] = ind2sub(mapSize, labeledIdx);
+        [labeledX, labeledY] = ind2sub(mapSize, labeledIdx);
         
         % Get assigned cluster and label
-        cLabeled = clusterIdxMap(labeledIdx);
+        labeledCluster = clusterIdxMap(labeledIdx);
         label = labelMap(labeledIdx);
         
-        % Go through all neighbors
-        for addX = max(1-idxX, -r) : min(maxX-idxX, r)
-            % Use euclidean distance (based on sqrt(x^2 + y^2) = r)
-            euclY = fix(sqrt(r^2 - addX^2));
-            for addY = max(1-idxY, -euclY) : min(maxY-idxY, euclY)
-                propX = idxX + addX;
-                propY = idxY + addY;
-                
-                % Get assigned cluster for the propagating pixel
-                cProp = clusterIdxMap(propX, propY);
-                
-                % Check if pixel is unlabeled and clusters match
-                if labelMap(propX, propY) == 0 && cLabeled == cProp
-                    % Increase count for this label at the pixel position
-                    labelCounts(propX, propY, label) = ...
-                        labelCounts(propX, propY, label) + 1;
-                end
-            end
-        end
+        % Get neighbor indices
+        neighbors = getValidNeighborIdxs(...
+            relativeNeighbors, labeledX, labeledY, labelMap);
+        
+        % Get neighbor clusters
+        neighborClusters = clusterIdxMap(neighbors);
+        
+        % Check for matching cluster assignment
+        matchingNeighbors = neighbors(neighborClusters == labeledCluster);
+        
+        % Get subscripts
+        [matchingNeighborsX, matchingNeighborsY] = ...
+            ind2sub(mapSize, matchingNeighbors);
+        
+        % Get label count indices
+        labelVector = ones(length(matchingNeighborsX), 1) * label;
+        labelCountIdxs = sub2ind(size(labelCounts), ...
+            matchingNeighborsX, matchingNeighborsY, labelVector);
+        
+        % Increase label counts
+        labelCounts(labelCountIdxs) = labelCounts(labelCountIdxs) + 1;
     end
     
     % For each unlabeled pixel, assign the label with the highest count
     % received from the neighborhood
-    enrichedLabels = labelMap;
+    enrichedLabelMap = labelMap;
     for unlabeledIdx = find(labelMap == 0)'
-        [idxX, idxY] = ind2sub(mapSize, unlabeledIdx);
-        [count, label] = max(labelCounts(idxX, idxY, :));
-        if count > 0
-            enrichedLabels(unlabeledIdx) = label;
-        end
+        enrichedLabelMap = setMaxLabel(...
+            labelCounts, labelMap, unlabeledIdx, enrichedLabelMap);
     end
 end
 
-function regularizedLabelMap = regularize(labelMap)
-    % Get map dimensions
-    mapSize = size(labelMap);
-    maxX = mapSize(1);
-    maxY = mapSize(2);
-    
+function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     % Create map for counting neighboring labels
-    maxLabel = max(max(labelMap));
-    labelCounts = zeros(maxX, maxY, maxLabel);
+    labelCounts = initLabelCounts(labelMap);
     
     % For each pixel that is not a fill pixel, count all labels occuring in
     % the neighborhood
     % TODO: Is it possible that there are unlabeled pixels?
     for curIdx = find(labelMap > -1)'
-        [idxX, idxY] = ind2sub(mapSize, curIdx);
+        [x, y] = ind2sub(mapSize, curIdx);
         
-        % Go through all neighbors
-        for addX = max(1-idxX, -r) : min(maxX-idxX, r)
-            % Use euclidean distance (based on sqrt(x^2 + y^2) = r)
-            euclY = fix(sqrt(r^2 - addX^2));
-            for addY = max(1-idxY, -euclY) : min(maxY-idxY, euclY)
-                nX = idxX + addX;
-                nY = idxY + addY;
-                
-                % Get assigned label for the neighboring pixel
-                nLabel = labelMap(nX, nY);
-                
-                % Check if pixel is labeled
-                if nLabel > 0
-                    % Increase count for this label at the current pixel
-                    % position
-                    labelCounts(idxX, idxY, nLabel) = ...
-                        labelCounts(idxX, idxY, nLabel) + 1;
-                end
-            end
-        end
+        % Get neighbor indices
+        neighbors = ...
+            getValidNeighborIdxs(relativeNeighbors, x, y, labelMap);
+        
+        % Get neighbor labels
+        neighborLabels = labelMap(neighbors);
+        
+        % Count occurences of labels in neighborhood
+        labelCounts(x, y, :) = histcounts(neighborLabels, 1:maxLabel+1);
     end
     
     % For each pixel that is not a fill pixel, assign the label with the 
     % highest count received from the neighborhood
     regularizedLabelMap = labelMap;
     for curIdx = find(labelMap > -1)'
-        [idxX, idxY] = ind2sub(mapSize, curIdx);
-        [count, label] = max(labelCounts(idxX, idxY, :));
-        if count > 0
-            regularizedLabelMap(curIdx) = label;
-        end
+        regularizedLabelMap = setMaxLabel(...
+            labelCounts, labelMap, curIdx, regularizedLabelMap);
     end
 end
 
-% TODO:
-% 
-% 1. Create list of neighboring indices
-% 2. Remove elements < 1 or > N
-% 3. Get labels
-% 4. Use histcounts(L, 1:C+1) for counting
-% 5. Insert values in counting map
-% 6. Use arrayfun for final result?
+function labelCounts = initLabelCounts(labelMap)
+    % Create map for counting neighboring labels
+    [maxX, maxY] = size(labelMap);
+    maxLabel = max(max(labelMap));
+    labelCounts = zeros(maxX, maxY, maxLabel);
+end
+
+function neighbors = getValidNeighborIdxs(relativeNeighbors, x, y, ...
+    labelMap)
+    
+    % Get positions of neighboring pixels
+    numNeighbors = size(relativeNeighbors, 1);
+    neighbors = relativeNeighbors + repmat([x y], numNeighbors, 1);
+
+    % Respect image boundaries
+    [maxX, maxY] = size(labelMap);
+    validPositions = min(neighbors, [], 2) > 0 & ...
+        neighbors(:, 1) <= maxX & neighbors(:, 2) <= maxY;
+    neighbors = neighbors(validPositions, :);
+
+    % Transform subscripts to indices
+    neighbors = sub2ind(size(labelMap), neighbors(:, 1), neighbors(:, 2));
+end
+
+function newMap = setMaxLabel(labelCounts, labelMap, curIdx, newMap)
+    [x, y] = ind2sub(size(labelMap), curIdx);
+    [count, label] = max(labelCounts(x, y, :));
+    if count > 0
+        newMap(curIdx) = label;
+    end
+end
