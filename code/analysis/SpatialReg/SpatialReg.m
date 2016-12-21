@@ -1,5 +1,5 @@
-classdef SpaReSSEnse < Classifier
-    %SPARESSENS Spatially regularized semi-supervised ensemble
+classdef SpatialReg < Classifier
+    %SPATIALREG Spatially regularized semi-supervised classifier
     %   
     %    Based on the scientific work presented in "Spatially regularized 
     %    semisupervised Ensembles of Extreme Learning Machines for 
@@ -30,7 +30,7 @@ classdef SpaReSSEnse < Classifier
     %                         step.
     %
     %% Methods:
-    %    SpaReSSEnse .. Constructor. Can take up to four input arguments:
+    %    SpatialReg ... Constructor. Can take up to four input arguments:
     %        classifier ......... Set the classifier property.
     %        r .................. [Optional] Set the radius property.
     %        doLabelPropagation . [Optional] Set the label propagation

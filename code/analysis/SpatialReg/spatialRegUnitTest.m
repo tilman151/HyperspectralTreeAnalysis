@@ -1,12 +1,12 @@
-function spaReSSEnseUnitTest()
-%SPARESSENSEUNITTEST Summary of this function goes here
+function spatialRegUnitTest()
+%SPATIALREGUNITTEST Summary of this function goes here
 %   Detailed explanation goes here
     
     featureMap = createFeatureMap();
     labelMap = createLabelMap();
     
     c = VisualizingClassifier();
-    sparessense = SpaReSSEnse(c, 2, true, false);
+    sparessense = SpatialReg(c, 2, true, false);
     
     disp('Without enrichment');
     c.trainOn(featureMap, labelMap);
