@@ -1,22 +1,34 @@
 classdef ExampleClassifier < Classifier
     %EXAMPLECLASSIFIER Example for classifier inheriting from Classifier
-    %Uses standard classify function
+    %    
+    %    Uses standard classify function.
     
     properties
-        trainingFeatures;
-        trainingLabels;
+        trainFeatureList;
+        trainLabelList;
     end
     
     methods
-        function obj = trainOn(obj,trainLabels, trainFeatures)
-            obj.trainingFeatures= permute(reshape(trainFeatures, [], 1, size(trainFeatures, 3)), [1 3 2]);
-            obj.trainingLabels = reshape(trainLabels, [], 1);
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Extract valid pixels from the given data to lists
+            obj.trainFeatureList = ...
+                validListFromSpatial(trainFeatureCube, trainLabelMap);
+            obj.trainLabelList = ...
+                validListFromSpatial(trainLabelMap, trainLabelMap);
         end
         
-        function labels = classifyOn(obj,evalFeatures, mask)
-            labels = classify(permute(reshape(evalFeatures, [], 1, size(evalFeatures, 3)), [1 3 2]),...
-                              obj.trainingFeatures,...
-                              obj.trainingLabels);
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap)
+            
+            % Extract valid pixels from the given feature cube to a list
+            evalFeatureList = validListFromSpatial(evalFeatureCube, maskMap);
+            
+            % Classify the given data
+            predictedLabelList = classify(...
+                evalFeatureList, obj.trainFeatureList, obj.trainLabelList);
+            
+            % Rebuild map representation
+            predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
         end
     end
     

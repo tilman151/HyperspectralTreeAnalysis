@@ -27,7 +27,7 @@ classdef TSVM < Classifier
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
-    % Version: 2016-11-24
+    % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
     %
     
@@ -92,27 +92,38 @@ classdef TSVM < Classifier
             end
         end
         
-        function obj = trainOn(obj, trainFeatures, trainLabels)
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Extract valid pixels as lists
+            featureList = validListFromSpatial(...
+                trainFeatureCube, trainLabelMap);
+            labelList = validListFromSpatial(...
+                trainLabelMap, trainLabelMap);
+            
             % Extract labeled pixels
-            [featureList, labelList, unlabeledFeatureList] = ...
-                extractLabeledPixels(trainFeatures, trainLabels);
+            labeledFeatureList = featureList(labelList > 0, :);
+            labeledLabelList = labelList(labelList > 0);
+            
+            % Extract unlabeled pixels
+            unlabeledFeatureList = featureList(labelList == 0, :);
             
             [obj.f, obj.SX, obj.SY, obj.SA, ~] = obj.Coding(...
-                featureList, labelList, unlabeledFeatureList, ...
+                labeledFeatureList, labeledLabelList, ...
+                unlabeledFeatureList, ...
                 obj.C1, obj.C2, obj.KernelFunction);
         end
         
-        function labels = classifyOn(obj, evalFeatures)
-            % Transform input map to vector
-            featureList = mapToVec(evalFeatures);
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap)
+            
+            % Extract unlabeled pixels as list
+            featureList = validListFromSpatial(evalFeatureCube, maskMap);
             
             % Predict labels
             featureRows = num2cell(featureList, 2);
-            labels = cellfun(obj.f, featureRows);
+            predictedLabelList = cellfun(obj.f, featureRows);
             
-            % Reshape to map representation
-            [x, y, ~] = size(evalFeatures);
-            labels = vecToMap(labels, x, y);
+            % Rebuild map representation
+            predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
         end
     end
     

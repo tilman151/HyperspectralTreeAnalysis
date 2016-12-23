@@ -11,9 +11,9 @@ function classifierUnitTest(classifier, dataType)
     %                   data sample is created. Default option is 'test'.
     %
     %% Example:
-    %    unitTest(SVM);
+    %    unitTest(SVM());
     %
-    % Version: 2016-11-30
+    % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
     %
     
@@ -28,13 +28,14 @@ function classifierUnitTest(classifier, dataType)
         case 'mat'
             path = ['../data/ftp-iff2.iff.fraunhofer.de/Data/'...
                 'Hyperspectral/1000-2500/F2G9_02.mat'];
-            [labels, cube] = Importer.loadDataFrom(path);
+            [labelMap, featureCube] = Importer.loadDataFrom(path);
         case 'csv'
             path = ['../data/ftp-iff2.iff.fraunhofer.de/Data/CSV/'...
                 '400-1000/spatialspectral/samples-32.csv'];
-            [labels, cube] = Importer.loadDataFrom(path);
+            [labelMap, featureCube] = Importer.loadDataFrom(path);
         otherwise
             % Test data set looks like this:
+            % TODO: Create test data set that also has spatial information
             % 
             % 8|    +
             % 7|      o
@@ -43,7 +44,7 @@ function classifierUnitTest(classifier, dataType)
             % 4|    -       o
             % 3|      o
             % 2|        o
-            % 1|    *
+            % 1|F   *
             %   ----------------
             %   1 2 3 4 5 6 7 8
             % 
@@ -51,22 +52,33 @@ function classifierUnitTest(classifier, dataType)
             % - = class 2
             % * = class 3
             % o = unlabeled sample
+            % F = fill pixel
             %
-            labels        = [1; 0; 0; 0; 0; 0; 2; 0; 0; 3];
-            cube          = [3; 4; 5; 6; 7; 2; 3; 4; 5; 3]; % X-values
-            cube(:, :, 2) = [8; 7; 6; 5; 4; 5; 4; 3; 2; 1]; % Y-values
+            
+            labelMap             = [1; 0; 0; 0; 0; 0; 2; 0; 0; 3; -1];
+            
+            % X-values
+            featureCube          = [3; 4; 5; 6; 7; 2; 3; 4; 5; 3; 1];
+            
+            % Y-values
+            featureCube(:, :, 2) = [8; 7; 6; 5; 4; 5; 4; 3; 2; 1; 1];
     end
     
     % Train model
     disp('Train model');
-    classifier.trainOn(cube, labels);
+    classifier.trainOn(featureCube, labelMap);
     
     % Predict labels for all data samples
     disp('Predict labels');
-    predictedLabels = classifier.classifyOn(cube);
+    maskMap = labelMap;
+    maskMap(labelMap > 0) = 0;
+    predictedLabelMap = classifier.classifyOn(featureCube, maskMap);
     
     % Calculate and show the confusion matrix
-    confMat = confusionmat(mapToVec(labels), predictedLabels);
+    confMat = confusionmat(...
+        validListFromSpatial(labelMap, maskMap), ...
+        validListFromSpatial(predictedLabelMap, maskMap), ...
+        'order', 0:17);
     disp('Confusion Matrix:');
     disp(confMat);
 end

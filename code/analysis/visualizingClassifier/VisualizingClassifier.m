@@ -10,26 +10,35 @@ classdef VisualizingClassifier < Classifier
     %% Methods:
     %    trainOn ...... See documentation in superclass Classifier.
     %    classifyOn ... See documentation in superclass Classifier.
+    %
+    % Version: 2016-12-22
+    % Author: Cornelius Styp von Rekowski
+    %
     
     properties
     end
     
     methods
-        function obj = trainOn(obj, trainFeatures, trainLabels)
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Display feature map if it is 2-dimensional
-            if length(size(trainFeatures)) == 2
-                visualizeLabels(trainFeatures, 'Training Features');
+            if length(size(trainFeatureCube)) == 2
+                visualizeLabels(trainFeatureCube, 'Training Features');
             end
             
             % Display labels
-            visualizeLabels(trainLabels, 'Training Labels');
+            visualizeLabels(trainLabelMap, 'Training Labels');
         end
         
-        function labels = classifyOn(obj, evalFeatures)
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap)
+            
             % Display feature map if it is 2-dimensional
-            if length(size(trainFeatures)) == 2
-                visualizeLabels(trainFeatures, 'Evaluation Features');
+            if length(size(evalFeatureCube)) == 2
+                visualizeLabels(evalFeatureCube, 'Evaluation Features');
             end
+            
+            % Return pseudo output
+            predictedLabelMap = maskMap;
         end
     end
     

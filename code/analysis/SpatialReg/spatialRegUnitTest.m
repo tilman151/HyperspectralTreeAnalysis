@@ -2,21 +2,21 @@ function spatialRegUnitTest()
 %SPATIALREGUNITTEST Summary of this function goes here
 %   Detailed explanation goes here
     
-    featureMap = createFeatureMap();
+    featureCube = createFeatureCube();
     labelMap = createLabelMap();
     
     c = VisualizingClassifier();
-    sparessense = SpatialReg(c, 2, true, false);
+    spatialReg = SpatialReg(c, 2, true, false);
     
     disp('Without enrichment');
-    c.trainOn(featureMap, labelMap);
+    c.trainOn(featureCube, labelMap);
     
     disp('With enrichment');
-    sparessense.trainOn(featureMap, labelMap);
+    spatialReg.trainOn(featureCube, labelMap);
 end
 
-function featureMap = createFeatureMap()
-    featureMap(:,:,1) = [1 1 1 10 10; 1 1 1 1 10; 10 10 10 1 10; ...
+function featureCube = createFeatureCube()
+    featureCube(:,:,1) = [1 1 1 10 10; 1 1 1 1 10; 10 10 10 1 10; ...
         10 10 10 10 10; 10 10 10 2 2; 2 2 2 10 10; 0 0 0 0 0];
 end
 

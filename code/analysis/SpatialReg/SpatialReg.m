@@ -40,7 +40,7 @@ classdef SpatialReg < Classifier
     %    trainOn ...... See documentation in superclass Classifier.
     %    classifyOn ... See documentation in superclass Classifier.
     %
-    % Version: 2016-12-10
+    % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
     %
     
@@ -69,7 +69,7 @@ classdef SpatialReg < Classifier
                 obj.r = r;
             end
             
-            % Compute relative neighbor positions once
+            % Compute relative neighbor positions for this radius once
             obj.relativeNeighbors = getRelativeNeighbors(obj.r);
             
             % Processing steps enabled/disabled?
@@ -79,33 +79,36 @@ classdef SpatialReg < Classifier
             end
         end
         
-        function obj = trainOn(obj, trainFeatures, trainLabels)
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             if obj.doLabelPropagation
                 % Perform unsupervised clustering
-                clusterIdxMap = clustering(trainFeatures, trainLabels);
+                clusterIdxMap = ...
+                    clustering(trainFeatureCube, trainLabelMap);
                 
                 % Display clustered map
                 visualizeLabels(clusterIdxMap, 'Clusters')
                 
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
-                trainLabels = propagateLabels(...
-                    trainLabels, clusterIdxMap, obj.relativeNeighbors);
+                trainLabelMap = propagateLabels(...
+                    trainLabelMap, clusterIdxMap, obj.relativeNeighbors);
             end
             
             % Train classifier on (enriched) data set
-            obj.classifier.trainOn(trainFeatures, trainLabels);
+            obj.classifier.trainOn(trainFeatureCube, trainLabelMap);
         end
         
-        function labels = classifyOn(obj, evalFeatures)
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap)
+            
             % Predict labels
-            labels = obj.classifier.classifyOn(evalFeatures);
+            predictedLabelMap = ...
+                obj.classifier.classifyOn(evalFeatureCube, maskMap);
             
             if obj.doRegularization
                 % Regularize output labels based on spatial smoothness
-                [x, y, ~] = size(evalFeatures);
-                labelMap = vecToMap(labels, x, y);
-                labels = regularize(labelMap, obj.relativeNeighbors);
+                predictedLabelMap = ...
+                    regularize(predictedLabelMap, obj.relativeNeighbors);
             end
         end
     end
@@ -125,19 +128,19 @@ function neighborIdxs = getRelativeNeighbors(r)
     end
 end
 
-function clusterIdxMap = clustering(featureMap, labelMap)
-    % Reshape feature map to vector
-    featureVec = mapToVec(featureMap);
+function clusterIdxMap = clustering(featureCube, labelMap)
+    % Extract valid pixels as list
+    featureList = validListFromSpatial(featureCube, labelMap);
+    labelList = validListFromSpatial(labelMap, labelMap);
     
-    % Get number of classes (including unlabeled and empty pixels)
-    k = numel(unique(labelMap));
+    % Get number of classes (excluding fill pixels)
+    k = numel(unique(labelList));
     
     % Perform clustering
-    clusterIdx = kmeans(featureVec, k);
+    clusterIdxList = kmeans(featureList, k);
     
     % Reshape resulting cluster indices to map representation
-    [x, y] = size(labelMap);
-    clusterIdxMap = vecToMap(clusterIdx, x, y);
+    clusterIdxMap = rebuildMap(clusterIdxList, labelMap);
 end
 
 function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
@@ -192,9 +195,8 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     
     % For each pixel that is not a fill pixel, count all labels occuring in
     % the neighborhood
-    % TODO: Is it possible that there are unlabeled pixels?
     for curIdx = find(labelMap > -1)'
-        [x, y] = ind2sub(mapSize, curIdx);
+        [x, y] = ind2sub(size(labelMap), curIdx);
         
         % Get neighbor indices
         neighbors = ...
@@ -203,7 +205,8 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
         % Get neighbor labels
         neighborLabels = labelMap(neighbors);
         
-        % Count occurences of labels in neighborhood
+        % Count occurences of labels in neighborhood (ignoring unlabeled
+        % and fill pixels)
         labelCounts(x, y, :) = histcounts(neighborLabels, 1:maxLabel+1);
     end
     

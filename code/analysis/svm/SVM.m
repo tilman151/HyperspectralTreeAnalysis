@@ -27,7 +27,7 @@ classdef SVM < Classifier
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
-    % Version: 2016-11-24
+    % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
     %
     
@@ -60,26 +60,29 @@ classdef SVM < Classifier
             obj.coding = p.Results.Coding;
         end
         
-        function obj = trainOn(obj, trainFeatures, trainLabels)
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Extract labeled pixels
-            [featureList, labelList, ~] = ...
-                extractLabeledPixels(trainFeatures, trainLabels);
+            featureList = validListFromSpatial(...
+                trainFeatureCube, trainLabelMap, true);
+            labelList = validListFromSpatial(...
+                trainLabelMap, trainLabelMap, true);
             
             % Train multiclass model
             obj.model = fitcecoc(featureList, labelList, ...
                 'Coding', obj.coding, 'Learners', obj.template);
         end
         
-        function labels = classifyOn(obj, evalFeatures)
-            % Transform input map to vector
-            featureList = mapToVec(evalFeatures);
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap)
+            
+            % Extract list of unlabeled pixels
+            featureList = validListFromSpatial(evalFeatureCube, maskMap);
             
             % Predict labels
-            labels = obj.model.predict(featureList);
+            predictedLabelList = obj.model.predict(featureList);
             
-            % Reshape to map representation
-            [x, y, ~] = size(evalFeatures);
-            labels = vecToMap(labels, x, y);
+            % Rebuild map representation
+            predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
         end
     end
     

@@ -20,7 +20,7 @@ function confMat = runExperiment(configFilePath)
     %                            validation using the classifier and the
     %                            data set defined in the config file.
     %
-    % Version: 2016-11-29
+    % Version: 2016-12-22
     % Author: Tilman Krokotsch
     %%
     
@@ -40,33 +40,46 @@ function confMat = runExperiment(configFilePath)
                                     dataSetPath);
     
     % Initialize confusion matrix
-    confMat = zeros(19, 19, crossValidator.k);
+    confMat = zeros(18, 18, crossValidator.k);
       
     % For each test and training set
     for i = 1:crossValidator.k
         
         % Load training set
-        [trainLabels, trainFeatures] = crossValidator.getTrainingSet(i);
+        [trainLabelMap, trainFeatureCube] = ...
+            crossValidator.getTrainingSet(i);
+        
         % Apply feature extraction
-        trainFeatures = applyFeatureExtraction(trainFeatures, extractors);
+        trainFeatureCube = ...
+            applyFeatureExtraction(trainFeatureCube, extractors);
+        
         % Train classifier
-        classifier.trainOn(trainLabels, trainFeatures);
+        classifier.trainOn(trainFeatureCube, trainLabelMap);
+        
         % Free RAM
-        clear('trainLabels', 'trainFeatures');
+        clear('trainLabelMap', 'trainFeatureCube');
+        
         
         % Load test set
-        [testLabels, testFeatures] = crossValidator.getTestSet(i);
+        [testLabelMap, testFeatureCube] = crossValidator.getTestSet(i);
+        
          % Apply feature extraction
-        testFeatures = applyFeatureExtraction(testFeatures, extractors);
-        % Calculate instance mask
-        instanceMask = testLabels;
-        instanceMask(testLabels > 0) = 1;
+        testFeatureCube = ...
+            applyFeatureExtraction(testFeatureCube, extractors);
+        
+        % Create mask map (only showing -1 and 0)
+        maskMap = testLabelMap;
+        maskMap(testLabelMap > 0) = 0;
+        
         % Apply trained classifier
-        classifiedLabels = classifier.classifyOn...
-                                              (testFeatures, instanceMask);
+        classifiedLabelMap = ...
+            classifier.classifyOn(testFeatureCube, maskMap);
+        
         % Calculate confusion matrix
-        confMat(:, :, i) = confusionmat(reshape(testLabels, [], 1), classifiedLabels,...
-                               'order', -1:17);
+        confMat(:, :, i) = confusionmat(...
+            validListFromSpatial(testLabelMap, maskMap), ...
+            validListFromSpatial(classifiedLabelMap, maskMap), ...
+            'order', 0:17);
     end
     
     % Sum up all confusion matrices
@@ -74,8 +87,8 @@ function confMat = runExperiment(configFilePath)
     
 end
 
-function features = applyFeatureExtraction(features, extractors)
+function featureCube = applyFeatureExtraction(featureCube, extractors)
     for i = 1:size(extractors, 1)
-        features = extractors{i}.extractFeatures(features);
+        featureCube = extractors{i}.extractFeatures(featureCube);
     end
 end

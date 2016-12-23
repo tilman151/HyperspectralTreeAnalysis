@@ -5,26 +5,29 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %    abstract methods.
     %
     %% Abstract Methods:
-    %    trainOn ..... This method takes a feature cube of dimensions 
-    %                  X x Y x F and a label map of dimensions X x Y as
-    %                  input, with X x Y being the image dimensions and F
-    %                  being the number of features.
-    %                  A model is trained on the given data and returned.
-    %                  The function should make sure to train and a fresh 
-    %                  model on each call.
-    %    classifyOn .. This method takes a feature cube of dimensions
-    %                  X x Y x F as input, with X x Y being the image 
-    %                  dimensions and F being the number of features.
-    %                  The output should be a vector of labels with an
-    %                  entry for each image pixel -> (X * Y) x 1.
+    %    trainOn ..... Train a model on the given data and return it. The 
+    %                  function should make sure to train a fresh model on 
+    %                  each call.
+    %        trainFeatureCube ... Feature cube of dimensions X x Y x F with
+    %                             X and Y being the image dimensions and F
+    %                             being the number of features.
+    %        trainLabelMap ...... Label Map o dimensions X x Y.
+    %    classifyOn .. Classify the given data.
+    %        evalFeatureCube .... Feature cube of dimensions X x Y x F with
+    %                             X and Y being the image dimensions and F
+    %                             being the number of features.
+    %        maskMap ............ Map that indicates, which pixels are fill
+    %                             pixels (-1) with dimensions X x Y.
+    %        predictedLabelMap .. Output map of features, having dimensions
+    %                             X x Y.
     %
-    % Version: 2016-11-24
+    % Version: 2016-12-22
     % Author: Tilman Krokotsch
     %
     
     methods (Abstract)
-        obj = trainOn(obj, trainFeatures, trainLabels);
-        labels = classifyOn(obj, evalFeatures, instanceMask);
+        obj = trainOn(obj, trainFeatureCube, trainLabelMap);
+        predictedLabelMap = classifyOn(obj, evalFeatureCube, maskMap);
     end
     
 end
