@@ -33,6 +33,15 @@ tsvmLinearSpatiallyRegularizedConfig = @() SpatialReg(...
     true, ...
     true);
 
+basicEnsembleEC100_08Config = ...
+    @()  BasicEnsemble({ExampleClassifier}, ...
+        [100], ...
+        [0.8]);
+basicEnsembleSVM100_08Config = ...
+    @()  BasicEnsemble({svmLinearConfig()}, ...
+        [100], ...
+        [0.1]);
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Feature extractor configurations
@@ -41,16 +50,16 @@ seld85Config = @() SELD(8, 5);
 
 pca5Config = @() PCA(5);
 
-mclda5Config = @() MulticlassLda;
+mcldaConfig = @() MulticlassLda;
 
 continuumRemoval= @() ContinuumRemoval;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-classifier = exampleClassifierConfig()
+classifier = ExampleClassifier()
 
-extractors = {MulticlassLda}
+extractors = {mcldaConfig()}
 
 dataSetPath = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/'
