@@ -1,8 +1,8 @@
 classdef BasicEnsemble < Classifier
-    %Classifier which uses other classifier to predict a label
+    %BASICENSEMBLE Classifier that uses other classifiers to predict labels
     %
     %% Properties:
-    %    baseClassifier ............... Classifier which are used to
+    %    baseClassifier ............... Classifiers which are used to
     %                                   predict the label
     %    trainingInstanceProportions .. the proportion, which is
     %                                   selected from the given training
@@ -26,7 +26,7 @@ classdef BasicEnsemble < Classifier
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
-    % Version: 2016-12-05
+    % Version: 2016-12-22
     % Author: Tuan Pham Minh
     %
     
@@ -55,21 +55,23 @@ classdef BasicEnsemble < Classifier
                 num2cell(trainingInstanceProportions(classifierIndices));
         end
         
-        function obj = trainOn(obj, trainFeatures, trainLabels)
-            [x,y,spectralBands] = size(trainFeatures);
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            [x,y,spectralBands] = size(trainFeatureCube);
+            
             % generate randomized indices
-            repmat({x*y}, 1, length(obj.trainingInstanceProportions));
             randomizedIndices = cellfun(@createRandPerm, repmat({x*y}, ...
                 1, length(obj.trainingInstanceProportions)), ...
                 obj.trainingInstanceProportions, 'UniformOutput', 0)';
+            
             % make features 2D
             reshapedTrainFeatures = ...
-                repmat({reshape(trainFeatures, x*y, spectralBands)}, ...
+                repmat({reshape(trainFeatureCube, x*y, spectralBands)}, ...
                 length(obj.trainingInstanceProportions), 1);
             reshapedTrainLabels = ...
-                repmat({reshape(trainLabels, x*y, 1)}, ...
+                repmat({reshape(trainLabelMap, x*y, 1)}, ...
                 length(obj.trainingInstanceProportions), ...
                 1);
+            
             % select the features from the random permutation
             randomizedTrainFeatures = ...
                 cellfun(@(x,y)(permute(x(y,:), [1 3 2])), ...
@@ -81,7 +83,8 @@ classdef BasicEnsemble < Classifier
                 reshapedTrainLabels, ...
                 randomizedIndices, ...
                 'UniformOutput', 0);
-            % train all classifier
+            
+            % train all classifiers
             cellfun(@trainBaseClassifier, ...
                 obj.baseClassifier, ...
                 randomizedTrainFeatures, ...
@@ -89,21 +92,23 @@ classdef BasicEnsemble < Classifier
                 'UniformOutput', 0);
         end
         
-        function labels = classifyOn(obj,evalFeatures)
-            % make a copy for all classifier
-            reshapedEvalFeatures = ...
-                repmat({evalFeatures}, ...
-                length(obj.trainingInstanceProportions), ...
-                1);
-            % classify all instances
-            accumulatedLabels = ...
-                cell2mat( ...
-                    cellfun(@classifyOnAll, ...
-                        obj.baseClassifier, ...
-                        reshapedEvalFeatures, ...
-                        'UniformOutput', 0)');
-            % calculate the majority vote
-            labels = mode(accumulatedLabels,2);
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap)
+            
+            % Create classify function call handle
+            classifyHandle = @(classifier) classifier.classifyOn(...
+                evalFeatureCube, maskMap);
+            
+            % Classify all instances
+            accumulatedLabels = cell2mat(cellfun(...
+                classifyHandle, obj.baseClassifier, 'UniformOutput', 0)');
+            
+            % TODO: Does not yet work for the returned label maps
+            % Should create a matrix of dimensions X x Y x C with C being
+            % the number of base classifiers
+            
+            % Calculate the majority vote
+            predictedLabelMap = mode(accumulatedLabels, 3);
         end
     end
     
