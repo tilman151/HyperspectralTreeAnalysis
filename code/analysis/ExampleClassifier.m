@@ -12,9 +12,9 @@ classdef ExampleClassifier < Classifier
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Extract valid pixels from the given data to lists
             obj.trainFeatureList = ...
-                validListFromSpatial(trainFeatureCube, trainLabelMap);
+                validListFromSpatial(trainFeatureCube, trainLabelMap, true);
             obj.trainLabelList = ...
-                validListFromSpatial(trainLabelMap, trainLabelMap);
+                validListFromSpatial(trainLabelMap, trainLabelMap, true);
         end
         
         function predictedLabelMap = ...
