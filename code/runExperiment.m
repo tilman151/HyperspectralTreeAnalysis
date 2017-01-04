@@ -80,6 +80,10 @@ function confMat = runExperiment(configFilePath)
             validListFromSpatial(testLabelMap, maskMap), ...
             validListFromSpatial(classifiedLabelMap, maskMap), ...
             'order', 0:17);
+        
+        % Free RAM
+        clear('testLabelMap', 'testFeatureCube');
+        
     end
     
     % Sum up all confusion matrices

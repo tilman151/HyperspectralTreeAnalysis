@@ -134,7 +134,7 @@ classdef CrossValidator
             
             % For each variable to be loaded
             xBegin = 1;
-            for i = 1:size(fileNames, 2)
+            for i = 1:numel(fileNames)
                 % Load variables 
                 tmpLabels = load([obj.dataPath, 'labels.mat'],...
                                  fileNames{i});
