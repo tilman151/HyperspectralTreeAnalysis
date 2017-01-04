@@ -24,6 +24,9 @@ function confMat = runExperiment(configFilePath)
     % Author: Tilman Krokotsch
     %%
     
+    % Init random seed
+    rng('shuffle');
+    
     % Add the code directory and all subdirectories to path
     addpath(genpath('./'));
 
