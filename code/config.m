@@ -4,6 +4,8 @@
 
 exampleClassifierConfig = @ExampleClassifier;
 
+randomForest100Config = @() RandomForest(100);
+
 svmLinearConfig = @() SVM(...
     'KernelFunction', 'linear', ...
     'Coding', 'onevsone');
