@@ -31,6 +31,9 @@ function confMat = runExperiment(configFilePath)
     addpath(genpath('./'));
 
     % Read and execute config file
+    if nargin < 1
+        configFilePath = './config.m';
+    end
     run(configFilePath);
 
     % TODO: Check config validity
