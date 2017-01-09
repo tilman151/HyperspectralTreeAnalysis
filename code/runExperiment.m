@@ -24,10 +24,16 @@ function confMat = runExperiment(configFilePath)
     % Author: Tilman Krokotsch
     %%
     
+    % Init random seed
+    rng('shuffle');
+    
     % Add the code directory and all subdirectories to path
     addpath(genpath('./'));
 
     % Read and execute config file
+    if nargin < 1
+        configFilePath = './config.m';
+    end
     run(configFilePath);
 
     % TODO: Check config validity

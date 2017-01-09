@@ -44,12 +44,15 @@ basicEnsembleSVM100_08Config = ...
         [100], ...
         [0.1]);
 
+visualizingClassifierConfig = @() VisualizingClassifier();
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Feature extractor configurations
 
 seld85Config = @() SELD(8, 5);
 
+pca1Config = @() PCA(1);
 pca5Config = @() PCA(5);
 
 mcldaConfig = @() MulticlassLda;
@@ -59,7 +62,7 @@ continuumRemoval= @() ContinuumRemoval;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-classifier = ExampleClassifier()
+classifier = ExampleClassifierConfig()
 
 extractors = {mcldaConfig()}
 
