@@ -44,7 +44,7 @@ function confMat = runExperiment(configFilePath)
       
     % For each test and training set
     for i = 1:crossValidator.k
-        
+        disp([num2str(i) '/' num2str(crossValidator.k)]);
         % Load training set
         [trainLabelMap, trainFeatureCube] = ...
             crossValidator.getTrainingSet(i);
@@ -55,7 +55,7 @@ function confMat = runExperiment(configFilePath)
         
         % Train classifier
         classifier.trainOn(trainFeatureCube, trainLabelMap);
-        
+        disp('classifier trained');
         % Free RAM
         clear('trainLabelMap', 'trainFeatureCube');
         
@@ -74,6 +74,7 @@ function confMat = runExperiment(configFilePath)
         % Apply trained classifier
         classifiedLabelMap = ...
             classifier.classifyOn(testFeatureCube, maskMap);
+        disp('testinstances classified');
         
         % Calculate confusion matrix
         confMat(:, :, i) = confusionmat(...
