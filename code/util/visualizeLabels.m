@@ -24,7 +24,7 @@ function visualizeLabels(labelMap, name)
     % - fill pixels: black
     % - unlabeled: white
     % - labeled: colors
-    maxClass = max(max(labelMap));
+    maxClass = max(labelMap(:));
     colors = [0 0 0; 1 1 1; hsv(maxClass)];
     
     % Add 2 to the label map, because there might be -1 and 0 labels
