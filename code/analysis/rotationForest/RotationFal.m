@@ -1,7 +1,7 @@
 
 %%% skymss,2008.6.15 (email: skymss@126.com) %%%%
 
-function [R_new,R_coeff,Xinirfnew,targetXrfnew]=RotationFal(Xini, Yini, targetX, K, Ratio)
+function [R_new,R_coeff]=RotationFal(featureList, labelList, K, Ratio)
 
 % RotationFal: obtaining the new samples by Rotation forest algorithm;
 %
@@ -21,22 +21,15 @@ function [R_new,R_coeff,Xinirfnew,targetXrfnew]=RotationFal(Xini, Yini, targetX,
 if (nargin<5 || nargin>6) %%adapt for other ensemble size
     help RotationFal
 else
-    Xinirfnew=[];
-    targetXrfnew=[];
-
-    DataX=[];
-    DataX=Xini;
-    [numtrn num_feature]=size(DataX);
+    [numtrn, num_feature]=size(featureList);
     M=floor(num_feature/K); %number of features sets
     class=[];
-    class=unique(Yini);
+    class=unique(labelList);
    
-    [data_new_lie index_lie_new]=array_lie(DataX);
-    trainX_lie=[];
-    trainX_lie=data_new_lie;
+    [trainX_lie, index_lie_new]=array_lie(featureList);
     R_coeff=zeros(num_feature,num_feature);
     trainX_subset=[];
-    trainY=Yini;
+    trainY=labelList;
     index=[];
     for m=1:length(class)
         index{m,1}=find(trainY==class(m));
@@ -50,13 +43,13 @@ else
         else
             trainX_subset=trainX_lie(:,number1+1:end);
         end
-        %%%% ��ȡ�ǿյ�����Ӽ� %%%%
+       
         %%%% eliminate from dataset a random subset of classes %%%
         rateeliminate=0.08;
         [AsubX,AsubY]=randomsub([trainX_subset,trainY],rateeliminate);
         %%%% using bootstrap algorithm to obtain subset of samples (����bootstrap����) %%%%
         [trainX_subset_new,trainY_new,indexselect]=bootstrapal(AsubX,AsubY,Ratio);
-        %%%% using PCA to transform samples (����PCA���?��������(ע�������PCA������������*����)) %%%%
+        %%%% using PCA to transform samples  %%%%
         Coeff=pcasky(trainX_subset_new); 
         A_coeff{i,1}=Coeff; 
         number3=number1+size(Coeff,2);
@@ -75,8 +68,6 @@ else
         end
     end
 
-    %%%% obtain new samples %%%%
-    Xinirfnew=Xini*R_new;       
-    targetXrfnew=targetX*R_new;
+
 end
 
