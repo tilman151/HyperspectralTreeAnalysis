@@ -63,9 +63,9 @@ continuumRemoval= @() ContinuumRemoval;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-classifier = ExampleClassifierConfig()
+classifier = rotationForest56Config()
 
-extractors = {mcldaConfig()}
+extractors = {}
 
 dataSetPath = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/'
