@@ -35,19 +35,17 @@ function confMat = runExperiment(configFilePath)
         configFilePath = './config.m';
     end
     run(configFilePath);
-
-    % TODO: Check config validity
     
     % Load crossValParts and filesPerClass
     load('crossValParts.mat');
     
     % Initialize CrossValidator object
     crossValidator = CrossValidator(crossValParts, filesPerClass,...
-                                    dataSetPath);
+                                    DATA_SET_PATH);
     
     % Initialize confusion matrix
     confMat = zeros(18, 18, crossValidator.k);
-      
+    
     % For each test and training set
     for i = 1:crossValidator.k
         disp([num2str(i) '/' num2str(crossValidator.k)]);
@@ -55,13 +53,18 @@ function confMat = runExperiment(configFilePath)
         [trainLabelMap, trainFeatureCube] = ...
             crossValidator.getTrainingSet(i);
         
+        % Visualize train labels
+        if VISUALIZE_TRAIN_LABELS
+            visualizeLabels(trainLabelMap, 'Training Labels');
+        end
+        
         % Apply feature extraction
         trainFeatureCube = ...
-            applyFeatureExtraction(trainFeatureCube, extractors, ...
-                                   sampleSetPath);
+            applyFeatureExtraction(trainFeatureCube, EXTRACTORS, ...
+                                   SAMPLE_SET_PATH);
         
         % Train classifier
-        classifier.trainOn(trainFeatureCube, trainLabelMap);
+        CLASSIFIER.trainOn(trainFeatureCube, trainLabelMap);
         disp('classifier trained');
         % Free RAM
         clear('trainLabelMap', 'trainFeatureCube');
@@ -70,10 +73,15 @@ function confMat = runExperiment(configFilePath)
         % Load test set
         [testLabelMap, testFeatureCube] = crossValidator.getTestSet(i);
         
+        % Visualize test labels
+        if VISUALIZE_TEST_LABELS
+            visualizeLabels(testLabelMap, 'Test Labels');
+        end
+        
          % Apply feature extraction
         testFeatureCube = ...
-            applyFeatureExtraction(testFeatureCube, extractors, ...
-                                   sampleSetPath);
+            applyFeatureExtraction(testFeatureCube, EXTRACTORS, ...
+                                   SAMPLE_SET_PATH);
         
         % Create mask map (only showing -1 and 0)
         maskMap = testLabelMap;
@@ -83,6 +91,11 @@ function confMat = runExperiment(configFilePath)
         classifiedLabelMap = ...
             classifier.classifyOn(testFeatureCube, maskMap);
         disp('testinstances classified');
+        
+        % Visualize predicted labels
+        if VISUALIZE_PREDICTED_LABELS
+            visualizeLabels(classifiedLabelMap, 'Predicted Labels');
+        end
         
         % Calculate confusion matrix
         confMat(:, :, i) = confusionmat(...
