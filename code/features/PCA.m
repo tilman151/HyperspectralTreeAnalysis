@@ -55,7 +55,7 @@ classdef PCA < TransformationFeatureExtractor
         end
         
         function name = getTransformationFilename(obj)
-            name = ['PCA_' int2str(obj.numDim) '.mat'];  
+            name = ['PCA.mat'];  
         end
     end
     
