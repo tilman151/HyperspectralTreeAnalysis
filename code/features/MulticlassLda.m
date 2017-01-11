@@ -45,7 +45,7 @@ classdef MulticlassLda < TransformationFeatureExtractor
         end
         
         function name = getTransformationFilename(obj)
-            name = ['MulticlassLda.mat'];  
+            name = 'MulticlassLda.mat';  
         end
     end
 end

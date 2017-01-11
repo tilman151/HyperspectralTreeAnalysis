@@ -45,6 +45,10 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
     end
     indunlabeled=find(groundtruth<=0);
     Xunlabeled=X(indunlabeled,:);
+    
+    % save memory
+    clear('Xmean', 'numlabeled', 'indlabeled', 'indunlabeled');
+    
     XT=[Xlabeled;Xunlabeled];
     
   %%%%%%%%%%perform LDA method  %%%%%%%%%%

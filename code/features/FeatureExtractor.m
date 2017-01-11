@@ -13,7 +13,7 @@ classdef FeatureExtractor
     %
     
     methods (Abstract)
-        features = extractFeatures(obj, originalFeatures)
+        features = extractFeatures(obj, originalFeatures, sampleSetPath)
     end
     
 end

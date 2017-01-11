@@ -13,12 +13,12 @@ else
     Coeff=[];
    if (nargin>=1 || nargin<=3)
        patterns=patterns_old';
-       [r,c] = size(patterns);%%%注：r是特征数（维数）；c是样本个数；
+       [r,c] = size(patterns);
        
        %Calculate cov matrix and the PCA matrixes
        m = mean(patterns')';
-       S = ((patterns - m*ones(1,c)) * (patterns - m*ones(1,c))');%% S为协方差矩阵；     
-       [Coeff latent]= eig(S);
+       S = ((patterns - m*ones(1,c)) * (patterns - m*ones(1,c))');    
+       [Coeff, latent]= eig(S);
    else
    end
 end

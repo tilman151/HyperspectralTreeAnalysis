@@ -31,14 +31,32 @@ classdef TransformationFeatureExtractor < FeatureExtractor
     end
     
     methods
-        function features = extractFeatures(obj, originalFeatures)
-            if ~exist(obj.getTransformationFilename(), 'file')
-                sampleSet = load(['../data/ftp-iff2.iff.fraunhofer.de/' ...
-                    'Data/FeatureExtraction/sampleSet.mat']);
+        function features = extractFeatures(obj, originalFeatures, ...
+                                            sampleSetPath)
+                                        
+            exportClassPath =['../data/ftp-iff2.iff.fraunhofer.de/',...
+                'Data/FeatureExtraction/TransformationMatrices/',...
+                class(obj), '/'];
+
+            exportPath = [exportClassPath, ...
+                obj.getTransformationFilename()];
+            
+            if ~exist(exportPath, 'file')
+                
+                sampleSet = load(sampleSetPath);
                 transformationMatrix = ...
                     obj.calculateTransformation(sampleSet);
+                
+                if ~exist(exportClassPath, 'dir')
+                   mkdir(exportClassPath);
+                end
+                
+                save(exportPath, 'transformationMatrix')
             else
-                transformationMatrix = load(getTransformationFilename());
+                transformationMatrix = ...
+                    load(exportPath);
+                transformationMatrix = ...
+                    transformationMatrix.transformationMatrix;
             end
             features = obj.applyTransformation(originalFeatures, ...
                 transformationMatrix);
