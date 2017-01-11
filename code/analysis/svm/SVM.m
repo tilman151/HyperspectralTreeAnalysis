@@ -15,15 +15,20 @@ classdef SVM < Classifier
     %    SVM ........ Constructor. Can take Name, Value pair arguments that
     %                 change the multiclass strategy and the internal
     %                 parameters of the SVM. Possible arguments:
-    %        KernelFunction . Kernel function for the SVM.
-    %                         'linear'(default) | 'gaussian' | 'rbf' | 
-    %                         'polynomial'
-    %        Coding ......... Coding design for the ECOC (error-correcting 
-    %                         output codes) multiclass model.
-    %                         'onevsone'(default) | 'allpairs' |
-    %                         'binarycomplete' | 'denserandom' | 'onevsall'
-    %                         | 'ordinal' | 'sparserandom' | 
-    %                         'ternarycomplete'.
+    %        KernelFunction .. Kernel function for the SVM.
+    %                          'linear'(default) | 'gaussian' | 'rbf' | 
+    %                          'polynomial'
+    %        PolynomialOrder . Positive integer specifying the degree of
+    %                          polynomial to be used for polynomial
+    %                          kernel. This parameter is used only if
+    %                          you set 'KernelFunction' to 'polynomial'.
+    %                          Default: 3
+    %        Coding .......... Coding design for the ECOC (error-correcting 
+    %                          output codes) multiclass model.
+    %                          'onevsone'(default) | 'allpairs' |
+    %                          'binarycomplete' | 'denserandom' | 
+    %                          'onevsall' | 'ordinal' | 'sparserandom' | 
+    %                          'ternarycomplete'.
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
@@ -47,6 +52,7 @@ classdef SVM < Classifier
             % Create input parser
             p = inputParser;
             p.addParameter('KernelFunction', 'linear');
+            p.addParameter('PolynomialOrder', 3);
             p.addParameter('Coding', 'onevsone');
             
             % Parse input arguments
@@ -54,7 +60,8 @@ classdef SVM < Classifier
             
             % Create SVM template
             obj.template = templateSVM(...
-                'KernelFunction', p.Results.KernelFunction);
+                'KernelFunction', p.Results.KernelFunction, ...
+                'PolynomialOrder', p.Results.PolynomialOrder);
             
             % Save coding for the following training
             obj.coding = p.Results.Coding;
