@@ -1,4 +1,4 @@
-function confMat = runExperiment(configFilePath)
+function runExperiment(configFilePath)
     %RUNEXPERIMENT Run a machine learning experiment
     %              with the parameters defined in the configuration file
     %
@@ -12,15 +12,14 @@ function confMat = runExperiment(configFilePath)
     %   set and evaluated on the test set. Afterwards the accumulated
     %   confusion matrix is calculated.
     %
+    %   The configuration, all actions of this function and the confusion
+    %   matrix are logged.
+    %
     %%  Input:
     %       configFilePath ..... a path to the config file file
     %
-    %%  Output:
-    %       confMat ............ a confusion matrix yielded by cross
-    %                            validation using the classifier and the
-    %                            data set defined in the config file.
     %
-    % Version: 2016-12-22
+    % Version: 2017-01-11
     % Author: Tilman Krokotsch
     %%
     
@@ -46,9 +45,20 @@ function confMat = runExperiment(configFilePath)
     % Initialize confusion matrix
     confMat = zeros(18, 18, crossValidator.k);
     
+    % Create logger singleton
+    logger = Logger.createLoggerSingleton();
+    % Log configuration
+    logger.logConfig(CLASSIFIER, ...
+                     EXTRACTORS, ...
+                     SAMPLE_SET_PATH, ...
+                     DATA_SET_PATH, ...
+                     crossValidator.crossValParts);
+    % Start logging
+    logger = logger.startExperiment();
+                        
     % For each test and training set
     for i = 1:crossValidator.k
-        disp([num2str(i) '/' num2str(crossValidator.k)]);
+        logger.info('runExperiment', ['Iteration ', num2str(i)]);
         % Load training set
         [trainLabelMap, trainFeatureCube] = ...
             crossValidator.getTrainingSet(i);
@@ -65,7 +75,7 @@ function confMat = runExperiment(configFilePath)
         
         % Train classifier
         CLASSIFIER.trainOn(trainFeatureCube, trainLabelMap);
-        disp('classifier trained');
+        logger.info('runExperiment', 'classifier trained');
         % Free RAM
         clear('trainLabelMap', 'trainFeatureCube');
         
@@ -89,8 +99,8 @@ function confMat = runExperiment(configFilePath)
         
         % Apply trained classifier
         classifiedLabelMap = ...
-            classifier.classifyOn(testFeatureCube, maskMap);
-        disp('testinstances classified');
+            CLASSIFIER.classifyOn(testFeatureCube, maskMap);
+        logger.info('runExperiment', 'test instances classified');
         
         % Visualize predicted labels
         if VISUALIZE_PREDICTED_LABELS
@@ -108,8 +118,13 @@ function confMat = runExperiment(configFilePath)
         
     end
     
+    % Stop logging
+    logger = logger.stopExperiment();
+    
     % Sum up all confusion matrices
     confMat = sum(confMat(2:end, 2:end, :), 3);
+    % Log confusion matrix
+    logger.logConfusionMatrix(confMat);
     
 end
 

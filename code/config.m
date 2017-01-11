@@ -82,14 +82,14 @@ continuumRemoval= @() ContinuumRemoval;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = ExampleClassifierConfig()
+CLASSIFIER = exampleClassifierConfig();
 
-EXTRACTORS = {mcldaConfig()}
+EXTRACTORS = {mcldaConfig()};
 
 DATA_SET_PATH = ...
-        '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/'
+        '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';
 SAMPLE_SET_PATH = ...
-  '../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat'
+ '../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations
