@@ -17,13 +17,18 @@ classdef TSVM < Classifier
     %    TSVM ....... Constructor. Can take Name, Value pair arguments that
     %                 change the multiclass strategy and the internal
     %                 parameters of the SVM. Possible arguments:
-    %        C1 ............. Misclassification penalty (labeled data).
-    %        C2 ............. Misclassification penalty (neutral data).
-    %        KernelFunction . Kernel function for the SVM.
-    %                         'linear'(default) | 'sigmoidal' | 'rbf' | 
-    %                         'polynomial'
-    %        Coding ......... Coding design for the multiclass model.
-    %                         'onevsone'(default) | 'onevsall'
+    %        C1 .............. Misclassification penalty (labeled data).
+    %        C2 .............. Misclassification penalty (neutral data).
+    %        KernelFunction .. Kernel function for the SVM.
+    %                          'linear'(default) | 'sigmoidal' | 'rbf' | 
+    %                          'polynomial'
+    %        PolynomialOrder . Positive integer specifying the degree of
+    %                          polynomial to be used for polynomial
+    %                          kernel. This parameter is used only if
+    %                          you set 'KernelFunction' to 'polynomial'.
+    %                          Default: 3
+    %        Coding .......... Coding design for the multiclass model.
+    %                          'onevsone'(default) | 'onevsall'
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
@@ -52,6 +57,7 @@ classdef TSVM < Classifier
             p.addParameter('C1', 10);
             p.addParameter('C2', 10);
             p.addParameter('KernelFunction', 'linear');
+            p.addParameter('PolynomialOrder', 3);
             p.addParameter('Coding', 'onevsone');
             
             % Parse input arguments
@@ -70,7 +76,8 @@ classdef TSVM < Classifier
                 case 'rbf'
                     obj.KernelFunction = kernel_gen_rbf;
                 case 'polynomial'
-                    obj.KernelFunction = kernel_gen_pol;
+                    obj.KernelFunction = kernel_gen_pol(...
+                        [0, p.Results.PolynomialOrder]);
                 otherwise
                     disp(['Unrecognized option for KernelFunction: '...
                           p.Results.KernelFunction]);

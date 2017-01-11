@@ -59,7 +59,7 @@ classdef RandomForest < Classifier
             predictedLabelList = obj.treeEnsemble.predict(featureList);
             
             % TreeBagger output is a cell array -> transform to matrix
-            predictedLabelList = cell2mat(predictedLabelList);
+            predictedLabelList = cellfun(@(x) str2num(x), predictedLabelList);
             
             % Rebuild map representation
             predictedLabelMap = rebuildMap(predictedLabelList, maskMap);

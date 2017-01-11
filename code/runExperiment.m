@@ -24,10 +24,16 @@ function confMat = runExperiment(configFilePath)
     % Author: Tilman Krokotsch
     %%
     
+    % Init random seed
+    rng('shuffle');
+    
     % Add the code directory and all subdirectories to path
     addpath(genpath('./'));
 
     % Read and execute config file
+    if nargin < 1
+        configFilePath = './config.m';
+    end
     run(configFilePath);
 
     % TODO: Check config validity
@@ -44,7 +50,7 @@ function confMat = runExperiment(configFilePath)
       
     % For each test and training set
     for i = 1:crossValidator.k
-        
+        disp([num2str(i) '/' num2str(crossValidator.k)]);
         % Load training set
         [trainLabelMap, trainFeatureCube] = ...
             crossValidator.getTrainingSet(i);
@@ -55,7 +61,7 @@ function confMat = runExperiment(configFilePath)
         
         % Train classifier
         classifier.trainOn(trainFeatureCube, trainLabelMap);
-        
+        disp('classifier trained');
         % Free RAM
         clear('trainLabelMap', 'trainFeatureCube');
         
@@ -74,12 +80,17 @@ function confMat = runExperiment(configFilePath)
         % Apply trained classifier
         classifiedLabelMap = ...
             classifier.classifyOn(testFeatureCube, maskMap);
+        disp('testinstances classified');
         
         % Calculate confusion matrix
         confMat(:, :, i) = confusionmat(...
             validListFromSpatial(testLabelMap, maskMap), ...
             validListFromSpatial(classifiedLabelMap, maskMap), ...
             'order', 0:17);
+        
+        % Free RAM
+        clear('testLabelMap', 'testFeatureCube');
+        
     end
     
     % Sum up all confusion matrices
