@@ -57,7 +57,8 @@ function confMat = runExperiment(configFilePath)
         
         % Apply feature extraction
         trainFeatureCube = ...
-            applyFeatureExtraction(trainFeatureCube, extractors);
+            applyFeatureExtraction(trainFeatureCube, extractors, ...
+                                   sampleSetPath);
         
         % Train classifier
         classifier.trainOn(trainFeatureCube, trainLabelMap);
@@ -71,7 +72,8 @@ function confMat = runExperiment(configFilePath)
         
          % Apply feature extraction
         testFeatureCube = ...
-            applyFeatureExtraction(testFeatureCube, extractors);
+            applyFeatureExtraction(testFeatureCube, extractors, ...
+                                   sampleSetPath);
         
         % Create mask map (only showing -1 and 0)
         maskMap = testLabelMap;
@@ -98,8 +100,10 @@ function confMat = runExperiment(configFilePath)
     
 end
 
-function featureCube = applyFeatureExtraction(featureCube, extractors)
+function featureCube = applyFeatureExtraction(featureCube, extractors, ...
+                                              sampleSetPath)
     for i = 1:size(extractors, 1)
-        featureCube = extractors{i}.extractFeatures(featureCube);
+        featureCube = extractors{i}.extractFeatures(featureCube, ...
+            sampleSetPath);
     end
 end

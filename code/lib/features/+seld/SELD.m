@@ -47,7 +47,7 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
     Xunlabeled=X(indunlabeled,:);
     
     % save memory
-    clear('X', 'Xmean', 'numlabeled', 'indlabeled', 'indunlabeled');
+    clear('Xmean', 'numlabeled', 'indlabeled', 'indunlabeled');
     
     XT=[Xlabeled;Xunlabeled];
     
