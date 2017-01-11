@@ -37,6 +37,7 @@ classdef SpatialReg < Classifier
     %                             property.
     %        doRegularization ... [Optional] Set the regularization
     %                             property.
+    %    toString ..... See documentation in superclass Classifier.
     %    trainOn ...... See documentation in superclass Classifier.
     %    classifyOn ... See documentation in superclass Classifier.
     %
@@ -48,17 +49,21 @@ classdef SpatialReg < Classifier
         % The internally used classifier
         classifier;
         
-        % Neighborhood information
+        % Neighborhood radius
         r = 5;
-        relativeNeighbors;
         
         % Enabled/Disabled processing steps
         doLabelPropagation = true;
         doRegularization = true;
     end
     
+    properties(Hidden=true)
+        % Cached neighborhood indices
+        relativeNeighbors;
+    end
+    
     methods
-        function obj = SpaReSSEnse(classifier, r, ...
+        function obj = SpatialReg(classifier, r, ...
                 doLabelPropagation, doRegularization)
             
             % Classifier to be used internally
@@ -77,6 +82,23 @@ classdef SpatialReg < Classifier
                 obj.doLabelPropagation = doLabelPropagation;
                 obj.doRegularization = doRegularization;
             end
+        end
+        
+        function str = toString(obj)
+            % Create output string with class name and classifier
+            str = ['SpatialReg (classifier: ' obj.classifier.toString()];
+            
+            % Append neighborhood radius
+            str = [str ', r: ' num2str(obj.r)];
+            
+            % Append processing steps
+            str = [str ', doLabelPropagation: ' ...
+                   num2str(obj.doLabelPropagation)];
+            str = [str ', doRegularization: ' ...
+                   num2str(obj.doRegularization)];
+            
+            % Close parentheses
+            str = [str ')'];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)

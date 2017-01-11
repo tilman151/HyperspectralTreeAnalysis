@@ -8,6 +8,7 @@ classdef VisualizingClassifier < Classifier
     %    debugging purposes!
     %
     %% Methods:
+    %    toString ..... See documentation in superclass Classifier.
     %    trainOn ...... See documentation in superclass Classifier.
     %    classifyOn ... See documentation in superclass Classifier.
     %
@@ -19,6 +20,10 @@ classdef VisualizingClassifier < Classifier
     end
     
     methods
+        function str = toString(obj)
+            str = 'VisualizingClassifier';
+        end
+        
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Display labels
             visualizeLabels(trainLabelMap, 'Training Labels');

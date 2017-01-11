@@ -29,6 +29,7 @@ classdef SVM < Classifier
     %                          'binarycomplete' | 'denserandom' | 
     %                          'onevsall' | 'ordinal' | 'sparserandom' | 
     %                          'ternarycomplete'.
+    %    toString ... See documentation in superclass Classifier.
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
@@ -42,7 +43,9 @@ classdef SVM < Classifier
         
         % Coding design
         coding;
-        
+    end
+    
+    properties(Hidden=true)
         % Trained model
         model;
     end
@@ -65,6 +68,24 @@ classdef SVM < Classifier
             
             % Save coding for the following training
             obj.coding = p.Results.Coding;
+        end
+        
+        function str = toString(obj)
+            % Create output string with class name and kernel function
+            kernel = obj.template.ModelParams.KernelFunction;
+            str = ['SVM (KernelFunction: ' kernel];
+            
+            % Append polynomial order if kernel is polynomial
+            if strcmp(kernel, 'polynomial')
+                order = obj.template.ModelParams.KernelPolynomialOrder;
+                str = [str ', PolynomialOrder: ' num2str(order)];
+            end
+            
+            % Append multiclass coding
+            str = [str ', Coding: ' obj.coding];
+            
+            % Close parentheses
+            str = [str ')'];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)

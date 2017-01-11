@@ -5,6 +5,7 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %    abstract methods.
     %
     %% Abstract Methods:
+    %    toString .... Return a string representation of the object.
     %    trainOn ..... Train a model on the given data and return it. The 
     %                  function should make sure to train a fresh model on 
     %                  each call.
@@ -26,6 +27,7 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %
     
     methods (Abstract)
+        str = toString(obj);
         obj = trainOn(obj, trainFeatureCube, trainLabelMap);
         predictedLabelMap = classifyOn(obj, evalFeatureCube, maskMap);
     end
