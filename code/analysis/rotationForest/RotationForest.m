@@ -12,7 +12,17 @@ classdef RotationForest < ExampleClassifier
     %    numTrees ..... The number of trees used in the ensemble
     %    treeEnsemble . The ensemble itself, which is a TreeBagger object
     %    splitParameter .... The number of feature subsets
-    
+    %% Methods
+    %    RotationForest .... Constructor with the possible arguments
+    %                        .. numTrees (number of trees)
+    %                        .. splitParameter (number of feature subsets)
+    %
+    %    trainOn .... See documentation in superclass Classifier.
+    %    classifyOn . See documentation in superclass Classifier.
+    %
+    % Version: 2017-01-11
+    % Author: Viola Hauffe
+    %
     properties
         %number of trees in the ensemble
         numTrees;
@@ -21,10 +31,10 @@ classdef RotationForest < ExampleClassifier
         treeEnsemble;
         
         %how many feature subsets are going to be created
-        splitParameter;
+        splitParam;
         
-        %additional specifications possible (eg. predicition of class
-        %values as input
+        %the amount of bootsstrapped elements taken from the dataset
+        bootstrapParam
     end
     
     methods
@@ -32,8 +42,8 @@ classdef RotationForest < ExampleClassifier
         function obj = RotationForest(numTrees,splitParameter)
             %specify how many trees should be learned
             obj.numTrees = numTrees;
-            obj.splitParameter = splitParameter;
-            
+            obj.splitParam = splitParameter;
+            obj.bootstrapParam = 0.75; %%default value
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
@@ -48,11 +58,11 @@ classdef RotationForest < ExampleClassifier
             end
             for l=1:obj.numTrees
                 %%% obtain the new samples by rotation forest %%%
-                K=obj.splitParameter;
-                [R_new,R_coeff]=RotationFal(featureList, labelList, K, 0.75);
+                K=obj.splitParam;
+                [R_new,~]=RotationFal(featureList, labelList, K,...
+                    obj.bootstrapParam);
                 %%%% obtain new samples %%%%
                 trainRFnew=featureList*R_new;
-                testRFnew=[]*R_new;
                 tc = fitctree(trainRFnew,labelList);
                 obj.treeEnsemble.append(tc);
                 

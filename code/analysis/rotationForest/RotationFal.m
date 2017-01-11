@@ -21,16 +21,14 @@ function [R_new,R_coeff]=RotationFal(featureList, labelList, K, Ratio)
 if (nargin<5 || nargin>6) %%adapt for other ensemble size
     help RotationFal
 else
-    [numtrn, num_feature]=size(featureList);
+    [~, num_feature]=size(featureList);
     M=floor(num_feature/K); %number of features sets
-    class=[];
     class=unique(labelList);
    
     [trainX_lie, index_lie_new]=array_lie(featureList);
     R_coeff=zeros(num_feature,num_feature);
-    trainX_subset=[];
     trainY=labelList;
-    index=[];
+    index=cell(length(class),1); %preallocate cell array
     for m=1:length(class)
         index{m,1}=find(trainY==class(m));
     end
@@ -48,22 +46,20 @@ else
         rateeliminate=0.08;
         [AsubX,AsubY]=randomsub([trainX_subset,trainY],rateeliminate);
         %%%% using bootstrap algorithm to obtain subset of samples (����bootstrap����) %%%%
-        [trainX_subset_new,trainY_new,indexselect]=bootstrapal(AsubX,AsubY,Ratio);
+        [trainX_subset_new,~,~]=bootstrapal(AsubX,AsubY,Ratio);
         %%%% using PCA to transform samples  %%%%
         Coeff=pcasky(trainX_subset_new); 
-        A_coeff{i,1}=Coeff; 
+        coeff = pca(trainX_subset_new);
         number3=number1+size(Coeff,2);
         R_coeff(number1+1:number2,number1+1:number3)=Coeff;
     end
     %%%% arrage R_coeff based on original feature (��R_coeff�������л��R_new) %%%%
-    [index_lie index_A]=sort(index_lie_new);
+    [~, index_A]=sort(index_lie_new);
     R_new1=R_coeff(:,index_A);
     R_new=[];
     for i=1:num_feature
         number_zero=length(find(R_new1(:,i)==0));
-        if (number_zero>=size(R_new1,1))
-            R_new=R_new;
-        else
+        if (number_zero<size(R_new1,1))
             R_new=[R_new R_new1(:,i)];    
         end
     end
