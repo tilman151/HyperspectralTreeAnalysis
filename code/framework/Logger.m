@@ -25,6 +25,12 @@ classdef Logger
             obj = localLogger;
         end
         
+        function obj = createLoggerSingleton()
+            persistent localLogger;
+            localLogger = Logger();
+            obj = localLogger;
+        end
+        
     end
     
     methods (Access = private)
