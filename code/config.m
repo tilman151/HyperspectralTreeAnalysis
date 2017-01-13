@@ -76,15 +76,15 @@ pca5Config = @() PCA(5);
 % MulticlassLda
 mcldaConfig = @() MulticlassLda;
 
-% ContinuumRemoval
-continuumRemoval= @() ContinuumRemoval;
+% ContinuumRemoval - Parameters: useMultithread
+continuumRemoval= @() ContinuumRemoval(true);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = randomForest20Config();
+CLASSIFIER = exampleClassifierConfig();
 
-EXTRACTORS = {seld85Config()};
+EXTRACTORS = {continuumRemoval()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';

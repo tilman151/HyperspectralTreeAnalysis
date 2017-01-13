@@ -3,8 +3,18 @@ classdef ContinuumRemoval < FeatureExtractor
     %
     %    ContinuumRemoval is a wrapper class for continuumRemoval
     %
+    %% Properties:
+    %    useMultithreading . flag to check if multithreaded implementation 
+    %                        should be used
+    %
     %% Methods:
     %    ContinuumRemoval. Constructor.
+    %                      useMultithreading . set to true to use a
+    %                                          multithreaded implementation
+    %    toString ........ See documentation in superclass
+    %                      FeatureExtractor.
+    %    toShortString ... See documentation in superclass
+    %                      FeatureExtractor.
     %    extractFeatures . See documentation in superclass
     %                      TransformationFeatureExtractor.
     %                      Returns (width x height x numDim) cube 
@@ -13,16 +23,36 @@ classdef ContinuumRemoval < FeatureExtractor
     %
     % Version: 2016-12-14
     % Author: Tuan Pham Minh
+    
+    properties
+        multithreaded;
+    end
 
     methods
-        function features = extractFeatures(obj, originalFeatures)
-            features = continuumRemoval(originalFeatures);
+        
+        function obj = ContinuumRemoval(useMultithread)
+            obj.multithreaded = useMultithread;
+        end
+        
+        function str = toString(obj)
+            str = 'ContinuumRemoval';
+        end
+        
+        function str = toShortString(obj)
+            str = obj.toString();
+        end
+        
+        function features = extractFeatures(obj, originalFeatures, ~)
+            tic;
+            features = ...
+                continuumRemoval(originalFeatures, obj.multithreaded);
+            toc;
         end
     end
     
 end
 
-function [ continuumRemoved ] = continuumRemoval( rawFeatures , classes)
+function continuumRemoved = continuumRemoval(rawFeatures, multithreaded)
 %CONTINUUM_REMOVAL remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
 %
@@ -38,6 +68,7 @@ function [ continuumRemoved ] = continuumRemoval( rawFeatures , classes)
 %    rawFeatures ...... a 3-dimensional matrix with the dimensions 
 %                       X x Y x Z, where X is the width, Y is the height
 %                       and Z is the number of features per pixel
+%    multithreaded .... set to true to use a multithreaded implementation
 %
 %% Output:
 %    continuumRemoved . a 3-dimensional matrix with the same size as
@@ -50,22 +81,33 @@ function [ continuumRemoved ] = continuumRemoval( rawFeatures , classes)
 
 % get the dimensions of the raw features
 [x,y,spectralBands] = size(rawFeatures);
-% transform the data into a 2-dimensional matrix, such that each pixel and
-% its spectral bands are represented by a row
+% transform the data into a 2-dimensional matrix, such that each pixel
+%  and its spectral bands are represented by a row
 reshapedFeatures = reshape(rawFeatures, x*y, spectralBands);
-% transform the 2-dimensional matrix into a cell-array, so cellfun can be
-% used to apply 'bandsToContinuumRemoved' to each row
-% bandsToContinuumRemoved removes the continuum from a single row vector
-continuumRemovedTranformed = ...
-                cellfun(@bandsToContinuumRemoved, ...
-                    num2cell(reshapedFeatures, 2), ...
-                    'UniformOutput', 0);
-% transform the 2-dimensional cell-array with its continuum removed into a
-% 3-dimensional matrix, where the structure is the same as in rawFeatures
-continuumRemoved = ...
-                reshape(cell2mat(continuumRemovedTranformed), ...
-                    x,y,spectralBands);
 
+continuumRemoved = zeros(size(reshapedFeatures));
+if multithreaded
+    parfor i = 1:(x*y)
+        continuumRemoved(i,:) = ...
+           bandsToContinuumRemoved(reshapedFeatures(i,:));
+    end
+    continuumRemoved = reshape(continuumRemoved, x, y, spectralBands);
+else
+    % transform the 2-dimensional matrix into a cell-array, so cellfun can
+    % be used to apply 'bandsToContinuumRemoved' to each row
+    % bandsToContinuumRemoved removes the continuum from a single 
+    % row vector
+    reshapedFeatures = ...
+                    cellfun(@bandsToContinuumRemoved, ...
+                        num2cell(reshapedFeatures, 2), ...
+                        'UniformOutput', 0);
+    % transform the 2-dimensional cell-array with its continuum removed 
+    % into a 3-dimensional matrix, where the structure is the same as in
+    % rawFeatures
+    continuumRemoved = ...
+                    reshape(cell2mat(reshapedFeatures), ...
+                        x,y,spectralBands);
+end
 end
 
 function [continuumRemoved] = bandsToContinuumRemoved(bands)
@@ -111,5 +153,6 @@ else
                     interpolatedX);
     % divide the real features by the value of the vconvex hull
     continuumRemoved = bands./interpolatedBands;
+    continuumRemoved(isinf(continuumRemoved)|isnan(continuumRemoved)) = 0;
 end
 end
