@@ -39,7 +39,7 @@ classdef Logger
     %       LOGFUNCS ............... Functions for different log levels of
     %                                log4m
     %
-    % Version: 2017-01-11
+    % Version: 2017-01-13
     % Author: Tilman Krokotsch
     %%
     
@@ -149,8 +149,8 @@ classdef Logger
             %%
             
             fid = fopen(obj.filePath, 'a');
-            fprintf(fid, 'Classifier:\t%s\n', class(classifier));
-            extractorList = cellfun(@class, extractors, ...
+            fprintf(fid, 'Classifier:\t%s\n', classifier.toString());
+            extractorList = cellfun(@toString, extractors, ...
                                     'UniformOutput', false);
             fprintf(fid, 'Extractors:\t%s\n', strjoin(extractorList, ', '));
             fprintf(fid, 'Sample Set:\t%s\n', samplePath);
