@@ -22,6 +22,8 @@ classdef Logger
     %                               creates it if not present
     %       CREATELOGGERSINGLETON . Forces the creation of the logger
     %                               singleton instance
+    %       CREATELOGPATH ......... Creates a path based on the given
+    %                               classifier and extractors
     %
     %% Methods Private
     %       LOGGER . Constructor of the Logger class. Creates log file and
@@ -33,7 +35,6 @@ classdef Logger
     %       STOPEXPERIMENT ......... Log stop of experiment and disable
     %                                action logging
     %       LOGCONFIG .............. Log configuration
-    %
     %       LOGCONFIGURATIONMATRIX . Log confusion matrix in log file and
     %                                separate CSV file
     %       LOGFUNCS ............... Functions for different log levels of
@@ -59,50 +60,80 @@ classdef Logger
     
     methods (Static)
        
-        function obj = getLogger()
+        function obj = getLogger(logPath)
             %GETLOGGER Return singleton instance of logger or create it of
             %          not existing
             %
+            %% Input
+            %   logPath . path to which logs are exported (optional)
             %% Output
             %   obj . logger instance
             %%
+            if nargin == 0
+               logPath = './';
+            end
             
             persistent localLogger;
             if isempty(localLogger)
-                localLogger = Logger();
+                localLogger = Logger(logPath);
             end
             obj = localLogger;
         end
         
-        function obj = createLoggerSingleton()
-            %CREATELOGGERSINGLETON Return singleton instance of logger or
+        function obj = createLoggerSingleton(logPath)
+            %CREATELOGGERSINGLETON Returns singleton instance of logger or
             %                      create it of not existing
             %
+            %% Input
+            %   logPath . path to which logs are exported
             %% Output
             %   obj . logger instance
             %%
             
             persistent localLogger;
-            localLogger = Logger();
+            localLogger = Logger(logPath);
             obj = localLogger;
+        end
+        
+        function logPath = createLogPath(resultsPath, classifier, ...
+            extractors)
+            %CREATELOGPATH Creates a path based on the given classifier and 
+            %              extractors
+            %
+            %% Input
+            %   resultsPath . path to which results are exported
+            %   classifier .. classifier instance of current run
+            %   extractors .. extractors cell array of current run
+            %% Output
+            %   logPath . path to which results of current run are exported
+            %%
+            logPath = fullfile(resultsPath, classifier.toShortString());
+            for i = 1 : length(extractors)
+                logPath = fullfile(logPath, extractors{1}.toShortString());
+            end
         end
         
     end
     
     methods (Access = private)
        
-        function obj = Logger()
+        function obj = Logger(logPath)
             %LOGGER Constructor of Logger class
             %       Initialize log file, log4m object and error. Return
             %       logger object
             %
+            %% Input
+            %   logPath . path to which logs are exported
             %% Output
             %   obj . logger instance
             %%
             
-            obj.filePath = ['./experiment_', ...
+            if ~exist(logPath, 'dir')
+                mkdir(logPath);
+            end
+            obj.filePath = fullfile(logPath, ['experiment_', ...
                             datestr(now, 'yyyymmdd_HHMM'), ...
-                            '_log.txt'];
+                            '_log.txt']);
             obj.logger = log4m(obj.filePath);
             obj.logging = false;
             obj.errorMessage = ...

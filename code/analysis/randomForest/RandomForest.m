@@ -11,10 +11,11 @@ classdef RandomForest < Classifier
     %    treeEnsemble . The ensemble itself, which is a TreeBagger object
     %
     %% Methods:
-    %    RandomForest . Initialise forest with given number of trees
-    %    toString ..... See documentation in superclass Classifier.
-    %    trainOn ...... See documentation in superclass Classifier. 
-    %    classifyOn ... See documentation in superclass Classifier.
+    %    RandomForest .. Initialise forest with given number of trees
+    %    toString ...... See documentation in superclass Classifier.
+    %    toShortString . See documentation in superclass Classifier.
+    %    trainOn ....... See documentation in superclass Classifier. 
+    %    classifyOn .... See documentation in superclass Classifier.
     %
     % Version: 2017-01-13
     % Author: Viola Hauffe
@@ -39,7 +40,11 @@ classdef RandomForest < Classifier
         end
         
         function str = toString(obj)
-           str = ['RandomForest (numTrees: ' obj.numTrees ')'];  
+           str = ['RandomForest (numTrees: ' int2str(obj.numTrees) ')'];  
+        end
+        
+        function str = toShortString(obj)
+            str = ['RandomForest_' int2str(obj.numTrees)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)

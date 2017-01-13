@@ -6,7 +6,7 @@
 exampleClassifierConfig = @ExampleClassifier;
 
 % Random Forest - Parameters: numTrees
-randomForest100Config = @() RandomForest(100);
+randomForest20Config = @() RandomForest(20);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
 rotationForest56Config = @() RotationForest(5,6);
@@ -82,14 +82,16 @@ continuumRemoval= @() ContinuumRemoval;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = exampleClassifierConfig();
+CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {mcldaConfig()};
+EXTRACTORS = {seld85Config()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';
 SAMPLE_SET_PATH = ...
  '../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat';
+
+RESULTS_PATH = '../results/';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations

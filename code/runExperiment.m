@@ -46,7 +46,8 @@ function runExperiment(configFilePath)
     confMat = zeros(18, 18, crossValidator.k);
     
     % Create logger singleton
-    logger = Logger.createLoggerSingleton();
+    logPath = Logger.createLogPath(RESULTS_PATH, CLASSIFIER, EXTRACTORS);
+    logger = Logger.createLoggerSingleton(logPath);
     % Log configuration
     logger.logConfig(CLASSIFIER, ...
                      EXTRACTORS, ...
