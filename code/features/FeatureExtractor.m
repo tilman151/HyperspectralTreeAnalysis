@@ -4,15 +4,17 @@ classdef FeatureExtractor
     %   Each feature extractor should inherit this class.
     %
     %% Abstract Methods:
-    %   extractFeatures . loads or (in case it does not exsit yet) 
+    %   toString ........ returns a string representation of the object
+    %   extractFeatures . loads or (in case it does not exist yet) 
     %                     calculates the transformation matrix and applies
     %                     it to the original features
     %
-    % Version: 2016-12-09
+    % Version: 2017-01-13
     % Author: Marianne Stecklina
     %
     
     methods (Abstract)
+        str = toString(obj)
         features = extractFeatures(obj, originalFeatures, sampleSetPath)
     end
     

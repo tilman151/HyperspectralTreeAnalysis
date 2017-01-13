@@ -14,6 +14,8 @@ classdef SELD < TransformationFeatureExtractor
     %    SELD ....... Constructor. Internally saves the parameters.
     %                 k ...... See properties.
     %                 numDim . See properties.
+    %    toString .................. See documentation in superclass
+    %                                FeatureExtractor.
     %    calculateTransformation ... See documentation in superclass
     %                                TransformationFeatureExtractor.
     %    applyTransformation ....... See documentation in superclass
@@ -21,12 +23,12 @@ classdef SELD < TransformationFeatureExtractor
     %    getTransformationFilename . See documentation in superclass
     %                                TransformationFeatureExtractor.
     %    extractFeatures ........... See documentation in superclass
-    %                                TransformationFeatureExtractor.
+    %                                FeatureExtractor.
     %                                Returns (width x height x numDim) cube 
     %                                with the extracted features of the  
     %                                (weight x height) input instances.
     %
-    % Version: 2016-12-12
+    % Version: 2017-01-13
     % Author: Marianne Stecklina
     %
     
@@ -39,6 +41,11 @@ classdef SELD < TransformationFeatureExtractor
         function obj = SELD(k, numDim)
            obj.k = k; 
            obj.numDim = numDim;
+        end
+        
+        function str = toString(obj)
+            str = ['SELD (k: ' int2str(obj.k) ', numDim: ' ...
+                int2str(obj.numDim) ')'];
         end
         
         function transformationMatrix = calculateTransformation(obj, sampleSet)
