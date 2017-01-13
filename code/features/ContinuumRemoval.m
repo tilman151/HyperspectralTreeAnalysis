@@ -43,10 +43,8 @@ classdef ContinuumRemoval < FeatureExtractor
         end
         
         function features = extractFeatures(obj, originalFeatures, ~)
-            tic;
             features = ...
                 continuumRemoval(originalFeatures, obj.multithreaded);
-            toc;
         end
     end
     
