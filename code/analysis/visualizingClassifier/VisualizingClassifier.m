@@ -8,9 +8,10 @@ classdef VisualizingClassifier < Classifier
     %    debugging purposes!
     %
     %% Methods:
-    %    toString ..... See documentation in superclass Classifier.
-    %    trainOn ...... See documentation in superclass Classifier.
-    %    classifyOn ... See documentation in superclass Classifier.
+    %    toString ...... See documentation in superclass Classifier.
+    %    toShortString . See documentation in superclass Classifier.
+    %    trainOn ....... See documentation in superclass Classifier.
+    %    classifyOn .... See documentation in superclass Classifier.
     %
     % Version: 2017-01-09
     % Author: Cornelius Styp von Rekowski
@@ -21,6 +22,10 @@ classdef VisualizingClassifier < Classifier
     
     methods
         function str = toString(obj)
+            str = 'VisualizingClassifier';
+        end
+        
+        function str = toShortString(obj)
             str = 'VisualizingClassifier';
         end
         

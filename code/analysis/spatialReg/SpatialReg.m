@@ -30,16 +30,17 @@ classdef SpatialReg < Classifier
     %                         step.
     %
     %% Methods:
-    %    SpatialReg ... Constructor. Can take up to four input arguments:
+    %    SpatialReg .... Constructor. Can take up to four input arguments:
     %        classifier ......... Set the classifier property.
     %        r .................. [Optional] Set the radius property.
     %        doLabelPropagation . [Optional] Set the label propagation
     %                             property.
     %        doRegularization ... [Optional] Set the regularization
     %                             property.
-    %    toString ..... See documentation in superclass Classifier.
-    %    trainOn ...... See documentation in superclass Classifier.
-    %    classifyOn ... See documentation in superclass Classifier.
+    %    toString ...... See documentation in superclass Classifier.
+    %    toShortString . See documentation in superclass Classifier.
+    %    trainOn ....... See documentation in superclass Classifier.
+    %    classifyOn .... See documentation in superclass Classifier.
     %
     % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
@@ -99,6 +100,22 @@ classdef SpatialReg < Classifier
             
             % Close parentheses
             str = [str ')'];
+        end
+        
+        function str = toShortString(obj)
+            % Create output string with classifier representation
+            str = [obj.classifier.toShortString() '_'];
+            
+            % Append processing steps
+            if obj.doLabelPropagation
+                str = [str '_labelPropagation'];
+            end
+            if obj.doRegularization
+                str = [str '_regularization'];
+            end
+            
+            % Append neighborhood radius
+            str = [str '_r' num2str(obj.r)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)

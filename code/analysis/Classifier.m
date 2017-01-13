@@ -5,10 +5,13 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %    abstract methods.
     %
     %% Abstract Methods:
-    %    toString .... Return a string representation of the object.
-    %    trainOn ..... Train a model on the given data and return it. The 
-    %                  function should make sure to train a fresh model on 
-    %                  each call.
+    %    toString ...... Return a string representation of the object.
+    %    toShortString . Return a short string representation without
+    %                    special characters that can for example be used as
+    %                    a directory name.
+    %    trainOn ....... Train a model on the given data and return it. The 
+    %                    function should make sure to train a fresh model 
+    %                    on each call.
     %        trainFeatureCube ... Feature cube of dimensions X x Y x F with
     %                             X and Y being the image dimensions and F
     %                             being the number of features.
@@ -28,6 +31,7 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     
     methods (Abstract)
         str = toString(obj);
+        str = toShortString(obj);
         obj = trainOn(obj, trainFeatureCube, trainLabelMap);
         predictedLabelMap = classifyOn(obj, evalFeatureCube, maskMap);
     end

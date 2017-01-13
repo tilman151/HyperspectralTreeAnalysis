@@ -19,9 +19,10 @@ classdef TSVM < Classifier
     %    SA .............. Support vector alphas (Lagrange multipliers).
     %
     %% Methods:
-    %    TSVM ....... Constructor. Can take Name, Value pair arguments that
-    %                 change the multiclass strategy and the internal
-    %                 parameters of the SVM. Possible arguments:
+    %    TSVM .......... Constructor. Can take Name, Value pair arguments 
+    %                    that change the multiclass strategy and the 
+    %                    internal parameters of the SVM. 
+    %                    Possible arguments:
     %        C1 .............. Misclassification penalty (labeled data).
     %        C2 .............. Misclassification penalty (neutral data).
     %        KernelFunction .. Kernel function for the SVM.
@@ -34,9 +35,10 @@ classdef TSVM < Classifier
     %                          Default: 3
     %        Coding .......... Coding design for the multiclass model.
     %                          'onevsone'(default) | 'onevsall'
-    %    toString ... See documentation in superclass Classifier.
-    %    trainOn .... See documentation in superclass Classifier.
-    %    classifyOn . See documentation in superclass Classifier.
+    %    toString ...... See documentation in superclass Classifier.
+    %    toShortString . See documentation in superclass Classifier.
+    %    trainOn ....... See documentation in superclass Classifier.
+    %    classifyOn .... See documentation in superclass Classifier.
     %
     % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
@@ -135,6 +137,22 @@ classdef TSVM < Classifier
             
             % Close parentheses
             str = [str ')'];
+        end
+        
+        function str = toShortString(obj)
+            % Create output string with class name and kernel function
+            str = ['tSVM_' obj.KernelName];
+            
+            % Append polynomial order if kernel is polynomial
+            if obj.PolynomialOrder
+                str = [str num2str(obj.PolynomialOrder)];
+            end
+            
+            % Append misclassification penalties
+            str = [str '_C1-' num2str(obj.C1) '_C2-' num2str(obj.C2)];
+            
+            % Append multiclass coding
+            str = [str '_' obj.Coding];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)

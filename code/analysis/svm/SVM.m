@@ -12,9 +12,10 @@ classdef SVM < Classifier
     %    model ...... Trained model.
     %
     %% Methods:
-    %    SVM ........ Constructor. Can take Name, Value pair arguments that
-    %                 change the multiclass strategy and the internal
-    %                 parameters of the SVM. Possible arguments:
+    %    SVM ........... Constructor. Can take Name, Value pair arguments 
+    %                    that change the multiclass strategy and the 
+    %                    internal parameters of the SVM. 
+    %                    Possible arguments:
     %        KernelFunction .. Kernel function for the SVM.
     %                          'linear'(default) | 'gaussian' | 'rbf' | 
     %                          'polynomial'
@@ -29,9 +30,10 @@ classdef SVM < Classifier
     %                          'binarycomplete' | 'denserandom' | 
     %                          'onevsall' | 'ordinal' | 'sparserandom' | 
     %                          'ternarycomplete'.
-    %    toString ... See documentation in superclass Classifier.
-    %    trainOn .... See documentation in superclass Classifier.
-    %    classifyOn . See documentation in superclass Classifier.
+    %    toString ...... See documentation in superclass Classifier.
+    %    toShortString . See documentation in superclass Classifier.
+    %    trainOn ....... See documentation in superclass Classifier.
+    %    classifyOn .... See documentation in superclass Classifier.
     %
     % Version: 2016-12-22
     % Author: Cornelius Styp von Rekowski
@@ -86,6 +88,21 @@ classdef SVM < Classifier
             
             % Close parentheses
             str = [str ')'];
+        end
+        
+        function str = toShortString(obj)
+            % Create output string with class name and kernel function
+            kernel = obj.template.ModelParams.KernelFunction;
+            str = ['SVM_' kernel];
+            
+            % Append polynomial order if kernel is polynomial
+            if strcmp(kernel, 'polynomial')
+                order = obj.template.ModelParams.KernelPolynomialOrder;
+                str = [str num2str(order)];
+            end
+            
+            % Append multiclass coding
+            str = [str '_' obj.coding];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)

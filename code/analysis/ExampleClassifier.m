@@ -13,6 +13,10 @@ classdef ExampleClassifier < Classifier
             str = 'ExampleClassifier';
         end
         
+        function str = toShortString(obj)
+            str = 'ExampleClassifier';
+        end
+        
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Extract valid pixels from the given data to lists
             obj.trainFeatureList = ...
