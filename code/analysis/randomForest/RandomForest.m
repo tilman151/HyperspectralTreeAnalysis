@@ -12,10 +12,11 @@ classdef RandomForest < Classifier
     %
     %% Methods:
     %    RandomForest . Initialise forest with given number of trees
+    %    toString ..... See documentation in superclass Classifier.
     %    trainOn ...... See documentation in superclass Classifier. 
     %    classifyOn ... See documentation in superclass Classifier.
     %
-    % Version: 2016-12-22
+    % Version: 2017-01-13
     % Author: Viola Hauffe
     %
  
@@ -35,6 +36,10 @@ classdef RandomForest < Classifier
         function obj = RandomForest(numTrees)
             % Specify how many trees should be learned
             obj.numTrees = numTrees;
+        end
+        
+        function str = toString(obj)
+           str = ['RandomForest (numTrees: ' obj.numTrees ')'];  
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
