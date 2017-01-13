@@ -12,6 +12,8 @@ classdef PCA < TransformationFeatureExtractor
     %                 numDim . See properties.
     %    toString .................. See documentation in superclass
     %                                FeatureExtractor.
+    %    toShortString ............. See documentation in superclass
+    %                                FeatureExtractor.
     %    calculateTransformation ... See documentation in superclass
     %                                TransformationFeatureExtractor.
     %    applyTransformation ....... See documentation in superclass
@@ -39,6 +41,10 @@ classdef PCA < TransformationFeatureExtractor
         
         function str = toString(obj)
             str = ['PCA (numDim: ' int2str(obj.numDim) ')'];
+        end
+        
+        function str = toShortString(obj)
+            str = ['PCA_' int2str(obj.numDim)];
         end
         
         function transformationMatrix = calculateTransformation(obj, ...

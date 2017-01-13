@@ -16,6 +16,8 @@ classdef SELD < TransformationFeatureExtractor
     %                 numDim . See properties.
     %    toString .................. See documentation in superclass
     %                                FeatureExtractor.
+    %    toShortString ............. See documentation in superclass
+    %                                FeatureExtractor.
     %    calculateTransformation ... See documentation in superclass
     %                                TransformationFeatureExtractor.
     %    applyTransformation ....... See documentation in superclass
@@ -48,6 +50,10 @@ classdef SELD < TransformationFeatureExtractor
                 int2str(obj.numDim) ')'];
         end
         
+        function str = toShortString(obj)
+            str = ['SELD_' int2str(obj.k) '_' int2str(obj.numDim)];
+        end
+        
         function transformationMatrix = calculateTransformation(obj, sampleSet)
             allFeatures = [sampleSet.features; sampleSet.unlabeledFeatures];
             zeroLabels  = zeros(size(sampleSet.labels));
@@ -68,7 +74,7 @@ classdef SELD < TransformationFeatureExtractor
         end
         
         function name = getTransformationFilename(obj)
-            name = ['SELD_' int2str(obj.numDim) '_' int2str(obj.k) '.mat'];  
+            name = [obj.toShortString '.mat'];  
         end
     end
     
