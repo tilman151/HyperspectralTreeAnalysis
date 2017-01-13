@@ -9,6 +9,10 @@ classdef MulticlassLda < TransformationFeatureExtractor
     %
     %% Methods:
     %    MulticlassLda ............. Constructor. 
+    %    toString .................. See documentation in superclass
+    %                                FeatureExtractor.
+    %    toShortString ............. See documentation in superclass
+    %                                FeatureExtractor.
     %    calculateTransformation ... See documentation in superclass
     %                                TransformationFeatureExtractor.
     %    applyTransformation ....... See documentation in superclass
@@ -31,6 +35,14 @@ classdef MulticlassLda < TransformationFeatureExtractor
                 sampleSet)
             [~, transformationMatrix] = ...
                 multiclassLda(sampleSet.features, sampleSet.labels);
+        end
+        
+        function str = toString(obj)
+            str = 'MulticlassLda';
+        end
+        
+        function str = toShortString(obj)
+            str = obj.toString();
         end
         
         function features = applyTransformation(obj, originalFeatures, ...
