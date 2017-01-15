@@ -30,15 +30,15 @@ classdef Logger
     %                log4m object
     %
     %% Methods Public
-    %       STARTEXPERIMENT ........ Log start of experiment and enable
-    %                                action logging
-    %       STOPEXPERIMENT ......... Log stop of experiment and disable
-    %                                action logging
-    %       LOGCONFIG .............. Log configuration
-    %       LOGCONFIGURATIONMATRIX . Log confusion matrix in log file and
-    %                                separate CSV file
-    %       LOGFUNCS ............... Functions for different log levels of
-    %                                log4m
+    %       STARTEXPERIMENT .... Log start of experiment and enable action
+    %                            logging
+    %       STOPEXPERIMENT ..... Log stop of experiment and disable action
+    %                            logging
+    %       LOGCONFIG .......... Log configuration
+    %       LOGCONFUSIONMATRIX . Log confusion matrix in log file and
+    %                            separate CSV file
+    %       LOGFUNCS ........... Functions for different log levels of 
+    %                            log4m
     %
     % Version: 2017-01-13
     % Author: Tilman Krokotsch
@@ -81,8 +81,7 @@ classdef Logger
         end
         
         function obj = createLoggerSingleton(logPath)
-            %CREATELOGGERSINGLETON Returns singleton instance of logger or
-            %                      create it of not existing
+            %CREATELOGGERSINGLETON Create a new singleton logger instance
             %
             %% Input
             %   logPath . path to which logs are exported
@@ -216,24 +215,24 @@ classdef Logger
             if obj.logging
                 obj.logger.trace(funcName, message);
             else
-                error(obj.errorStruct);
+                error(obj.errorMessage);
             end
         end
         
         function debug(obj, funcName, message)
-            %TRACE Log on level debug
+            %DEBUG Log on level debug
             %%
             
             if obj.logging
                 obj.logger.debug(funcName, message);
             else
-                error(obj.errorStruct);
+                error(obj.errorMessage);
             end
         end
         
  
         function info(obj, funcName, message)
-            %TRACE Log on level info
+            %INFO Log on level info
             %%
             
             if obj.logging
@@ -245,7 +244,7 @@ classdef Logger
         
 
         function warn(obj, funcName, message)
-            %TRACE Log on level warn
+            %WARN Log on level warn
             %%
             
             if obj.logging
@@ -257,7 +256,7 @@ classdef Logger
         
 
         function error(obj, funcName, message)
-            %TRACE Log on level error
+            %ERROR Log on level error
             %%
             
             if obj.logging
@@ -269,7 +268,7 @@ classdef Logger
         
 
         function fatal(obj, funcName, message)
-            %TRACE Log on level fatal
+            %FATAL Log on level fatal
             %%
             
             if obj.logging
