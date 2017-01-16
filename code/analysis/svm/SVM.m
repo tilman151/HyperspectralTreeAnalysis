@@ -57,7 +57,7 @@ classdef SVM < Classifier
             % Create input parser
             p = inputParser;
             p.addParameter('KernelFunction', 'linear');
-            p.addParameter('PolynomialOrder', 3);
+            p.addParameter('PolynomialOrder', []);
             p.addParameter('Coding', 'onevsone');
             
             % Parse input arguments
