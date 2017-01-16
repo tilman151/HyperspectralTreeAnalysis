@@ -126,7 +126,7 @@ classdef SpatialReg < Classifier
                 
                 % Display clustered map
                 visualizeLabels(clusterIdxMap, 'Clusters')
-                
+                disp('Propagating labels..');
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
                 trainLabelMap = propagateLabels(...
@@ -192,6 +192,9 @@ end
 function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
     relativeNeighbors)
     
+    % Calculate separate image masks regarding -1 columns
+    separateImagesMask = calculateImageBoundaryMask(labelMap);
+    
     % Create map for counting neighboring labels
     labelCounts = initLabelCounts(labelMap);
     
@@ -207,8 +210,12 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
         neighbors = getValidNeighborIdxs(...
             relativeNeighbors, labeledX, labeledY, labelMap);
         
+        % Mask everything but the image that the current pixel belongs to
+        maskedClusterMap = applySeparateImagesMask(...
+            clusterIdxMap, separateImagesMask, labeledY);
+        
         % Get neighbor clusters
-        neighborClusters = clusterIdxMap(neighbors);
+        neighborClusters = maskedClusterMap(neighbors);
         
         % Check for matching cluster assignment
         matchingNeighbors = neighbors(neighborClusters == labeledCluster);
@@ -235,7 +242,24 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
     end
 end
 
+function separateImagesMask = calculateImageBoundaryMask(labelMap)
+    dividingColumns = all(labelMap == -1, 1);
+    imageIdxs = cumsum(dividingColumns);
+    separateImagesMask = repmat(imageIdxs, [size(labelMap, 1) 1]);
+end
+
+function maskedMap = ...
+    applySeparateImagesMask(inputMap, separateImagesMask, curColumn)
+    
+    otherImgsMask = separateImagesMask ~= separateImagesMask(1, curColumn);
+    maskedMap = inputMap;
+    maskedMap(otherImgsMask) = -1;
+end
+
 function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
+    % Calculate separate image masks regarding -1 columns
+    separateImagesMask = calculateImageBoundaryMask(labelMap);
+    
     % Create map for counting neighboring labels
     [labelCounts, maxLabel] = initLabelCounts(labelMap);
     
@@ -248,8 +272,12 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
         neighbors = ...
             getValidNeighborIdxs(relativeNeighbors, x, y, labelMap);
         
+        % Mask everything but the image that the current pixel belongs to
+        maskedLabelMap = applySeparateImagesMask(...
+            labelMap, separateImagesMask, y);
+        
         % Get neighbor labels
-        neighborLabels = labelMap(neighbors);
+        neighborLabels = maskedLabelMap(neighbors);
         
         % Count occurences of labels in neighborhood (ignoring unlabeled
         % and fill pixels)
