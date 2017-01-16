@@ -83,8 +83,8 @@ function continuumRemoved = continuumRemoval(rawFeatures, multithreaded)
 %  and its spectral bands are represented by a row
 reshapedFeatures = reshape(rawFeatures, x*y, spectralBands);
 
-continuumRemoved = zeros(size(reshapedFeatures));
 if multithreaded
+    continuumRemoved = zeros(size(reshapedFeatures));
     parfor i = 1:(x*y)
         continuumRemoved(i,:) = ...
            bandsToContinuumRemoved(reshapedFeatures(i,:));
@@ -102,9 +102,9 @@ else
     % transform the 2-dimensional cell-array with its continuum removed 
     % into a 3-dimensional matrix, where the structure is the same as in
     % rawFeatures
+    reshapedFeatures = cell2mat(reshapedFeatures);
     continuumRemoved = ...
-                    reshape(cell2mat(reshapedFeatures), ...
-                        x,y,spectralBands);
+                    reshape(reshapedFeatures,x,y,spectralBands);
 end
 end
 

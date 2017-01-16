@@ -1,0 +1,76 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	RandomForest (numTrees: 20)
+Extractors:	
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/
+CrossValParts:
+0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0
+1	1	1	1	1	1	1	25	25	1
+24	20	17	19	20	21	19	21	22	19
+2	3	3	3	2	2	2	3	2	2
+0	0	0	0	0	0	0	0	0	0
+6	7	9	10	5	23	10	8	8	8
+11	12	12	18	18	12	12	18	12	12
+0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0
+16	16	15	15	15	13	14	14	13	16
+4	4	4	4	4	4	26	4	4	26
+0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0
+--------------------------------------------
+Started: 15-Jan-2017 12:57:25
+2017-01-15 12:57:25,567 INFO runExperiment - Iteration 1
+2017-01-15 12:58:31,738 INFO runExperiment - classifier trained
+2017-01-15 12:59:07,655 INFO runExperiment - test instances classified
+2017-01-15 12:59:07,899 INFO runExperiment - Iteration 2
+2017-01-15 13:00:14,568 INFO runExperiment - classifier trained
+2017-01-15 13:00:41,026 INFO runExperiment - test instances classified
+2017-01-15 13:00:41,230 INFO runExperiment - Iteration 3
+2017-01-15 13:01:44,465 INFO runExperiment - classifier trained
+2017-01-15 13:02:27,198 INFO runExperiment - test instances classified
+2017-01-15 13:02:27,494 INFO runExperiment - Iteration 4
+2017-01-15 13:03:34,249 INFO runExperiment - classifier trained
+2017-01-15 13:04:20,972 INFO runExperiment - test instances classified
+2017-01-15 13:04:21,286 INFO runExperiment - Iteration 5
+2017-01-15 13:05:22,217 INFO runExperiment - classifier trained
+2017-01-15 13:06:02,834 INFO runExperiment - test instances classified
+2017-01-15 13:06:03,123 INFO runExperiment - Iteration 6
+2017-01-15 13:07:09,745 INFO runExperiment - classifier trained
+2017-01-15 13:07:50,296 INFO runExperiment - test instances classified
+2017-01-15 13:07:50,584 INFO runExperiment - Iteration 7
+2017-01-15 13:09:00,421 INFO runExperiment - classifier trained
+2017-01-15 13:09:44,138 INFO runExperiment - test instances classified
+2017-01-15 13:09:44,439 INFO runExperiment - Iteration 8
+2017-01-15 13:10:48,348 INFO runExperiment - classifier trained
+2017-01-15 13:11:33,868 INFO runExperiment - test instances classified
+2017-01-15 13:11:34,185 INFO runExperiment - Iteration 9
+2017-01-15 13:12:38,060 INFO runExperiment - classifier trained
+2017-01-15 13:13:24,021 INFO runExperiment - test instances classified
+2017-01-15 13:13:24,334 INFO runExperiment - Iteration 10
+2017-01-15 13:14:33,919 INFO runExperiment - classifier trained
+2017-01-15 13:15:08,481 INFO runExperiment - test instances classified
+Stopped: 15-Jan-2017 13:15:08
+--------------------------------------------
+Confusion Matrix:
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	704	2605	1173	0	1601	9304	0	0	9677	1886	0	0	0	0
+0	0	0	1076	2.345e+05	2826	0	998	25454	0	0	1.1912e+05	9312	0	0	0	0
+0	0	0	1381	8328	42019	0	59106	64455	0	0	7531	188	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	2903	3245	49857	0	77431	34314	0	0	5242	31	0	0	0	0
+0	0	0	869	6600	9530	0	11064	2.7455e+05	0	0	3958	68	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	869	30594	2190	0	3082	7896	0	0	1.6855e+05	4036	0	0	0	0
+0	0	0	373	10411	71	0	107	154	0	0	22422	13202	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
