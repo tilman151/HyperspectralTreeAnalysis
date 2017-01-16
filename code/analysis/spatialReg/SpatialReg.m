@@ -131,6 +131,9 @@ classdef SpatialReg < Classifier
                 % clusters
                 trainLabelMap = propagateLabels(...
                     trainLabelMap, clusterIdxMap, obj.relativeNeighbors);
+                
+                % Display enriched label map
+                visualizeLabels(trainLabelMap, 'Enriched Training Labels')
             end
             
             % Train classifier on (enriched) data set
@@ -145,6 +148,10 @@ classdef SpatialReg < Classifier
                 obj.classifier.classifyOn(evalFeatureCube, maskMap);
             
             if obj.doRegularization
+                % Display result before regularization
+                visualizeLabels(predictedLabelMap, ...
+                    'Predicted labels before regularization')
+                
                 % Regularize output labels based on spatial smoothness
                 predictedLabelMap = ...
                     regularize(predictedLabelMap, obj.relativeNeighbors);
@@ -176,7 +183,7 @@ function clusterIdxMap = clustering(featureCube, labelMap)
     k = numel(unique(labelList));
     
     % Perform clustering
-    clusterIdxList = kmeans(featureList, k);
+    clusterIdxList = kmeans(featureList, k, 'MaxIter', 1000);
     
     % Reshape resulting cluster indices to map representation
     clusterIdxMap = rebuildMap(clusterIdxList, labelMap);
@@ -190,7 +197,7 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
     
     % Propagate labels from all labeled pixels
     for labeledIdx = find(labelMap > 0)'
-        [labeledX, labeledY] = ind2sub(mapSize, labeledIdx);
+        [labeledX, labeledY] = ind2sub(size(labelMap), labeledIdx);
         
         % Get assigned cluster and label
         labeledCluster = clusterIdxMap(labeledIdx);
@@ -208,7 +215,7 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
         
         % Get subscripts
         [matchingNeighborsX, matchingNeighborsY] = ...
-            ind2sub(mapSize, matchingNeighbors);
+            ind2sub(size(labelMap), matchingNeighbors);
         
         % Get label count indices
         labelVector = ones(length(matchingNeighborsX), 1) * label;
@@ -230,7 +237,7 @@ end
 
 function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     % Create map for counting neighboring labels
-    labelCounts = initLabelCounts(labelMap);
+    [labelCounts, maxLabel] = initLabelCounts(labelMap);
     
     % For each pixel that is not a fill pixel, count all labels occuring in
     % the neighborhood
@@ -258,10 +265,10 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     end
 end
 
-function labelCounts = initLabelCounts(labelMap)
+function [labelCounts, maxLabel] = initLabelCounts(labelMap)
     % Create map for counting neighboring labels
     [maxX, maxY] = size(labelMap);
-    maxLabel = max(max(labelMap));
+    maxLabel = max(labelMap(:));
     labelCounts = zeros(maxX, maxY, maxLabel);
 end
 
