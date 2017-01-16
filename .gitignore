@@ -2,11 +2,8 @@ data/
 literature/
 
 *.dia
-*.png
 *.m~
-*.txt
 *.orig
-*.csv
 *.asv
 
 
