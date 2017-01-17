@@ -161,7 +161,8 @@ classdef SpatialReg < Classifier
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
                 trainLabelMap = propagateLabels(...
-                    trainLabelMap, clusterIdxMap, obj.relativeNeighbors);
+                    trainLabelMap, clusterIdxMap, obj.relativeNeighbors,...
+                    obj.propagationThreshold);
                 
                 % Display enriched label map
                 if obj.visualizeSteps
@@ -226,7 +227,7 @@ function clusterIdxMap = clustering(featureCube, labelMap)
 end
 
 function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
-    relativeNeighbors)
+    relativeNeighbors, propagationThreshold)
     
     % Calculate separate image masks regarding -1 columns
     separateImagesMask = calculateImageBoundaryMask(labelMap);
@@ -269,12 +270,16 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
         labelCounts(labelCountIdxs) = labelCounts(labelCountIdxs) + 1;
     end
     
+    % Calculate number of neighbors needed for propagation
+    minNeighbors = propagationThreshold * length(relativeNeighbors);
+    
     % For each unlabeled pixel, assign the label with the highest count
     % received from the neighborhood
     enrichedLabelMap = labelMap;
     for unlabeledIdx = find(labelMap == 0)'
         enrichedLabelMap = setMaxLabel(...
-            labelCounts, labelMap, unlabeledIdx, enrichedLabelMap);
+            labelCounts, labelMap, unlabeledIdx, enrichedLabelMap, ...
+            minNeighbors);
     end
 end
 
@@ -325,7 +330,7 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     regularizedLabelMap = labelMap;
     for curIdx = find(labelMap > -1)'
         regularizedLabelMap = setMaxLabel(...
-            labelCounts, labelMap, curIdx, regularizedLabelMap);
+            labelCounts, labelMap, curIdx, regularizedLabelMap, 0);
     end
 end
 
@@ -353,10 +358,12 @@ function neighbors = getValidNeighborIdxs(relativeNeighbors, x, y, ...
     neighbors = sub2ind(size(labelMap), neighbors(:, 1), neighbors(:, 2));
 end
 
-function newMap = setMaxLabel(labelCounts, labelMap, curIdx, newMap)
+function newMap = setMaxLabel(labelCounts, labelMap, curIdx, newMap, ...
+    minNeighbors)
+    
     [x, y] = ind2sub(size(labelMap), curIdx);
     [count, label] = max(labelCounts(x, y, :));
-    if count > 0
+    if count > minNeighbors
         newMap(curIdx) = label;
     end
 end
