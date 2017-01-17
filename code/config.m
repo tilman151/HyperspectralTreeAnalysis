@@ -14,11 +14,15 @@ rotationForest56Config = @() RotationForest(5,6);
 % SVM - Parameters: KernelFunction, PolynomialOrder, Coding
 svmLinearConfig = @() SVM(...
     'KernelFunction', 'linear', ...
-    'Coding', 'onevsone');
-svmPolynomialConfig = @() SVM(...
+    'Coding', 'onevsall');
+svmPolynomial1vs1Config = @() SVM(...
     'KernelFunction', 'polynomial', ...
     'PolynomialOrder', 2, ...
     'Coding', 'onevsone');
+svmPolynomial1vsAllConfig = @() SVM(...
+    'KernelFunction', 'polynomial', ...
+    'PolynomialOrder', 2, ...
+    'Coding', 'onevsall');
 
 % TSVM - Parameters: C1 (misclassification penalty labeled),
 %                    C2 (misclassification penalty unlabeled),
@@ -81,7 +85,7 @@ continuumRemoval= @() ContinuumRemoval(true);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = visualizingSpatialRegConfig();
+CLASSIFIER = svmPolynomial1vs1Config();
 
 EXTRACTORS = {mcldaConfig()};
 
@@ -94,6 +98,17 @@ RESULTS_PATH = '../results/';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations
+
+% log levels:
+% ALL   = 0
+% TRACE = 1
+% DEBUG = 2
+% INFO  = 3
+% WARN  = 4
+% ERROR = 5
+% FATAL = 6
+% OFF   = 7
+LOG_LEVEL = 3;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
