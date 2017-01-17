@@ -288,6 +288,25 @@ classdef Logger
             end
         end
         
+        function logMeasures(obj, measures)
+           %LOGMEASURES Log accuracy measures
+           %%
+           
+           fields = fieldnames(measures);
+           fid = fopen(obj.filePath, 'a');
+                 
+           for num = 1:numel(fields)
+               fprintf(fid, ['\n',fields{num} , ':\n']);
+               dlmwrite(obj.filePath, ...
+                     (measures.(fields{num}))', ...
+                     'Delimiter', '\t', ...
+                     'precision', '%.3f', ...
+                     '-append');
+           end
+           
+           fclose(fid);
+        end
+        
     end
     
 end
