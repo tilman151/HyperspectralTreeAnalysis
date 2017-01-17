@@ -54,13 +54,19 @@ function runExperiment(configFilePath)
                      SAMPLE_SET_PATH, ...
                      DATA_SET_PATH, ...
                      crossValidator.crossValParts);
+    
+    % Set log level
+    logger.setLogLevel(LOG_LEVEL);
+    
     % Start logging
     logger = logger.startExperiment();
                         
     % For each test and training set
     for i = 1:crossValidator.k
         logger.info('runExperiment', ['Iteration ', num2str(i)]);
+        
         % Load training set
+        logger.debug('runExperiment', 'Loading training set...');
         [trainLabelMap, trainFeatureCube] = ...
             crossValidator.getTrainingSet(i);
         
@@ -70,18 +76,22 @@ function runExperiment(configFilePath)
         end
         
         % Apply feature extraction
+        logger.debug('runExperiment', 'Applying feature extraction...');
         trainFeatureCube = ...
             applyFeatureExtraction(trainFeatureCube, EXTRACTORS, ...
                                    SAMPLE_SET_PATH);
         
         % Train classifier
+        logger.debug('runExperiment', 'Training classifier...');
         CLASSIFIER.trainOn(trainFeatureCube, trainLabelMap);
-        logger.info('runExperiment', 'classifier trained');
+        logger.info('runExperiment', 'Classifier trained');
+        
         % Free RAM
         clear('trainLabelMap', 'trainFeatureCube');
         
         
         % Load test set
+        logger.debug('runExperiment', 'Loading test set...');
         [testLabelMap, testFeatureCube] = crossValidator.getTestSet(i);
         
         % Visualize test labels
@@ -90,6 +100,7 @@ function runExperiment(configFilePath)
         end
         
          % Apply feature extraction
+        logger.debug('runExperiment', 'Applying feature extraction...');
         testFeatureCube = ...
             applyFeatureExtraction(testFeatureCube, EXTRACTORS, ...
                                    SAMPLE_SET_PATH);
@@ -99,9 +110,10 @@ function runExperiment(configFilePath)
         maskMap(testLabelMap > 0) = 0;
         
         % Apply trained classifier
+        logger.debug('runExperiment', 'Applying trained classifier...');
         classifiedLabelMap = ...
             CLASSIFIER.classifyOn(testFeatureCube, maskMap);
-        logger.info('runExperiment', 'test instances classified');
+        logger.info('runExperiment', 'Test instances classified');
         
         % Visualize predicted labels
         if VISUALIZE_PREDICTED_LABELS
@@ -109,6 +121,7 @@ function runExperiment(configFilePath)
         end
         
         % Calculate confusion matrix
+        logger.debug('runExperiment', 'Calculating confusion matrix...');
         confMat(:, :, i) = confusionmat(...
             validListFromSpatial(testLabelMap, maskMap), ...
             validListFromSpatial(classifiedLabelMap, maskMap), ...
@@ -126,6 +139,10 @@ function runExperiment(configFilePath)
     confMat = sum(confMat(2:end, 2:end, :), 3);
     % Log confusion matrix
     logger.logConfusionMatrix(confMat);
+    % Compute accuracy measures
+    measures = Evaluator.getAllMeasures(confMat);
+    % Log accuracy measures
+    logger.logMeasures(measures);
     
 end
 

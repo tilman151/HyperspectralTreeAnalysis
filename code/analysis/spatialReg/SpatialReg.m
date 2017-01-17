@@ -18,25 +18,36 @@ classdef SpatialReg < Classifier
     %    disabled.
     %
     %% Properties:
-    %    classifier ......... Instance of a Classifier (supervised or 
-    %                         semi-supervised, single or ensemble) to be
-    %                         used internally.
-    %    r .................. Float value. Radius defining the neighborhood
-    %                         for label propagation. Needs to be lower than
-    %                         half of the image size in either direction.
-    %    doLabelPropagation . Boolean. Enables/disables the label
-    %                         propagation step.
-    %    doRegularization ... Boolean. Enables/disables the regularization
-    %                         step.
+    %    classifier ........... Instance of a Classifier (supervised or 
+    %                           semi-supervised, single or ensemble) to be
+    %                           used internally.
+    %    r .................... Float value. Radius defining the 
+    %                           neighborhood for label propagation. Needs 
+    %                           to be lower than half of the image size in 
+    %                           either direction.
+    %    labelPropagation ..... Boolean. Enables/disables the label
+    %                           propagation step.
+    %    outputRegularization . Boolean. Enables/disables the output
+    %                           regularization step.
+    %    propagationThreshold . Float value. Relative threshold of
+    %                           neighbors needed for propagating a label.
     %
     %% Methods:
-    %    SpatialReg .... Constructor. Can take up to four input arguments:
-    %        classifier ......... Set the classifier property.
-    %        r .................. [Optional] Set the radius property.
-    %        doLabelPropagation . [Optional] Set the label propagation
-    %                             property.
-    %        doRegularization ... [Optional] Set the regularization
-    %                             property.
+    %    SpatialReg .... Constructor. Takes Name, Value pair arguments:
+    %        Classifier ........... Set the internally used classifier.
+    %        R .................... Set the radius property. 
+    %                               Default: 5
+    %        LabelPropagation ..... Enable/disable label propagation.
+    %                               Default: true
+    %        OutputRegularization . Enable/disable output regularization.
+    %                               Default: true
+    %        PropagationThreshold . Define the relative threshold of
+    %                               neighbors needed for propagating a
+    %                               label.
+    %                               Default: 0.0
+    %        VisualizeSteps ....... Enable/disable visualization of results
+    %                               in between single processing steps.
+    %                               Default: false
     %    toString ...... See documentation in superclass Classifier.
     %    toShortString . See documentation in superclass Classifier.
     %    trainOn ....... See documentation in superclass Classifier.
@@ -51,38 +62,47 @@ classdef SpatialReg < Classifier
         classifier;
         
         % Neighborhood radius
-        r = 5;
+        r;
         
         % Enabled/Disabled processing steps
-        doLabelPropagation = true;
-        doRegularization = true;
+        labelPropagation;
+        outputRegularization;
+        
+        % Relative propagation threshold
+        propagationThreshold;
     end
     
     properties(Hidden=true)
         % Cached neighborhood indices
         relativeNeighbors;
+        
+        % Visualize results in between single processing steps
+        visualizeSteps;
     end
     
     methods
-        function obj = SpatialReg(classifier, r, ...
-                doLabelPropagation, doRegularization)
+        function obj = SpatialReg(varargin)
+            % Create input parser
+            p = inputParser;
+            p.addParameter('Classifier');
+            p.addParameter('R', 5);
+            p.addParameter('LabelPropagation', true);
+            p.addParameter('OutputRegularization', true);
+            p.addParameter('PropagationThreshold', 0);
+            p.addParameter('VisualizeSteps', false);
             
-            % Classifier to be used internally
-            obj.classifier = classifier;
+            % Parse input arguments
+            p.parse(varargin{:});
             
-            % Radius given?
-            if nargin > 1
-                obj.r = r;
-            end
+            % Save parameters
+            obj.classifier = p.Results.Classifier;
+            obj.r = p.Results.R;
+            obj.labelPropagation = p.Results.LabelPropagation;
+            obj.outputRegularization = p.Results.OutputRegularization;
+            obj.visualizeSteps = p.Results.VisualizeSteps;
             
             % Compute relative neighbor positions for this radius once
             obj.relativeNeighbors = getRelativeNeighbors(obj.r);
-            
-            % Processing steps enabled/disabled?
-            if nargin > 3
-                obj.doLabelPropagation = doLabelPropagation;
-                obj.doRegularization = doRegularization;
-            end
         end
         
         function str = toString(obj)
@@ -93,10 +113,14 @@ classdef SpatialReg < Classifier
             str = [str ', r: ' num2str(obj.r)];
             
             % Append processing steps
-            str = [str ', doLabelPropagation: ' ...
-                   num2str(obj.doLabelPropagation)];
-            str = [str ', doRegularization: ' ...
-                   num2str(obj.doRegularization)];
+            str = [str ', labelPropagation: ' ...
+                   num2str(obj.labelPropagation)];
+            str = [str ', outputRegularization: ' ...
+                   num2str(obj.outputRegularization)];
+            
+            % Append propagation threshold
+            str = [str ', propagationThreshold: '
+                   num2str(obj.propagationThreshold)];
             
             % Close parentheses
             str = [str ')'];
@@ -107,33 +131,44 @@ classdef SpatialReg < Classifier
             str = [obj.classifier.toShortString() '_'];
             
             % Append processing steps
-            if obj.doLabelPropagation
+            if obj.labelPropagation
                 str = [str '_labelPropagation'];
             end
-            if obj.doRegularization
-                str = [str '_regularization'];
+            if obj.outputRegularization
+                str = [str '_outputRegularization'];
             end
             
             % Append neighborhood radius
             str = [str '_r' num2str(obj.r)];
+            
+            % Append propagation threshold
+            if obj.propagationThreshold > 0.0
+                str = [str '_pT' num2str(obj.propagationThreshold)];
+            end
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
-            if obj.doLabelPropagation
+            if obj.labelPropagation
                 % Perform unsupervised clustering
                 clusterIdxMap = ...
                     clustering(trainFeatureCube, trainLabelMap);
                 
                 % Display clustered map
-                visualizeLabels(clusterIdxMap, 'Clusters')
-                disp('Propagating labels..');
+                if obj.visualizeSteps
+                    visualizeLabels(clusterIdxMap, 'Clusters');
+                end
+                
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
                 trainLabelMap = propagateLabels(...
-                    trainLabelMap, clusterIdxMap, obj.relativeNeighbors);
+                    trainLabelMap, clusterIdxMap, obj.relativeNeighbors,...
+                    obj.propagationThreshold);
                 
                 % Display enriched label map
-                visualizeLabels(trainLabelMap, 'Enriched Training Labels')
+                if obj.visualizeSteps
+                    visualizeLabels(trainLabelMap, ...
+                        'Enriched Training Labels');
+                end
             end
             
             % Train classifier on (enriched) data set
@@ -147,10 +182,12 @@ classdef SpatialReg < Classifier
             predictedLabelMap = ...
                 obj.classifier.classifyOn(evalFeatureCube, maskMap);
             
-            if obj.doRegularization
+            if obj.outputRegularization
                 % Display result before regularization
-                visualizeLabels(predictedLabelMap, ...
-                    'Predicted labels before regularization')
+                if obj.visualizeSteps
+                    visualizeLabels(predictedLabelMap, ...
+                        'Predicted labels before regularization');
+                end
                 
                 % Regularize output labels based on spatial smoothness
                 predictedLabelMap = ...
@@ -190,7 +227,7 @@ function clusterIdxMap = clustering(featureCube, labelMap)
 end
 
 function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
-    relativeNeighbors)
+    relativeNeighbors, propagationThreshold)
     
     % Calculate separate image masks regarding -1 columns
     separateImagesMask = calculateImageBoundaryMask(labelMap);
@@ -233,12 +270,16 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
         labelCounts(labelCountIdxs) = labelCounts(labelCountIdxs) + 1;
     end
     
+    % Calculate number of neighbors needed for propagation
+    minNeighbors = propagationThreshold * length(relativeNeighbors);
+    
     % For each unlabeled pixel, assign the label with the highest count
     % received from the neighborhood
     enrichedLabelMap = labelMap;
     for unlabeledIdx = find(labelMap == 0)'
         enrichedLabelMap = setMaxLabel(...
-            labelCounts, labelMap, unlabeledIdx, enrichedLabelMap);
+            labelCounts, labelMap, unlabeledIdx, enrichedLabelMap, ...
+            minNeighbors);
     end
 end
 
@@ -289,7 +330,7 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     regularizedLabelMap = labelMap;
     for curIdx = find(labelMap > -1)'
         regularizedLabelMap = setMaxLabel(...
-            labelCounts, labelMap, curIdx, regularizedLabelMap);
+            labelCounts, labelMap, curIdx, regularizedLabelMap, 0);
     end
 end
 
@@ -317,10 +358,12 @@ function neighbors = getValidNeighborIdxs(relativeNeighbors, x, y, ...
     neighbors = sub2ind(size(labelMap), neighbors(:, 1), neighbors(:, 2));
 end
 
-function newMap = setMaxLabel(labelCounts, labelMap, curIdx, newMap)
+function newMap = setMaxLabel(labelCounts, labelMap, curIdx, newMap, ...
+    minNeighbors)
+    
     [x, y] = ind2sub(size(labelMap), curIdx);
     [count, label] = max(labelCounts(x, y, :));
-    if count > 0
+    if count > minNeighbors
         newMap(curIdx) = label;
     end
 end

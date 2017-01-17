@@ -189,7 +189,10 @@ classdef Logger
             fclose(fid);
             
             dlmwrite(obj.filePath, ...
-                         crossValParts, 'Delimiter', '\t', '-append');
+                         crossValParts, ...
+                         'Delimiter', ' ', ...
+                         'precision', '%10.0f', ...
+                         '-append');
                      
             fid = fopen(obj.filePath, 'a');
             fprintf(fid, '--------------------------------------------\n');
@@ -204,8 +207,20 @@ classdef Logger
             fprintf(fid, 'Confusion Matrix:\n');
             fclose(fid);
             dlmwrite(obj.filePath, ...
-                         confMat, 'Delimiter', '\t', '-append');
-            dlmwrite([obj.filePath(1:end-8), '.csv'], confMat);
+                     confMat, ...
+                     'Delimiter', ' ', ...
+                     'precision', '%10.0f', ...
+                     '-append');
+            dlmwrite([obj.filePath(1:end-8), '.csv'], ...
+                     confMat, ...
+                     'Delimiter', ' ', ...
+                     'precision', '%10.0f', ...
+                     '-append');
+        end
+        
+        function setLogLevel(obj, logLevel)
+            obj.logger.setLogLevel(logLevel);
+            obj.logger.setCommandWindowLevel(logLevel);
         end
         
         function trace(obj, funcName, message)
@@ -276,6 +291,25 @@ classdef Logger
             else
                 error(obj.errorMessage);
             end
+        end
+        
+        function logMeasures(obj, measures)
+           %LOGMEASURES Log accuracy measures
+           %%
+           
+           fields = fieldnames(measures);
+           fid = fopen(obj.filePath, 'a');
+                 
+           for num = 1:numel(fields)
+               fprintf(fid, ['\n',fields{num} , ':\n']);
+               dlmwrite(obj.filePath, ...
+                     (measures.(fields{num}))', ...
+                     'Delimiter', '\t', ...
+                     'precision', '%.3f', ...
+                     '-append');
+           end
+           
+           fclose(fid);
         end
         
     end
