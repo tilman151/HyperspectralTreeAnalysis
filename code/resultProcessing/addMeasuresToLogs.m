@@ -1,6 +1,12 @@
 function addMeasuresToLogs(logPath)
 %ADDMEASURESTOLOGS Adds the accuracy measures to logs in a path
 
+    if (logPath(end) ~= '/' && isunix)
+        logPath = [logPath, '/'];
+    elseif (logPath(end) ~= '\' && ispc)
+        logPath = [logPath, '\'];
+    end
+
     content = dir(logPath);
     content = content(3:end);
     
