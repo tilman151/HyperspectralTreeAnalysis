@@ -126,6 +126,10 @@ function runExperiment(configFilePath)
     confMat = sum(confMat(2:end, 2:end, :), 3);
     % Log confusion matrix
     logger.logConfusionMatrix(confMat);
+    % Compute accuracy measures
+    measures = Evaluator.getAllMeasures(confMat);
+    % Log accuracy measures
+    logger.logMeasures(measures);
     
 end
 
