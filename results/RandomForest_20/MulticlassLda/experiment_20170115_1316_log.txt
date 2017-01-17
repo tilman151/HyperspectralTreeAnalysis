@@ -74,3 +74,25 @@ Confusion Matrix:
 0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+-----------------------------------------------------
+
+Accuracy:
+0.653
+
+Precisions:
+NaN	NaN	NaN	0.077	0.825	0.539	NaN	0.468	0.661	NaN	NaN	0.663	0.436	NaN	NaN	NaN	NaN
+
+Sensitivities:
+NaN	NaN	NaN	0.026	0.698	0.328	NaN	0.510	0.850	NaN	NaN	0.799	0.454	NaN	NaN	NaN	NaN
+
+Specificities:
+0.653	0.653	0.653	0.665	0.634	0.704	0.653	0.674	0.594	0.653	0.653	0.625	0.660	0.653	0.653	0.653	0.653
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.078	1.907	1.107	NaN	1.562	2.096	NaN	NaN	2.128	1.335	NaN	NaN	NaN	NaN
+
+NegativeLikelihoods:
+NaN	NaN	NaN	1.464	0.476	0.955	NaN	0.728	0.252	NaN	NaN	0.322	0.827	NaN	NaN	NaN	NaN
+
+FScores:
+NaN	NaN	NaN	0.039	0.756	0.408	NaN	0.488	0.744	NaN	NaN	0.725	0.445	NaN	NaN	NaN	NaN
