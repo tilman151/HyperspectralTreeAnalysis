@@ -95,3 +95,25 @@ NaN	NaN	NaN	1.882	0.801	1.499	NaN	1.351	0.557	NaN	NaN	0.996	1.788	NaN	NaN	NaN	Na
 
 FScores:
 NaN	NaN	NaN	0.048	0.656	0.215	NaN	0.312	0.620	NaN	NaN	0.455	0.107	NaN	NaN	NaN	NaN
+-----------------------------------------------------
+
+Accuracy:
+0.503
+
+Precisions:
+NaN	NaN	NaN	0.075	0.670	0.302	NaN	0.360	0.522	NaN	NaN	0.418	0.199	NaN	NaN	NaN	NaN
+
+Sensitivities:
+NaN	NaN	NaN	0.035	0.643	0.167	NaN	0.275	0.763	NaN	NaN	0.498	0.073	NaN	NaN	NaN	NaN
+
+Specificities:
+0.503	0.503	0.503	0.513	0.445	0.556	0.503	0.537	0.427	0.503	0.503	0.504	0.518	0.503	0.503	0.503	0.503
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.073	1.159	0.375	NaN	0.594	1.330	NaN	NaN	1.004	0.152	NaN	NaN	NaN	NaN
+
+NegativeLikelihoods:
+NaN	NaN	NaN	1.882	0.801	1.499	NaN	1.351	0.557	NaN	NaN	0.996	1.788	NaN	NaN	NaN	NaN
+
+FScores:
+NaN	NaN	NaN	0.048	0.656	0.215	NaN	0.312	0.620	NaN	NaN	0.455	0.107	NaN	NaN	NaN	NaN
