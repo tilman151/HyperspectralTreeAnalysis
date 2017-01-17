@@ -1,0 +1,76 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	RandomForest (numTrees: 100)
+Extractors:	PCA (numDim: 5)
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+         4          4          4          4          4          4         26          4          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+--------------------------------------------
+Started: 17-Jan-2017 11:09:25
+2017-01-17 11:09:25,328 INFO runExperiment - Iteration 1
+2017-01-17 11:13:03,530 INFO runExperiment - classifier trained
+2017-01-17 11:14:37,003 INFO runExperiment - test instances classified
+2017-01-17 11:14:37,347 INFO runExperiment - Iteration 2
+2017-01-17 11:18:33,660 INFO runExperiment - classifier trained
+2017-01-17 11:19:48,119 INFO runExperiment - test instances classified
+2017-01-17 11:19:48,284 INFO runExperiment - Iteration 3
+2017-01-17 11:23:21,805 INFO runExperiment - classifier trained
+2017-01-17 11:25:14,803 INFO runExperiment - test instances classified
+2017-01-17 11:25:15,010 INFO runExperiment - Iteration 4
+2017-01-17 11:28:48,807 INFO runExperiment - classifier trained
+2017-01-17 11:31:02,650 INFO runExperiment - test instances classified
+2017-01-17 11:31:02,865 INFO runExperiment - Iteration 5
+2017-01-17 11:35:01,050 INFO runExperiment - classifier trained
+2017-01-17 11:36:58,400 INFO runExperiment - test instances classified
+2017-01-17 11:36:58,740 INFO runExperiment - Iteration 6
+2017-01-17 11:41:59,144 INFO runExperiment - classifier trained
+2017-01-17 11:44:01,753 INFO runExperiment - test instances classified
+2017-01-17 11:44:02,024 INFO runExperiment - Iteration 7
+2017-01-17 11:49:25,234 INFO runExperiment - classifier trained
+2017-01-17 11:51:25,270 INFO runExperiment - test instances classified
+2017-01-17 11:51:25,529 INFO runExperiment - Iteration 8
+2017-01-17 11:55:07,883 INFO runExperiment - classifier trained
+2017-01-17 11:57:08,657 INFO runExperiment - test instances classified
+2017-01-17 11:57:08,847 INFO runExperiment - Iteration 9
+2017-01-17 12:02:04,197 INFO runExperiment - classifier trained
+2017-01-17 12:04:16,993 INFO runExperiment - test instances classified
+2017-01-17 12:04:17,227 INFO runExperiment - Iteration 10
+2017-01-17 12:09:14,094 INFO runExperiment - classifier trained
+2017-01-17 12:11:03,164 INFO runExperiment - test instances classified
+Stopped: 17-Jan-2017 12:11:03
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0        861       6904       1327          0       1630       8814          0          0       7243        171          0          0          0          0
+         0          0          0        649     261526       3934          0       3232      20555          0          0      98254       5128          0          0          0          0
+         0          0          0       1597       6507      28815          0      37587      94754          0          0      13461        287          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       3754       3174      32397          0      47927      80134          0          0       5605         32          0          0          0          0
+         0          0          0       1835       3876      20953          0      35274     238695          0          0       6006          3          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       2117      75760       6270          0       5010      15056          0          0     107266       5738          0          0          0          0
+         0          0          0         22      31762        146          0        178         53          0          0      11638       2941          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
