@@ -218,6 +218,11 @@ classdef Logger
                      '-append');
         end
         
+        function setLogLevel(obj, logLevel)
+            obj.logger.setLogLevel(logLevel);
+            obj.logger.setCommandWindowLevel(logLevel);
+        end
+        
         function trace(obj, funcName, message)
             %TRACE Log on level trace
             %%

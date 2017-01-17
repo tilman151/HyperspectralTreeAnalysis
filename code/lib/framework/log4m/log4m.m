@@ -224,16 +224,6 @@ classdef log4m < handle
 %% WriteToFile        
         function writeLog(self,level,scriptName,message)
             
-            % If necessary write to command window
-            if( self.commandWindowLevel <= level )
-                fprintf('%s:%s\n', scriptName, message);
-            end
-            
-            %If currently set log level is too high, just skip this log
-            if(self.logLevel > level)
-                return;
-            end 
-            
             % set up our level string
             switch level
                 case{self.TRACE}
@@ -241,9 +231,9 @@ classdef log4m < handle
                 case{self.DEBUG}
                     levelStr = 'DEBUG';
                 case{self.INFO}
-                    levelStr = 'INFO';
+                    levelStr = 'INFO ';
                 case{self.WARN}
-                    levelStr = 'WARN';
+                    levelStr = 'WARN ';
                 case{self.ERROR}
                     levelStr = 'ERROR';
                 case{self.FATAL}
@@ -251,6 +241,16 @@ classdef log4m < handle
                 otherwise
                     levelStr = 'UNKNOWN';
             end
+            
+            % If necessary write to command window
+            if( self.commandWindowLevel <= level )
+                fprintf('%s %s: %s\n', levelStr, scriptName, message);
+            end
+            
+            %If currently set log level is too high, just skip this log
+            if(self.logLevel > level)
+                return;
+            end 
 
             % Append new log to log file
             try

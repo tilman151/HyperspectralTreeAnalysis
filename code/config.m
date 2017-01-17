@@ -95,6 +95,17 @@ RESULTS_PATH = '../results/';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations
 
+% log levels:
+% ALL   = 0
+% TRACE = 1
+% DEBUG = 2
+% INFO  = 3
+% WARN  = 4
+% ERROR = 5
+% FATAL = 6
+% OFF   = 7
+LOG_LEVEL = 3;
+
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
 VISUALIZE_PREDICTED_LABELS = false;
