@@ -6,10 +6,10 @@
 exampleClassifierConfig = @ExampleClassifier;
 
 % Random Forest - Parameters: numTrees
-randomForest20Config = @() RandomForest(20);
+randomForest2Config = @() RandomForest(2);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest56Config = @() RotationForest(5,6);
+rotationForest22Config = @() RotationForest(2,2);
 
 % SVM - Parameters: KernelFunction, PolynomialOrder, Coding
 svmLinearConfig = @() SVM(...
@@ -85,7 +85,7 @@ continuumRemoval= @() ContinuumRemoval(true);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = svmPolynomial1vs1Config();
+CLASSIFIER = rotationForest22Config();
 
 EXTRACTORS = {mcldaConfig()};
 

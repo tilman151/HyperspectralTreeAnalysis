@@ -18,23 +18,34 @@ function [Xpart,Ypart,indexselect]=bootstrapal(Xini,Yini,Ratio)
 if (nargin<2 || nargin>3)
     help bootstrapal
 else
-    [N,~]=size(Xini);
+
+    Xpart=[];
+    Ypart=[];
+
+    [N,M]=size(Xini);
+
+    A=[];
     A=randperm(N); 
 
     numberselect=ceil(N*Ratio);
+    Aselect=[];
     Aselect=(A(1:numberselect))';
 
+    Xpartini=[];
     Xpartini=Xini(Aselect,:);
+    Ypartini=[];
     Ypartini=Yini(Aselect,:);
 
     numberleaver=N-numberselect;
 
-    index1=(1:numberselect)';
-    index1 = index1./numberselect;
+    index1=[];
+    for i=1:numberselect
+        index1(i,1)=i/numberselect;
+    end
 
+    index2=[];
     index2=rand(numberleaver,1);
-    index4=ones(numberleaver)';
-    
+    index4=[];
     for i=1:numberleaver
         index3=index2(i);
         for j=1:numberselect
@@ -49,5 +60,6 @@ else
     end
     Xpart=[Xpartini;Xpartini(index4,:);];
     Ypart=[Ypartini;Ypartini(index4,:);];
+    indexselect=[];
     indexselect=[Aselect;Aselect(index4);];
 end
