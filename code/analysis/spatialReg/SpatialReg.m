@@ -148,8 +148,12 @@ classdef SpatialReg < Classifier
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Get logger
+            logger = Logger.getLogger();
+            
             if obj.labelPropagation
                 % Perform unsupervised clustering
+                logger.info('SpatialReg', 'Clustering...');
                 clusterIdxMap = ...
                     clustering(trainFeatureCube, trainLabelMap);
                 
@@ -160,6 +164,7 @@ classdef SpatialReg < Classifier
                 
                 % Propagate labels in spatial neighborhood for matching
                 % clusters
+                logger.info('SpatialReg', 'Propagating labels...');
                 trainLabelMap = propagateLabels(...
                     trainLabelMap, clusterIdxMap, obj.relativeNeighbors,...
                     obj.propagationThreshold);
@@ -172,13 +177,18 @@ classdef SpatialReg < Classifier
             end
             
             % Train classifier on (enriched) data set
+            logger.info('SpatialReg', 'Training classifier...');
             obj.classifier.trainOn(trainFeatureCube, trainLabelMap);
         end
         
         function predictedLabelMap = ...
                 classifyOn(obj, evalFeatureCube, maskMap)
             
+            % Get logger
+            logger = Logger.getLogger();
+            
             % Predict labels
+            logger.info('SpatialReg', 'Predicting labels...');
             predictedLabelMap = ...
                 obj.classifier.classifyOn(evalFeatureCube, maskMap);
             
@@ -190,6 +200,7 @@ classdef SpatialReg < Classifier
                 end
                 
                 % Regularize output labels based on spatial smoothness
+                logger.info('SpatialReg', 'Regularizing output...');
                 predictedLabelMap = ...
                     regularize(predictedLabelMap, obj.relativeNeighbors);
             end
