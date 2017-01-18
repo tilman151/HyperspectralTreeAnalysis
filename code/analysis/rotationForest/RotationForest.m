@@ -45,27 +45,36 @@ classdef RotationForest < ExampleClassifier
             obj.splitParam = splitParameter;
             obj.bootstrapParam = 0.75; %%default value
         end
+          function str = toString(obj)
+           str = ['RotationForest (numTrees: ' int2str(obj.numTrees) ', splitParam:' int2str(obj.splitParam) ')'];  
+        end
         
+        function str = toShortString(obj)
+            str = ['RotationForest_' int2str(obj.numTrees) int2str(obj.splitParam)];
+        end
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Extract labeled pixels
             featureList = validListFromSpatial(...
                 trainFeatureCube, trainLabelMap, true);
             labelList = validListFromSpatial(...
                 trainLabelMap, trainLabelMap, true);
-            
-            if(obj.splitParameter > size(featureList,2))
+            [~,numFeatures] = size(featureList);
+            if(obj.splitParam > numFeatures)
                 error('splitParameter has to be less than the number of features');
             end
             for l=1:obj.numTrees
                 %%% obtain the new samples by rotation forest %%%
                 K=obj.splitParam;
-                [R_new,~]=RotationFal(featureList, labelList, K,...
+                [R_new,R_coeff]=RotationFal(featureList, labelList, K,...
                     obj.bootstrapParam);
                 %%%% obtain new samples %%%%
-                trainRFnew=featureList*R_new;
-                tc = fitctree(trainRFnew,labelList);
-                obj.treeEnsemble.append(tc);
-                
+                trainRFnew=featureList*R_coeff;
+                tree = TreeBagger(1,trainRFnew,labelList);
+                if(l == 1)
+                     obj.treeEnsemble = tree;
+                else
+                     obj.treeEnsemble.append(tree);
+                end
             end
         end
             

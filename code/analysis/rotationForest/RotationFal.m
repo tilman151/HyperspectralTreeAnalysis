@@ -18,7 +18,7 @@ function [R_new,R_coeff]=RotationFal(featureList, labelList, K, Ratio)
 % Author: Mao Shasha (skymss0828@gmail.com),2008.6.15 %
 
 
-if (nargin<5 || nargin>6) %%adapt for other ensemble size
+if (nargin<4 || nargin>4) %%adapt for other ensemble size
     help RotationFal
 else
     [~, num_feature]=size(featureList);
@@ -30,7 +30,7 @@ else
     trainY=labelList;
     index=cell(length(class),1); %preallocate cell array
     for m=1:length(class)
-        index{m,1}=find(trainY==class(m));
+        index{m,1}=find(labelList==class(m)); %index{2,1} contains indizes of the data points of class(2)
     end
     %%%%%%%%%%%%%%%%%%%%%%% �������������PCAת�� %%%%%%%%%%%%%%%%%%%%%%%%
     for i=1:K
@@ -54,7 +54,7 @@ else
         R_coeff(number1+1:number2,number1+1:number3)=Coeff;
     end
     %%%% arrage R_coeff based on original feature (��R_coeff�������л��R_new) %%%%
-    [~, index_A]=sort(index_lie_new);
+    [~, index_A]=sort(index_lie_new); %index_lie_new[index_A] = [1,2,3,4,5,6]
     R_new1=R_coeff(:,index_A);
     R_new=[];
     for i=1:num_feature
