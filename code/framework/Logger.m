@@ -1,4 +1,4 @@
-classdef Logger
+classdef Logger < handle
     %LOGGER Receives the data from experiment and saves it to a file
     %   
     %   This class is a singleton to log all actions, the configuration and
