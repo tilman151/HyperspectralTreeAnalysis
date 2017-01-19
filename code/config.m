@@ -6,7 +6,7 @@
 exampleClassifierConfig = @ExampleClassifier;
 
 % Random Forest - Parameters: numTrees
-randomForest2Config = @() RandomForest(2);
+randomForest20Config = @() RandomForest(20);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
 rotationForest22Config = @() RotationForest(2,2);
