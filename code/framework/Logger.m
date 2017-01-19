@@ -1,4 +1,4 @@
-classdef Logger
+classdef Logger < handle
     %LOGGER Receives the data from experiment and saves it to a file
     %   
     %   This class is a singleton to log all actions, the configuration and
@@ -20,8 +20,6 @@ classdef Logger
     %% Methods Static
     %       GETLOGGER ............. Returns the instance of the logger or
     %                               creates it if not present
-    %       CREATELOGGERSINGLETON . Forces the creation of the logger
-    %                               singleton instance
     %       CREATELOGPATH ......... Creates a path based on the given
     %                               classifier and extractors
     %
@@ -40,7 +38,7 @@ classdef Logger
     %       LOGFUNCS ........... Functions for different log levels of 
     %                            log4m
     %
-    % Version: 2017-01-13
+    % Version: 2017-01-18
     % Author: Tilman Krokotsch
     %%
     
@@ -77,20 +75,6 @@ classdef Logger
             if isempty(localLogger)
                 localLogger = Logger(logPath);
             end
-            obj = localLogger;
-        end
-        
-        function obj = createLoggerSingleton(logPath)
-            %CREATELOGGERSINGLETON Create a new singleton logger instance
-            %
-            %% Input
-            %   logPath . path to which logs are exported
-            %% Output
-            %   obj . logger instance
-            %%
-            
-            persistent localLogger;
-            localLogger = Logger(logPath);
             obj = localLogger;
         end
         

@@ -34,7 +34,10 @@ classdef RotationForest < ExampleClassifier
         splitParam;
         
         %the amount of bootsstrapped elements taken from the dataset
-        bootstrapParam
+        bootstrapParam;
+        
+        featureList;
+        labelList;
     end
     
     methods
@@ -50,46 +53,59 @@ classdef RotationForest < ExampleClassifier
         end
         
         function str = toShortString(obj)
-            str = ['RotationForest_' int2str(obj.numTrees) int2str(obj.splitParam)];
+            str = ['RotationForest_' int2str(obj.numTrees) '' int2str(obj.splitParam)];
         end
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Extract labeled pixels
-            featureList = validListFromSpatial(...
+            obj.featureList = validListFromSpatial(...
                 trainFeatureCube, trainLabelMap, true);
-            labelList = validListFromSpatial(...
+            obj.labelList = validListFromSpatial(...
                 trainLabelMap, trainLabelMap, true);
-            [~,numFeatures] = size(featureList);
+            
+            [~,numFeatures] = size(obj.featureList);
             if(obj.splitParam > numFeatures)
                 error('splitParameter has to be less than the number of features');
             end
-            for l=1:obj.numTrees
-                %%% obtain the new samples by rotation forest %%%
-                K=obj.splitParam;
-                [R_new,R_coeff]=RotationFal(featureList, labelList, K,...
-                    obj.bootstrapParam);
-                %%%% obtain new samples %%%%
-                trainRFnew=featureList*R_coeff;
-                tree = TreeBagger(1,trainRFnew,labelList);
-                if(l == 1)
-                     obj.treeEnsemble = tree;
-                else
-                     obj.treeEnsemble.append(tree);
-                end
-            end
+%             for l=1:obj.numTrees
+%                 %%% obtain the new samples by rotation forest %%%
+%                 K=obj.splitParam;
+%                 [R_new,R_coeff]=RotationFal(featureList, labelList, K,...
+%                     obj.bootstrapParam);
+%                 %%%% obtain new samples %%%%
+%                 trainRFnew=featureList*R_coeff;
+%                 tree = TreeBagger(1,trainRFnew,labelList);
+%                 if(l == 1)
+%                      obj.treeEnsemble = tree;
+%                 else
+%                      obj.treeEnsemble.append(tree);
+%                 end
+%             end
         end
             
             function predictedLabelMap = classifyOn(...
                 obj, evalFeatureCube, maskMap)
             
            % Extract list of unlabeled pixels
-            featureList = validListFromSpatial(evalFeatureCube, maskMap);
-            
-            % Predict labels using the ensemble
-            predictedLabelList = obj.treeEnsemble.predict(featureList);
-            
-            % TreeBagger output is a cell array -> transform to matrix
-            predictedLabelList = cellfun(@(x) str2num(x), predictedLabelList);
-            
+            featList = validListFromSpatial(evalFeatureCube, maskMap);
+            labelMat = zeros(size(featList,1),obj.numTrees);
+             for l=1:obj.numTrees
+                %%% obtain the new samples by rotation forest %%%
+                K=obj.splitParam;
+                [R_new,~]=RotationFal(obj.featureList, obj.labelList, K,...
+                    obj.bootstrapParam);
+                %%%% obtain new samples %%%%
+                trainRFnew=obj.featureList*R_new;
+
+                tree = fitctree(trainRFnew,obj.labelList);
+                labelMat(:,l) = tree.predict(featList*R_new);
+                
+            end
+%             % Predict labels using the ensemble
+%             predictedLabelList = obj.treeEnsemble.predict(featureList);
+%             
+%             % TreeBagger output is a cell array -> transform to matrix
+%             predictedLabelList = cellfun(@(x) str2num(x), predictedLabelList);
+            predictedLabelList = (mode(labelMat'))';
             % Rebuild map representation
             predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
             end

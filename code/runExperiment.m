@@ -23,6 +23,10 @@ function runExperiment(configFilePath)
     % Author: Tilman Krokotsch
     %%
     
+    % Clear all functions from memory to avoid side effects 
+    % (like persistent logger object)
+    clear functions;
+    
     % Init random seed
     rng('shuffle');
     
@@ -47,7 +51,7 @@ function runExperiment(configFilePath)
     
     % Create logger singleton
     logPath = Logger.createLogPath(RESULTS_PATH, CLASSIFIER, EXTRACTORS);
-    logger = Logger.createLoggerSingleton(logPath);
+    logger = Logger.getLogger(logPath);
     % Log configuration
     logger.logConfig(CLASSIFIER, ...
                      EXTRACTORS, ...

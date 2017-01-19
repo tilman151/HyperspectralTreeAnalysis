@@ -1,0 +1,97 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	RotationForest (numTrees: 2, splitParam:2)
+Extractors:	MulticlassLda
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+         4          4          4          4          4          4         26          4          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+--------------------------------------------
+Started: 17-Jan-2017 23:32:14
+2017-01-17 23:32:14,018 INFO  runExperiment - Iteration 1
+2017-01-17 23:33:10,376 INFO  runExperiment - Classifier trained
+2017-01-17 23:33:31,302 INFO  runExperiment - Test instances classified
+2017-01-17 23:33:31,569 INFO  runExperiment - Iteration 2
+2017-01-17 23:34:18,936 INFO  runExperiment - Classifier trained
+2017-01-17 23:34:35,058 INFO  runExperiment - Test instances classified
+2017-01-17 23:34:35,195 INFO  runExperiment - Iteration 3
+2017-01-17 23:35:09,095 INFO  runExperiment - Classifier trained
+2017-01-17 23:35:32,472 INFO  runExperiment - Test instances classified
+2017-01-17 23:35:32,626 INFO  runExperiment - Iteration 4
+2017-01-17 23:36:16,388 INFO  runExperiment - Classifier trained
+2017-01-17 23:36:47,527 INFO  runExperiment - Test instances classified
+2017-01-17 23:36:47,705 INFO  runExperiment - Iteration 5
+2017-01-17 23:37:45,267 INFO  runExperiment - Classifier trained
+2017-01-17 23:38:09,664 INFO  runExperiment - Test instances classified
+2017-01-17 23:38:09,806 INFO  runExperiment - Iteration 6
+2017-01-17 23:39:02,088 INFO  runExperiment - Classifier trained
+2017-01-17 23:39:25,031 INFO  runExperiment - Test instances classified
+2017-01-17 23:39:25,197 INFO  runExperiment - Iteration 7
+2017-01-17 23:40:14,621 INFO  runExperiment - Classifier trained
+2017-01-17 23:40:40,559 INFO  runExperiment - Test instances classified
+2017-01-17 23:40:40,707 INFO  runExperiment - Iteration 8
+2017-01-17 23:41:21,589 INFO  runExperiment - Classifier trained
+2017-01-17 23:41:47,663 INFO  runExperiment - Test instances classified
+2017-01-17 23:41:47,825 INFO  runExperiment - Iteration 9
+2017-01-17 23:42:33,384 INFO  runExperiment - Classifier trained
+2017-01-17 23:43:00,611 INFO  runExperiment - Test instances classified
+2017-01-17 23:43:00,771 INFO  runExperiment - Iteration 10
+2017-01-17 23:43:49,777 INFO  runExperiment - Classifier trained
+2017-01-17 23:44:07,884 INFO  runExperiment - Test instances classified
+Stopped: 17-Jan-2017 23:44:07
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0         99        787        574          0         40      18332          0          0       7104         14          0          0          0          0
+         0          0          0       1093      47390       1777          0        969     261170          0          0      80494        385          0          0          0          0
+         0          0          0        277        913       4133          0        461     159206          0          0      18006         12          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0         90       1358       4189          0        642     159568          0          0       7168          8          0          0          0          0
+         0          0          0        200        351      12843          0        455     233515          0          0      59260         18          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0        833      20790       2526          0        436     117115          0          0      75326        191          0          0          0          0
+         0          0          0        235       3597        130          0         67      16385          0          0      26276         50          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+
+Accuracy:
+0.268
+
+Precisions:
+NaN	NaN	NaN	0.035	0.630	0.158	NaN	0.209	0.242	NaN	NaN	0.275	0.074	NaN	NaN	NaN	NaN
+
+Sensitivities:
+NaN	NaN	NaN	0.004	0.121	0.023	NaN	0.004	0.762	NaN	NaN	0.347	0.001	NaN	NaN	NaN	NaN
+
+Specificities:
+0.268	0.268	0.268	0.274	0.329	0.307	0.268	0.307	0.123	0.268	0.268	0.253	0.278	0.268	0.268	0.268	0.268
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.005	0.180	0.033	NaN	0.005	0.868	NaN	NaN	0.464	0.001	NaN	NaN	NaN	NaN
+
+NegativeLikelihoods:
+NaN	NaN	NaN	3.642	2.673	3.186	NaN	3.244	1.943	NaN	NaN	2.582	3.597	NaN	NaN	NaN	NaN
+
+FScores:
+NaN	NaN	NaN	0.007	0.202	0.040	NaN	0.007	0.367	NaN	NaN	0.307	0.002	NaN	NaN	NaN	NaN
