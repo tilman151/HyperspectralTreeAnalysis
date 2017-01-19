@@ -84,7 +84,7 @@ classdef SpatialReg < Classifier
         function obj = SpatialReg(varargin)
             % Create input parser
             p = inputParser;
-            p.addParameter('Classifier');
+            p.addRequired('Classifier');
             p.addParameter('R', 5);
             p.addParameter('LabelPropagation', true);
             p.addParameter('OutputRegularization', true);
@@ -99,6 +99,7 @@ classdef SpatialReg < Classifier
             obj.r = p.Results.R;
             obj.labelPropagation = p.Results.LabelPropagation;
             obj.outputRegularization = p.Results.OutputRegularization;
+            obj.propagationThreshold = p.Results.PropagationThreshold;
             obj.visualizeSteps = p.Results.VisualizeSteps;
             
             % Compute relative neighbor positions for this radius once
@@ -119,7 +120,7 @@ classdef SpatialReg < Classifier
                    num2str(obj.outputRegularization)];
             
             % Append propagation threshold
-            str = [str ', propagationThreshold: '
+            str = [str ', propagationThreshold: '...
                    num2str(obj.propagationThreshold)];
             
             % Close parentheses

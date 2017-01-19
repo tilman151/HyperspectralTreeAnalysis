@@ -114,7 +114,10 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
 
     % Sort eigenvalues in descending order and get largest eigenvectors
     [eigvalue, ind] = sort(diag(eigvalue), 'descend');
-    eigvector = eigvector(:,ind(1:no_dims));
+    
+    % Return full transformation matrix and reduce dimensions later
+    % eigvector = eigvector(:,ind(1:no_dims));
+    eigvector = eigvector(:,ind(:));
     
     % Compute extracted features
     Fe = X * eigvector;
