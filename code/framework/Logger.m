@@ -108,7 +108,7 @@ classdef Logger
             %%
             logPath = fullfile(resultsPath, classifier.toShortString());
             for i = 1 : length(extractors)
-                logPath = fullfile(logPath, extractors{1}.toShortString());
+                logPath = fullfile(logPath, extractors{i}.toShortString());
             end
         end
         

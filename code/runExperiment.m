@@ -148,7 +148,7 @@ end
 
 function featureCube = applyFeatureExtraction(featureCube, extractors, ...
                                               sampleSetPath)
-    for i = 1:size(extractors, 1)
+    for i = 1:numel(extractors)
         featureCube = extractors{i}.extractFeatures(featureCube, ...
             sampleSetPath);
     end
