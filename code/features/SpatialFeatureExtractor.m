@@ -34,12 +34,17 @@ classdef SpatialFeatureExtractor < FeatureExtractor
         function obj = SpatialFeatureExtractor(radius, multithreading)
             obj.radius = radius;
             obj.multithreading = multithreading;
-            obj.extractionFunctions = {@extractMean, ...
+            obj.extractionFunctions = {@extractWeightedMean, ...
                                        @extractVar, ...
                                        @extractMin, ...
                                        @extractMax, ...
-                                       @extractMedian, ...
                                        };
+%             obj.extractionFunctions = {@extractMean, ...
+%                                        @extractWeightedMean, ...
+%                                        @extractVar, ...
+%                                        @extractMin, ...
+%                                        @extractMax, ...
+%                                        };
         end
         
         function str = toString(obj)
@@ -78,8 +83,9 @@ classdef SpatialFeatureExtractor < FeatureExtractor
                             uy = min(y,iy + r);
 
                             window = slice(lx:rx, dy:uy);
+                            localPosition = [iy - dy + 1, ix - lx + 1];
                             features(ix,iy,fIdx) = ...
-                                extractionFunction(window);
+                                extractionFunction(window, localPosition);
                         end 
                     end
                 end
@@ -98,8 +104,9 @@ classdef SpatialFeatureExtractor < FeatureExtractor
                             uy = min(y,iy + r);
 
                             window = slice(lx:rx, dy:uy);
+                            localPosition = [iy - dy + 1, ix - lx + 1];
                             features(ix,iy,fIdx) = ...
-                                extractionFunction(window);
+                                extractionFunction(window, localPosition);
                         end 
                     end
                 end
@@ -109,22 +116,33 @@ classdef SpatialFeatureExtractor < FeatureExtractor
     end
 end
 
-function result = extractMean(featureWindow)
+function result = extractMean(featureWindow, ~)
     result = mean(featureWindow(:));
 end
 
-function result = extractVar(featureWindow)
+function result = extractWeightedMean(featureWindow, localPosition)
+    [x,y] = meshgrid(1:(size(featureWindow,2)),1:size(featureWindow,1));
+    x=abs(x-localPosition(2));
+    y=abs(y-localPosition(1));
+    d = x+y;
+    id = (max(d(:))+1) - d;
+    w = id/sum(id(:));
+    transformed = featureWindow .* w;
+    result = sum(transformed(:));
+end
+
+function result = extractVar(featureWindow, ~)
     result = var(featureWindow(:));
 end
 
-function result = extractMax(featureWindow)
+function result = extractMax(featureWindow, ~)
     result = max(featureWindow(:));
 end
 
-function result = extractMin(featureWindow)
+function result = extractMin(featureWindow, ~)
     result = min(featureWindow(:));
 end
 
-function result = extractMedian(featureWindow)
+function result = extractMedian(featureWindow, ~)
     result = median(featureWindow(:));
 end

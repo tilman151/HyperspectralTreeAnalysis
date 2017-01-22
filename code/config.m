@@ -90,7 +90,7 @@ continuumRemoval= @() ContinuumRemoval(true);
 
 CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {mcldaConfig(), SpatialFeatureExtractor(10, true)};
+EXTRACTORS = {mcldaConfig(), SpatialFeatureExtractor(20, true)};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';
