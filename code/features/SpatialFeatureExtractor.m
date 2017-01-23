@@ -48,7 +48,19 @@ classdef SpatialFeatureExtractor < FeatureExtractor
         end
         
         function str = toString(obj)
+            
+            
+            
+            
             str = 'SpatialFeatureExtractor';
+            
+            functionNames = ...
+                cellfun(@(x) extractFunctionName(x, 'extract'), ...
+                        obj.extractionFunctions, ...
+                        'uniformoutput', 0);
+            for fIdx = 1:numel(functionNames)
+                str = [str '_' functionNames{fIdx}];
+            end
         end
         
         function str = toShortString(obj)
@@ -113,6 +125,14 @@ classdef SpatialFeatureExtractor < FeatureExtractor
             end
             toc;
         end
+    end
+end
+
+function functionName = extractFunctionName(functionHandle, keywordToRemove)
+    functionName = func2str(functionHandle);
+    keyword = 'extract';
+    if strcmp(keyword, functionName(1:numel(keyword)))
+        functionName = functionName((numel(keyword)+1):end); 
     end
 end
 
