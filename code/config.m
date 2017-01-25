@@ -85,12 +85,15 @@ mcldaConfig = @() MulticlassLda;
 % ContinuumRemoval - Parameters: useMultithread
 continuumRemoval= @() ContinuumRemoval(true);
 
+% ContinuumRemoval - Parameters: radius, useMultithread
+spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, true);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
 CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {mcldaConfig(), SpatialFeatureExtractor(20, true)};
+EXTRACTORS = {mcldaConfig(), spatialFeatureExtractorConfig_20()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';

@@ -48,27 +48,38 @@ classdef SpatialFeatureExtractor < FeatureExtractor
         end
         
         function str = toString(obj)
-            
-            
-            
-            
-            str = 'SpatialFeatureExtractor';
-            
+            str = 'SpatialFeatureExtractor {Features: ';
             functionNames = ...
                 cellfun(@(x) extractFunctionName(x, 'extract'), ...
                         obj.extractionFunctions, ...
                         'uniformoutput', 0);
+                    
+            functionNames = sort(functionNames);
+            for fIdx = 1:numel(functionNames)
+                if fIdx > 1
+                    str = [str ', ' functionNames{fIdx}];
+                else
+                    str = [str functionNames{fIdx}];
+                end
+            end
+            
+            str = [str '}'];
+        end
+        
+        function str = toShortString(obj)
+            str = 'SpatialFeatureExtractor';
+            functionNames = ...
+                cellfun(@(x) extractFunctionName(x, 'extract'), ...
+                        obj.extractionFunctions, ...
+                        'uniformoutput', 0);
+                    
+            functionNames = sort(functionNames);
             for fIdx = 1:numel(functionNames)
                 str = [str '_' functionNames{fIdx}];
             end
         end
         
-        function str = toShortString(obj)
-            str = obj.toString();
-        end
-        
         function features = extractFeatures(obj, originalFeatures, ~)
-            tic;
             numFeaturesToExtract = numel(obj.extractionFunctions);
             
             [x,y,numOriginalFeatures] = size(originalFeatures);
@@ -123,7 +134,6 @@ classdef SpatialFeatureExtractor < FeatureExtractor
                     end
                 end
             end
-            toc;
         end
     end
 end
