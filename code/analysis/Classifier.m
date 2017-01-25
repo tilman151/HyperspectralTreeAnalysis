@@ -41,14 +41,15 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     end
     
     methods
-        function model = saveTo(model, folder)
-            save(fullfile(folder, 'model.mat'), 'model');
+        function model = saveTo(model, confMat, folder, nameExtension)
+            save(fullfile(folder, ['model_', nameExtension,'.mat']), ...
+                 'model', 'confMat');
         end
     end
     
     methods (Static)
-        function model = loadFrom(folder)
-            load(fullfile(folder, 'model.mat'), 'model');
+        function [model, confMat] = loadFrom(filePath)
+            load(fullfile(filePath), 'model', 'confMat');
         end
     end
     
