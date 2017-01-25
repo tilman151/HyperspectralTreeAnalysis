@@ -24,6 +24,10 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %                             pixels (-1) with dimensions X x Y.
     %        predictedLabelMap .. Output map of features, having dimensions
     %                             X x Y.
+    %    saveTo ...... Save the model to a given folder. The model will be
+    %                  stored in the file model.mat.
+    %    loadFrom .... Load the model from a given folder. The model is
+    %                  expected to be in the file model.mat
     %
     % Version: 2016-12-22
     % Author: Tilman Krokotsch
@@ -34,6 +38,18 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
         str = toShortString(obj);
         obj = trainOn(obj, trainFeatureCube, trainLabelMap);
         predictedLabelMap = classifyOn(obj, evalFeatureCube, maskMap);
+    end
+    
+    methods
+        function model = saveTo(model, folder)
+            save(fullfile(folder, 'model.mat'), 'model');
+        end
+    end
+    
+    methods (Static)
+        function model = loadFrom(folder)
+            load(fullfile(folder, 'model.mat'), 'model');
+        end
     end
     
 end
