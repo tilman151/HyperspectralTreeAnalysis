@@ -1,5 +1,6 @@
 data/
 literature/
+results/**/*.mat
 
 *.dia
 *.m~

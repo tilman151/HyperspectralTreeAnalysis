@@ -94,6 +94,7 @@ classdef Logger < handle
             for i = 1 : length(extractors)
                 logPath = fullfile(logPath, extractors{i}.toShortString());
             end
+            logPath = fullfile(logPath, datestr(now, 'yyyymmdd_HHMM'));
         end
         
     end
@@ -131,6 +132,11 @@ classdef Logger < handle
     end
     
     methods
+        
+        function logPath = getLogPath(obj)
+            %GETLOGPATH Returns path of log directory
+            logPath = fileparts(obj.filePath);
+        end
         
         function obj = startExperiment(obj)
             %STARTEXPERIMENT Logs start of experiment
