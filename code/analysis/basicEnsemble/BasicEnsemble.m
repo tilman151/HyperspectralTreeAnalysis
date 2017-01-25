@@ -35,6 +35,8 @@ classdef BasicEnsemble < Classifier
     %
     
     properties
+        multithreadingTraining;
+        multithreadingClassification;
         baseClassifiers;
         trainingInstanceProportions;
         numClassifiersStrings;
@@ -44,8 +46,13 @@ classdef BasicEnsemble < Classifier
     end
     
     methods
+        
         function obj = BasicEnsemble(baseClassifiers, numClassifiers, ...
-                trainingInstanceProportions)
+                trainingInstanceProportions, multithreadingTraining, ...
+                multithreadingClassification)
+            
+            obj.multithreadingTraining = multithreadingTraining;
+            obj.multithreadingClassification = multithreadingClassification;
             
             obj.numClassifiersStrings = ...
                 cellfun(@(n)num2str(n), ...
@@ -106,37 +113,67 @@ classdef BasicEnsemble < Classifier
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+
             % make features 2D
             reshapedTrainFeatures = validListFromSpatial(...
                 trainFeatureCube, trainLabelMap, false);
             reshapedTrainLabels = validListFromSpatial(...
                 trainLabelMap, trainLabelMap, false);
+                
+            if ~obj.multithreadingTraining
+
+                % embed the features and labels inside of the anonymous
+                % function
+                trainFunction = @(classifier, proportion) ...
+                    trainBaseClassifier( classifier, ...
+                                         reshapedTrainFeatures , ...
+                                         reshapedTrainLabels, ...
+                                         proportion);
+
+                % train all classifiers
+                cellfun(trainFunction, ...
+                    obj.baseClassifiers, ...
+                    obj.trainingInstanceProportions, ...
+                    'UniformOutput', 0);
             
-            % embed the features and labels inside of the anonymous
-            % function
-            trainFunction = @(classifier, proportion) ...
-                trainBaseClassifier( classifier, ...
+            else
+                
+                classifier = obj.baseClassifiers;
+                proportions = obj.trainingInstanceProportions;
+                
+                parfor i= 1:length(obj.baseClassifiers)
+                    classifier{i} = trainBaseClassifier( classifier{i}, ...
                                      reshapedTrainFeatures , ...
                                      reshapedTrainLabels, ...
-                                     proportion);
-                                 
-            % train all classifiers
-            cellfun(trainFunction, ...
-                obj.baseClassifiers, ...
-                obj.trainingInstanceProportions, ...
-                'UniformOutput', 0);
+                                     proportions{i});
+                end
+                
+                obj.baseClassifiers = classifier;
+            end
         end
         
         function predictedLabelMap = ...
                 classifyOn(obj, evalFeatureCube, maskMap)
             
-            % Create classify function call handle
-            classifyHandle = @(classifier) classifier.classifyOn(...
-                evalFeatureCube, maskMap);
             
-            % Classify all instances
-            accumulatedLabels = cellfun(...
-                classifyHandle, obj.baseClassifiers, 'UniformOutput', 0)';
+            if obj.multithreadingClassification
+                classifier = obj.baseClassifiers;
+                accumulatedLabels = cell(length(classifier),1);
+                parfor i = 1:length(classifier)
+                    accumulatedLabels{i} = ...
+                        classifier{i}.classifyOn(...
+                            evalFeatureCube, maskMap);
+                end
+            else
+                % Create classify function call handle
+                classifyHandle = @(classifier) classifier.classifyOn(...
+                evalFeatureCube, maskMap);
+                % Classify all instances
+                accumulatedLabels = cellfun(...
+                    classifyHandle, obj.baseClassifiers, ...
+                    'UniformOutput', 0)';
+            end
+            
             % concatenate the labels along the third dimension
             concatenatedLabels = cat(3, accumulatedLabels{:});
             % Calculate the majority vote

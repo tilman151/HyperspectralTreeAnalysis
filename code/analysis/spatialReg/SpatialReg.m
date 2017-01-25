@@ -84,7 +84,7 @@ classdef SpatialReg < Classifier
         function obj = SpatialReg(varargin)
             % Create input parser
             p = inputParser;
-            p.addParameter('Classifier');
+            p.addRequired('Classifier');
             p.addParameter('R', 5);
             p.addParameter('LabelPropagation', true);
             p.addParameter('OutputRegularization', true);
@@ -99,6 +99,7 @@ classdef SpatialReg < Classifier
             obj.r = p.Results.R;
             obj.labelPropagation = p.Results.LabelPropagation;
             obj.outputRegularization = p.Results.OutputRegularization;
+            obj.propagationThreshold = p.Results.PropagationThreshold;
             obj.visualizeSteps = p.Results.VisualizeSteps;
             
             % Compute relative neighbor positions for this radius once
@@ -119,7 +120,7 @@ classdef SpatialReg < Classifier
                    num2str(obj.outputRegularization)];
             
             % Append propagation threshold
-            str = [str ', propagationThreshold: '
+            str = [str ', propagationThreshold: '...
                    num2str(obj.propagationThreshold)];
             
             % Close parentheses
@@ -235,146 +236,4 @@ function clusterIdxMap = clustering(featureCube, labelMap)
     
     % Reshape resulting cluster indices to map representation
     clusterIdxMap = rebuildMap(clusterIdxList, labelMap);
-end
-
-function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
-    relativeNeighbors, propagationThreshold)
-    
-    % Calculate separate image masks regarding -1 columns
-    separateImagesMask = calculateImageBoundaryMask(labelMap);
-    
-    % Create map for counting neighboring labels
-    labelCounts = initLabelCounts(labelMap);
-    
-    % Propagate labels from all labeled pixels
-    for labeledIdx = find(labelMap > 0)'
-        [labeledX, labeledY] = ind2sub(size(labelMap), labeledIdx);
-        
-        % Get assigned cluster and label
-        labeledCluster = clusterIdxMap(labeledIdx);
-        label = labelMap(labeledIdx);
-        
-        % Get neighbor indices
-        neighbors = getValidNeighborIdxs(...
-            relativeNeighbors, labeledX, labeledY, labelMap);
-        
-        % Mask everything but the image that the current pixel belongs to
-        maskedClusterMap = applySeparateImagesMask(...
-            clusterIdxMap, separateImagesMask, labeledY);
-        
-        % Get neighbor clusters
-        neighborClusters = maskedClusterMap(neighbors);
-        
-        % Check for matching cluster assignment
-        matchingNeighbors = neighbors(neighborClusters == labeledCluster);
-        
-        % Get subscripts
-        [matchingNeighborsX, matchingNeighborsY] = ...
-            ind2sub(size(labelMap), matchingNeighbors);
-        
-        % Get label count indices
-        labelVector = ones(length(matchingNeighborsX), 1) * label;
-        labelCountIdxs = sub2ind(size(labelCounts), ...
-            matchingNeighborsX, matchingNeighborsY, labelVector);
-        
-        % Increase label counts
-        labelCounts(labelCountIdxs) = labelCounts(labelCountIdxs) + 1;
-    end
-    
-    % Calculate number of neighbors needed for propagation
-    minNeighbors = propagationThreshold * length(relativeNeighbors);
-    
-    % For each unlabeled pixel, assign the label with the highest count
-    % received from the neighborhood
-    enrichedLabelMap = labelMap;
-    for unlabeledIdx = find(labelMap == 0)'
-        enrichedLabelMap = setMaxLabel(...
-            labelCounts, labelMap, unlabeledIdx, enrichedLabelMap, ...
-            minNeighbors);
-    end
-end
-
-function separateImagesMask = calculateImageBoundaryMask(labelMap)
-    dividingColumns = all(labelMap == -1, 1);
-    imageIdxs = cumsum(dividingColumns);
-    separateImagesMask = repmat(imageIdxs, [size(labelMap, 1) 1]);
-end
-
-function maskedMap = ...
-    applySeparateImagesMask(inputMap, separateImagesMask, curColumn)
-    
-    otherImgsMask = separateImagesMask ~= separateImagesMask(1, curColumn);
-    maskedMap = inputMap;
-    maskedMap(otherImgsMask) = -1;
-end
-
-function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
-    % Calculate separate image masks regarding -1 columns
-    separateImagesMask = calculateImageBoundaryMask(labelMap);
-    
-    % Create map for counting neighboring labels
-    [labelCounts, maxLabel] = initLabelCounts(labelMap);
-    
-    % For each pixel that is not a fill pixel, count all labels occuring in
-    % the neighborhood
-    for curIdx = find(labelMap > -1)'
-        [x, y] = ind2sub(size(labelMap), curIdx);
-        
-        % Get neighbor indices
-        neighbors = ...
-            getValidNeighborIdxs(relativeNeighbors, x, y, labelMap);
-        
-        % Mask everything but the image that the current pixel belongs to
-        maskedLabelMap = applySeparateImagesMask(...
-            labelMap, separateImagesMask, y);
-        
-        % Get neighbor labels
-        neighborLabels = maskedLabelMap(neighbors);
-        
-        % Count occurences of labels in neighborhood (ignoring unlabeled
-        % and fill pixels)
-        labelCounts(x, y, :) = histcounts(neighborLabels, 1:maxLabel+1);
-    end
-    
-    % For each pixel that is not a fill pixel, assign the label with the 
-    % highest count received from the neighborhood
-    regularizedLabelMap = labelMap;
-    for curIdx = find(labelMap > -1)'
-        regularizedLabelMap = setMaxLabel(...
-            labelCounts, labelMap, curIdx, regularizedLabelMap, 0);
-    end
-end
-
-function [labelCounts, maxLabel] = initLabelCounts(labelMap)
-    % Create map for counting neighboring labels
-    [maxX, maxY] = size(labelMap);
-    maxLabel = max(labelMap(:));
-    labelCounts = zeros(maxX, maxY, maxLabel);
-end
-
-function neighbors = getValidNeighborIdxs(relativeNeighbors, x, y, ...
-    labelMap)
-    
-    % Get positions of neighboring pixels
-    numNeighbors = size(relativeNeighbors, 1);
-    neighbors = relativeNeighbors + repmat([x y], numNeighbors, 1);
-
-    % Respect image boundaries
-    [maxX, maxY] = size(labelMap);
-    validPositions = min(neighbors, [], 2) > 0 & ...
-        neighbors(:, 1) <= maxX & neighbors(:, 2) <= maxY;
-    neighbors = neighbors(validPositions, :);
-
-    % Transform subscripts to indices
-    neighbors = sub2ind(size(labelMap), neighbors(:, 1), neighbors(:, 2));
-end
-
-function newMap = setMaxLabel(labelCounts, labelMap, curIdx, newMap, ...
-    minNeighbors)
-    
-    [x, y] = ind2sub(size(labelMap), curIdx);
-    [count, label] = max(labelCounts(x, y, :));
-    if count > minNeighbors
-        newMap(curIdx) = label;
-    end
 end

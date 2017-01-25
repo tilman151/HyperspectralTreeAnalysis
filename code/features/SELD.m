@@ -30,7 +30,7 @@ classdef SELD < TransformationFeatureExtractor
     %                                with the extracted features of the  
     %                                (weight x height) input instances.
     %
-    % Version: 2017-01-13
+    % Version: 2017-01-18
     % Author: Marianne Stecklina
     %
     
@@ -69,12 +69,13 @@ classdef SELD < TransformationFeatureExtractor
             reshapedFeatures = reshape(originalFeatures, ...
                 width * height, numFeatures); 
             
-            features = reshape(reshapedFeatures * transformationMatrix, ...
-                width, height, obj.numDim);
+            features = reshape(reshapedFeatures * ...
+                transformationMatrix(:, 1:obj.numDim), width, height, ...
+                obj.numDim);
         end
         
         function name = getTransformationFilename(obj)
-            name = [obj.toShortString '.mat'];  
+            name = ['SELD_' int2str(obj.k) '.mat'];  
         end
     end
     
