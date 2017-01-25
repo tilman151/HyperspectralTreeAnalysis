@@ -9,7 +9,7 @@ exampleClassifierConfig = @ExampleClassifier;
 randomForest2Config = @() RandomForest(2);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest22Config = @() RotationForest(2,2);
+rotationForest52Config = @() RotationForest(5,2);
 
 % SVM - Parameters: KernelFunction, PolynomialOrder, Coding
 svmLinearConfig = @() SVM(...
@@ -85,9 +85,9 @@ continuumRemoval= @() ContinuumRemoval(true);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = rotationForest22Config();
+CLASSIFIER = ExampleClassifierConfig();
 
-EXTRACTORS = {mcldaConfig()};
+EXTRACTORS = {};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';

@@ -27,26 +27,33 @@ classdef RotationForest < ExampleClassifier
         %number of trees in the ensemble
         numTrees;
         
-        %the tree ensemble
-        treeEnsemble;
-        
         %how many feature subsets are going to be created
         splitParam;
         
         %the amount of bootsstrapped elements taken from the dataset
         bootstrapParam;
         
-        featureList;
-        labelList;
+        %cell array of fitctrees, for further information: https://de.mathworks.com/help/stats/fitctree.html
+        treeEnsemble;
+        
+        matrixTransform;
+
     end
     
     methods
         
         function obj = RotationForest(numTrees,splitParameter)
+            
             %specify how many trees should be learned
             obj.numTrees = numTrees;
+            
+            %how many features are used for learning each tree 
             obj.splitParam = splitParameter;
+            
             obj.bootstrapParam = 0.75; %%default value
+            
+            obj.treeEnsemble = cell(numTrees);
+            obj.matrixTransform = cell(numTrees);
         end
           function str = toString(obj)
            str = ['RotationForest (numTrees: ' int2str(obj.numTrees) ', splitParam:' int2str(obj.splitParam) ')'];  
@@ -55,31 +62,30 @@ classdef RotationForest < ExampleClassifier
         function str = toShortString(obj)
             str = ['RotationForest_' int2str(obj.numTrees) '' int2str(obj.splitParam)];
         end
+        
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
             % Extract labeled pixels
-            obj.featureList = validListFromSpatial(...
+             featureList = validListFromSpatial(...
                 trainFeatureCube, trainLabelMap, true);
-            obj.labelList = validListFromSpatial(...
-                trainLabelMap, trainLabelMap, true);
-            
-            [~,numFeatures] = size(obj.featureList);
+            labelList = validListFromSpatial(...
+                trainLabelMap, trainLabelMap, true);            
+            [~,numFeatures] = size(featureList);
             if(obj.splitParam > numFeatures)
                 error('splitParameter has to be less than the number of features');
             end
-%             for l=1:obj.numTrees
-%                 %%% obtain the new samples by rotation forest %%%
-%                 K=obj.splitParam;
-%                 [R_new,R_coeff]=RotationFal(featureList, labelList, K,...
-%                     obj.bootstrapParam);
-%                 %%%% obtain new samples %%%%
-%                 trainRFnew=featureList*R_coeff;
-%                 tree = TreeBagger(1,trainRFnew,labelList);
-%                 if(l == 1)
-%                      obj.treeEnsemble = tree;
-%                 else
-%                      obj.treeEnsemble.append(tree);
-%                 end
-%             end
+            
+            for l=1:obj.numTrees
+                %%% obtain the new samples by rotation forest %%%
+                K=obj.splitParam;
+                [R_new,R_new1]=RotationFal(featureList, labelList, K,...
+                    obj.bootstrapParam);
+                %%%% obtain new samples %%%%
+ 
+                trainRFnew=featureList*R_new;
+                tree = fitctree(trainRFnew,labelList);
+                obj.treeEnsemble{l} = tree;
+                obj.matrixTransform{l} = R_new;
+            end
         end
             
             function predictedLabelMap = classifyOn(...
@@ -88,24 +94,12 @@ classdef RotationForest < ExampleClassifier
            % Extract list of unlabeled pixels
             featList = validListFromSpatial(evalFeatureCube, maskMap);
             labelMat = zeros(size(featList,1),obj.numTrees);
-             for l=1:obj.numTrees
-                %%% obtain the new samples by rotation forest %%%
-                K=obj.splitParam;
-                [R_new,~]=RotationFal(obj.featureList, obj.labelList, K,...
-                    obj.bootstrapParam);
-                %%%% obtain new samples %%%%
-                trainRFnew=obj.featureList*R_new;
+            % Predict labels using the ensemble
+              for l=1:obj.numTrees
+             labelMat(:,l) = obj.treeEnsemble{l}.predict(featList*obj.matrixTransform{l});
+              end
 
-                tree = fitctree(trainRFnew,obj.labelList);
-                labelMat(:,l) = tree.predict(featList*R_new);
-                
-            end
-%             % Predict labels using the ensemble
-%             predictedLabelList = obj.treeEnsemble.predict(featureList);
-%             
-%             % TreeBagger output is a cell array -> transform to matrix
-%             predictedLabelList = cellfun(@(x) str2num(x), predictedLabelList);
-            predictedLabelList = (mode(labelMat'))';
+             predictedLabelList = (mode(labelMat'))';
             % Rebuild map representation
             predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
             end

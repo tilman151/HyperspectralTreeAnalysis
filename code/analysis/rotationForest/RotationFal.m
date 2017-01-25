@@ -64,6 +64,6 @@ else
         end
     end
 
-
+    R_coeff = R_new1; %oder R_coeff nutzen
 end
 
