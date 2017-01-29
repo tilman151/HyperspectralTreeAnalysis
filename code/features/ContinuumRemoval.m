@@ -42,15 +42,18 @@ classdef ContinuumRemoval < FeatureExtractor
             str = obj.toString();
         end
         
-        function features = extractFeatures(obj, originalFeatures, ~)
+        function features = extractFeatures(obj, originalFeatures, ...
+                                                 maskMap, ~)
             features = ...
-                continuumRemoval(originalFeatures, obj.multithreaded);
+                continuumRemoval(originalFeatures, maskMap, ...
+                                 obj.multithreaded);
         end
     end
     
 end
 
-function continuumRemoved = continuumRemoval(rawFeatures, multithreaded)
+function continuumRemoved = continuumRemoval(rawFeatures, maskMap, ...
+                                             multithreaded)
 %CONTINUUM_REMOVAL remove the continuum by dividing the features by its
 %                  convex hull for each pixel in a hyper spectral image
 %
@@ -66,6 +69,8 @@ function continuumRemoved = continuumRemoval(rawFeatures, multithreaded)
 %    rawFeatures ...... a 3-dimensional matrix with the dimensions 
 %                       X x Y x Z, where X is the width, Y is the height
 %                       and Z is the number of features per pixel
+%    maskMap       .... set to 1 if the features in the pixel are valid
+%                       otherwise it is set to -1
 %    multithreaded .... set to true to use a multithreaded implementation
 %
 %% Output:
@@ -86,8 +91,12 @@ reshapedFeatures = reshape(rawFeatures, x*y, spectralBands);
 if multithreaded
     continuumRemoved = zeros(size(reshapedFeatures));
     parfor i = 1:(x*y)
-        continuumRemoved(i,:) = ...
-           bandsToContinuumRemoved(reshapedFeatures(i,:));
+        if maskMap(i) ~= -1
+            continuumRemoved(i,:) = ...
+               bandsToContinuumRemoved(reshapedFeatures(i,:));
+        else
+            continuumRemoved(i,:) = 0;
+        end
     end
     continuumRemoved = reshape(continuumRemoved, x, y, spectralBands);
 else
@@ -127,7 +136,7 @@ function [continuumRemoved] = bandsToContinuumRemoved(bands)
 % Author: Tuan Pham Minh
 %
 
-if(size(unique(bands)) <= 1)
+if(max(bands) == min(bands))
     continuumRemoved = zeros(size(bands));
 else
     % create the corresponding x coordinates to the features

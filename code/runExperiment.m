@@ -82,11 +82,15 @@ function runExperiment(configFilePath)
             visualizeLabels(trainLabelMap, 'Training Labels');
         end
         
+        % Create mask map (only showing -1 and 0)
+        maskMap = trainLabelMap;
+        maskMap(trainLabelMap > 0) = 0;
+        
         % Apply feature extraction
         logger.debug('runExperiment', 'Applying feature extraction...');
         trainFeatureCube = ...
             applyFeatureExtraction(trainFeatureCube, EXTRACTORS, ...
-                                   SAMPLE_SET_PATH);
+                                   maskMap, SAMPLE_SET_PATH);
         
         % Train classifier
         logger.debug('runExperiment', 'Training classifier...');
@@ -106,15 +110,15 @@ function runExperiment(configFilePath)
             visualizeLabels(testLabelMap, 'Test Labels');
         end
         
+        % Create mask map (only showing -1 and 0)
+        maskMap = testLabelMap;
+        maskMap(testLabelMap > 0) = 0;
+        
          % Apply feature extraction
         logger.debug('runExperiment', 'Applying feature extraction...');
         testFeatureCube = ...
             applyFeatureExtraction(testFeatureCube, EXTRACTORS, ...
-                                   SAMPLE_SET_PATH);
-        
-        % Create mask map (only showing -1 and 0)
-        maskMap = testLabelMap;
-        maskMap(testLabelMap > 0) = 0;
+                                   maskMap, SAMPLE_SET_PATH);
         
         % Apply trained classifier
         logger.debug('runExperiment', 'Applying trained classifier...');
@@ -165,9 +169,9 @@ function runExperiment(configFilePath)
 end
 
 function featureCube = applyFeatureExtraction(featureCube, extractors, ...
-                                              sampleSetPath)
+                                              maskMap, sampleSetPath)
     for i = 1:numel(extractors)
         featureCube = extractors{i}.extractFeatures(featureCube, ...
-            sampleSetPath);
+            maskMap, sampleSetPath);
     end
 end

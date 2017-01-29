@@ -38,8 +38,10 @@ classdef FeatureExtractionMerger < FeatureExtractor
             str = obj.toString();
         end
         
-        function features = extractFeatures(obj, originalFeatures, ~)
-            f = @(x) x.extractFeatures(originalFeatures);
+        function features = extractFeatures(obj, originalFeatures, ...
+                                                 maskMap, samplesetPath)
+            f = @(x) x.extractFeatures(originalFeatures, ...
+                                       maskMap, samplesetPath);
             features = ...
                 cellfun(f, obj.featureExtractors, 'uniformoutput', 0);
             features = cat(3, features{:});
