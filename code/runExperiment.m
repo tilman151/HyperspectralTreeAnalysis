@@ -64,9 +64,6 @@ function runExperiment(configFilePath)
     
     % Start logging
     logger = logger.startExperiment();
-    
-    % Initialize best accuracy
-    bestAccuracy = 0;
                         
     % For each test and training set
     for i = 1:crossValidator.k
@@ -98,7 +95,7 @@ function runExperiment(configFilePath)
         logger.info('runExperiment', 'Classifier trained');
         
         % Free RAM
-        clear('trainLabelMap', 'trainFeatureCdirectoryube');
+        clear('trainLabelMap', 'trainFeatureCube');
         
         
         % Load test set
@@ -143,7 +140,7 @@ function runExperiment(configFilePath)
         % Log accuracy
         logger.info('runExperiment', ...
                     sprintf('Current accuracy: %.3f', accuracy));
-        % Save best classifier to log directory
+        % Save classifier to log directory
         CLASSIFIER.saveTo(confMat(2:end, 2:end, i), ...
                           logger.getLogPath(), ...
                           num2str(i));
