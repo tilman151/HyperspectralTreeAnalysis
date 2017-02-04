@@ -117,13 +117,15 @@ continuumRemoval= @() ContinuumRemoval(true);
 % SpatialFeatureExtractor - Parameters: radius, useMultithread
 spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, true);
 spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, true);
+spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, true);
+spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, false);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
 CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {pca25Config(), spatialFeatureExtractorConfig_20()};
+EXTRACTORS = {mcldaConfig(), spatialFeatureExtractorConfig_5()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';

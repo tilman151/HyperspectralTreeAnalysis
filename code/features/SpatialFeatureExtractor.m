@@ -34,7 +34,7 @@ classdef SpatialFeatureExtractor < FeatureExtractor
         function obj = SpatialFeatureExtractor(radius, multithreading)
             obj.radius = radius;
             obj.multithreading = multithreading;
-            obj.extractionFunctions = {@extractWeightedMean, ...
+            obj.extractionFunctions = {@extractMean, ...
                                        @extractVar, ...
                                        @extractMin, ...
                                        @extractMax, ...
@@ -82,78 +82,112 @@ classdef SpatialFeatureExtractor < FeatureExtractor
         
         function features = extractFeatures(obj, originalFeatures, ...
                                                  maskMap, ~)
+                                             
             numFeaturesToExtract = numel(obj.extractionFunctions);
             
-            [x,y,numOriginalFeatures] = size(originalFeatures);
+            [y,x,numOriginalFeatures] = size(originalFeatures);
             
             numFeatures = numOriginalFeatures * numFeaturesToExtract;
             
-            features = zeros(x,y,numFeatures);
+            features = zeros(y,x,numFeatures);
             
             r = obj.radius;
             functions = obj.extractionFunctions;
             
+            originalFeatures(maskMap<0) = nan; 
             if obj.multithreading
-               parfor fIdx = 1:numFeatures
-                    validPixel = maskMap >= 0;
+                for foIdx = 1:numOriginalFeatures
+                    neighborhoodMatrix = ...
+                        generateNeighborhoodMatrix( ...
+                            originalFeatures(:,:,foIdx), ...
+                            r);
                     
-                    sliceIdx = ceil(fIdx/numFeaturesToExtract);
-                    slice = originalFeatures(:,:,sliceIdx);
-                    functionIndex = ...
-                        mod(fIdx - 1, numFeaturesToExtract) + 1;
-                    extractionFunction = functions{functionIndex};
-                    for ix = 1:x
-                        for iy = 1:y
-                            f = 0;
-                            if validPixel(ix, iy) 
-                                lx = max(1,ix - r);
-                                rx = min(x,ix + r);
-                                dy = max(1,iy - r);
-                                uy = min(y,iy + r);
-
-                                window = slice(lx:rx, dy:uy);
-                                maskWindow = validPixel(lx:rx, dy:uy);
-                                localPosition = [iy - dy + 1, ix - lx + 1];
-                                f = extractionFunction(window, ...
-                                                       localPosition, ...
-                                                       maskWindow ...
-                                                       );
-                            end
-                            features(ix,iy,fIdx) = f;
-                        end 
+                    for efIdx = 1:numFeaturesToExtract
+                        fIdx = (foIdx-1) * numFeaturesToExtract + efIdx;
+                        extractionFunction = functions{efIdx};
+                        f = extractionFunction(neighborhoodMatrix, r);
+                        features(:,:,fIdx) = f;
                     end
                 end
             else
-                for fIdx = 1:numFeatures
+                for ofIdx = 1:numOriginalFeatures
+                    tic;
                     validPixel = maskMap ~= -1;
-                    sliceIdx = ceil(fIdx/numFeaturesToExtract);
-                    slice = originalFeatures(:,:,sliceIdx);
-                    functionIndex = ...
-                        mod(fIdx - 1, numFeaturesToExtract) + 1;
-                    extractionFunction = functions{functionIndex};
+                    slice = originalFeatures(:,:,ofIdx);
                     for ix = 1:x
+                        if mod(ix, 100) == 0
+                            ix
+                        end
                         for iy = 1:y
-                            f = 0;
-                            if validPixel(ix, iy) 
+                            f = zeros(numFeaturesToExtract,1);
+                            if validPixel(iy, ix)  
                                 lx = max(1,ix - r);
                                 rx = min(x,ix + r);
                                 dy = max(1,iy - r);
                                 uy = min(y,iy + r);
 
-                                window = slice(lx:rx, dy:uy);
-                                maskWindow = validPixel(lx:rx, dy:uy);
-                                localPosition = [iy - dy + 1, ix - lx + 1];
-                                f = extractionFunction(window, ...
-                                                       localPosition, ...
-                                                       maskWindow ...
-                                                       );
+                                window = slice(dy:uy, lx:rx);
+                                maskWindow = validPixel(dy:uy, lx:rx);
+                                if sum(maskWindow(:)) > 0
+                                    localY =  iy - dy + 1;
+                                    localX =  ix - lx + 1;
+                                    wx = (rx-lx+1);
+                                    wy = (uy-dy+1);
+                                    llx = max(1, r-(wx-localX)+1);
+                                    lrx = llx + wx - 1;
+                                    ldy = max(1, r-(wy-localY)+1);
+                                    luy = ldy + wy - 1;
+                                    nMatrix = nan(r*2+1);
+                                    nMatrix(ldy:luy, llx:lrx) = window;
+                                    nMatrix = ...
+                                        reshape(nMatrix, ...
+                                                1,1,numel(nMatrix));
+
+                                    for efIdx = 1:numFeaturesToExtract
+                                        extractionFunction = ...
+                                            functions{efIdx};
+                                        f(efIdx) = ...
+                                            extractionFunction(nMatrix, r);
+                                    end
+                                end
                             end
-                            features(ix,iy,fIdx) = f;
+                            lIdx = (ofIdx-1)*numFeaturesToExtract+1;
+                            rIdx = ofIdx*numFeaturesToExtract;
+                            features(iy,ix,lIdx:rIdx) = f;
                         end 
                     end
+                    toc;
                 end
             end
         end
+    end
+end
+
+function neighborHoodMatrix = generateNeighborhoodMatrix(features, r)
+    height = (2*r+1);
+    neighborhoodSize = height^2;
+    [y,x] = size(features);
+    neighborHoodMatrix = zeros(y,x,neighborhoodSize);
+    for nIdx = 1:neighborhoodSize
+        shiftY = mod(nIdx-1, height) - r;
+        shiftX = floor(nIdx-1/ height) - r;
+        neighborHood = ...
+            circshift(features, ...
+                      [shiftY, shiftX]);
+        
+        invalidmask = ones(size(features));
+        if shiftX < 0
+            invalidmask(:,end+shiftX:end) = nan;
+        elseif shiftX > 0
+            invalidmask(:,1:shiftX) = nan;
+        end
+        if shiftY < 0
+            invalidmask(end+shiftX:end,:) = nan;
+        elseif shiftY > 0
+            invalidmask(1:shiftX,:) = nan;
+        end
+
+        neighborHoodMatrix(:,:,nIdx) = neighborHood.*invalidmask;
     end
 end
 
@@ -164,33 +198,37 @@ function functionName = extractFunctionName(functionHandle, keyword)
     end
 end
 
-function result = extractMean(featureWindow, ~, mask)
-    result = mean(featureWindow(mask(:)));
+function result = extractMean(neighborhoodMatrix, ~)
+    result = nanmean(neighborhoodMatrix,3);
 end
 
-function result = extractWeightedMean(featureWindow, localPosition, mask)
-    [x,y] = meshgrid(1:(size(featureWindow,2)),1:size(featureWindow,1));
+function result = extractWeightedMean(neighborhoodMatrix, radius)
+    width = 2*radius+1;
+    localPosition = [radius + 1, radius+1];
+    [x,y] = meshgrid(1:width);
     x=abs(x-localPosition(2));
     y=abs(y-localPosition(1));
     d = x+y;
-    id = ((max(d(:))+1) - d).* mask;
+    id = ((max(d(:))+1) - d);
     w = id/sum(id(:));
-    transformed = featureWindow .* w;
-    result = sum(transformed(:));
+    w = reshape(w,1,1,numel(w));
+    [sx,sy, ~] = size(neighborhoodMatrix);
+    transformed = neighborhoodMatrix .* repmat(w,sx,sy,1);
+    result = nansum(transformed, 3);
 end
 
-function result = extractVar(featureWindow, ~, mask)
-    result = var(featureWindow(mask(:)));
+function result = extractVar(neighborhoodMatrix, ~)
+    result = nanvar(neighborhoodMatrix,1,3);
 end
 
-function result = extractMax(featureWindow, ~, mask)
-    result = max(featureWindow(mask(:)));
+function result = extractMax(neighborhoodMatrix, ~)
+    result = nanmax(neighborhoodMatrix,[],3);
 end
 
-function result = extractMin(featureWindow, ~, mask)
-    result = min(featureWindow(mask(:)));
+function result = extractMin(neighborhoodMatrix, ~)
+    result = nanmin(neighborhoodMatrix,[],3);
 end
 
-function result = extractMedian(featureWindow, ~, mask)
-    result = median(featureWindow(mask(:)));
+function result = extractMedian(neighborhoodMatrix, ~)
+    result = nanmedian(neighborhoodMatrix,3);
 end
