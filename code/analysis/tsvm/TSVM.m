@@ -167,7 +167,7 @@ function models = trainOneVsOne(featureList, labelList, params)
     models = cell(numBinaryClassifiers, 3);
 
     % Train binary classifiers
-    for ii = 1 : numBinaryClassifiers
+    parfor ii = 1 : numBinaryClassifiers
         % Get classes for this classifier
         classpair = classpairs(ii, :);
         c1 = classes(classpair(1));
