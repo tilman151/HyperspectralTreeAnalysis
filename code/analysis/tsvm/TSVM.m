@@ -3,31 +3,22 @@ classdef TSVM < Classifier
     %
     %    Support vector machine that uses unlabeled data as additional
     %    information. Also known as Semi-Supervised SVM (S3VM).
+    %    This class requires a compiled version of the SVM-Light MATLAB
+    %    interface, which can be downloaded from here: 
+    %    https://sourceforge.net/projects/mex-svm/files/svm_mex601r14.zip/download
     %
     %% Properties:
-    %    C1 .............. Misclassification penalty (labeled data).
-    %    C2 .............. Misclassification penalty (neutral data).
-    %    KernelName ...... Name of the kernel function.
-    %    KernelFunction .. Kernel function handle for the SVM.
-    %    PolynomialOrder . Order of the polynomial kernel function.
-    %    Coding .......... Name of the multiclass coding design.
-    %    CodingFunction .. Function handle for the multiclass coding.
-    %    f ............... Classification function handle of the trained 
-    %                      model.
-    %    SX .............. Support vector points.
-    %    SY .............. Support vector labels.
-    %    SA .............. Support vector alphas (Lagrange multipliers).
+    %    kernel .......... Name of the kernel function.
+    %    polynomialOrder . Order of the polynomial kernel function.
+    %    coding .......... Name of the multiclass coding design.
     %
     %% Methods:
     %    TSVM .......... Constructor. Can take Name, Value pair arguments 
     %                    that change the multiclass strategy and the 
     %                    internal parameters of the SVM. 
     %                    Possible arguments:
-    %        C1 .............. Misclassification penalty (labeled data).
-    %        C2 .............. Misclassification penalty (neutral data).
     %        KernelFunction .. Kernel function for the SVM.
-    %                          'linear'(default) | 'sigmoidal' | 'rbf' | 
-    %                          'polynomial'
+    %                          'linear'(default) | 'polynomial'
     %        PolynomialOrder . Positive integer specifying the degree of
     %                          polynomial to be used for polynomial
     %                          kernel. This parameter is used only if
@@ -40,100 +31,58 @@ classdef TSVM < Classifier
     %    trainOn ....... See documentation in superclass Classifier.
     %    classifyOn .... See documentation in superclass Classifier.
     %
-    % Version: 2016-12-22
+    % Version: 2017-02-05
     % Author: Cornelius Styp von Rekowski
     %
     
     properties
         % Parameters
-        C1;
-        C2;
-        KernelName;
-        PolynomialOrder;
-        Coding;
+        kernel;
+        polynomialOrder
+        coding;
     end
     
     properties(Hidden=true)
-        % Function handles
-        KernelFunction;
-        CodingFunction;
-        
-        % Output results
-        f; 
-        SX; 
-        SY;
-        SA;
+        % Trained binary models
+        models;
     end
     
     methods
         function obj = TSVM(varargin)
             % Create input parser
             p = inputParser;
-            p.addParameter('C1', 10);
-            p.addParameter('C2', 10);
             p.addParameter('KernelFunction', 'linear');
-            p.addParameter('PolynomialOrder', 3);
+            p.addParameter('PolynomialOrder', []);
             p.addParameter('Coding', 'onevsone');
             
             % Parse input arguments
             p.parse(varargin{:});
             
             % Save parameters
-            obj.C1 = p.Results.C1;
-            obj.C2 = p.Results.C2;
+            obj.kernel = p.Results.KernelFunction;
+            obj.coding = p.Results.Coding;
             
-            % Parse kernel function
-            obj.KernelName = p.Results.KernelFunction;
-            switch p.Results.KernelFunction
-                case 'linear'
-                    obj.KernelFunction = kernel_gen_lin;
-                case 'sigmoidal'
-                    obj.KernelFunction = kernel_gen_sig;
-                case 'rbf'
-                    obj.KernelFunction = kernel_gen_rbf;
-                case 'polynomial'
-                    obj.KernelFunction = kernel_gen_pol(...
-                        [0, p.Results.PolynomialOrder]);
-                    obj.PolynomialOrder = p.Results.PolynomialOrder;
-                otherwise
-                    disp(['Unrecognized option for KernelFunction: '...
-                          p.Results.KernelFunction]);
-                    disp('Falling back to default linear kernel.');
-                    obj.KernelName = 'linear';
-                    obj.KernelFunction = kernel_gen_lin;
-            end
-            
-            % Parse multiclass coding
-            obj.Coding = p.Results.Coding;
-            switch p.Results.Coding
-                case 'onevsone'
-                    obj.CodingFunction = @svm_ovo;
-                case 'onevsall'
-                    obj.CodingFunction = @svm_ova;
-                otherwise
-                    disp(['Unrecognized option for Coding: '...
-                          p.Results.Coding]);
-                    disp('Falling back to default one vs one coding.');
-                    obj.Coding = 'onevsone';
-                    obj.CodingFunction = @svm_ovo;
+            if strcmp(obj.kernel, 'polynomial')
+                if isempty(p.Results.PolynomialOrder)
+                    obj.polynomialOrder = 3;
+                else
+                    obj.polynomialOrder = p.Results.PolynomialOrder;
+                end
             end
         end
         
         function str = toString(obj)
             % Create output string with class name and kernel function
-            str = ['t-SVM (KernelFunction: ' obj.KernelName];
+            str = ['t-SVM (KernelFunction: ' obj.kernel];
             
             % Append polynomial order if kernel is polynomial
-            if obj.PolynomialOrder
+            if strcmp(obj.kernel, 'polynomial')
                 str = [str ', PolynomialOrder: ' ...
-                       num2str(obj.PolynomialOrder)];
+                       num2str(obj.polynomialOrder)];
             end
             
-            % Append misclassification penalties
-            str = [str ', C1: ' num2str(obj.C1) ', C2: ' num2str(obj.C2)];
-            
             % Append multiclass coding
-            str = [str ', Coding: ' obj.Coding];
+            str = [str ', Coding: ' obj.coding];
             
             % Close parentheses
             str = [str ')'];
@@ -141,38 +90,47 @@ classdef TSVM < Classifier
         
         function str = toShortString(obj)
             % Create output string with class name and kernel function
-            str = ['tSVM_' obj.KernelName];
+            str = ['tSVM_' obj.kernel];
             
             % Append polynomial order if kernel is polynomial
-            if obj.PolynomialOrder
-                str = [str num2str(obj.PolynomialOrder)];
+            if strcmp(obj.kernel, 'polynomial')
+                str = [str num2str(obj.polynomialOrder)];
             end
             
-            % Append misclassification penalties
-            str = [str '_C1-' num2str(obj.C1) '_C2-' num2str(obj.C2)];
-            
             % Append multiclass coding
-            str = [str '_' obj.Coding];
+            str = [str '_' obj.coding];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Get logger
+            logger = Logger.getLogger();
+            
             % Extract valid pixels as lists
             featureList = validListFromSpatial(...
                 trainFeatureCube, trainLabelMap);
             labelList = validListFromSpatial(...
                 trainLabelMap, trainLabelMap);
             
-            % Extract labeled pixels
-            labeledFeatureList = featureList(labelList > 0, :);
-            labeledLabelList = labelList(labelList > 0);
+            % Build additional parameters
+            params = '-v 0';
+            switch obj.kernel
+                case 'linear'
+                    params = [params ' -t 0'];
+                case 'polynomial'
+                    params = [params ' -t 1 -d ' ...
+                              num2str(obj.polynomialOrder)];
+            end
             
-            % Extract unlabeled pixels
-            unlabeledFeatureList = featureList(labelList == 0, :);
-            
-            [obj.f, obj.SX, obj.SY, obj.SA, ~] = obj.CodingFunction(...
-                labeledFeatureList, labeledLabelList, ...
-                unlabeledFeatureList, ...
-                obj.C1, obj.C2, obj.KernelFunction);
+            % Train model
+            switch obj.coding
+                case 'onevsone'
+                    obj.models = ...
+                        trainOneVsOne(featureList, labelList, params);
+                otherwise
+                    logger.error('t-SVM', ['Currently only one-vs-one '...
+                        'coding is supported for t-SVMs!']);
+                    exit;
+            end
         end
         
         function predictedLabelMap = ...
@@ -182,8 +140,7 @@ classdef TSVM < Classifier
             featureList = validListFromSpatial(evalFeatureCube, maskMap);
             
             % Predict labels
-            featureRows = num2cell(featureList, 2);
-            predictedLabelList = cellfun(obj.f, featureRows);
+            predictedLabelList = predictOneVsOne(featureList, obj.models);
             
             % Rebuild map representation
             predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
@@ -192,3 +149,72 @@ classdef TSVM < Classifier
     
 end
 
+function models = trainOneVsOne(featureList, labelList, params)
+    % Get logger
+    logger = Logger.getLogger();
+    
+    % Get neutral data
+    neutralFeatureList = featureList(labelList == 0, :);
+    neutralLabelList = zeros(size(neutralFeatureList, 1), 1);
+    
+    % Get list of classes
+    classes = unique(labelList(labelList > 0));
+    numClasses = length(classes);
+    
+    % Create class combinations and cell array for binary classifiers
+    classpairs = nchoosek(1:numClasses, 2);
+    numBinaryClassifiers = size(classpairs, 1);
+    models = cell(numBinaryClassifiers, 3);
+
+    % Train binary classifiers
+    for ii = 1 : numBinaryClassifiers
+        % Get classes for this classifier
+        classpair = classpairs(ii, :);
+        c1 = classes(classpair(1));
+        c2 = classes(classpair(2));
+        
+        logger.trace('t-SVM 1vs1', ...
+            ['Training ' num2str(c1) ' vs. ' num2str(c2)]);
+        
+        % Concatenate features and labels for the two classes
+        binaryFeatureList = [...
+            featureList(labelList == c1, :); ...
+            featureList(labelList == c2, :); ...
+            neutralFeatureList];
+        binaryLabelList = [...
+            ones(sum(labelList == c1), 1); ...
+            -ones(sum(labelList == c2), 1); ...
+            neutralLabelList];
+        
+        % Train and store model
+        models(ii, :) = {c1, c2, ...
+            svmlearn(binaryFeatureList, binaryLabelList, params)};
+    end
+end
+
+function predictedLabelList = predictOneVsOne(featureList, models)
+    % Obtain vote from each model
+    votes = cellfun(@(c1, c2, m) applyModel(c1, c2, m, featureList), ...
+        models(:, 1), models(:, 2), models(:, 3), 'UniformOutput', false);
+    
+    % Reshape votes to numSamples x numModels
+    votes = cell2mat(votes);
+    votes = reshape(votes, [size(featureList, 1), size(models, 1)]);
+    
+    % Decide for class with maximum number of votes
+    maxClass = max(votes(:));
+    voteCounts = histc(votes, 1:maxClass, 2);
+    [~, predictedLabelList] = max(voteCounts, [], 2);
+end
+
+function predictedLabelList = applyModel(c1, c2, model, featureList)
+    % Create empty label list, because svmclassify needs one
+    labelList = zeros(size(featureList, 1), 1);
+    
+    % Predict labels
+    [~, predictedLabelList] = svmclassify(featureList, labelList, model);
+    
+    % Assign classes based on predictions
+    predictedLabelList(predictedLabelList > 0) = c1;
+    predictedLabelList(predictedLabelList <= 0) = c2;
+end
