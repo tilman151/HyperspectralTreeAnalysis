@@ -114,11 +114,11 @@ mcldaConfig = @() MulticlassLda;
 % ContinuumRemoval - Parameters: useMultithread
 continuumRemoval= @() ContinuumRemoval(true);
 
-% SpatialFeatureExtractor - Parameters: radius, useMultithread
-spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, true);
-spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, true);
-spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, true);
-spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, false);
+% SpatialFeatureExtractor - Parameters: radius, implementationType
+spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, 2);
+spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, 2);
+spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, 2);
+spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations

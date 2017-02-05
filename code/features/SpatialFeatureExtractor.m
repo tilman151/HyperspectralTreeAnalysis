@@ -5,11 +5,23 @@ classdef SpatialFeatureExtractor < FeatureExtractor
     %   
     %% Methods:
     %    ContinuumRemoval. Constructor.
-    %                      radius ............ the radius in which the
+    %                      radius ............. the radius in which the
     %                                          measures should be 
     %                                          calculated
-    %                      useMultithreading . set to true to use a
-    %                                          multithreaded implementation
+    %                      implementationType . set 1 for an implementation
+    %                                           where a matrix is 
+    %                                           calculated whích contains 
+    %                                           the neighborhood for each 
+    %                                           pixel 
+    %                                           (needs a lot of memory)
+    %                                           set to 2 to use a
+    %                                           multithreaded approach
+    %                                           (needs less memory)
+    %                                           set to 3 or anything else
+    %                                           to use a singlethreaded
+    %                                           approach
+    %                                           (needs the least amount of
+    %                                           memory)
     %    toString ........ See documentation in superclass
     %                      FeatureExtractor.
     %    toShortString ... See documentation in superclass
@@ -25,15 +37,15 @@ classdef SpatialFeatureExtractor < FeatureExtractor
     
     properties
         radius;
-        multithreading;
+        implementationType;
         extractionFunctions;
     end
 
     methods
         
-        function obj = SpatialFeatureExtractor(radius, multithreading)
+        function obj = SpatialFeatureExtractor(radius, implementationType)
             obj.radius = radius;
-            obj.multithreading = multithreading;
+            obj.implementationType = implementationType;
             obj.extractionFunctions = {@extractMean, ...
                                        @extractVar, ...
                                        @extractMin, ...
@@ -89,13 +101,15 @@ classdef SpatialFeatureExtractor < FeatureExtractor
             
             numFeatures = numOriginalFeatures * numFeaturesToExtract;
             
-            features = zeros(y,x,numFeatures);
             
             r = obj.radius;
             functions = obj.extractionFunctions;
             
             originalFeatures(maskMap<0) = nan; 
-            if obj.multithreading
+            validPixel = maskMap ~= -1;
+            
+            if obj.implementationType == 1 
+                features = zeros(y,x,numFeatures);
                 for foIdx = 1:numOriginalFeatures
                     neighborhoodMatrix = ...
                         generateNeighborhoodMatrix( ...
@@ -110,56 +124,72 @@ classdef SpatialFeatureExtractor < FeatureExtractor
                     end
                 end
             else
-                for ofIdx = 1:numOriginalFeatures
-                    tic;
-                    validPixel = maskMap ~= -1;
-                    slice = originalFeatures(:,:,ofIdx);
-                    for ix = 1:x
-                        if mod(ix, 100) == 0
-                            ix
-                        end
-                        for iy = 1:y
-                            f = zeros(numFeaturesToExtract,1);
-                            if validPixel(iy, ix)  
-                                lx = max(1,ix - r);
-                                rx = min(x,ix + r);
-                                dy = max(1,iy - r);
-                                uy = min(y,iy + r);
-
-                                window = slice(dy:uy, lx:rx);
-                                maskWindow = validPixel(dy:uy, lx:rx);
-                                if sum(maskWindow(:)) > 0
-                                    localY =  iy - dy + 1;
-                                    localX =  ix - lx + 1;
-                                    wx = (rx-lx+1);
-                                    wy = (uy-dy+1);
-                                    llx = max(1, r-(wx-localX)+1);
-                                    lrx = llx + wx - 1;
-                                    ldy = max(1, r-(wy-localY)+1);
-                                    luy = ldy + wy - 1;
-                                    nMatrix = nan(r*2+1);
-                                    nMatrix(ldy:luy, llx:lrx) = window;
-                                    nMatrix = ...
-                                        reshape(nMatrix, ...
-                                                1,1,numel(nMatrix));
-
-                                    for efIdx = 1:numFeaturesToExtract
-                                        extractionFunction = ...
-                                            functions{efIdx};
-                                        f(efIdx) = ...
-                                            extractionFunction(nMatrix, r);
-                                    end
-                                end
-                            end
-                            lIdx = (ofIdx-1)*numFeaturesToExtract+1;
-                            rIdx = ofIdx*numFeaturesToExtract;
-                            features(iy,ix,lIdx:rIdx) = f;
-                        end 
+                features = cell(numOriginalFeatures,1);
+                if obj.implementationType == 2
+                    parfor ofIdx = 1:numOriginalFeatures
+                        f = calculateFeaturesForFeatureSlice( ...
+                                originalFeatures(:,:,ofIdx), ...
+                                validPixel, ... 
+                                functions, ... 
+                                r ...
+                            );
+                        features{ofIdx} = f;
                     end
-                    toc;
+                else
+                    for ofIdx = 1:numOriginalFeatures
+                        f = calculateFeaturesForFeatureSlice( ...
+                                originalFeatures(:,:,ofIdx), ...
+                                validPixel, ... 
+                                functions, ... 
+                                r ...
+                            );
+                        features{ofIdx} = f;
+                    end
                 end
+                features = cat(3,features{:});
             end
         end
+    end
+end
+
+function f = calculateFeaturesForFeatureSlice(slice, validPixel, fcns, r)
+    numFeaturesToExtract = numel(fcns);
+    [y,x] = size(slice);
+    f = zeros(y,x,numFeaturesToExtract);
+    for ix = 1:x
+        for iy = 1:y
+            if validPixel(iy, ix)  
+                lx = max(1,ix - r);
+                rx = min(x,ix + r);
+                dy = max(1,iy - r);
+                uy = min(y,iy + r);
+
+                window = slice(dy:uy, lx:rx);
+                maskWindow = validPixel(dy:uy, lx:rx);
+                if sum(maskWindow(:)) > 0
+                    localY =  iy - dy + 1;
+                    localX =  ix - lx + 1;
+                    wx = (rx-lx+1);
+                    wy = (uy-dy+1);
+                    llx = max(1, r-(wx-localX)+1);
+                    lrx = llx + wx - 1;
+                    ldy = max(1, r-(wy-localY)+1);
+                    luy = ldy + wy - 1;
+                    nMatrix = nan(r*2+1);
+                    nMatrix(ldy:luy, llx:lrx) = window;
+                    nMatrix = ...
+                        reshape(nMatrix, ...
+                                1,1,numel(nMatrix));
+
+                    for efIdx = 1:numFeaturesToExtract
+                        extractionFunction = ...
+                            fcns{efIdx};
+                        f(iy,ix,efIdx) = ...
+                            extractionFunction(nMatrix, r);
+                    end
+                end
+            end
+        end 
     end
 end
 
