@@ -1,5 +1,5 @@
-classdef SpatialReg < Classifier
-    %SPATIALREG Spatially regularized semi-supervised classifier
+classdef LabelPropagator < Classifier
+    %LABELPROPAGATOR Propagate labels before training a classifier
     %   
     %    Based on the scientific work presented in "Spatially regularized 
     %    semisupervised Ensembles of Extreme Learning Machines for 
@@ -10,12 +10,9 @@ classdef SpatialReg < Classifier
     %    unlabeled pixels in the spatial neighborhood that belong to the
     %    same cluster.
     %    3. A classifier is trained on this enriched data set.
-    %    4. The output image is regularized by assuming spatial smoothness.
     %
-    %    Any classifier or ensemble of classifiers following the common 
-    %    interface can be used internally. Furthermore, the label 
-    %    propagation and the regularization step can optionally be 
-    %    disabled.
+    %    Any classifier inheriting the common interface can be used 
+    %    internally.
     %
     %% Properties:
     %    classifier ........... Instance of a Classifier (supervised or 
@@ -25,22 +22,16 @@ classdef SpatialReg < Classifier
     %                           neighborhood for label propagation. Needs 
     %                           to be lower than half of the image size in 
     %                           either direction.
-    %    labelPropagation ..... Boolean. Enables/disables the label
-    %                           propagation step.
-    %    outputRegularization . Boolean. Enables/disables the output
-    %                           regularization step.
     %    propagationThreshold . Float value. Relative threshold of
     %                           neighbors needed for propagating a label.
     %
     %% Methods:
-    %    SpatialReg .... Constructor. Takes Name, Value pair arguments:
+    %    LabelPropagator . Constructor. Takes Name, Value pair arguments:
     %        Classifier ........... Set the internally used classifier.
+    %                               This should be an instance of a class
+    %                               inheriting from Classifier.
     %        R .................... Set the radius property. 
     %                               Default: 5
-    %        LabelPropagation ..... Enable/disable label propagation.
-    %                               Default: true
-    %        OutputRegularization . Enable/disable output regularization.
-    %                               Default: true
     %        PropagationThreshold . Define the relative threshold of
     %                               neighbors needed for propagating a
     %                               label.
@@ -48,12 +39,12 @@ classdef SpatialReg < Classifier
     %        VisualizeSteps ....... Enable/disable visualization of results
     %                               in between single processing steps.
     %                               Default: false
-    %    toString ...... See documentation in superclass Classifier.
-    %    toShortString . See documentation in superclass Classifier.
-    %    trainOn ....... See documentation in superclass Classifier.
-    %    classifyOn .... See documentation in superclass Classifier.
+    %    toString ........ See documentation in superclass Classifier.
+    %    toShortString ... See documentation in superclass Classifier.
+    %    trainOn ......... See documentation in superclass Classifier.
+    %    classifyOn ...... See documentation in superclass Classifier.
     %
-    % Version: 2016-12-22
+    % Version: 2017-02-07
     % Author: Cornelius Styp von Rekowski
     %
     
@@ -63,10 +54,6 @@ classdef SpatialReg < Classifier
         
         % Neighborhood radius
         r;
-        
-        % Enabled/Disabled processing steps
-        labelPropagation;
-        outputRegularization;
         
         % Relative propagation threshold
         propagationThreshold;
@@ -81,13 +68,11 @@ classdef SpatialReg < Classifier
     end
     
     methods
-        function obj = SpatialReg(varargin)
+        function obj = LabelPropagator(varargin)
             % Create input parser
             p = inputParser;
             p.addRequired('Classifier');
             p.addParameter('R', 5);
-            p.addParameter('LabelPropagation', true);
-            p.addParameter('OutputRegularization', true);
             p.addParameter('PropagationThreshold', 0);
             p.addParameter('VisualizeSteps', false);
             
@@ -97,8 +82,6 @@ classdef SpatialReg < Classifier
             % Save parameters
             obj.classifier = p.Results.Classifier;
             obj.r = p.Results.R;
-            obj.labelPropagation = p.Results.LabelPropagation;
-            obj.outputRegularization = p.Results.OutputRegularization;
             obj.propagationThreshold = p.Results.PropagationThreshold;
             obj.visualizeSteps = p.Results.VisualizeSteps;
             
@@ -107,17 +90,14 @@ classdef SpatialReg < Classifier
         end
         
         function str = toString(obj)
-            % Create output string with class name and classifier
-            str = ['SpatialReg (classifier: ' obj.classifier.toString()];
+            % Create output string with class name
+            str = 'LabelPropagator (';
+            
+            % Append classifier
+            str = [str 'classifier: ' obj.classifier.toString()];
             
             % Append neighborhood radius
             str = [str ', r: ' num2str(obj.r)];
-            
-            % Append processing steps
-            str = [str ', labelPropagation: ' ...
-                   num2str(obj.labelPropagation)];
-            str = [str ', outputRegularization: ' ...
-                   num2str(obj.outputRegularization)];
             
             % Append propagation threshold
             str = [str ', propagationThreshold: '...
@@ -131,13 +111,8 @@ classdef SpatialReg < Classifier
             % Create output string with classifier representation
             str = [obj.classifier.toShortString() '_'];
             
-            % Append processing steps
-            if obj.labelPropagation
-                str = [str '_labelPropagation'];
-            end
-            if obj.outputRegularization
-                str = [str '_outputRegularization'];
-            end
+            % Append propagated labels suffix
+            str = [str '_propagatedLabels'];
             
             % Append neighborhood radius
             str = [str '_r' num2str(obj.r)];
@@ -152,76 +127,45 @@ classdef SpatialReg < Classifier
             % Get logger
             logger = Logger.getLogger();
             
-            if obj.labelPropagation
-                % Perform unsupervised clustering
-                logger.info('SpatialReg', 'Clustering...');
-                clusterIdxMap = ...
-                    clustering(trainFeatureCube, trainLabelMap);
-                
-                % Display clustered map
-                if obj.visualizeSteps
-                    visualizeLabels(clusterIdxMap, 'Clusters');
-                end
-                
-                % Propagate labels in spatial neighborhood for matching
-                % clusters
-                logger.info('SpatialReg', 'Propagating labels...');
-                trainLabelMap = propagateLabels(...
-                    trainLabelMap, clusterIdxMap, obj.relativeNeighbors,...
-                    obj.propagationThreshold);
-                
-                % Display enriched label map
-                if obj.visualizeSteps
-                    visualizeLabels(trainLabelMap, ...
-                        'Enriched Training Labels');
-                end
+            % Perform unsupervised clustering
+            logger.info('LabelPropagator', 'Clustering...');
+            clusterIdxMap = ...
+                clustering(trainFeatureCube, trainLabelMap);
+
+            % Display clustered map
+            if obj.visualizeSteps
+                visualizeLabels(clusterIdxMap, 'Clusters');
+            end
+
+            % Propagate labels in spatial neighborhood for matching
+            % clusters
+            logger.info('LabelPropagator', 'Propagating labels...');
+            trainLabelMap = propagateLabels(...
+                trainLabelMap, clusterIdxMap, obj.relativeNeighbors,...
+                obj.propagationThreshold);
+
+            % Display enriched label map
+            if obj.visualizeSteps
+                visualizeLabels(trainLabelMap, ...
+                    'Enriched Training Labels');
             end
             
             % Train classifier on (enriched) data set
-            logger.info('SpatialReg', 'Training classifier...');
+            logger.info('LabelPropagator', 'Training classifier...');
             obj.classifier.trainOn(trainFeatureCube, trainLabelMap);
         end
         
         function predictedLabelMap = ...
                 classifyOn(obj, evalFeatureCube, maskMap)
             
-            % Get logger
-            logger = Logger.getLogger();
-            
-            % Predict labels
-            logger.info('SpatialReg', 'Predicting labels...');
+            % Predict labels using the internal classifier
             predictedLabelMap = ...
                 obj.classifier.classifyOn(evalFeatureCube, maskMap);
-            
-            if obj.outputRegularization
-                % Display result before regularization
-                if obj.visualizeSteps
-                    visualizeLabels(predictedLabelMap, ...
-                        'Predicted labels before regularization');
-                end
-                
-                % Regularize output labels based on spatial smoothness
-                logger.info('SpatialReg', 'Regularizing output...');
-                predictedLabelMap = ...
-                    regularize(predictedLabelMap, obj.relativeNeighbors);
-            end
         end
     end
     
 end
 
-
-function neighborIdxs = getRelativeNeighbors(r)
-    % Create relative indices of neighboring pixels in range
-    neighborIdxs = [];
-    for addX = -r : r
-        % Use euclidean distance (based on sqrt(x^2 + y^2) = r)
-        euclY = fix(sqrt(r^2 - addX^2));
-        for addY = -euclY : euclY
-            neighborIdxs = [neighborIdxs; addX addY];
-        end
-    end
-end
 
 function clusterIdxMap = clustering(featureCube, labelMap)
     % Extract valid pixels as list
