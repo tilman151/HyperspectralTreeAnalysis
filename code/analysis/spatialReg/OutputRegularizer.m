@@ -59,9 +59,6 @@ classdef OutputRegularizer
     
     methods
         function obj = OutputRegularizer(varargin)
-            % Get logger
-            logger = Logger.getLogger();
-            
             % Create input parser
             p = inputParser;
             p.addRequired('ModelFile');
@@ -73,8 +70,6 @@ classdef OutputRegularizer
             
             % Load model
             obj.classifier = Classifier.loadFrom(p.Results.ModelFile);
-            logger.info('OutputReglarizer', ...
-                ['Loaded model: ' obj.classifier.toString()]);
             
             % Save other parameters
             obj.r = p.Results.R;
