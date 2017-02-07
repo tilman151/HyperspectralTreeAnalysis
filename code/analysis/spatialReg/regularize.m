@@ -1,4 +1,7 @@
 function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
+%REGULARIZE Summary of this function goes here
+%   Detailed explanation goes here
+
     % Get logger
     logger = Logger.getLogger();
     
