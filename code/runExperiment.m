@@ -64,7 +64,9 @@ function runExperiment(configFilePath)
     
     % Start logging
     logger = logger.startExperiment();
-                        
+    
+    save([logger.getLogPath() '/FeatureExtractors'], 'EXTRACTORS');
+    
     % For each test and training set
     for i = 1:crossValidator.k
         logger.info('runExperiment', ['Iteration ', num2str(i)]);
