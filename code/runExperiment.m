@@ -47,7 +47,7 @@ function runExperiment(configFilePath)
                                     DATA_SET_PATH);
     
     % Initialize confusion matrix
-    confMat = zeros(18, 18, crossValidator.k);
+    confMat = zeros(25, 25, crossValidator.k);
     
     % Create logger singleton
     logPath = Logger.createLogPath(RESULTS_PATH, CLASSIFIER, EXTRACTORS);
@@ -64,7 +64,9 @@ function runExperiment(configFilePath)
     
     % Start logging
     logger = logger.startExperiment();
-                        
+    
+    save([logger.getLogPath() '/FeatureExtractors'], 'EXTRACTORS');
+    
     % For each test and training set
     for i = 1:crossValidator.k
         logger.info('runExperiment', ['Iteration ', num2str(i)]);
@@ -133,7 +135,7 @@ function runExperiment(configFilePath)
         confMat(:, :, i) = confusionmat(...
             validListFromSpatial(testLabelMap, maskMap), ...
             validListFromSpatial(classifiedLabelMap, maskMap), ...
-            'order', 0:17);
+            'order', 0:24);
         
         % Calculate accuracy of current classifier
         accuracy = Evaluator.getAccuracy(confMat(2:end, 2:end, i));

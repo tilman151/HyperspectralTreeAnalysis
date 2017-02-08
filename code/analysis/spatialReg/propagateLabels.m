@@ -1,5 +1,7 @@
 function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
     relativeNeighbors, propagationThreshold)
+%PROPAGATELABELS Summary of this function goes here
+%   Detailed explanation goes here
     
     % Get logger
     logger = Logger.getLogger();

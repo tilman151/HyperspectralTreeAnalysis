@@ -1,4 +1,4 @@
-function [out] = trainBaseClassifier( baseClassifier, trainFeatures2D , trainLabel1D, trainingInstanceProportion)
+function [out] = trainBaseClassifier( baseClassifier, trainFeatures2D , trainLabel1D, trainingInstanceProportion, remainClassDistribution)
 %TRAINBASECLASSIFIER trains a classifier with the provided parameter
 %
 %% Input:
@@ -18,9 +18,8 @@ function [out] = trainBaseClassifier( baseClassifier, trainFeatures2D , trainLab
 % Version: 2016-12-23
 % Author: Tuan Pham Minh
 %
-    numFeatures = length(trainLabel1D);
-    subSampleSize = floor(numFeatures * trainingInstanceProportion);
-    subSampleIndices = randperm(numFeatures, subSampleSize);
+    subSampleIndices = ...
+        subSampleData(trainLabel1D, trainingInstanceProportion, remainClassDistribution);
     randomizedFeatures = permute(trainFeatures2D(subSampleIndices,:), ...
                                  [1,3,2]);
     randomizedLabels = trainLabel1D(subSampleIndices);

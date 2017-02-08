@@ -1,8 +1,6 @@
-classdef TSVM < Classifier
-    %TSVM transductive Support Vector Machine
+classdef SVMsvmlight < Classifier
+    %SVMsvmlight Standard Support Vector Machine for multiclass problems
     %
-    %    Support vector machine that uses unlabeled data as additional
-    %    information. Also known as Semi-Supervised SVM (S3VM).
     %    This class requires a compiled version of the SVM-Light MATLAB
     %    interface, which can be downloaded from here: 
     %    https://sourceforge.net/projects/mex-svm/files/svm_mex601r14.zip/download
@@ -13,7 +11,7 @@ classdef TSVM < Classifier
     %    coding .......... Name of the multiclass coding design.
     %
     %% Methods:
-    %    TSVM .......... Constructor. Can take Name, Value pair arguments 
+    %    SVMsvmlight ... Constructor. Can take Name, Value pair arguments 
     %                    that change the multiclass strategy and the 
     %                    internal parameters of the SVM. 
     %                    Possible arguments:
@@ -48,7 +46,7 @@ classdef TSVM < Classifier
     end
     
     methods
-        function obj = TSVM(varargin)
+        function obj = SVMsvmlight(varargin)
             % Create input parser
             p = inputParser;
             p.addParameter('KernelFunction', 'linear');
@@ -73,7 +71,7 @@ classdef TSVM < Classifier
         
         function str = toString(obj)
             % Create output string with class name and kernel function
-            str = ['t-SVM (KernelFunction: ' obj.kernel];
+            str = ['SVM [SVMLight] (KernelFunction: ' obj.kernel];
             
             % Append polynomial order if kernel is polynomial
             if strcmp(obj.kernel, 'polynomial')
@@ -90,7 +88,7 @@ classdef TSVM < Classifier
         
         function str = toShortString(obj)
             % Create output string with class name and kernel function
-            str = ['tSVM_' obj.kernel];
+            str = ['SVM_' obj.kernel];
             
             % Append polynomial order if kernel is polynomial
             if strcmp(obj.kernel, 'polynomial')
@@ -107,9 +105,9 @@ classdef TSVM < Classifier
             
             % Extract valid pixels as lists
             featureList = validListFromSpatial(...
-                trainFeatureCube, trainLabelMap);
+                trainFeatureCube, trainLabelMap, true);
             labelList = validListFromSpatial(...
-                trainLabelMap, trainLabelMap);
+                trainLabelMap, trainLabelMap, true);
             
             % Build additional parameters
             params = '-v 0';
@@ -153,10 +151,6 @@ function models = trainOneVsOne(featureList, labelList, params)
     % Get logger
     logger = Logger.getLogger();
     
-    % Get neutral data
-    neutralFeatureList = featureList(labelList == 0, :);
-    neutralLabelList = zeros(size(neutralFeatureList, 1), 1);
-    
     % Get list of classes
     classes = unique(labelList(labelList > 0));
     numClasses = length(classes);
@@ -179,12 +173,10 @@ function models = trainOneVsOne(featureList, labelList, params)
         % Concatenate features and labels for the two classes
         binaryFeatureList = [...
             featureList(labelList == c1, :); ...
-            featureList(labelList == c2, :); ...
-            neutralFeatureList];
+            featureList(labelList == c2, :)];
         binaryLabelList = [...
             ones(sum(labelList == c1), 1); ...
-            -ones(sum(labelList == c2), 1); ...
-            neutralLabelList];
+            -ones(sum(labelList == c2), 1)];
         
         % Train and store model
         models(ii, :) = {c1, c2, ...

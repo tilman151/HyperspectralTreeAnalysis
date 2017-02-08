@@ -1,11 +1,9 @@
-classdef TSVM < Classifier
-    %TSVM transductive Support Vector Machine
+classdef SVMlibsvm < Classifier
+    %SVMlibsvm Standard Support Vector Machine for multiclass problems
     %
-    %    Support vector machine that uses unlabeled data as additional
-    %    information. Also known as Semi-Supervised SVM (S3VM).
-    %    This class requires a compiled version of the SVM-Light MATLAB
-    %    interface, which can be downloaded from here: 
-    %    https://sourceforge.net/projects/mex-svm/files/svm_mex601r14.zip/download
+    %    This class uses LIBSVM as its underlying SVM implementation.
+    %    It requires a compiled version of LIBSVM, which can be downloaded
+    %    here: https://www.csie.ntu.edu.tw/~cjlin/libsvm/
     %
     %% Properties:
     %    kernel .......... Name of the kernel function.
@@ -13,7 +11,7 @@ classdef TSVM < Classifier
     %    coding .......... Name of the multiclass coding design.
     %
     %% Methods:
-    %    TSVM .......... Constructor. Can take Name, Value pair arguments 
+    %    SVMlibsvm ..... Constructor. Can take Name, Value pair arguments 
     %                    that change the multiclass strategy and the 
     %                    internal parameters of the SVM. 
     %                    Possible arguments:
@@ -43,12 +41,12 @@ classdef TSVM < Classifier
     end
     
     properties(Hidden=true)
-        % Trained binary models
-        models;
+        % Trained model
+        model;
     end
     
     methods
-        function obj = TSVM(varargin)
+        function obj = SVMlibsvm(varargin)
             % Create input parser
             p = inputParser;
             p.addParameter('KernelFunction', 'linear');
@@ -73,7 +71,7 @@ classdef TSVM < Classifier
         
         function str = toString(obj)
             % Create output string with class name and kernel function
-            str = ['t-SVM (KernelFunction: ' obj.kernel];
+            str = ['SVM [LIBSVM] (KernelFunction: ' obj.kernel];
             
             % Append polynomial order if kernel is polynomial
             if strcmp(obj.kernel, 'polynomial')
@@ -105,14 +103,14 @@ classdef TSVM < Classifier
             % Get logger
             logger = Logger.getLogger();
             
-            % Extract valid pixels as lists
+            % Extract labeled pixels
             featureList = validListFromSpatial(...
-                trainFeatureCube, trainLabelMap);
+                trainFeatureCube, trainLabelMap, true);
             labelList = validListFromSpatial(...
-                trainLabelMap, trainLabelMap);
+                trainLabelMap, trainLabelMap, true);
             
             % Build additional parameters
-            params = '-v 0';
+            params = '-q';
             switch obj.kernel
                 case 'linear'
                     params = [params ' -t 0'];
@@ -124,11 +122,10 @@ classdef TSVM < Classifier
             % Train model
             switch obj.coding
                 case 'onevsone'
-                    obj.models = ...
-                        trainOneVsOne(featureList, labelList, params);
+                    obj.model = svmtrain(labelList, featureList, params);
                 otherwise
-                    logger.error('t-SVM', ['Currently only one-vs-one '...
-                        'coding is supported for t-SVMs!']);
+                    logger.error('SVM', ['Currently only one-vs-one '...
+                        'coding is supported in LIBSVM!']);
                     exit;
             end
         end
@@ -136,11 +133,13 @@ classdef TSVM < Classifier
         function predictedLabelMap = ...
                 classifyOn(obj, evalFeatureCube, maskMap)
             
-            % Extract unlabeled pixels as list
+            % Extract list of unlabeled pixels
             featureList = validListFromSpatial(evalFeatureCube, maskMap);
+            labelList = zeros(size(featureList, 1), 1);
             
             % Predict labels
-            predictedLabelList = predictOneVsOne(featureList, obj.models);
+            predictedLabelList = ...
+                svmpredict(labelList, featureList, obj.model);
             
             % Rebuild map representation
             predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
@@ -149,72 +148,3 @@ classdef TSVM < Classifier
     
 end
 
-function models = trainOneVsOne(featureList, labelList, params)
-    % Get logger
-    logger = Logger.getLogger();
-    
-    % Get neutral data
-    neutralFeatureList = featureList(labelList == 0, :);
-    neutralLabelList = zeros(size(neutralFeatureList, 1), 1);
-    
-    % Get list of classes
-    classes = unique(labelList(labelList > 0));
-    numClasses = length(classes);
-    
-    % Create class combinations and cell array for binary classifiers
-    classpairs = nchoosek(1:numClasses, 2);
-    numBinaryClassifiers = size(classpairs, 1);
-    models = cell(numBinaryClassifiers, 3);
-
-    % Train binary classifiers
-    parfor ii = 1 : numBinaryClassifiers
-        % Get classes for this classifier
-        classpair = classpairs(ii, :);
-        c1 = classes(classpair(1));
-        c2 = classes(classpair(2));
-        
-        logger.trace('t-SVM 1vs1', ...
-            ['Training ' num2str(c1) ' vs. ' num2str(c2)]);
-        
-        % Concatenate features and labels for the two classes
-        binaryFeatureList = [...
-            featureList(labelList == c1, :); ...
-            featureList(labelList == c2, :); ...
-            neutralFeatureList];
-        binaryLabelList = [...
-            ones(sum(labelList == c1), 1); ...
-            -ones(sum(labelList == c2), 1); ...
-            neutralLabelList];
-        
-        % Train and store model
-        models(ii, :) = {c1, c2, ...
-            svmlearn(binaryFeatureList, binaryLabelList, params)};
-    end
-end
-
-function predictedLabelList = predictOneVsOne(featureList, models)
-    % Obtain vote from each model
-    votes = cellfun(@(c1, c2, m) applyModel(c1, c2, m, featureList), ...
-        models(:, 1), models(:, 2), models(:, 3), 'UniformOutput', false);
-    
-    % Reshape votes to numSamples x numModels
-    votes = cell2mat(votes);
-    votes = reshape(votes, [size(featureList, 1), size(models, 1)]);
-    
-    % Decide for class with maximum number of votes
-    maxClass = max(votes(:));
-    voteCounts = histc(votes, 1:maxClass, 2);
-    [~, predictedLabelList] = max(voteCounts, [], 2);
-end
-
-function predictedLabelList = applyModel(c1, c2, model, featureList)
-    % Create empty label list, because svmclassify needs one
-    labelList = zeros(size(featureList, 1), 1);
-    
-    % Predict labels
-    [~, predictedLabelList] = svmclassify(featureList, labelList, model);
-    
-    % Assign classes based on predictions
-    predictedLabelList(predictedLabelList > 0) = c1;
-    predictedLabelList(predictedLabelList <= 0) = c2;
-end

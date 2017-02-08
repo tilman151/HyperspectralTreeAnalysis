@@ -14,13 +14,16 @@ function [ features, labels, unlabeledFeatures ] = generateSampleSet( directoryP
 
 
 % check for the relevant data files
-labelFiles = dir([directoryPath '/*_labels_new.mat']);
-featureFiles = dir([directoryPath '/*_new.mat']);
-labelFileNames = {labelFiles.name};
-featureFileNames = setdiff({featureFiles.name},{labelFiles.name});
+
+fileContent = whos('-file', [directoryPath, 'features.mat']);
+variableName = {fileContent.name};
+matchFunctionHandle = @(filename) matchFilename(filename, 'F2G9_');
+nameMask = cellfun(matchFunctionHandle, variableName);
+variableName = variableName(nameMask);
 
 % load all data
-allFeatures = cellfun(@removeEmptyInstances, repmat({directoryPath},size(featureFileNames)), featureFileNames, labelFileNames, 'uniformoutput', 0);
+loadingHandle = @(variableName)removeEmptyInstances([directoryPath 'features.mat'], [directoryPath 'labels.mat'], variableName);
+allFeatures = cellfun(loadingHandle, variableName, 'uniformoutput', 0);
 allFeatures = horzcat(allFeatures{:});
 allFeatures = reshape(allFeatures, 2, [])';
 
@@ -73,22 +76,26 @@ if(exist('outputpath', 'var'))
 end
 end
 
-function [output] = removeEmptyInstances(directoryPath, featurePath, labelPath)
+function [output] = removeEmptyInstances(featureFilePath, labelFilePath, variableName)
 % load features and labels
-feature = load([directoryPath '/' featurePath]);
-labels = load([directoryPath '/' labelPath]);
-
-feature = feature.cube;
-labels = labels.labels;
+feature = load(featureFilePath, variableName);
+labels = load(labelFilePath, variableName);
+feature = feature.(variableName);
+labels = labels.(variableName);
 
 % reshape to get from 3d to 2d
 [x,y,numFeatures] = size(feature);
 feature = reshape(feature, x*y, numFeatures);
 labels = reshape(labels, x*y, 1);
-
 % remove data with no information
 feature = feature(labels >= 0, :);
+
 labels = labels(labels >= 0);
 
 output = {feature, labels};
+end
+
+function matched = matchFilename(filename, regex)
+res = regexp(filename, regex);
+matched = ~isempty(res);
 end
