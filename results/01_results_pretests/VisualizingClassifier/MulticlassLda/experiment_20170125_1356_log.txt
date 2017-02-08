@@ -1,0 +1,50 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	VisualizingClassifier
+Extractors:	MulticlassLda
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/sampleSet.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+         4          4          4          4          4          4         26          4          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+--------------------------------------------
+Started: 25-Jan-2017 13:56:44
+2017-01-25 13:56:44,673 INFO  runExperiment - Iteration 1
+2017-01-25 13:56:44,682 DEBUG runExperiment - Loading training set...
+2017-01-25 13:56:48,111 DEBUG runExperiment - Applying feature extraction...
+2017-01-25 13:56:48,408 DEBUG runExperiment - Training classifier...
+2017-01-25 13:56:50,935 INFO  runExperiment - Classifier trained
+2017-01-25 13:56:50,939 DEBUG runExperiment - Loading test set...
+2017-01-25 13:56:53,563 DEBUG runExperiment - Applying feature extraction...
+2017-01-25 13:56:53,797 DEBUG runExperiment - Applying trained classifier...
+2017-01-25 13:56:53,800 INFO  runExperiment - Test instances classified
+2017-01-25 13:56:56,255 DEBUG runExperiment - Calculating confusion matrix...
+2017-01-25 13:56:56,490 INFO  runExperiment - Current accuracy: NaN
+2017-01-25 13:56:56,494 INFO  runExperiment - Iteration 2
+2017-01-25 13:56:56,496 DEBUG runExperiment - Loading training set...
+2017-01-25 13:57:00,167 DEBUG runExperiment - Applying feature extraction...
+2017-01-25 13:57:00,530 DEBUG runExperiment - Training classifier...
+2017-01-25 13:57:10,219 INFO  runExperiment - Classifier trained
+2017-01-25 13:57:10,225 DEBUG runExperiment - Loading test set...
+2017-01-25 13:57:12,484 DEBUG runExperiment - Applying feature extraction...
+2017-01-25 13:57:12,706 DEBUG runExperiment - Applying trained classifier...
+2017-01-25 13:57:12,708 INFO  runExperiment - Test instances classified
+2017-01-25 13:57:17,653 DEBUG runExperiment - Calculating confusion matrix...
+2017-01-25 13:57:17,788 INFO  runExperiment - Current accuracy: NaN
+2017-01-25 13:57:17,792 INFO  runExperiment - Iteration 3
+2017-01-25 13:57:17,794 DEBUG runExperiment - Loading training set...
