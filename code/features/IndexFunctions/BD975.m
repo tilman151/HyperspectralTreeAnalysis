@@ -15,7 +15,7 @@ classdef BD975 < FeatureExtractor
     % Author: Tuan Pham Minh
 
     methods
-        function features = extractFeatures(obj, originalFeatures)
+        function features = extractFeatures(obj, originalFeatures, ~, ~)
             features = bd975(originalFeatures);
         end
         

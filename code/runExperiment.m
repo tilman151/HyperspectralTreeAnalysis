@@ -64,9 +64,6 @@ function runExperiment(configFilePath)
     
     % Start logging
     logger = logger.startExperiment();
-    
-    % Initialize best accuracy
-    bestAccuracy = 0;
                         
     % For each test and training set
     for i = 1:crossValidator.k
@@ -82,11 +79,15 @@ function runExperiment(configFilePath)
             visualizeLabels(trainLabelMap, 'Training Labels');
         end
         
+        % Create mask map (only showing -1 and 0)
+        maskMap = trainLabelMap;
+        maskMap(trainLabelMap > 0) = 0;
+        
         % Apply feature extraction
         logger.debug('runExperiment', 'Applying feature extraction...');
         trainFeatureCube = ...
             applyFeatureExtraction(trainFeatureCube, EXTRACTORS, ...
-                                   SAMPLE_SET_PATH);
+                                   maskMap, SAMPLE_SET_PATH);
         
         % Train classifier
         logger.debug('runExperiment', 'Training classifier...');
@@ -94,7 +95,7 @@ function runExperiment(configFilePath)
         logger.info('runExperiment', 'Classifier trained');
         
         % Free RAM
-        clear('trainLabelMap', 'trainFeatureCdirectoryube');
+        clear('trainLabelMap', 'trainFeatureCube');
         
         
         % Load test set
@@ -106,15 +107,15 @@ function runExperiment(configFilePath)
             visualizeLabels(testLabelMap, 'Test Labels');
         end
         
+        % Create mask map (only showing -1 and 0)
+        maskMap = testLabelMap;
+        maskMap(testLabelMap > 0) = 0;
+        
          % Apply feature extraction
         logger.debug('runExperiment', 'Applying feature extraction...');
         testFeatureCube = ...
             applyFeatureExtraction(testFeatureCube, EXTRACTORS, ...
-                                   SAMPLE_SET_PATH);
-        
-        % Create mask map (only showing -1 and 0)
-        maskMap = testLabelMap;
-        maskMap(testLabelMap > 0) = 0;
+                                   maskMap, SAMPLE_SET_PATH);
         
         % Apply trained classifier
         logger.debug('runExperiment', 'Applying trained classifier...');
@@ -139,7 +140,7 @@ function runExperiment(configFilePath)
         % Log accuracy
         logger.info('runExperiment', ...
                     sprintf('Current accuracy: %.3f', accuracy));
-        % Save best classifier to log directory
+        % Save classifier to log directory
         CLASSIFIER.saveTo(confMat(2:end, 2:end, i), ...
                           logger.getLogPath(), ...
                           num2str(i));
@@ -165,9 +166,9 @@ function runExperiment(configFilePath)
 end
 
 function featureCube = applyFeatureExtraction(featureCube, extractors, ...
-                                              sampleSetPath)
+                                              maskMap, sampleSetPath)
     for i = 1:numel(extractors)
         featureCube = extractors{i}.extractFeatures(featureCube, ...
-            sampleSetPath);
+            maskMap, sampleSetPath);
     end
 end

@@ -19,7 +19,8 @@ classdef FeatureExtractor
     methods (Abstract)
         str = toString(obj)
         str = toShortString(obj)
-        features = extractFeatures(obj, originalFeatures, sampleSetPath)
+        features = extractFeatures(obj, originalFeatures, maskMap, ...
+                                        sampleSetPath)
     end
     
 end

@@ -15,7 +15,7 @@ classdef WI < FeatureExtractor
     % Author: Tuan Pham Minh
 
     methods
-        function features = extractFeatures(obj, originalFeatures)
+        function features = extractFeatures(obj, originalFeatures, ~, ~)
             features = wi(originalFeatures);
         end
         

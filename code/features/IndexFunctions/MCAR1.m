@@ -15,7 +15,7 @@ classdef MCAR1 < FeatureExtractor
     % Author: Tuan Pham Minh
 
     methods
-        function features = extractFeatures(obj, originalFeatures)
+        function features = extractFeatures(obj, originalFeatures, ~, ~)
             features = mcar1(originalFeatures);
         end
         

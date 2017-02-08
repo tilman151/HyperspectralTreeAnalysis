@@ -28,7 +28,7 @@ classdef Indices < FeatureExtractor
     methods
         
         function obj = Indices()
-            indexExtractors = {BD975, D1, GNDVI, MCAR1, NDVI, PR1, WI};
+            indexExtractors = {BD975, DI1, GNDVI, MCAR1, NDVI, PRI, WI};
             obj.featureExtractionMerger = ...
                 FeatureExtractionMerger(indexExtractors);
         end
@@ -41,7 +41,7 @@ classdef Indices < FeatureExtractor
             str = obj.toString();
         end
         
-        function features = extractFeatures(obj, originalFeatures, ~)
+        function features = extractFeatures(obj, originalFeatures, ~, ~)
             features = ...
                 obj.featureExtractionMerger.extractFeatures(...
                     originalFeatures ...

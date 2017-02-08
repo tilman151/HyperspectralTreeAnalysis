@@ -36,6 +36,7 @@ classdef RotationForest < ExampleClassifier
         %cell array of fitctrees, for further information: https://de.mathworks.com/help/stats/fitctree.html
         treeEnsemble;
         
+        %transformation matrix for every tree
         matrixTransform;
 
     end
