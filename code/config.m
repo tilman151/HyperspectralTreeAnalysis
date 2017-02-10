@@ -36,6 +36,12 @@ tsvmLinearConfig = @() TSVM(...
     'KernelFunction', 'linear', ...
     'Coding', 'onevsone');
 
+% Convolutional Network - Parameters: batchSize, cudnn, numEpochs
+convNetConfig = @() ConvNet(...
+    'batchSize', 100, ...
+    'cudnn', false, ...
+    'numEpochs', 20);
+
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
 basicEnsembleEC100_08Config = ...
@@ -110,11 +116,9 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
+CLASSIFIER = convNetConfig();
 
-CLASSIFIER = randomForestOutputRegConfig();
-
-EXTRACTORS = {mcldaConfig()};
-
+EXTRACTORS = {pca5Config()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
