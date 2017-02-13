@@ -51,7 +51,11 @@ classdef ConvNet < Classifier
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Get logger
+            logger = Logger.getLogger();
+            
             % Create network structure
+            logger.info('ConvNet', 'Create network structure');
             global NUMCLASSES;
             obj.net = createNet(obj.opts.sampleSize, numDim, NUMCLASSES,...
                 obj.opts.filterSize);
@@ -60,6 +64,7 @@ classdef ConvNet < Classifier
             obj.net.layers = fillMissingInitialValues(obj.net.layers);
             
             % Preprocessing: normalize data to mean 0 and variance 1
+            logger.info('ConvNet', 'Normalize data');
             [trainFeatureCube, obj.mean, obj.std] = ...
                 normalizeData(trainFeatureCube, trainLabelMap);
             
@@ -71,6 +76,9 @@ classdef ConvNet < Classifier
             % TODO: Load snapshot and start with epoch n
             state = [];
             for epoch = 1 : obj.opts.numEpochs
+                logger.info('ConvNet', ['Epoch ' num2str(epoch) '/' ...
+                    num2str(obj.opts.numEpochs)]);
+                
                 % Initialize state with momentum 0
                 state = initStateMomentum(state, obj.net.layers);
 
@@ -84,8 +92,12 @@ classdef ConvNet < Classifier
                 
                 % Process data in batches
                 numBatches = ceil(length(labeled) / obj.opts.batchSize);
-                for batchIndex = 1 : numBatches    
+                for batchIndex = 1 : numBatches
+                    logger.info('ConvNet', ['Batch ' ...
+                        num2str(batchIndex) '/' num2str(numBatches)]);
+                    
                     % Create batch from indices
+                    logger.debug('ConvNet', 'Create batch');
                     batch = createBatch(labeled, batchIndex, ...
                         obj.opts.batchSize, obj.opts.sampleSize, ...
                         trainFeatureCube, trainLabelMap);
@@ -99,11 +111,13 @@ classdef ConvNet < Classifier
                     obj.net.layers{end}.class = batch.labels;
                     
                     % Train network
+                    logger.debug('ConvNet', 'Train network');
                     res = vl_simplenn(obj.net, batch.features, 1, res, ...
                         'backPropDepth', obj.opts.backPropDepth, ...
                         'cudnn', obj.opts.cudnn);
                     
                     % Accumulate errors
+                    logger.debug('ConvNet', 'Accumulate errors');
                     error = sum([error, [... 
                         sum(double(gather(res(end).x)));
                         reshape(obj.opts.errorFunction(obj.opts, ...
@@ -112,6 +126,7 @@ classdef ConvNet < Classifier
                     % Accumulate gradients
                     % TODO: change batchSize to real size of batch which
                     %       might be smaller
+                    logger.debug('ConvNet', 'Accumulate gradients');
                     [obj.net, res, state] = accumulateGradients(...
                         obj.net, res, state, obj.opts, ...
                         obj.opts.batchSize, []) ;
@@ -186,6 +201,10 @@ function [net, state] = moveTo(numGPUs, net, state, destination)
     end
 
     if numGPUs >= 1
+        % Get logger
+        logger = Logger.logger();
+        logger.debug('ConvNet', ['Move network to ' destination]);
+        
         % Move network to destination
         net = vl_simplenn_move(net, destination);
         
