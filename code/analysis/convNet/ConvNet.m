@@ -9,7 +9,7 @@ classdef ConvNet < Classifier
 %    opts . options regarding training
 %    net .. net structure
 %    mean . mean of training data for each input dimension
-%    std . standard deviation of training data for each input dimension
+%    std .. standard deviation of training data for each input dimension
 %
 %% Methods:
 %    ConvNet ....... Constructor. Can take Name, Value pair arguments 
@@ -81,23 +81,23 @@ classdef ConvNet < Classifier
             for epoch = 1 : obj.opts.numEpochs
                 % initialize with momentum 0
                 if isempty(state) || isempty(state.momentum)
-                  for i = 1:numel(obj.net.layers)
-                    for j = 1:numel(obj.net.layers{i}.weights)
-                      state.momentum{i}{j} = 0;
+                    for i = 1:numel(obj.net.layers)
+                        for j = 1:numel(obj.net.layers{i}.weights)
+                            state.momentum{i}{j} = 0;
+                        end
                     end
-                  end
                 end
 
                 % move CNN  to GPU as needed
                 numGpus = numel(obj.opts.gpus);
                 if numGpus >= 1
-                  obj.net = vl_simplenn_move(obj.net, 'gpu');
-                  for i = 1:numel(state.momentum)
-                    for j = 1:numel(state.momentum{i})
-                      state.momentum{i}{j} = ...
-                          gpuArray(state.momentum{i}{j});
+                    obj.net = vl_simplenn_move(obj.net, 'gpu');
+                    for i = 1:numel(state.momentum)
+                        for j = 1:numel(state.momentum{i})
+                            state.momentum{i}{j} = ...
+                                gpuArray(state.momentum{i}{j});
+                        end
                     end
-                  end
                 end
                 
                 res = [] ;
@@ -125,7 +125,7 @@ classdef ConvNet < Classifier
                     error = sum([error, [... 
                         sum(double(gather(res(end).x)));
                         reshape(obj.opts.errorFunction(obj.opts, ...
-                        labels, res), [], 1); ]], 2);
+                            labels, res), [], 1); ]], 2);
 
                     % accumulate gradients
                     % TODO: change batchSize to real size of batch which
@@ -140,7 +140,8 @@ classdef ConvNet < Classifier
                 else
                     for i = 1:numel(state.momentum)
                         for j = 1:numel(state.momentum{i})
-                            state.momentum{i}{j} = gather(state.momentum{i}{j}) ;
+                            state.momentum{i}{j} = ...
+                                gather(state.momentum{i}{j}) ;
                         end
                     end
                 end
