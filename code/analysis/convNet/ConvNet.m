@@ -4,10 +4,11 @@ classdef ConvNet < Classifier
 %    Convolutional neural network that extracts training batches from a
 %    given feature cube and learns on them for a given number of epochs.
 %    The trained model can then be used for classification.
+%    Make sure that matConvNet has been compiled by running `vl_compilenn`.
 %
 %% Properties:
 %    opts . options regarding training
-%    net .. net structure
+%    net .. network structure
 %    mean . mean of training data for each input dimension
 %    std .. standard deviation of training data for each input dimension
 %
@@ -24,17 +25,20 @@ classdef ConvNet < Classifier
 %
 
     properties
+        % Options
         opts;
+        
+        % Network structure
         net;
+        
+        % Mean and standard deviation of the training data
         mean;
         std;
     end
 
     methods
         function obj = ConvNet(varargin)
-            run(fullfile('lib', 'analysis', 'matconvnet', 'matlab', ...
-                'vl_setupnn.m'));
-            
+            % Get default options and store them for later use in training
             obj.opts = setOpts(varargin{:});
         end
 
