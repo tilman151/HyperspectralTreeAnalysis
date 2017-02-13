@@ -36,17 +36,6 @@ classdef ConvNet < Classifier
                 'vl_setupnn.m'));
             
             obj.opts = setOpts(varargin{:});
-            obj.net = createNet();
-            % initialize net
-            for i=1:numel(obj.net.layers)
-                J = numel(obj.net.layers{i}.weights) ;
-                if ~isfield(obj.net.layers{i}, 'learningRate')
-                    obj.net.layers{i}.learningRate = ones(1, J) ;
-                end
-                if ~isfield(obj.net.layers{i}, 'weightDecay')
-                    obj.net.layers{i}.weightDecay = ones(1, J) ;
-                end
-            end
         end
 
         function str = toString(obj)
@@ -57,7 +46,23 @@ classdef ConvNet < Classifier
             str = 'convNet';
         end
         
-        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)  
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Create network structure
+            global NUMCLASSES;
+            obj.net = createNet(obj.opts.sampleSize, numDim, NUMCLASSES,...
+                obj.opts.filterSize);
+            
+            % Initialize net
+            for i=1:numel(obj.net.layers)
+                J = numel(obj.net.layers{i}.weights) ;
+                if ~isfield(obj.net.layers{i}, 'learningRate')
+                    obj.net.layers{i}.learningRate = ones(1, J) ;
+                end
+                if ~isfield(obj.net.layers{i}, 'weightDecay')
+                    obj.net.layers{i}.weightDecay = ones(1, J) ;
+                end
+            end
+            
             % preprocessing: normalize data to mean 0 and variance 1
             valid = find(trainLabelMap >= 0);
             for dim = 1 : size(trainFeatureCube, 3)
@@ -108,8 +113,8 @@ classdef ConvNet < Classifier
                 for batchIndex = 1 : numBatches    
                     % create batch from indices
                     batch = createBatch(labeled, batchIndex, ...
-                        obj.opts.batchSize, trainFeatureCube, ...
-                        trainLabelMap);
+                        obj.opts.batchSize, obj.opts.sampleSize, ...
+                        trainFeatureCube, trainLabelMap);
 
                     if numGpus >= 1
                         batch.data = gpuArray(batch.data) ;

@@ -1,12 +1,14 @@
-function net = createNet(filterSize, numDim)
+function net = createNet(sampleSize, numDim, numClasses, filterSize)
     %CREATENET Creates net as described by Makantasis et al.
     %
     %   This function creates a net with two convolutional layers and a 
     %   fully connected layer.
     %
     %%  Input:
+    %       sampleSize . height/width of the samples
+    %       numDim ..... number of feature dimensions of the input data
+    %       numClasses . number of output classes
     %       filterSize . length n of the n x n convolution filters 
-    %       numDim ..... number of dimensions of the input data
     %
     % Version: 2017-02-10
     % Author: Marianne Stecklina
@@ -34,13 +36,32 @@ function net = createNet(filterSize, numDim)
         'stride', 1, ...
         'pad', 0);
 
-    %TODO: add fully connected layer with 6 * numDim hidden units
+    
+    % Calculate output size after both convolutional layers
+    % IMPORTANT: Assumes stride of 1 and padding of 0 for both layers
+    tmpSize = sampleSize - 2*filterSize + 2;
+    
+    % Fully connected layers with 6 * numDim hidden units
+    net.layers{end+1} = struct(...
+        'type', 'conv', ...
+        'weights', {{0.01*randn(tmpSize, tmpSize, 9 * numDim, ...
+            6 * numDim, 'single'), zeros(1, 6 * numDim, 'single')}}, ...
+        'learningRate', lr, ...
+        'stride', 1, ...
+        'pad', 0);
+    net.layers{end+1} = struct(...
+        'type', 'conv', ...
+        'weights', {{0.01*randn(1, 1, 6 * numDim, numClasses, 'single'),...
+            zeros(1, numClasses, 'single')}}, ...
+        'learningRate', lr, ...
+        'stride', 1, ...
+        'pad', 0);
     
     % softmax layer
     net.layers{end+1} = struct('type', 'softmaxloss');
 
     % meta parameters
-    net.meta.inputSize = [filterSize filterSize numDim];
+    net.meta.inputSize = [sampleSize sampleSize numDim];
     net.meta.trainOpts.learningRate = ...
         [0.05*ones(1,30) 0.005*ones(1,10) 0.0005*ones(1,5)];
     net.meta.trainOpts.weightDecay = 0.0001;

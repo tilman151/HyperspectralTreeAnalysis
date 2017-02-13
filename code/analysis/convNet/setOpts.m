@@ -33,6 +33,8 @@ function opts = setOpts(varargin)
     p.addParameter('randomSeed', 0);
     p.addParameter('memoryMapFile', fullfile(tempdir, 'matconvnet.bin'));
     p.addParameter('profile', false);
+    p.addParameter('filterSize', 5);
+    p.addParameter('sampleSize', 21);
 
     p.addParameter('conserveMemory', true);
     p.addParameter('backPropDepth', +inf);
