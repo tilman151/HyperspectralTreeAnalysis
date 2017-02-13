@@ -110,12 +110,15 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-CLASSIFIER = randomForestOutputRegConfig();
+global NUMCLASSES;
+NUMCLASSES = 24;
 
-EXTRACTORS = {mcldaConfig()};
+CLASSIFIER = RandomForest(3);
+
+EXTRACTORS = {PCA(5)};
 
 DATA_SET_PATH = ...
-        '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';
+        '../data/ftp-iff2.iff.fraunhofer.de/';
 SAMPLE_SET_PATH = ...
         ['../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/' ...
             'Samplesets/sampleset_012.mat'];
@@ -137,6 +140,6 @@ RESULTS_PATH = '../results/';
 LOG_LEVEL = 0;
 
 VISUALIZE_TRAIN_LABELS = false;
-VISUALIZE_TEST_LABELS = true;
+VISUALIZE_TEST_LABELS = false;
 VISUALIZE_PREDICTED_LABELS = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
