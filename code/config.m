@@ -87,7 +87,9 @@ randomForestOutputRegConfig = @() OutputRegularizer(...
 %% Feature extractor configurations
 
 % SELD - Parameters: k, numDimensions
-seld85Config = @() SELD(8, 5);
+seld20_5Config = @() SELD(20, 5);
+seld40_5Config = @() SELD(40, 5);
+seld60_5Config = @() SELD(60, 5);
 
 % PCA - Parameters: numDimensions
 pca1Config = @() PCA(1);
@@ -111,9 +113,9 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 %% Experiment configurations
 
 
-CLASSIFIER = randomForestOutputRegConfig();
+CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {mcldaConfig()};
+EXTRACTORS = {seld60_5Config()};
 
 
 DATA_SET_PATH = ...

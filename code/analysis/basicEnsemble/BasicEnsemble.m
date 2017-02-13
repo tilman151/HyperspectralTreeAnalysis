@@ -164,7 +164,7 @@ classdef BasicEnsemble < Classifier
             reshapedTrainLabels = validListFromSpatial(...
                 trainLabelMap, trainLabelMap, false);
             
-            if obj.votingMode == VotingMode.WeightedMajority
+            if obj.votingMode ~= VotingMode.Majority
                validationSubsetIndices = subSampleData( ...
                                            reshapedTrainLabels, ...
                                            obj.validationSubsampleSize, ...
@@ -209,7 +209,7 @@ classdef BasicEnsemble < Classifier
                 
                 obj.baseClassifiers = classifier;
             end
-            if obj.votingMode == VotingMode.WeightedMajority
+            if obj.votingMode ~= VotingMode.Majority
                 
                 obj.weights = ones(size(obj.baseClassifiers));
                 
@@ -232,7 +232,14 @@ classdef BasicEnsemble < Classifier
                     newWeights(i) = ...
                         Evaluator.getAccuracy(cMat(2:end, 2:end));
                 end
-                obj.weights = normalizeRating( newWeights, [0.1,0.9] );
+                
+                if obj.votingMode == VotingMode.Majority
+                    [~, bestClassifier] = max(newWeights);
+                    obj.weights = ones(size(obj.weights));
+                    obj.weights(bestClassifier) = numel(newWeights) - 0.5;
+                else
+                    obj.weights = normalizeRating( newWeights, [0.1,0.9] );
+                end
             elseif obj.votingMode == VotingMode.Majority
                 obj.weights = ones(size(obj.baseClassifiers));
             end
