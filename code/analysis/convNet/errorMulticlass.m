@@ -1,4 +1,4 @@
-function err = errorMulticlass(params, labels, res)
+function err = errorMulticlass(~, labels, res)
 % Copyright (C) 2014-16 Andrea Vedaldi.
 % All rights reserved.
 %
