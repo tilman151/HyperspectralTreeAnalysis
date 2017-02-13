@@ -47,7 +47,7 @@ function runExperiment(configFilePath)
                                     DATA_SET_PATH);
     
     % Initialize confusion matrix
-    confMat = zeros(25, 25, crossValidator.k);
+    confMat = zeros(NUMCLASSES+1, NUMCLASSES+1, crossValidator.k);
     
     % Create logger singleton
     logPath = Logger.createLogPath(RESULTS_PATH, CLASSIFIER, EXTRACTORS);
