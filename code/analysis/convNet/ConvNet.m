@@ -43,11 +43,14 @@ classdef ConvNet < Classifier
         end
 
         function str = toString(obj)
-            str = 'convNet';
+            str = sprintf('ConvNet:\n\n');
+            
+            % Append string representation of whole options struct
+            str = [str evalc('disp(obj.opts)')];
         end
         
-        function str = toShortString(obj)
-            str = 'convNet';
+        function str = toShortString(~)
+            str = 'ConvNet';
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
