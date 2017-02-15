@@ -10,7 +10,7 @@ randomForest20Config = @() RandomForest(20);
 randomForest100Config = @() RandomForest(100);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest52Config = @() RotationForest(5,2);
+rotationForest22Config = @() RotationForest(2,2);
 
 % SVM - Parameters: KernelFunction, PolynomialOrder, Coding
 svmLinearConfig = @() SVM(...
@@ -35,6 +35,12 @@ svmLightLinearConfig = @() SVMsvmlight(...
 tsvmLinearConfig = @() TSVM(...
     'KernelFunction', 'linear', ...
     'Coding', 'onevsone');
+
+% Convolutional Network - Parameters: batchSize, cudnn, numEpochs
+convNetConfig = @() ConvNet(...
+    'batchSize', 100, ...
+    'cudnn', false, ...
+    'numEpochs', 20);
 
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
@@ -87,7 +93,9 @@ randomForestOutputRegConfig = @() OutputRegularizer(...
 %% Feature extractor configurations
 
 % SELD - Parameters: k, numDimensions
-seld85Config = @() SELD(8, 5);
+seld20_5Config = @() SELD(20, 5);
+seld40_5Config = @() SELD(40, 5);
+seld60_5Config = @() SELD(60, 5);
 
 % PCA - Parameters: numDimensions
 pca1Config = @() PCA(1);
@@ -110,16 +118,17 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
+global NUMCLASSES;
+NUMCLASSES = 24;
 
-CLASSIFIER = randomForestOutputRegConfig();
+CLASSIFIER = RandomForest(3);
 
-EXTRACTORS = {mcldaConfig()};
-
+EXTRACTORS = {PCA(5)};
 
 DATA_SET_PATH = ...
-        '../data/ftp-iff2.iff.fraunhofer.de/Data/Hyperspectral/400-1000/';
+        '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
 SAMPLE_SET_PATH = ...
-        ['../data/ftp-iff2.iff.fraunhofer.de/Data/FeatureExtraction/' ...
+        ['../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/' ...
             'Samplesets/sampleset_012.mat'];
 
 RESULTS_PATH = '../results/';
@@ -139,6 +148,6 @@ RESULTS_PATH = '../results/';
 LOG_LEVEL = 0;
 
 VISUALIZE_TRAIN_LABELS = false;
-VISUALIZE_TEST_LABELS = true;
+VISUALIZE_TEST_LABELS = false;
 VISUALIZE_PREDICTED_LABELS = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
