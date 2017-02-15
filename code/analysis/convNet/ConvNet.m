@@ -28,7 +28,9 @@ classdef ConvNet < Classifier
     properties
         % Options
         opts;
-        
+    end
+    
+    properties(Hidden=true)
         % Network structure
         net;
         
@@ -70,8 +72,10 @@ classdef ConvNet < Classifier
             
             % Preprocessing: normalize data to mean 0 and variance 1
             logger.info('ConvNet', 'Normalize data');
-            [trainFeatureCube, obj.dimMeans, obj.dimStds] = ...
-                normalizeData(trainFeatureCube, trainLabelMap);
+            [obj.dimMeans, obj.dimStds] = ...
+                calculateDataStats(trainFeatureCube, trainLabelMap);
+            trainFeatureCube = ...
+                normalizeData(trainFeatureCube, obj.dimMeans, obj.dimStds);
             
             % Get shuffeled list of labeled pixels
             [labeled(1, :), labeled(2, :)] = find(trainLabelMap > 0);
@@ -91,14 +95,14 @@ classdef ConvNet < Classifier
                 numGPUs = numel(obj.opts.gpus);
                 [obj.net, state] = moveTo(numGPUs, obj.net, state, 'gpu');
                 
-                % Initialize result and error arrays
+                % Initialize result and error structures
                 res = [];
                 error = [];
                 
                 % Process data in batches
                 numBatches = ceil(length(labeled) / obj.opts.batchSize);
                 for batchIndex = 1 : numBatches
-                    logger.info('ConvNet', ['Batch ' ...
+                    logger.debug('ConvNet', ['Batch ' ...
                         num2str(batchIndex) '/' num2str(numBatches)]);
                     
                     % Create batch from indices
@@ -146,8 +150,69 @@ classdef ConvNet < Classifier
         
         function predictedLabelMap = classifyOn(obj, evalFeatureCube, ...
                 maskMap)
-            % TODO: Implement
-            predictedLabelMap = [];
+            
+            % Get logger
+            logger = Logger.getLogger();
+            
+            % Preprocessing: normalize data to mean 0 and variance 1
+            logger.info('ConvNet', 'Normalize data');
+            evalFeatureCube = ...
+                normalizeData(evalFeatureCube, obj.dimMeans, obj.dimStds);
+            
+            % Move CNN  to GPU as needed
+            numGPUs = numel(obj.opts.gpus);
+            obj.net = moveTo(numGPUs, obj.net, [], 'gpu');
+            
+            % Initialize result structure and prediction list
+            res = [];
+            predictedLabelList = [];
+            
+            % Find unlabeled pixels
+            [unlabeled(1, :), unlabeled(2, :)] = find(maskMap >= 0);
+            
+            % Process data in batches
+            numBatches = ceil(length(unlabeled) / obj.opts.batchSize);
+            for batchIndex = 1 : numBatches
+                logger.debug('ConvNet', ['Batch ' ...
+                    num2str(batchIndex) '/' num2str(numBatches)]);
+                
+                % Create batch from indices
+                % TODO: Include border pixels
+                logger.debug('ConvNet', 'Create batch');
+                batch = createBatch(unlabeled, batchIndex, ...
+                    obj.opts.batchSize, obj.opts.sampleSize, ...
+                    evalFeatureCube, maskMap);
+                
+                if ~isempty(batch.features)
+                    % Move batch to GPU if possible
+                    if numGPUs >= 1
+                        batch.features = gpuArray(batch.features);
+                    end
+
+                    % Set target 
+                    % (even though this might not be needed in prediction)
+                    obj.net.layers{end}.class = batch.labels;
+
+                    % Train network
+                    logger.debug('ConvNet', 'Classify');
+                    res = vl_simplenn(obj.net, batch.features, [], res, ...
+                            'cudnn', obj.opts.cudnn);
+
+                    % Get predictions from output layer
+                    % (last layer is softmaxerror)
+                    batchOutput = res(end-1).x;
+                    [~, ~, numClasses, curBatchSize] = size(batchOutput);
+                    batchOutput = ...
+                        reshape(batchOutput, numClasses, curBatchSize);
+                    
+                    % Append predictions to overall list
+                    predictedLabelList = ...
+                        [predictedLabelList; max(batchOutput, [], 1)'];
+                end
+            end
+            
+            % Rebuild map representation
+            predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
         end
         
     end
@@ -166,24 +231,34 @@ function layers = fillMissingInitialValues(layers)
     end
 end
 
-function [featureCube, dimMeans, dimStds] = normalizeData(featureCube, labelMap)
+function [dimMeans, dimStds] = calculateDataStats(featureCube, labelMap)
     % Initialize mean and std
     numFeatureDims = size(featureCube, 3);
     dimMeans = zeros(1, numFeatureDims);
     dimStds = zeros(1, numFeatureDims);
     
+    % Exclude fill pixels from calculation
     valid = find(labelMap >= 0);
-    for dim = 1 : numFeatureDims
+    
+    % Calculate mean and std for each feature dimension
+    for dim = 1:numFeatureDims
         slice = featureCube(:, :, dim);
         
-        % save mean and std
+        % Save mean and std
         dimMeans(dim) = mean(slice(valid));
         dimStds(dim) = std(slice(valid));
-        
-        % normalize slice
-        featureCube(:, :, dim) = ...
-            (featureCube(:, :, dim) - dimMeans(dim)) / dimStds(dim);
     end
+end
+
+function featureCube = normalizeData(featureCube, dimMeans, dimStds)
+    [x, y, ~] = size(featureCube);
+    
+    % Extend mean and std to size of feature cube
+    dimMeans = repmat(reshape(dimMeans, 1, 1, []), [x, y]);
+    dimStds = repmat(reshape(dimStds, 1, 1, []), [x, y]);
+    
+    % Normalize feature cube
+    featureCube = (featureCube - dimMeans) ./ dimStds;
 end
 
 function state = initStateMomentum(state, layers)
@@ -212,9 +287,11 @@ function [net, state] = moveTo(numGPUs, net, state, destination)
         net = vl_simplenn_move(net, destination);
         
         % Move state to destination
-        for i = 1:numel(state.momentum)
-            for j = 1:numel(state.momentum{i})
-                state.momentum{i}{j} = moveop(state.momentum{i}{j});
+        if ~isempty(state)
+            for i = 1:numel(state.momentum)
+                for j = 1:numel(state.momentum{i})
+                    state.momentum{i}{j} = moveop(state.momentum{i}{j});
+                end
             end
         end
     end
