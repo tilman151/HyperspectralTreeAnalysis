@@ -24,6 +24,9 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
 % W. Liao, A. Pizurica, P. Scheunders, W. Philips, Y. Pi, "Semi-Supervised Local Discriminant Analysis for Feature Extraction in Hyperspectral 
 % Images", In IEEE Transactions on Geoscience and Remote Sensing, vol. 51, no. 1, pp. 184- 198, Jan. 2013.
     import seld.*
+    
+    % get logger
+    logger = Logger.getLogger();
 
     if size(X, 2) > size(X, 1)
         error('Number of samples should be higher than number of dimensions.');
@@ -68,7 +71,7 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
 %%%%%%%%perform LPP method %%%%%%
 
     % Construct neighborhood graph
-    disp('Constructing neighborhood graph...');
+    logger.info('SELD', 'Constructing neighborhood graph...');
     if size(Xunlabeled, 1) < 4000
         G = L2_distance(Xunlabeled', Xunlabeled');
         % Compute neighbourhood graph
@@ -97,7 +100,7 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
 	L(isinf(L)) = 0; D(isinf(D)) = 0;
 
     % Compute XDX and XLX and make sure these are symmetric
-    disp('Computing low-dimensional embedding...');
+    logger.info('SELD', 'Computing low-dimensional embedding...');
     DP = XT' * ([zeros(size(Xlabeled,1)),zeros(size(Xlabeled,1),size(D,1));zeros(size(D,1),size(Xlabeled,1)),D]+...
         size(Xunlabeled,1)/size(Xlabeled,1)*[Qt,zeros(size(Qt,1),size(Xunlabeled,1));zeros(size(Xunlabeled,1),size(Qt,1)),zeros(size(Xunlabeled,1))]) * XT;
     
@@ -121,4 +124,6 @@ function [eigvector,Fe] = SELD(X, groundtruth, no_dims, k)
     
     % Compute extracted features
     Fe = X * eigvector;
+    
+    logger.info('SELD', 'Finished computation of transformation matrix.');
    
