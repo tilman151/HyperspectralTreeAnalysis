@@ -63,11 +63,7 @@ classdef MulticlassLda < TransformationFeatureExtractor
 end
 
 function [ transformedFeatures, transformationMatrix ] = multiclassLda( rawFeatures, classes)
-%MULTICLASSLDA remove the continuum by dividing the features by its
-%                  convex hull for each pixel in a hyper spectral image
-%
-%    The function calculates for every pixel the continuum removed features
-%    and returns it in the same format and size as rawFeatures
+%MULTICLASSLDA calculate the multiclass lda transformation matrix
 %
 %% Input:
 %    rawFeatures ......... a 3-dimensional matrix with the dimensions 
