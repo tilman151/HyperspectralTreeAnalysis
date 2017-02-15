@@ -21,7 +21,7 @@ classdef ConvNet < Classifier
 %    trainOn ....... See documentation in superclass Classifier.
 %    classifyOn .... See documentation in superclass Classifier.
 %
-% Version: 2017-02-13
+% Version: 2017-02-15
 % Author: Marianne Stecklina & Cornelius Styp von Rekowski
 %
 
@@ -109,7 +109,7 @@ classdef ConvNet < Classifier
                     
                     % Move batch to GPU if possible
                     if numGPUs >= 1
-                        batch.data = gpuArray(batch.data) ;
+                        batch.features = gpuArray(batch.features);
                     end
                     
                     % Set target
@@ -129,19 +129,17 @@ classdef ConvNet < Classifier
                             batch.labels, res), [], 1); ]], 2);
 
                     % Accumulate gradients
-                    % TODO: change batchSize to real size of batch which
-                    %       might be smaller
+                    batchSize = length(batch.labels);
                     logger.debug('ConvNet', 'Accumulate gradients');
                     [obj.net, res, state] = accumulateGradients(...
-                        obj.net, res, state, obj.opts, ...
-                        obj.opts.batchSize, []) ;
+                        obj.net, res, state, obj.opts, batchSize, []);
                 end
                 
                 % Move network and state back to CPU
                 [obj.net, state] = moveTo(numGPUs, obj.net, state, 'cpu');
                 
                 if ~obj.opts.saveMomentum
-                    state.momentum = [] ;
+                    state.momentum = [];
                 end
             end
         end 
@@ -158,12 +156,12 @@ end
 
 function layers = fillMissingInitialValues(layers)
     for i = 1:numel(layers)
-        J = numel(layers{i}.weights) ;
+        J = numel(layers{i}.weights);
         if ~isfield(layers{i}, 'learningRate')
-            layers{i}.learningRate = ones(1, J) ;
+            layers{i}.learningRate = ones(1, J);
         end
         if ~isfield(layers{i}, 'weightDecay')
-            layers{i}.weightDecay = ones(1, J) ;
+            layers{i}.weightDecay = ones(1, J);
         end
     end
 end
@@ -200,9 +198,9 @@ end
 
 function [net, state] = moveTo(numGPUs, net, state, destination)
     switch destination
-        case 'gpu', moveop = @(x) gpuArray(x) ;
-        case 'cpu', moveop = @(x) gather(x) ;
-        otherwise, error('Unknown destination ''%s''.', destination) ;
+        case 'gpu', moveop = @(x) gpuArray(x);
+        case 'cpu', moveop = @(x) gather(x);
+        otherwise, error('Unknown destination ''%s''.', destination);
     end
 
     if numGPUs >= 1
