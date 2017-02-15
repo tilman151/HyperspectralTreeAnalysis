@@ -7,10 +7,11 @@ classdef ConvNet < Classifier
 %    Make sure that matConvNet has been compiled by running `vl_compilenn`.
 %
 %% Properties:
-%    opts .. Options regarding training
-%    net ... Network structure
-%    mean .. Mean of training data for each input dimension
-%    std ... Standard deviation of training data for each input dimension
+%    opts ...... Options regarding training
+%    net ....... Network structure
+%    dimMeans .. Mean of training data for each input dimension
+%    dimStds ... Standard deviation of training data for each input 
+%                dimension
 %
 %% Methods:
 %    ConvNet ....... Constructor. Can take Name, Value pair arguments 
@@ -32,8 +33,8 @@ classdef ConvNet < Classifier
         net;
         
         % Mean and standard deviation of the training data
-        mean;
-        std;
+        dimMeans;
+        dimStds;
     end
 
     methods
@@ -60,15 +61,16 @@ classdef ConvNet < Classifier
             % Create network structure
             logger.info('ConvNet', 'Create network structure');
             global NUMCLASSES;
-            obj.net = createNet(obj.opts.sampleSize, numDim, NUMCLASSES,...
-                obj.opts.filterSize);
+            obj.net = createNet(...
+                obj.opts.sampleSize, size(trainFeatureCube, 3), ...
+                NUMCLASSES, obj.opts.filterSize);
             
             % Fill missing initial learning rate and weight decay values
             obj.net.layers = fillMissingInitialValues(obj.net.layers);
             
             % Preprocessing: normalize data to mean 0 and variance 1
             logger.info('ConvNet', 'Normalize data');
-            [trainFeatureCube, obj.mean, obj.std] = ...
+            [trainFeatureCube, obj.dimMeans, obj.dimStds] = ...
                 normalizeData(trainFeatureCube, trainLabelMap);
             
             % Get shuffeled list of labeled pixels
@@ -166,23 +168,23 @@ function layers = fillMissingInitialValues(layers)
     end
 end
 
-function [featureCube, mean, std] = normalizeData(featureCube, labelMap)
+function [featureCube, dimMeans, dimStds] = normalizeData(featureCube, labelMap)
     % Initialize mean and std
     numFeatureDims = size(featureCube, 3);
-    mean = zeros(1, numFeatureDims);
-    std = zeros(1, numFeatureDims);
+    dimMeans = zeros(1, numFeatureDims);
+    dimStds = zeros(1, numFeatureDims);
     
     valid = find(labelMap >= 0);
     for dim = 1 : numFeatureDims
         slice = featureCube(:, :, dim);
         
         % save mean and std
-        mean(dim) = mean(slice(valid));
-        std(dim) = std(slice(valid));
+        dimMeans(dim) = mean(slice(valid));
+        dimStds(dim) = std(slice(valid));
         
         % normalize slice
         featureCube(:, :, dim) = ...
-            (featureCube(:, :, dim) - obj.mean(dim)) / obj.std(dim);
+            (featureCube(:, :, dim) - dimMeans(dim)) / dimStds(dim);
     end
 end
 
