@@ -49,18 +49,22 @@ classdef PCA < TransformationFeatureExtractor
         
         function transformationMatrix = calculateTransformation(obj, ...
                 sampleSet)
+            logger = Logger.getLogger();
             allFeatures = [sampleSet.features; ...
                 sampleSet.unlabeledFeatures];
+            logger.info('PCA', 'Calculate transformation matrix');
             [transformationMatrix, ~] = pca(allFeatures);
         end
         
         function features = applyTransformation(obj, originalFeatures, ...
-            transformationMatrix)         
+            transformationMatrix)        
+            logger = Logger.getLogger();
             [width, height, numFeatures] = size(originalFeatures);
         
             reshapedFeatures = reshape(originalFeatures, ...
                 width * height, numFeatures); 
             
+            logger.info('PCA', 'Apply transformation to features');
             features = reshape(reshapedFeatures * ...
                 transformationMatrix(:, 1:obj.numDim), width, height, ...
                 obj.numDim);
