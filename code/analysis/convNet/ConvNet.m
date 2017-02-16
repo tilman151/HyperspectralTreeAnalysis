@@ -52,8 +52,8 @@ classdef ConvNet < Classifier
             str = [str evalc('disp(obj.opts)')];
         end
         
-        function str = toShortString(~)
-            str = 'ConvNet';
+        function str = toShortString(obj)
+            str = ['ConvNet_e' num2str(obj.opts.numEpochs)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
