@@ -1,5 +1,5 @@
 function batch = createBatch(indices, batchIndex, batchSize, sampleSize,...
-    trainFeatureCube, trainLabelMap)
+    trainFeatureCube, trainLabelMap, ignoreFillPixels)
     
     batch.features = zeros(...
         sampleSize, sampleSize, size(trainFeatureCube, 3), 0, 'single');
@@ -15,7 +15,7 @@ function batch = createBatch(indices, batchIndex, batchSize, sampleSize,...
         try
             labels = trainLabelMap(index(1) - r : index(1) + r, ...
                 index(2) - r : index(2) + r);
-            assert(all(all(labels >= 0)));
+            assert(~ignoreFillPixels | all(all(labels >= 0)));
         catch e
             % index out of bounds or filling pixels
             continue;
