@@ -104,7 +104,8 @@ pca20Config = @() PCA(20);
 pca25Config = @() PCA(25);
 
 % MulticlassLda
-mcldaConfig = @() MulticlassLda;
+mcldaConfig_5 = @() MulticlassLda(5);
+mcldaConfig_14 = @() MulticlassLda(14);
 
 % ContinuumRemoval - Parameters: useMultithread
 continuumRemoval= @() ContinuumRemoval(true);
@@ -123,7 +124,7 @@ NUMCLASSES = 24;
 
 CLASSIFIER = RandomForest(3);
 
-EXTRACTORS = {PCA(5)};
+EXTRACTORS = {mcldaConfig_14()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';

@@ -200,7 +200,7 @@ function neighborHoodMatrix = generateNeighborhoodMatrix(features, r)
     neighborHoodMatrix = zeros(y,x,neighborhoodSize);
     for nIdx = 1:neighborhoodSize
         shiftY = mod(nIdx-1, height) - r;
-        shiftX = floor(nIdx-1/ height) - r;
+        shiftX = floor((nIdx-1)/ height) - r;
         neighborHood = ...
             circshift(features, ...
                       [shiftY, shiftX]);
@@ -216,7 +216,6 @@ function neighborHoodMatrix = generateNeighborhoodMatrix(features, r)
         elseif shiftY > 0
             invalidmask(1:shiftX,:) = nan;
         end
-
         neighborHoodMatrix(:,:,nIdx) = neighborHood.*invalidmask;
     end
 end
