@@ -52,8 +52,8 @@ classdef ConvNet < Classifier
             str = [str evalc('disp(obj.opts)')];
         end
         
-        function str = toShortString(~)
-            str = 'ConvNet';
+        function str = toShortString(obj)
+            str = ['ConvNet_e' num2str(obj.opts.numEpochs)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
@@ -109,7 +109,7 @@ classdef ConvNet < Classifier
                     logger.debug('ConvNet', 'Create batch');
                     batch = createBatch(labeled, batchIndex, ...
                         obj.opts.batchSize, obj.opts.sampleSize, ...
-                        trainFeatureCube, trainLabelMap);
+                        trainFeatureCube, trainLabelMap, true);
                     
                     % Move batch to GPU if possible
                     if numGPUs >= 1
@@ -159,6 +159,10 @@ classdef ConvNet < Classifier
             evalFeatureCube = ...
                 normalizeData(evalFeatureCube, obj.dimMeans, obj.dimStds);
             
+            % Pad image so that every valid pixel has a neighborhood
+            [evalFeatureCube, newMaskMap] = padImage(...
+                evalFeatureCube, maskMap, (obj.opts.sampleSize - 1) / 2);
+            
             % Move CNN  to GPU as needed
             numGPUs = numel(obj.opts.gpus);
             obj.net = moveTo(numGPUs, obj.net, [], 'gpu');
@@ -168,7 +172,7 @@ classdef ConvNet < Classifier
             predictedLabelList = [];
             
             % Find unlabeled pixels
-            [unlabeled(1, :), unlabeled(2, :)] = find(maskMap >= 0);
+            [unlabeled(1, :), unlabeled(2, :)] = find(newMaskMap >= 0);
             
             % Process data in batches
             numBatches = ceil(length(unlabeled) / obj.opts.batchSize);
@@ -177,11 +181,10 @@ classdef ConvNet < Classifier
                     num2str(batchIndex) '/' num2str(numBatches)]);
                 
                 % Create batch from indices
-                % TODO: Include border pixels
                 logger.debug('ConvNet', 'Create batch');
                 batch = createBatch(unlabeled, batchIndex, ...
                     obj.opts.batchSize, obj.opts.sampleSize, ...
-                    evalFeatureCube, maskMap);
+                    evalFeatureCube, newMaskMap, false);
                 
                 if ~isempty(batch.features)
                     % Move batch to GPU if possible
@@ -204,10 +207,11 @@ classdef ConvNet < Classifier
                     [~, ~, numClasses, curBatchSize] = size(batchOutput);
                     batchOutput = ...
                         reshape(batchOutput, numClasses, curBatchSize);
+                    [~, predictedLabels] = max(batchOutput, [], 1);
                     
                     % Append predictions to overall list
                     predictedLabelList = ...
-                        [predictedLabelList; max(batchOutput, [], 1)'];
+                        [predictedLabelList; predictedLabels'];
                 end
             end
             
