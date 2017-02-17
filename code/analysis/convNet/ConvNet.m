@@ -203,7 +203,7 @@ classdef ConvNet < Classifier
 
                     % Get predictions from output layer
                     % (last layer is softmaxerror)
-                    batchOutput = res(end-1).x;
+                    batchOutput = gather(res(end-1).x);
                     [~, ~, numClasses, curBatchSize] = size(batchOutput);
                     batchOutput = ...
                         reshape(batchOutput, numClasses, curBatchSize);
