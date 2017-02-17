@@ -127,10 +127,6 @@ function runExperiment(configFilePath)
         
         % Visualize predicted labels
         if VISUALIZE_PREDICTED_LABELS
-            visualizeLabels(classifiedLabelMap, 'Predicted Labels');
-        end
-        
-        if VISUALIZE_PREDICTED_LABELS_WITH_GROUND_TRUTH
             visMask = testLabelMap ~= 0;
             newLabelMap = cat(1, testLabelMap, ...
                               classifiedLabelMap.*visMask, ...

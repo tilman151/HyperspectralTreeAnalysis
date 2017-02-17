@@ -154,5 +154,4 @@ LOG_LEVEL = 0;
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
 VISUALIZE_PREDICTED_LABELS = false;
-VISUALIZE_PREDICTED_LABELS_WITH_GROUND_TRUTH = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
