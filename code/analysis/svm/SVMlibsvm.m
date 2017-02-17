@@ -88,7 +88,7 @@ classdef SVMlibsvm < Classifier
         
         function str = toShortString(obj)
             % Create output string with class name and kernel function
-            str = ['tSVM_' obj.kernel];
+            str = ['LibSVM_' obj.kernel];
             
             % Append polynomial order if kernel is polynomial
             if strcmp(obj.kernel, 'polynomial')
