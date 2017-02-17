@@ -125,7 +125,7 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = RandomForest(20);
+CLASSIFIER = svmLibLinearConfig();
 
 EXTRACTORS = {mcldaConfig_14(), spatialFeatureExtractorConfig_5()};
 EXTRACTORS = cellfun(@(x) NoFeatureExtraction(x), ...

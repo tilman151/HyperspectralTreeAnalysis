@@ -284,7 +284,7 @@ function [net, state] = moveTo(numGPUs, net, state, destination)
 
     if numGPUs >= 1
         % Get logger
-        logger = Logger.logger();
+        logger = Logger.getLogger();
         logger.debug('ConvNet', ['Move network to ' destination]);
         
         % Move network to destination
