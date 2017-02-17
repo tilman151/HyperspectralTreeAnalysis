@@ -130,6 +130,15 @@ function runExperiment(configFilePath)
             visualizeLabels(classifiedLabelMap, 'Predicted Labels');
         end
         
+        if VISUALIZE_PREDICTED_LABELS_WITH_GROUND_TRUTH
+            visMask = testLabelMap ~= 0;
+            newLabelMap = cat(1, testLabelMap, ...
+                              classifiedLabelMap.*visMask, ...
+                              classifiedLabelMap);
+            visualizeLabels(newLabelMap, ...
+                            'Predicted Labels and Ground Truth');
+        end
+        
         % Calculate confusion matrix
         logger.debug('runExperiment', 'Calculating confusion matrix...');
         confMat(:, :, i) = confusionmat(...

@@ -96,6 +96,9 @@ randomForestOutputRegConfig = @() OutputRegularizer(...
 seld20_5Config = @() SELD(20, 5);
 seld40_5Config = @() SELD(40, 5);
 seld60_5Config = @() SELD(60, 5);
+seld20_14Config = @() SELD(20, 14);
+seld40_14Config = @() SELD(40, 14);
+seld60_14Config = @() SELD(60, 14);
 
 % PCA - Parameters: numDimensions
 pca1Config = @() PCA(1);
@@ -114,7 +117,7 @@ continuumRemoval= @() ContinuumRemoval(true);
 spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, 2);
 spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, 2);
 spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, 2);
-spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
+spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
@@ -122,9 +125,9 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = RandomForest(3);
+CLASSIFIER = RandomForest(20);
 
-EXTRACTORS = {mcldaConfig_14()};
+EXTRACTORS = {mcldaConfig_14(), spatialFeatureExtractorConfig_5()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
@@ -150,5 +153,6 @@ LOG_LEVEL = 0;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
-VISUALIZE_PREDICTED_LABELS = true;
+VISUALIZE_PREDICTED_LABELS = false;
+VISUALIZE_PREDICTED_LABELS_WITH_GROUND_TRUTH = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
