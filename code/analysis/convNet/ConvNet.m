@@ -84,6 +84,7 @@ classdef ConvNet < Classifier
             % Train network for the given number of epochs
             % TODO: Load snapshot and start with epoch n
             state = [];
+            errorRates = zeros(1, obj.opts.numEpochs);
             for epoch = 1 : obj.opts.numEpochs
                 logger.info('ConvNet', ['Epoch ' num2str(epoch) '/' ...
                     num2str(obj.opts.numEpochs)]);
@@ -106,7 +107,7 @@ classdef ConvNet < Classifier
                         num2str(batchIndex) '/' num2str(numBatches)]);
                     
                     % Create batch from indices
-                    logger.debug('ConvNet', 'Create batch');
+                    logger.trace('ConvNet', 'Create batch');
                     batch = createBatch(labeled, batchIndex, ...
                         obj.opts.batchSize, obj.opts.sampleSize, ...
                         trainFeatureCube, trainLabelMap, true);
@@ -120,24 +121,28 @@ classdef ConvNet < Classifier
                     obj.net.layers{end}.class = batch.labels;
                     
                     % Train network
-                    logger.debug('ConvNet', 'Train network');
+                    logger.trace('ConvNet', 'Train network');
                     res = vl_simplenn(obj.net, batch.features, 1, res, ...
                         'backPropDepth', obj.opts.backPropDepth, ...
                         'cudnn', obj.opts.cudnn);
                     
                     % Accumulate errors
-                    logger.debug('ConvNet', 'Accumulate errors');
+                    logger.trace('ConvNet', 'Accumulate errors');
                     error = sum([error, [... 
                         sum(double(gather(res(end).x)));
                         reshape(obj.opts.errorFunction(obj.opts, ...
                             batch.labels, res), [], 1); ]], 2);
-
+                    
                     % Accumulate gradients
                     batchSize = length(batch.labels);
-                    logger.debug('ConvNet', 'Accumulate gradients');
+                    logger.trace('ConvNet', 'Accumulate gradients');
                     [obj.net, res, state] = accumulateGradients(...
                         obj.net, res, state, obj.opts, batchSize, []);
                 end
+                
+                errorRates(epoch) = error(2)/size(labeled, 2);
+                logger.info('ConvNet', ...
+                    ['Error rate: ' num2str(errorRates(epoch))]);
                 
                 % Move network and state back to CPU
                 [obj.net, state] = moveTo(numGPUs, obj.net, state, 'cpu');
@@ -145,6 +150,11 @@ classdef ConvNet < Classifier
                 if ~obj.opts.saveMomentum
                     state.momentum = [];
                 end
+            end
+            
+            if obj.opts.plotErrorRates
+                figure('Name', 'ConvNet Error Rates');
+                plot(errorRates);
             end
         end 
         
