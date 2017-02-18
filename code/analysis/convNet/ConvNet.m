@@ -81,6 +81,16 @@ classdef ConvNet < Classifier
             [labeled(1, :), labeled(2, :)] = find(trainLabelMap > 0);
             labeled = labeled(:, randperm(size(labeled, 2)));
             
+            % Initialize error rate plot
+            if obj.opts.plotErrorRates
+                disp('create figure');
+                figure('Name', 'ConvNet Error Rates');
+                axis([1, obj.opts.numEpochs, 0, 1]);
+                errorLine = animatedline('Color', 'b');
+                %hold on;
+                drawnow;
+            end
+            
             % Train network for the given number of epochs
             % TODO: Load snapshot and start with epoch n
             state = [];
@@ -140,9 +150,16 @@ classdef ConvNet < Classifier
                         obj.net, res, state, obj.opts, batchSize, []);
                 end
                 
+                % Save error rate
                 errorRates(epoch) = error(2)/size(labeled, 2);
                 logger.info('ConvNet', ...
                     ['Error rate: ' num2str(errorRates(epoch))]);
+                
+                % Refresh error rate plot
+                if obj.opts.plotErrorRates
+                    addpoints(errorLine, epoch, errorRates(epoch));
+                    drawnow;
+                end
                 
                 % Move network and state back to CPU
                 [obj.net, state] = moveTo(numGPUs, obj.net, state, 'cpu');
@@ -150,11 +167,6 @@ classdef ConvNet < Classifier
                 if ~obj.opts.saveMomentum
                     state.momentum = [];
                 end
-            end
-            
-            if obj.opts.plotErrorRates
-                figure('Name', 'ConvNet Error Rates');
-                plot(errorRates);
             end
         end 
         
