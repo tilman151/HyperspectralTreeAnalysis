@@ -34,7 +34,8 @@ svmLightLinearConfig = @() SVMsvmlight(...
 % TSVM - Parameters: KernelFunction, PolynomialOrder, Coding
 tsvmLinearConfig = @() TSVM(...
     'KernelFunction', 'linear', ...
-    'Coding', 'onevsone');
+    'Coding', 'onevsone', ...
+    'UnlabeledRate', 0.001);
 
 % Convolutional Network - Parameters: cudnn, gpus, numEpochs
 convNetConfig = @() ConvNet(...
@@ -125,9 +126,9 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = RandomForest(20);
+CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {mcldaConfig_14(), spatialFeatureExtractorConfig_5()};
+EXTRACTORS = {pca5Config()};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
