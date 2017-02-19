@@ -7,11 +7,12 @@ classdef ConvNet < Classifier
 %    Make sure that matConvNet has been compiled by running `vl_compilenn`.
 %
 %% Properties:
-%    opts ...... Options regarding training
-%    net ....... Network structure
-%    dimMeans .. Mean of training data for each input dimension
-%    dimStds ... Standard deviation of training data for each input 
+%    opts ....... Options regarding training
+%    net ........ Network structure
+%    dimMeans ... Mean of training data for each input dimension
+%    dimStds .... Standard deviation of training data for each input 
 %                dimension
+%    errorRates . List of error rates for training epochs
 %
 %% Methods:
 %    ConvNet ....... Constructor. Can take Name, Value pair arguments 
@@ -28,6 +29,9 @@ classdef ConvNet < Classifier
     properties
         % Options
         opts;
+        
+        % Error rates for training epochs
+        errorRates;
     end
     
     properties(Hidden=true)
@@ -94,7 +98,7 @@ classdef ConvNet < Classifier
             % Train network for the given number of epochs
             % TODO: Load snapshot and start with epoch n
             state = [];
-            errorRates = zeros(1, obj.opts.numEpochs);
+            obj.errorRates = zeros(1, obj.opts.numEpochs);
             for epoch = 1 : obj.opts.numEpochs
                 logger.info('ConvNet', ['Epoch ' num2str(epoch) '/' ...
                     num2str(obj.opts.numEpochs)]);
@@ -151,13 +155,13 @@ classdef ConvNet < Classifier
                 end
                 
                 % Save error rate
-                errorRates(epoch) = error(2)/size(labeled, 2);
+                obj.errorRates(epoch) = error(2)/size(labeled, 2);
                 logger.info('ConvNet', ...
-                    ['Error rate: ' num2str(errorRates(epoch))]);
+                    ['Error rate: ' num2str(obj.errorRates(epoch))]);
                 
                 % Refresh error rate plot
                 if obj.opts.plotErrorRates
-                    addpoints(errorLine, epoch, errorRates(epoch));
+                    addpoints(errorLine, epoch, obj.errorRates(epoch));
                     drawnow;
                 end
                 
