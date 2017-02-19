@@ -87,17 +87,19 @@ classdef ConvNet < Classifier
             
             % Initialize error rate plot
             if obj.opts.plotErrorRates
-                disp('create figure');
                 figure('Name', 'ConvNet Error Rates');
                 axis([1, obj.opts.numEpochs, 0, 1]);
                 errorLine = animatedline('Color', 'b');
-                %hold on;
                 drawnow;
             end
             
-            % Train network for the given number of epochs
+            % Train network for the given number of epochs, unless for the
+            % given window of epochs no significant improvement (defined by
+            % the given error rate margin) has been found.
             % TODO: Load snapshot and start with epoch n
             state = [];
+            minErrorRate = 1.0;
+            minErrorEpoch = 0;
             obj.errorRates = zeros(1, obj.opts.numEpochs);
             for epoch = 1 : obj.opts.numEpochs
                 logger.info('ConvNet', ['Epoch ' num2str(epoch) '/' ...
@@ -155,13 +157,14 @@ classdef ConvNet < Classifier
                 end
                 
                 % Save error rate
-                obj.errorRates(epoch) = error(2)/size(labeled, 2);
+                curErrorRate = double(error(2)/size(labeled, 2));
+                obj.errorRates(epoch) = curErrorRate;
                 logger.info('ConvNet', ...
-                    ['Error rate: ' num2str(obj.errorRates(epoch))]);
+                    ['Error rate: ' num2str(curErrorRate)]);
                 
                 % Refresh error rate plot
                 if obj.opts.plotErrorRates
-                    addpoints(errorLine, epoch, obj.errorRates(epoch));
+                    addpoints(errorLine, epoch, curErrorRate);
                     drawnow;
                 end
                 
@@ -170,6 +173,26 @@ classdef ConvNet < Classifier
                 
                 if ~obj.opts.saveMomentum
                     state.momentum = [];
+                end
+                
+                % Check if new best error rate has been found
+                if curErrorRate <= ...
+                        (minErrorRate - obj.opts.stoppingErrorMargin)
+                    
+                    minErrorRate = curErrorRate;
+                    minErrorEpoch = epoch;
+                end
+                
+                % Check if an improvement has been found within the defined
+                % window of epochs
+                if minErrorEpoch < (epoch - obj.opts.stoppingEpochWindow)
+                    logger.info('ConvNet', ['Stopped training after ' ...
+                        num2str(epoch) ' epochs, because no improvement'...
+                        ' of at least ' ...
+                        num2str(obj.opts.stoppingErrorMargin) ...
+                        ' could be achieved within the last ' ...
+                        num2str(obj.opts.stoppingEpochWindow) ' epochs']);
+                    break;
                 end
             end
         end 
