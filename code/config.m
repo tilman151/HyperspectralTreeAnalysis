@@ -83,12 +83,12 @@ randomForestLabelPropConfig = @() LabelPropagator(...
     randomForest20Config(), ...
     'R', 5, ...
     'PropagationThreshold', 0.0, ...
-    'VisualizeSteps', true);
+    'VisualizeSteps', false);
 randomForestOutputRegConfig = @() OutputRegularizer(...
     ['../results/RandomForest_20/MulticlassLda/20170207_1718/'...
      'model_1.mat'], ...
     'R', 5, ...
-    'VisualizeSteps', true);
+    'VisualizeSteps', false);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,12 +105,13 @@ seld60_14Config = @() SELD(60, 14);
 % PCA - Parameters: numDimensions
 pca1Config = @() PCA(1);
 pca5Config = @() PCA(5);
+pca14Config = @() PCA(14);
 pca20Config = @() PCA(20);
 pca25Config = @() PCA(25);
 
 % MulticlassLda
-mcldaConfig_5 = @() MulticlassLda(5);
-mcldaConfig_14 = @() MulticlassLda(14);
+mclda5Config = @() MulticlassLda(5);
+mclda14Config = @() MulticlassLda(14);
 
 % ContinuumRemoval - Parameters: useMultithread
 continuumRemoval= @() ContinuumRemoval(true);
@@ -127,10 +128,9 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-
 CLASSIFIER = randomForest20Config();
 
-EXTRACTORS = {pca5Config()};
+EXTRACTORS = {};
 
 
 DATA_SET_PATH = ...
