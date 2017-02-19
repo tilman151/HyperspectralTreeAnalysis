@@ -54,8 +54,10 @@ classdef SELD < TransformationFeatureExtractor
             str = ['SELD_' int2str(obj.k) '_' int2str(obj.numDim)];
         end
         
-        function transformationMatrix = calculateTransformation(obj, sampleSet)
-            allFeatures = [sampleSet.features; sampleSet.unlabeledFeatures];
+        function transformationMatrix = calculateTransformation(obj, ...
+                sampleSet)
+            allFeatures = [sampleSet.features; ...
+                sampleSet.unlabeledFeatures];
             zeroLabels  = zeros(size(sampleSet.labels));
             allLabels   = [sampleSet.labels zeroLabels];
             [transformationMatrix, ~] = seld.SELD(allFeatures, ...
@@ -64,11 +66,13 @@ classdef SELD < TransformationFeatureExtractor
         
         function features = applyTransformation(obj, originalFeatures, ...
             transformationMatrix)         
+            logger = Logger.getLogger();
             [width, height, numFeatures] = size(originalFeatures);
         
             reshapedFeatures = reshape(originalFeatures, ...
                 width * height, numFeatures); 
             
+            logger.info('SELD', 'Apply transformation to features...');
             features = reshape(reshapedFeatures * ...
                 transformationMatrix(:, 1:obj.numDim), width, height, ...
                 obj.numDim);

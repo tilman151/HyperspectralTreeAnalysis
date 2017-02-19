@@ -9,6 +9,7 @@ classdef MulticlassLda < TransformationFeatureExtractor
     %
     %% Methods:
     %    MulticlassLda ............. Constructor. 
+    %       numDim ................. See properties.
     %    toString .................. See documentation in superclass
     %                                FeatureExtractor.
     %    toShortString ............. See documentation in superclass
@@ -29,7 +30,18 @@ classdef MulticlassLda < TransformationFeatureExtractor
     % Author: Tuan Pham Minh
     %
     
+    properties
+        numDim;
+    end
+    
     methods
+        
+        function obj = MulticlassLda(numDim)
+            if ~exist('numDim', 'var')
+                numDim = 0;
+            end
+           obj.numDim = numDim;
+        end
         
         function transformationMatrix = calculateTransformation(obj, ...
                 sampleSet)
@@ -38,11 +50,11 @@ classdef MulticlassLda < TransformationFeatureExtractor
         end
         
         function str = toString(obj)
-            str = 'MulticlassLda';
+            str = ['MulticlassLda: nDim = ' num2str(obj.numDim)];
         end
         
         function str = toShortString(obj)
-            str = obj.toString();
+            str = ['MulticlassLda_' num2str(obj.numDim)];
         end
         
         function features = applyTransformation(obj, originalFeatures, ...
@@ -51,6 +63,11 @@ classdef MulticlassLda < TransformationFeatureExtractor
         
             reshapedFeatures = reshape(originalFeatures, ...
                 width * height, numFeatures); 
+            
+            if obj.numDim > 0
+                dimensions = 1:obj.numDim;
+                transformationMatrix = transformationMatrix(:,dimensions);
+            end
             
             features = reshape(reshapedFeatures * ...
                 transformationMatrix, width, height, []);
@@ -63,11 +80,7 @@ classdef MulticlassLda < TransformationFeatureExtractor
 end
 
 function [ transformedFeatures, transformationMatrix ] = multiclassLda( rawFeatures, classes)
-%MULTICLASSLDA remove the continuum by dividing the features by its
-%                  convex hull for each pixel in a hyper spectral image
-%
-%    The function calculates for every pixel the continuum removed features
-%    and returns it in the same format and size as rawFeatures
+%MULTICLASSLDA calculate the multiclass lda transformation matrix
 %
 %% Input:
 %    rawFeatures ......... a 3-dimensional matrix with the dimensions 

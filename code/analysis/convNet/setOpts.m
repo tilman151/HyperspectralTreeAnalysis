@@ -42,6 +42,7 @@ function opts = setOpts(varargin)
     p.addParameter('cudnn', true);
     p.addParameter('errorFunction', @errorMulticlass);
     p.addParameter('errorLabels', {'top1err', 'top5err'});
+    p.addParameter('plotErrorRates', false);
     p.addParameter('plotDiagnostics', false);
     p.addParameter('plotStatistics', false);
     

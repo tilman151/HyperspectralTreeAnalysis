@@ -127,7 +127,12 @@ function runExperiment(configFilePath)
         
         % Visualize predicted labels
         if VISUALIZE_PREDICTED_LABELS
-            visualizeLabels(classifiedLabelMap, 'Predicted Labels');
+            visMask = testLabelMap ~= 0;
+            newLabelMap = cat(1, testLabelMap, ...
+                              classifiedLabelMap.*visMask, ...
+                              classifiedLabelMap);
+            visualizeLabels(newLabelMap, ...
+                            'Predicted Labels and Ground Truth');
         end
         
         % Calculate confusion matrix

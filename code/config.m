@@ -34,13 +34,15 @@ svmLightLinearConfig = @() SVMsvmlight(...
 % TSVM - Parameters: KernelFunction, PolynomialOrder, Coding
 tsvmLinearConfig = @() TSVM(...
     'KernelFunction', 'linear', ...
-    'Coding', 'onevsone');
+    'Coding', 'onevsone', ...
+    'UnlabeledRate', 0.001);
 
-% Convolutional Network - Parameters: batchSize, cudnn, numEpochs
+% Convolutional Network - Parameters: cudnn, gpus, numEpochs
 convNetConfig = @() ConvNet(...
-    'batchSize', 100, ...
     'cudnn', false, ...
-    'numEpochs', 20);
+    'gpus', [], ...
+    'numEpochs', 200, ...
+    'plotErrorRates', true);
 
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
@@ -96,6 +98,9 @@ randomForestOutputRegConfig = @() OutputRegularizer(...
 seld20_5Config = @() SELD(20, 5);
 seld40_5Config = @() SELD(40, 5);
 seld60_5Config = @() SELD(60, 5);
+seld20_14Config = @() SELD(20, 14);
+seld40_14Config = @() SELD(40, 14);
+seld60_14Config = @() SELD(60, 14);
 
 % PCA - Parameters: numDimensions
 pca1Config = @() PCA(1);
@@ -104,7 +109,8 @@ pca20Config = @() PCA(20);
 pca25Config = @() PCA(25);
 
 % MulticlassLda
-mcldaConfig = @() MulticlassLda;
+mcldaConfig_5 = @() MulticlassLda(5);
+mcldaConfig_14 = @() MulticlassLda(14);
 
 % ContinuumRemoval - Parameters: useMultithread
 continuumRemoval= @() ContinuumRemoval(true);
@@ -113,7 +119,7 @@ continuumRemoval= @() ContinuumRemoval(true);
 spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, 2);
 spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, 2);
 spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, 2);
-spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
+spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
@@ -121,9 +127,11 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = rotationForest202Config();
 
-EXTRACTORS = {};
+CLASSIFIER = randomForest20Config();
+
+EXTRACTORS = {pca5Config()};
+
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
@@ -149,5 +157,5 @@ LOG_LEVEL = 0;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
-VISUALIZE_PREDICTED_LABELS = true;
+VISUALIZE_PREDICTED_LABELS = false;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

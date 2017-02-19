@@ -39,7 +39,7 @@ classdef BasicEnsemble < Classifier
     %                                           should use the
     %                                           multithreaded 
     %                                           implementation
-    %           multithreadingTraining ........ set to true if
+    %           multithreadingClassification .. set to true if
     %                                           classification should use 
     %                                           the multithreaded 
     %                                           implementation
@@ -59,7 +59,6 @@ classdef BasicEnsemble < Classifier
         multithreadingClassification;
         baseClassifiers;
         trainingInstanceProportions;
-        numClassifiersStrings;
         trainingInstanceProportionsStrings;
         baseClassifiersStrings;
         baseClassifiersShortStrings;
@@ -71,7 +70,7 @@ classdef BasicEnsemble < Classifier
     
     methods
         
-        function obj = BasicEnsemble(baseClassifiers, numClassifiers, ...
+        function obj = BasicEnsemble(baseClassifiers, ...
                 trainingInstanceProportions, votingMode, ...
                 validationSubsampleSize, ...
                 remainClassDistribution, ...
@@ -83,10 +82,6 @@ classdef BasicEnsemble < Classifier
             obj.multithreadingClassification = ...
                 multithreadingClassification;
             
-            obj.numClassifiersStrings = ...
-                cellfun(@(n)num2str(n), ...
-                        num2cell(numClassifiers), ...
-                        'uniformoutput', 0);
             obj.trainingInstanceProportionsStrings = ...
                 cellfun(@(n)num2str(n), ...
                         num2cell(trainingInstanceProportions), ...
@@ -99,20 +94,8 @@ classdef BasicEnsemble < Classifier
                         baseClassifiers, ...
                         'uniformoutput', 0);
             
-            % generate indices to copy the baseclassifiers
-            % calculate the points, where new classifier starts
-            classifierIndexStartPoint = ...
-                [1 (cumsum(numClassifiers(1:end-1)) + 1)];
-            % calculate the indices, which is then used to copy the objects
-            classifierIndices = zeros(1, sum(numClassifiers));
-            classifierIndices(classifierIndexStartPoint) = 1;
-            classifierIndices = cumsum(classifierIndices);
             % copy the classifier
-            obj.baseClassifiers = cellfun(@copy, ...
-                baseClassifiers(classifierIndices), ...
-                'UniformOutput', 0)';
-            obj.trainingInstanceProportions = ...
-                num2cell(trainingInstanceProportions(classifierIndices))';
+            obj.baseClassifiers = baseClassifiers;
         end
         
         
@@ -125,10 +108,7 @@ classdef BasicEnsemble < Classifier
                          num2str(obj.validationSubsampleSize)];
             str = ['BasicEnsemble ', paramStr, '[' ];
             stringParts = ...
-                cellfun(@(n,p,c) ['(num:' n ' proportion:' p ...
-                                  ' classifier:[' c '], )'], ...
-                        obj.numClassifiersStrings, ...
-                        obj.trainingInstanceProportionsStrings,...
+                cellfun(@(c) [' classifier:[' c '], )'], ...
                         obj.baseClassifiersStrings, ...
                         'uniformoutput', 0);
             stringParts{end}(end-2:end) = [];
@@ -233,7 +213,7 @@ classdef BasicEnsemble < Classifier
                         Evaluator.getAccuracy(cMat(2:end, 2:end));
                 end
                 
-                if obj.votingMode == VotingMode.Majority
+                if obj.votingMode == VotingMode.Presidential
                     [~, bestClassifier] = max(newWeights);
                     obj.weights = ones(size(obj.weights));
                     obj.weights(bestClassifier) = numel(newWeights) - 0.5;

@@ -11,6 +11,8 @@ classdef TSVM < Classifier
     %    kernel .......... Name of the kernel function.
     %    polynomialOrder . Order of the polynomial kernel function.
     %    coding .......... Name of the multiclass coding design.
+    %    unlabeledRate ... Rate of the available unlabeled samples to be 
+    %                      used for training.
     %
     %% Methods:
     %    TSVM .......... Constructor. Can take Name, Value pair arguments 
@@ -26,12 +28,15 @@ classdef TSVM < Classifier
     %                          Default: 3
     %        Coding .......... Coding design for the multiclass model.
     %                          'onevsone'(default) | 'onevsall'
+    %        UnlabeledRate ... Rate of the available unlabeled samples to
+    %                          be used for training.
+    %                          Default: 1.0
     %    toString ...... See documentation in superclass Classifier.
     %    toShortString . See documentation in superclass Classifier.
     %    trainOn ....... See documentation in superclass Classifier.
     %    classifyOn .... See documentation in superclass Classifier.
     %
-    % Version: 2017-02-05
+    % Version: 2017-02-18
     % Author: Cornelius Styp von Rekowski
     %
     
@@ -40,6 +45,7 @@ classdef TSVM < Classifier
         kernel;
         polynomialOrder
         coding;
+        unlabeledRate;
     end
     
     properties(Hidden=true)
@@ -54,6 +60,7 @@ classdef TSVM < Classifier
             p.addParameter('KernelFunction', 'linear');
             p.addParameter('PolynomialOrder', []);
             p.addParameter('Coding', 'onevsone');
+            p.addParameter('UnlabeledRate', 1.0);
             
             % Parse input arguments
             p.parse(varargin{:});
@@ -61,6 +68,7 @@ classdef TSVM < Classifier
             % Save parameters
             obj.kernel = p.Results.KernelFunction;
             obj.coding = p.Results.Coding;
+            obj.unlabeledRate = p.Results.UnlabeledRate;
             
             if strcmp(obj.kernel, 'polynomial')
                 if isempty(p.Results.PolynomialOrder)
@@ -84,6 +92,9 @@ classdef TSVM < Classifier
             % Append multiclass coding
             str = [str ', Coding: ' obj.coding];
             
+            % Append unlabeled rate
+            str = [str ', UnlabeledRate: ' num2str(obj.unlabeledRate)];
+            
             % Close parentheses
             str = [str ')'];
         end
@@ -99,6 +110,9 @@ classdef TSVM < Classifier
             
             % Append multiclass coding
             str = [str '_' obj.coding];
+            
+            % Append unlabeled rate
+            str = [str '_ur' num2str(obj.unlabeledRate)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
@@ -110,6 +124,32 @@ classdef TSVM < Classifier
                 trainFeatureCube, trainLabelMap);
             labelList = validListFromSpatial(...
                 trainLabelMap, trainLabelMap);
+            
+            % Sample rate of unlabeled instances
+            if obj.unlabeledRate < 1.0
+                % Split lists into labeled and unlabeled instances
+                unlabeledFeatureList = featureList(labelList == 0, :);
+                labeledFeatureList = featureList(labelList > 0, :);
+                labeledLabelList = labelList(labelList > 0);
+                
+                % Calculate desired number of unlabeled instances
+                numUnlabeled = size(unlabeledFeatureList, 1);
+                numRateUnlabeled = floor(obj.unlabeledRate * numUnlabeled);
+                
+                logger.debug('t-SVM', ...
+                    ['Sampling ' num2str(obj.unlabeledRate) ...
+                     ' of the available unlabeled instances: '...
+                     num2str(numRateUnlabeled) '/' num2str(numUnlabeled)]);
+                
+                % Create subsampled feature and label lists
+                featureList = [labeledFeatureList; ...
+                    unlabeledFeatureList(...
+                        randsample(numUnlabeled, numRateUnlabeled), :)];
+                labelList = [labeledLabelList; zeros(numRateUnlabeled, 1)];
+                
+                clear unlabeledFeatureList labeledFeatureList...
+                    labeledLabelList;
+            end
             
             % Build additional parameters
             params = '-v 0';
