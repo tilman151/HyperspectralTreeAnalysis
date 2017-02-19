@@ -10,7 +10,7 @@ randomForest20Config = @() RandomForest(20);
 randomForest100Config = @() RandomForest(100);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest22Config = @() RotationForest(2,2);
+rotationForest202Config = @() RotationForest(20,2);
 
 % SVM - Parameters: KernelFunction, PolynomialOrder, Coding
 svmLinearConfig = @() SVM(...
@@ -121,9 +121,9 @@ spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 2);
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = RandomForest(3);
+CLASSIFIER = rotationForest202Config();
 
-EXTRACTORS = {PCA(5)};
+EXTRACTORS = {};
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';

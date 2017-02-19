@@ -19,47 +19,45 @@ if (nargin<2 || nargin>3)
     help bootstrapal
 else
 
-    Xpart=[];
-    Ypart=[];
+    [N,~]=size(Xini);
 
-    [N,M]=size(Xini);
-
-    A=[];
     A=randperm(N); 
 
     numberselect=ceil(N*Ratio);
-    Aselect=[];
+
     Aselect=(A(1:numberselect))';
 
-    Xpartini=[];
-    Xpartini=Xini(Aselect,:);
-    Ypartini=[];
     Ypartini=Yini(Aselect,:);
+    Xpartini=Xini(Aselect,:);
+
+ %   Ypartini=Yini(Aselect,:);
 
     numberleaver=N-numberselect;
 
-    index1=[];
-    for i=1:numberselect
-        index1(i,1)=i/numberselect;
-    end
+    index1=(1:numberselect)'./numberselect;
+%     for i=1:numberselect
+%         index1(i,1)=i/numberselect;
+%     end
 
-    index2=[];
     index2=rand(numberleaver,1);
-    index4=[];
+    index4=index2;
     for i=1:numberleaver
-        index3=index2(i);
-        for j=1:numberselect
-            if (index1(j)>=index3 && j==1)
-                index4(i,1)=j;
-            else
-                if (index1(j)>=index3 && index1(j-1)<index3)
-                    index4(i,1)=j;
-                end
-            end
-        end
-    end
+        dif = index2(i) - index1;
+        index4(i,1) = find(dif<0,1);
+    end 
+%     for i=1:numberleaver
+%         index3=index2(i);    
+%         for j=1:numberselect
+%             if (index1(1)>=index3 && j==1)
+%                 index4(i,1)=1;
+%             else
+%                 if (index1(j)>=index3 && index1(j-1)<index3)
+%                     index4(i,1)=j;
+%                 end
+%             end
+%         end
+%     end
     Xpart=[Xpartini;Xpartini(index4,:);];
     Ypart=[Ypartini;Ypartini(index4,:);];
-    indexselect=[];
     indexselect=[Aselect;Aselect(index4);];
 end

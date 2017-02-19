@@ -27,7 +27,6 @@ else
    
     [trainX_lie, index_lie_new]=array_lie(featureList);
     R_coeff=zeros(num_feature,num_feature);
-    trainY=labelList;
     index=cell(length(class),1); %preallocate cell array
     for m=1:length(class)
         index{m,1}=find(labelList==class(m)); %index{2,1} contains indizes of the data points of class(2)
@@ -44,7 +43,7 @@ else
        
         %%%% eliminate from dataset a random subset of classes %%%
         rateeliminate=0.08;
-        [AsubX,AsubY]=randomsub([trainX_subset,trainY],rateeliminate);
+        [AsubX,AsubY]=randomsub([trainX_subset,labelList],rateeliminate);
         %%%% using bootstrap algorithm to obtain subset of samples (����bootstrap����) %%%%
         [trainX_subset_new,~,~]=bootstrapal(AsubX,AsubY,Ratio);
         %%%% using PCA to transform samples  %%%%

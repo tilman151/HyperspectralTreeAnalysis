@@ -65,6 +65,7 @@ classdef RotationForest < ExampleClassifier
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            logger = Logger.getLogger();
             % Extract labeled pixels
              featureList = validListFromSpatial(...
                 trainFeatureCube, trainLabelMap, true);
@@ -72,10 +73,12 @@ classdef RotationForest < ExampleClassifier
                 trainLabelMap, trainLabelMap, true);            
             [~,numFeatures] = size(featureList);
             if(obj.splitParam > numFeatures)
-                error('splitParameter has to be less than the number of features');
+                logger.error('splitParameter has to be less than the number of features');
             end
             
             for l=1:obj.numTrees
+                str = ['Train Tree' int2str(l)];
+                logger.debug('RotationForest', str);
                 %%% obtain the new samples by rotation forest %%%
                 K=obj.splitParam;
                 [R_new,R_new1]=RotationFal(featureList, labelList, K,...
@@ -91,13 +94,15 @@ classdef RotationForest < ExampleClassifier
             
             function predictedLabelMap = classifyOn(...
                 obj, evalFeatureCube, maskMap)
-            
+                logger = Logger.getLogger();
            % Extract list of unlabeled pixels
             featList = validListFromSpatial(evalFeatureCube, maskMap);
             labelMat = zeros(size(featList,1),obj.numTrees);
             % Predict labels using the ensemble
               for l=1:obj.numTrees
              labelMat(:,l) = obj.treeEnsemble{l}.predict(featList*obj.matrixTransform{l});
+             str = ['predict with tree' int2str(l)];
+             logger.debug('RotationForest',str);
               end
 
              predictedLabelList = (mode(labelMat'))';
