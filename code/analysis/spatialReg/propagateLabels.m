@@ -12,7 +12,7 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
     
     % Handle each partial image separately
     for imageIdx = imageIdxs
-        logger.debug('propagateLabels', ['Image ' num2str(imageIdx)]);
+        logger.trace('propagateLabels', ['Image ' num2str(imageIdx)]);
         
         % Mask everything but the current image
         maskedLabelMap = labelMap;
@@ -20,7 +20,7 @@ function enrichedLabelMap = propagateLabels(labelMap, clusterIdxMap, ...
         
         % Handle all pixels of a label at the same time
         for label = 1:maxLabel
-            logger.debug('propagateLabels', ['Label ' num2str(label)]);
+            logger.trace('propagateLabels', ['Label ' num2str(label)]);
             
             % Get indexes of all pixels for this label
             labelIdxs = find(maskedLabelMap == label);
