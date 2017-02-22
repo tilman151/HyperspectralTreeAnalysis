@@ -93,7 +93,7 @@ classdef RotationForest < ExampleClassifier
         end
             
             function predictedLabelMap = classifyOn(...
-                obj, evalFeatureCube, maskMap)
+                obj, evalFeatureCube, maskMap, ~)
                 logger = Logger.getLogger();
            % Extract list of unlabeled pixels
             featList = validListFromSpatial(evalFeatureCube, maskMap);

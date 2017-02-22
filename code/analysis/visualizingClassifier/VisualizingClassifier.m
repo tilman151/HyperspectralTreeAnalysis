@@ -35,7 +35,7 @@ classdef VisualizingClassifier < Classifier
         end
         
         function predictedLabelMap = ...
-                classifyOn(obj, evalFeatureCube, maskMap)
+                classifyOn(obj, evalFeatureCube, maskMap, ~)
             
             % Return pseudo output
             predictedLabelMap = maskMap;

@@ -60,7 +60,7 @@ classdef RandomForest < Classifier
         end
         
         function predictedLabelMap = classifyOn(...
-                obj, evalFeatureCube, maskMap)
+                obj, evalFeatureCube, maskMap, ~)
             
             % Extract list of unlabeled pixels
             featureList = validListFromSpatial(evalFeatureCube, maskMap);

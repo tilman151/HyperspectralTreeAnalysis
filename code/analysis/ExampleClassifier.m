@@ -26,7 +26,7 @@ classdef ExampleClassifier < Classifier
         end
         
         function predictedLabelMap = ...
-                classifyOn(obj, evalFeatureCube, maskMap)
+                classifyOn(obj, evalFeatureCube, maskMap, ~)
             
             % Extract valid pixels from the given feature cube to a list
             evalFeatureList = validListFromSpatial(evalFeatureCube, maskMap);

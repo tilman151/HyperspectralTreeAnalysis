@@ -156,7 +156,7 @@ classdef LabelPropagator < Classifier
         end
         
         function predictedLabelMap = ...
-                classifyOn(obj, evalFeatureCube, maskMap)
+                classifyOn(obj, evalFeatureCube, maskMap, ~)
             
             % Predict labels using the internal classifier
             predictedLabelMap = ...

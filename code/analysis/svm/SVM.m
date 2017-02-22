@@ -118,7 +118,7 @@ classdef SVM < Classifier
         end
         
         function predictedLabelMap = ...
-                classifyOn(obj, evalFeatureCube, maskMap)
+                classifyOn(obj, evalFeatureCube, maskMap, ~)
             
             % Extract list of unlabeled pixels
             featureList = validListFromSpatial(evalFeatureCube, maskMap);

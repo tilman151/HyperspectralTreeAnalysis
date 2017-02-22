@@ -197,8 +197,8 @@ classdef ConvNet < Classifier
             end
         end 
         
-        function predictedLabelMap = classifyOn(obj, evalFeatureCube, ...
-                maskMap)
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap, ~)
             
             % Get logger
             logger = Logger.getLogger();
