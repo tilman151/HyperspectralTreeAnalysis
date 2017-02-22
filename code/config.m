@@ -87,8 +87,7 @@ randomForestLabelPropConfig = @() LabelPropagator(...
     'PropagationThreshold', 0.0, ...
     'VisualizeSteps', false);
 randomForestOutputRegConfig = @() OutputRegularizer(...
-    ['../results/RandomForest_20/MulticlassLda/20170207_1718/'...
-     'model_1.mat'], ...
+    '../results/RandomForest_20/MulticlassLda_5/20170217_1239/', ...
     'R', 5, ...
     'VisualizeSteps', false);
 
@@ -124,15 +123,18 @@ spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, 2);
 spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, 2);
 spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 
+% Indices
+indicesConfig = @() Indices();
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = randomForest20Config();
+CLASSIFIER = randomForestOutputRegConfig();
 
-EXTRACTORS = {};
+EXTRACTORS = {mclda5Config()};
 
 
 DATA_SET_PATH = ...

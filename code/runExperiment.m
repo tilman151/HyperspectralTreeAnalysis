@@ -122,7 +122,7 @@ function runExperiment(configFilePath)
         % Apply trained classifier
         logger.debug('runExperiment', 'Applying trained classifier...');
         classifiedLabelMap = ...
-            CLASSIFIER.classifyOn(testFeatureCube, maskMap);
+            CLASSIFIER.classifyOn(testFeatureCube, maskMap, i);
         logger.info('runExperiment', 'Test instances classified');
         
         % Visualize predicted labels

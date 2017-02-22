@@ -24,6 +24,9 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
     %                             pixels (-1) with dimensions X x Y.
     %        predictedLabelMap .. Output map of features, having dimensions
     %                             X x Y.
+    %        foldK .............. Index of the current fold. Can be left
+    %                             undefined, if the model is not applied on
+    %                             a training fold.
     %    saveTo ...... Save the model to a given folder. The model will be
     %                  stored in the file model.mat.
     %    loadFrom .... Load the model from a given folder. The model is
@@ -37,7 +40,8 @@ classdef (Abstract) Classifier < matlab.mixin.Copyable
         str = toString(obj);
         str = toShortString(obj);
         obj = trainOn(obj, trainFeatureCube, trainLabelMap);
-        predictedLabelMap = classifyOn(obj, evalFeatureCube, maskMap);
+        predictedLabelMap = ...
+            classifyOn(obj, evalFeatureCube, maskMap, foldK);
     end
     
     methods
