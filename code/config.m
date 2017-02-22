@@ -42,7 +42,9 @@ convNetConfig = @() ConvNet(...
     'cudnn', false, ...
     'gpus', [], ...
     'numEpochs', 200, ...
-    'plotErrorRates', true);
+    'plotErrorRates', true, ...
+    'stoppingEpochWindow', 100, ...
+    'stoppingErrorMargin', 0.005);
 
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
@@ -83,12 +85,11 @@ randomForestLabelPropConfig = @() LabelPropagator(...
     randomForest20Config(), ...
     'R', 5, ...
     'PropagationThreshold', 0.0, ...
-    'VisualizeSteps', true);
+    'VisualizeSteps', false);
 randomForestOutputRegConfig = @() OutputRegularizer(...
-    ['../results/RandomForest_20/MulticlassLda/20170207_1718/'...
-     'model_1.mat'], ...
+    '../results/RandomForest_20/MulticlassLda_5/20170217_1239/', ...
     'R', 5, ...
-    'VisualizeSteps', true);
+    'VisualizeSteps', false);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,12 +106,13 @@ seld60_14Config = @() SELD(60, 14);
 % PCA - Parameters: numDimensions
 pca1Config = @() PCA(1);
 pca5Config = @() PCA(5);
+pca14Config = @() PCA(14);
 pca20Config = @() PCA(20);
 pca25Config = @() PCA(25);
 
 % MulticlassLda
-mcldaConfig_5 = @() MulticlassLda(5);
-mcldaConfig_14 = @() MulticlassLda(14);
+mclda5Config = @() MulticlassLda(5);
+mclda14Config = @() MulticlassLda(14);
 
 % ContinuumRemoval - Parameters: useMultithread
 continuumRemoval= @() ContinuumRemoval(true);
@@ -121,16 +123,19 @@ spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, 2);
 spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, 2);
 spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 
+% Indices
+indicesConfig = @() Indices();
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
 global NUMCLASSES;
 NUMCLASSES = 24;
 
+CLASSIFIER = randomForestOutputRegConfig();
 
-CLASSIFIER = rotationForest1002Config();
+EXTRACTORS = {mclda5Config()};
 
-EXTRACTORS = {};
 
 
 DATA_SET_PATH = ...

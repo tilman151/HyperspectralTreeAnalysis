@@ -1,4 +1,4 @@
-classdef OutputRegularizer
+classdef OutputRegularizer < Classifier
     %OUTPUTREGULARIZER Summary of this class goes here
     %   
     %    Based on the scientific work presented in "Spatially regularized 
@@ -14,9 +14,8 @@ classdef OutputRegularizer
     %    can be used internally.
     %
     %% Properties:
-    %    classifier ........... Instance of a Classifier (supervised or 
-    %                           semi-supervised, single or ensemble) to be
-    %                           used internally.
+    %    experimentPath........ Path to the experiment folder containing
+    %                           the trained models.
     %    r .................... Float value. Radius defining the 
     %                           neighborhood for regularization. Needs 
     %                           to be lower than half of the image size in 
@@ -24,9 +23,8 @@ classdef OutputRegularizer
     %
     %% Methods:
     %    OutputRegularizer . Constructor. Takes Name, Value pair arguments:
-    %        ModelFile .......... Set the internally used classifier by
-    %                             providing the path to a previously 
-    %                             trained model.
+    %        ExperimentPath ..... Set the path to the experiment folder
+    %                             containing the trained models.
     %        R .................. Set the radius property. 
     %                             Default: 5
     %        VisualizeSteps ..... Enable/disable visualization of results
@@ -42,8 +40,8 @@ classdef OutputRegularizer
     %
     
     properties
-        % The internally used pretrained classifier
-        classifier;
+        % Path to the experiment folder containing the trained models
+        experimentPath;
         
         % Neighborhood radius
         r;
@@ -53,6 +51,9 @@ classdef OutputRegularizer
         % Cached neighborhood indices
         relativeNeighbors;
         
+        % Cached best model
+        bestModel;
+        
         % Visualize results in between single processing steps
         visualizeSteps;
     end
@@ -61,17 +62,15 @@ classdef OutputRegularizer
         function obj = OutputRegularizer(varargin)
             % Create input parser
             p = inputParser;
-            p.addRequired('ModelFile');
+            p.addRequired('ExperimentPath');
             p.addParameter('R', 5);
             p.addParameter('VisualizeSteps', false);
             
             % Parse input arguments
             p.parse(varargin{:});
             
-            % Load model
-            obj.classifier = Classifier.loadFrom(p.Results.ModelFile);
-            
-            % Save other parameters
+            % Save parameters
+            obj.experimentPath = p.Results.ExperimentPath;
             obj.r = p.Results.R;
             obj.visualizeSteps = p.Results.VisualizeSteps;
             
@@ -84,7 +83,7 @@ classdef OutputRegularizer
             str = 'OutputRegularizer (';
             
             % Append classifier
-            str = [str 'classifier: ' obj.classifier.toString()];
+            str = [str 'experiment path: ' obj.experimentPath];
             
             % Append neighborhood radius
             str = [str ', r: ' num2str(obj.r)];
@@ -94,8 +93,14 @@ classdef OutputRegularizer
         end
         
         function str = toShortString(obj)
+            % Get the underlying models short string, assuming that the
+            % experiment path looks like this:
+            % '../results/<model>/<featureExtractor>/experiment/'
+            pathParts = strsplit(obj.experimentPath, '/');
+            modelString = pathParts{3};
+            
             % Create output string with classifier representation
-            str = [obj.classifier.toShortString() '_'];
+            str = [modelString '_'];
             
             % Append regularized output suffix
             str = [str '_regularizedOutput'];
@@ -105,19 +110,34 @@ classdef OutputRegularizer
         end
         
         function obj = trainOn(obj, ~, ~)
-            % Model has already been trained -> nothing to do
+            % Models have already been trained -> nothing to do
         end
         
         function predictedLabelMap = ...
-                classifyOn(obj, evalFeatureCube, maskMap)
+                classifyOn(obj, evalFeatureCube, maskMap, foldK)
             
             % Get logger
             logger = Logger.getLogger();
             
+            if exist('foldK', 'var')
+                % Load model for the specified fold k
+                logger.info('OutputRegularizer', ...
+                    ['Load model for fold ' num2str(foldK)]);
+                modelFile = fullfile(obj.experimentPath, ...
+                    ['model_' num2str(foldK) '.mat']);
+                model = Classifier.loadFrom(modelFile);
+            else
+                % Load and cache best model from the experiment
+                if isempty(obj.bestModel)
+                    logger.info('OutputRegularizer', 'Load best model');
+                    obj.bestModel = loadBestModel(obj.experimentPath);
+                end
+                model = obj.bestModel;
+            end
+            
             % Predict labels
             logger.info('OutputRegularizer', 'Predicting labels...');
-            predictedLabelMap = ...
-                obj.classifier.classifyOn(evalFeatureCube, maskMap);
+            predictedLabelMap = model.classifyOn(evalFeatureCube, maskMap);
             
             % Display result before regularization
             if obj.visualizeSteps

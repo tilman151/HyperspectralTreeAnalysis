@@ -45,6 +45,8 @@ function opts = setOpts(varargin)
     p.addParameter('plotErrorRates', false);
     p.addParameter('plotDiagnostics', false);
     p.addParameter('plotStatistics', false);
+    p.addParameter('stoppingEpochWindow', 100);
+    p.addParameter('stoppingErrorMargin', 0.001);
     
     % parse input arguments
     p.parse(varargin{:});

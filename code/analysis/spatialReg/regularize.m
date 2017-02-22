@@ -11,7 +11,7 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
     
     % Handle each partial image separately
     for imageIdx = imageIdxs
-        logger.debug('regularize', ['Image ' num2str(imageIdx)]);
+        logger.trace('regularize', ['Image ' num2str(imageIdx)]);
         
         % Mask everything but the current image
         maskedLabelMap = labelMap;
@@ -19,7 +19,7 @@ function regularizedLabelMap = regularize(labelMap, relativeNeighbors)
         
         % Handle all pixels of a label at the same time
         for label = 1:maxLabel
-            logger.debug('regularize', ['Label ' num2str(label)]);
+            logger.trace('regularize', ['Label ' num2str(label)]);
             
             % Get subscripts of all pixels for this label
             [labelsX, labelsY] = ...
