@@ -132,9 +132,9 @@ indicesConfig = @() Indices();
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = randomForestOutputRegConfig();
+CLASSIFIER = randomForest100Config();
 
-EXTRACTORS = {mclda5Config()};
+EXTRACTORS = {pca5Config()};
 
 
 
