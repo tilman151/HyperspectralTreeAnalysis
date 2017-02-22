@@ -125,8 +125,8 @@ classdef SVMsvmlight < Classifier
                     obj.models = ...
                         trainOneVsOne(featureList, labelList, params);
                 otherwise
-                    logger.error('t-SVM', ['Currently only one-vs-one '...
-                        'coding is supported for t-SVMs!']);
+                    logger.error('SVM', ['Currently only one-vs-one '...
+                        'coding is supported for SVMs!']);
                     exit;
             end
         end
@@ -167,7 +167,7 @@ function models = trainOneVsOne(featureList, labelList, params)
         c1 = classes(classpair(1));
         c2 = classes(classpair(2));
         
-        logger.trace('t-SVM 1vs1', ...
+        logger.trace('SVM 1vs1', ...
             ['Training ' num2str(c1) ' vs. ' num2str(c2)]);
         
         % Concatenate features and labels for the two classes
