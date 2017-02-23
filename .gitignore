@@ -6,6 +6,7 @@ results/**/*.mat
 
 *.dia
 *.m~
+*.mexa64
 *.orig
 *.asv
 
