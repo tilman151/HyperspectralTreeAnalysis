@@ -118,4 +118,4 @@ else % test mode
        o=svmlin_mex(param,X',Y,[],w);
 end
 time_secs=cputime-start;
-fprintf(1,'time taken: %d secs\n', time_secs);
+%fprintf(1,'time taken: %d secs\n', time_secs);

@@ -47,15 +47,15 @@ void ssl_train(struct sparseData *Data,
   switch(Options->algo)
     {
     case -1:
-      cout << "Regularized Least Squares Regression (CGLS)\n" << endl;
+      cout << "Regularized Least Squares Regression (CGLS)" << endl;
       optimality=CGLS(Data,Options,Subset,Weights,Outputs);
       break;
     case RLS:
-      cout << "Regularized Least Squares Classification (CGLS)\n" << endl;
+      cout << "Regularized Least Squares Classification (CGLS)" << endl;
       optimality=CGLS(Data,Options,Subset,Weights,Outputs);
       break;
     case SVM:
-      cout << "Modified Finite Newton L2-SVM (L2-SVM-MFN)\n" << endl;
+      cout << "Modified Finite Newton L2-SVM (L2-SVM-MFN)" << endl;
       optimality=L2_SVM_MFN(Data,Options,Weights,Outputs,0);
       break;
     case TSVM:
@@ -63,7 +63,7 @@ void ssl_train(struct sparseData *Data,
       optimality=TSVM_MFN(Data,Options,Weights,Outputs);
       break;
     case DA_SVM:
-      cout << "Deterministic Annealing Semi-supervised L2-SVM (DAS3VM)\n" << endl;
+      cout << "Deterministic Annealing Semi-supervised L2-SVM (DAS3VM)" << endl;
       optimality=DA_S3VM(Data,Options,Weights,Outputs);
       break;
     default:
@@ -192,7 +192,7 @@ size_t  CGLS(const struct sparseData *Data,
   if(VERBOSE_CGLS)
     cout << "...Done." << endl;
   tictoc.stop();
-  cout << "CGLS converged in " << cgiter << " iteration(s) and " << tictoc.time() << " seconds." << endl;
+  //cout << "CGLS converged in " << cgiter << " iteration(s) and " << tictoc.time() << " seconds." << endl;
   delete[] z;
   delete[] q;
   delete[] r;
@@ -269,12 +269,12 @@ size_t  L2_SVM_MFN(const struct sparseData *Data,
   while(iter<MFNITERMAX)
     {
       iter++;
-      cout << "L2_SVM_MFN Iteration# " << iter << " (" << active << " active examples, " << " objective_value = " << F << ")" << endl;
+      //cout << "L2_SVM_MFN Iteration# " << iter << " (" << active << " active examples, " << " objective_value = " << F << ")" << endl;
       for(size_t  i=n; i-- ;) 
 	w_bar[i]=w[i];
       for(size_t  i=m; i-- ;)  
 	o_bar[i]=o[i];
-      cout << " " ;
+      //cout << " " ;
       opt=CGLS(Data,Options,ActiveSubset,Weights_bar,Outputs_bar);
       for(register size_t  i=active; i < m; i++) 
 	{
@@ -321,9 +321,9 @@ size_t  L2_SVM_MFN(const struct sparseData *Data,
 	       return 1;      
 	    }
 	}
-      cout << " " ;
+      //cout << " " ;
       delta=line_search(w,w_bar,lambda,o,o_bar,Y,C,n,m); 
-      cout << "LINE_SEARCH delta = " << delta << endl;     
+      //cout << "LINE_SEARCH delta = " << delta << endl;     
       F_old=F;
       F=0.0;
       for(size_t  i=n; i-- ;){ 
@@ -793,13 +793,13 @@ size_t  optimize_w(const struct sparseData *Data,
   while(iter<MFNITERMAX)
     {
       iter++;
-      cout << "L2_SVM_MFN Iteration# " << iter << " (" << active << " active examples, " << " objective_value = " << F << ")" << endl;
+      //cout << "L2_SVM_MFN Iteration# " << iter << " (" << active << " active examples, " << " objective_value = " << F << ")" << endl;
       for(size_t  i=n; i-- ;) 
 	w_bar[i]=w[i];
       
       for(size_t  i=m+u; i-- ;)  
 	o_bar[i]=o[i];     
-      cout << " " ;
+      //cout << " " ;
       opt=CGLS(Data,Options,ActiveSubset,Weights_bar,Outputs_bar);
       for(register size_t  i=active; i < m; i++) 
 	{
