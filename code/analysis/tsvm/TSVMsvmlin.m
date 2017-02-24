@@ -1,0 +1,221 @@
+classdef TSVMsvmlin < Classifier
+    %TSVMsvmlin transductive Support Vector Machine using SVMlin
+    %
+    %    Support vector machine that uses unlabeled data as additional
+    %    information. Also known as Semi-Supervised SVM (S3VM).
+    %    This class uses SVMlin as its underlying SVM implementation.
+    %    In order to setup SVMlin, two steps are required:
+    %    1. Compile the library: `make`
+    %    2. Compile mex interface: 
+    %            `mex -largeArrayDims svmlin_mex.cpp ssl.o`
+    %
+    %% Properties:
+    %    coding .......... Name of the multiclass coding design.
+    %    unlabeledRate ... Rate of the available unlabeled samples to be 
+    %                      used for training.
+    %
+    %% Methods:
+    %    TSVM .......... Constructor. Can take Name, Value pair arguments 
+    %                    that change the multiclass strategy and the 
+    %                    internal parameters of the SVM. 
+    %                    Possible arguments:
+    %        Coding .......... Coding design for the multiclass model.
+    %                          'onevsone'(default) | 'onevsall'
+    %        UnlabeledRate ... Rate of the available unlabeled samples to
+    %                          be used for training.
+    %                          Default: 1.0
+    %    toString ...... See documentation in superclass Classifier.
+    %    toShortString . See documentation in superclass Classifier.
+    %    trainOn ....... See documentation in superclass Classifier.
+    %    classifyOn .... See documentation in superclass Classifier.
+    %
+    % Version: 2017-02-24
+    % Author: Cornelius Styp von Rekowski
+    %
+    
+    properties
+        % Parameters
+        coding;
+        unlabeledRate;
+    end
+    
+    properties(Hidden=true)
+        % Trained binary models
+        models;
+    end
+    
+    methods
+        function obj = TSVMsvmlin(varargin)
+            % Create input parser
+            p = inputParser;
+            p.addParameter('Coding', 'onevsone');
+            p.addParameter('UnlabeledRate', 1.0);
+            
+            % Parse input arguments
+            p.parse(varargin{:});
+            
+            % Save parameters
+            obj.coding = p.Results.Coding;
+            obj.unlabeledRate = p.Results.UnlabeledRate;
+        end
+        
+        function str = toString(obj)
+            % Create output string with class name
+            str = 't-SVM [SVMlin] (';
+            
+            % Append multiclass coding
+            str = [str ', Coding: ' obj.coding];
+            
+            % Append unlabeled rate
+            str = [str ', UnlabeledRate: ' num2str(obj.unlabeledRate)];
+            
+            % Close parentheses
+            str = [str ')'];
+        end
+        
+        function str = toShortString(obj)
+            % Create output string with class name
+            str = 'tSVM_';
+            
+            % Append multiclass coding
+            str = [str '_' obj.coding];
+            
+            % Append unlabeled rate
+            str = [str '_ur' num2str(obj.unlabeledRate)];
+        end
+        
+        function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
+            % Get logger
+            logger = Logger.getLogger();
+            
+            % Extract valid pixels as lists
+            featureList = validListFromSpatial(...
+                trainFeatureCube, trainLabelMap);
+            labelList = validListFromSpatial(...
+                trainLabelMap, trainLabelMap);
+            
+            % Sample rate of unlabeled instances
+            if obj.unlabeledRate < 1.0
+                % Split lists into labeled and unlabeled instances
+                unlabeledFeatureList = featureList(labelList == 0, :);
+                labeledFeatureList = featureList(labelList > 0, :);
+                labeledLabelList = labelList(labelList > 0);
+                
+                % Calculate desired number of unlabeled instances
+                numUnlabeled = size(unlabeledFeatureList, 1);
+                numRateUnlabeled = floor(obj.unlabeledRate * numUnlabeled);
+                
+                logger.debug('t-SVM', ...
+                    ['Sampling ' num2str(obj.unlabeledRate) ...
+                     ' of the available unlabeled instances: '...
+                     num2str(numRateUnlabeled) '/' num2str(numUnlabeled)]);
+                
+                % Create subsampled feature and label lists
+                featureList = [labeledFeatureList; ...
+                    unlabeledFeatureList(...
+                        randsample(numUnlabeled, numRateUnlabeled), :)];
+                labelList = [labeledLabelList; zeros(numRateUnlabeled, 1)];
+                
+                clear unlabeledFeatureList labeledFeatureList...
+                    labeledLabelList;
+            end
+            
+            % Train model
+            switch obj.coding
+                case 'onevsone'
+                    obj.models = trainOneVsOne(featureList, labelList);
+                otherwise
+                    logger.error('t-SVM', ['Currently only one-vs-one '...
+                        'coding is supported for t-SVMs!']);
+                    exit;
+            end
+        end
+        
+        function predictedLabelMap = ...
+                classifyOn(obj, evalFeatureCube, maskMap, ~)
+            
+            % Extract unlabeled pixels as list
+            featureList = validListFromSpatial(evalFeatureCube, maskMap);
+            
+            % Predict labels
+            predictedLabelList = predictOneVsOne(featureList, obj.models);
+            
+            % Rebuild map representation
+            predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
+        end
+    end
+    
+end
+
+function models = trainOneVsOne(featureList, labelList, params)
+    % Get logger
+    logger = Logger.getLogger();
+    
+    % Get neutral data
+    neutralFeatureList = featureList(labelList == 0, :);
+    neutralLabelList = zeros(size(neutralFeatureList, 1), 1);
+    
+    % Get list of classes
+    classes = unique(labelList(labelList > 0));
+    numClasses = length(classes);
+    
+    % Create class combinations and cell array for binary classifiers
+    classpairs = nchoosek(1:numClasses, 2);
+    numBinaryClassifiers = size(classpairs, 1);
+    models = cell(numBinaryClassifiers, 3);
+
+    % Train binary classifiers
+    for ii = 1 : numBinaryClassifiers
+        % Get classes for this classifier
+        classpair = classpairs(ii, :);
+        c1 = classes(classpair(1));
+        c2 = classes(classpair(2));
+        
+        logger.trace('t-SVM 1vs1', ...
+            ['Training ' num2str(c1) ' vs. ' num2str(c2)]);
+        
+        % Concatenate features and labels for the two classes
+        binaryFeatureList = [...
+            featureList(labelList == c1, :); ...
+            featureList(labelList == c2, :); ...
+            neutralFeatureList];
+        binaryLabelList = [...
+            ones(sum(labelList == c1), 1); ...
+            -ones(sum(labelList == c2), 1); ...
+            neutralLabelList];
+        
+        % Make feature list sparse
+        binaryFeatureList = sparse(binaryFeatureList);
+        
+        % Train and store model
+        modelWeights = svmlin('-A 2', binaryFeatureList, binaryLabelList);
+        models(ii, :) = {c1, c2, modelWeights};
+    end
+end
+
+function predictedLabelList = predictOneVsOne(featureList, models)
+    % Obtain vote from each model
+    votes = cellfun(@(c1, c2, m) applyModel(c1, c2, m, featureList), ...
+        models(:, 1), models(:, 2), models(:, 3), 'UniformOutput', false);
+    
+    % Reshape votes to numSamples x numModels
+    votes = cell2mat(votes);
+    votes = reshape(votes, [size(featureList, 1), size(models, 1)]);
+    
+    % Decide for class with maximum number of votes
+    maxClass = max(votes(:));
+    voteCounts = histc(votes, 1:maxClass, 2);
+    [~, predictedLabelList] = max(voteCounts, [], 2);
+end
+
+function predictedLabelList = applyModel(c1, c2, model, featureList)
+    % Make feature list sparse
+    featureList = sparse(featureList);
+    
+    % Predict labels
+    [~, predictedLabelList] = svmlin([], featureList, [], model);
+    
+    % Assign classes based on predictions
+    predictedLabelList(predictedLabelList > 0) = c1;
+    predictedLabelList(predictedLabelList <= 0) = c2;
+end

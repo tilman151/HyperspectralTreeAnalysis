@@ -59,7 +59,7 @@ void ssl_train(struct sparseData *Data,
       optimality=L2_SVM_MFN(Data,Options,Weights,Outputs,0);
       break;
     case TSVM:
-      cout << "Transductive L2-SVM (TSVM)\n" << endl;
+      cout << "Transductive L2-SVM (TSVM)" << endl;
       optimality=TSVM_MFN(Data,Options,Weights,Outputs);
       break;
     case DA_SVM:
@@ -77,8 +77,8 @@ size_t  CGLS(const struct sparseData *Data,
 	 struct vector_double *Weights,
 	 struct vector_double *Outputs)
 {
-  if(VERBOSE_CGLS)
-    cout << "CGLS starting..." << endl;
+  //if(VERBOSE_CGLS)
+    //cout << "CGLS starting..." << endl;
   /* Disassemble the structures */
   timer tictoc;
   tictoc.restart();
@@ -175,7 +175,7 @@ size_t  CGLS(const struct sparseData *Data,
 	  omega1 += r[i]*r[i];
 	}
       if(VERBOSE_CGLS)
-	cout << "..." << cgiter << " ( " << omega1 << " )" ; 
+	//cout << "..." << cgiter << " ( " << omega1 << " )" ; 
       if(omega1 < epsilon2*omega_z)
 	{
 	  optimality=1;
@@ -190,7 +190,7 @@ size_t  CGLS(const struct sparseData *Data,
 	} 
     }            
   if(VERBOSE_CGLS)
-    cout << "...Done." << endl;
+    //cout << "...Done." << endl;
   tictoc.stop();
   //cout << "CGLS converged in " << cgiter << " iteration(s) and " << tictoc.time() << " seconds." << endl;
   delete[] z;
@@ -301,7 +301,7 @@ size_t  L2_SVM_MFN(const struct sparseData *Data,
 	    {
 	      epsilon=EPSILON;
 	      Options->epsilon=EPSILON;
-	      cout << "  epsilon = " << BIG_EPSILON << " case converged (speedup heuristic 2). Continuing with epsilon=" <<  EPSILON << endl;
+	      //cout << "  epsilon = " << BIG_EPSILON << " case converged (speedup heuristic 2). Continuing with epsilon=" <<  EPSILON << endl;
 	      continue;
 	    }
 	  else
@@ -317,7 +317,7 @@ size_t  L2_SVM_MFN(const struct sparseData *Data,
 	       delete[] Weights_bar;
 	       delete[] Outputs_bar;
 	       tictoc.stop();
-	       cout << "L2_SVM_MFN converged (optimality) in " << iter << " iteration(s) and "<< tictoc.time() << " seconds. \n" << endl;
+	       //cout << "L2_SVM_MFN converged (optimality) in " << iter << " iteration(s) and "<< tictoc.time() << " seconds. \n" << endl;
 	       return 1;      
 	    }
 	}
@@ -352,7 +352,7 @@ size_t  L2_SVM_MFN(const struct sparseData *Data,
       ActiveSubset->d=active;      
       if(fabs(F-F_old)<RELATIVE_STOP_EPS*fabs(F_old))
 	{
-	  cout << "L2_SVM_MFN converged (rel. criterion) in " << iter << " iterations and "<< tictoc.time() << " seconds. \n" << endl;
+	  //cout << "L2_SVM_MFN converged (rel. criterion) in " << iter << " iterations and "<< tictoc.time() << " seconds. \n" << endl;
 	  return 2;
 	}
     }
@@ -363,7 +363,7 @@ size_t  L2_SVM_MFN(const struct sparseData *Data,
   delete[] Weights_bar;
   delete[] Outputs_bar;
   tictoc.stop();
-  cout << "L2_SVM_MFN converged (max iter exceeded) in " << iter << " iterations and "<< tictoc.time() << " seconds. \n" << endl;
+  //cout << "L2_SVM_MFN converged (max iter exceeded) in " << iter << " iterations and "<< tictoc.time() << " seconds. \n" << endl;
   return 0;
 }
 
@@ -455,7 +455,7 @@ size_t  TSVM_MFN(const struct sparseData *Data,
   struct sparseData *Data_Labeled = new sparseData[1];
   struct vector_double *Outputs_Labeled = new vector_double[1];
   initialize(Outputs_Labeled,Data->l,0.0);
-  cout << "Initializing weights, unknown labels" << endl; 
+  //cout << "Initializing weights, unknown labels" << endl; 
   GetLabeledData(Data_Labeled,Data); /* gets labeled data and sets C=1/l */
   L2_SVM_MFN(Data_Labeled, Options, Weights,Outputs_Labeled,0);
   Clear(Data_Labeled);
@@ -511,10 +511,10 @@ size_t  TSVM_MFN(const struct sparseData *Data,
 	s=switch_labels(Data->Y,Outputs->vec,JU,Data->u,Options->S);
 	if(s==0) break;
 	iter2++;
-	cout << "****** lambda_0 = " << lambda_0 << " iteration = " << iter2 << " ************************************"  << endl;
-	cout << "Optimizing unknown labels. switched " << s << " labels." << endl; 
+	//cout << "****** lambda_0 = " << lambda_0 << " iteration = " << iter2 << " ************************************"  << endl;
+	//cout << "Optimizing unknown labels. switched " << s << " labels." << endl; 
 	num_switches+=s;
-	cout << "Optimizing weights" << endl;
+	//cout << "Optimizing weights" << endl;
 	L2_SVM_MFN(Data,Options,Weights,Outputs,1); 
       }
       if(last_round==1) break;
@@ -522,18 +522,18 @@ size_t  TSVM_MFN(const struct sparseData *Data,
       if(lambda_0 >= Options->lambda_u) {lambda_0 = Options->lambda_u; last_round=1;} 
       for(size_t  i=0;i<Data->u;i++)
 	Data->C[JU[i]]=lambda_0*1.0/Data->u;       
-      cout << endl << "****** lambda0 increased to " << lambda_0*100/Options->lambda_u << "%" << " of lambda_u = " << Options->lambda_u << " ************************" << endl;
-      cout << "Optimizing weights" << endl;
+      //cout << endl << "****** lambda0 increased to " << lambda_0*100/Options->lambda_u << "%" << " of lambda_u = " << Options->lambda_u << " ************************" << endl;
+      //cout << "Optimizing weights" << endl;
       L2_SVM_MFN(Data,Options,Weights,Outputs,1); 
     }
-  cout <<  "Total Number of Switches = " << num_switches << endl;
+  //cout <<  "Total Number of Switches = " << num_switches << endl;
   /* reset labels */
   for(size_t  i=0;i<Data->u;i++) Data->Y[JU[i]] = 0.0;
   double F = transductive_cost(norm_square(Weights),Data->Y,Outputs->vec,Outputs->d,Options->lambda,Options->lambda_u);
-  cout << "Objective Value = " << F << endl;
+  //cout << "Objective Value = " << F << endl;
   delete [] JU;
   tictoc.stop();
-  cout << "Transductive L2_SVM_MFN took " << tictoc.time() << " seconds." << endl;
+  //cout << "Transductive L2_SVM_MFN took " << tictoc.time() << " seconds." << endl;
   return num_switches;
 }
 size_t  switch_labels(double* Y, double* o, size_t * JU, size_t  u, size_t  S)
@@ -603,7 +603,7 @@ size_t  DA_S3VM(struct sparseData *Data,
   double *o = Outputs->vec;
   double kl_divergence = 1.0;
   /*initialize */
-  cout << "Initializing weights, p" << endl; 
+  //cout << "Initializing weights, p" << endl; 
   for(size_t  i=0;i<Data->u; i++)
     p[i] = Options->R;
   /* record which examples are unlabeled */
@@ -635,10 +635,10 @@ size_t  DA_S3VM(struct sparseData *Data,
 	      q[i]=p[i];
 	      g[i] = Options->lambda_u*((o[JU[i]] > 1 ? 0 : (1 - o[JU[i]])*(1 - o[JU[i]])) - (o[JU[i]]< -1 ? 0 : (1 + o[JU[i]])*(1 + o[JU[i]]))); 
 	    }
-	  cout << "Optimizing p. " ;
+	  //cout << "Optimizing p. " ;
 	  optimize_p(g,Data->u,T,Options->R,p);
 	  kl_divergence=KL(p,q,Data->u);
-	  cout << "Optimizing weights" << endl;
+	  //cout << "Optimizing weights" << endl;
 	  optimize_w(Data,p,Options,Weights,Outputs,1);
 	  F = transductive_cost(norm_square(Weights),Data->Y,Outputs->vec,Outputs->d,Options->lambda,Options->lambda_u);
 	  if(F < F_min)
@@ -667,8 +667,8 @@ size_t  DA_S3VM(struct sparseData *Data,
   delete [] w_min;
   delete [] o_min;
   tictoc.stop();
-  cout << endl << "(min) Objective Value = " << F_min << endl;
-  cout << "DA-SVM took " << tictoc.time() << " seconds." << endl;
+  //cout << endl << "(min) Objective Value = " << F_min << endl;
+  //cout << "DA-SVM took " << tictoc.time() << " seconds." << endl;
   return 1;
 }
 size_t  optimize_w(const struct sparseData *Data, 
@@ -843,7 +843,7 @@ size_t  optimize_w(const struct sparseData *Data,
 	    {
 	      epsilon=EPSILON;
 	      Options->epsilon=EPSILON;
-	      cout << "  epsilon = " << BIG_EPSILON << " case converged (speedup heuristic 2). Continuing with epsilon=" <<  EPSILON << endl;
+	      //cout << "  epsilon = " << BIG_EPSILON << " case converged (speedup heuristic 2). Continuing with epsilon=" <<  EPSILON << endl;
 	      continue;
 	    }
 	  else
@@ -868,13 +868,13 @@ size_t  optimize_w(const struct sparseData *Data,
 	       delete[] C;
 	       delete[] labeled_indices;
 	       tictoc.stop();
-	       cout << "L2_SVM_MFN converged in " << iter << " iteration(s) and "<< tictoc.time() << " seconds. \n" << endl;
+	       //cout << "L2_SVM_MFN converged in " << iter << " iteration(s) and "<< tictoc.time() << " seconds. \n" << endl;
 	       return 1;      
 	    }
 	}  
       
       delta=line_search(w,w_bar,lambda,o,o_bar,Y,C,n,m+u); 
-      cout << " LINE_SEARCH delta = " << delta << endl;     
+      //cout << " LINE_SEARCH delta = " << delta << endl;     
       F_old=F;
       F=0.0;
       for(size_t  i=0;i<n;i++) {w[i]+=delta*(w_bar[i]-w[i]);  F+=w[i]*w[i];}
@@ -954,7 +954,7 @@ size_t  optimize_w(const struct sparseData *Data,
   delete[] Y;
   delete[] C;
   tictoc.stop();
-  cout << "L2_SVM_MFN converged in " << iter << " iterations and "<< tictoc.time() << " seconds. \n" << endl;
+  //cout << "L2_SVM_MFN converged in " << iter << " iterations and "<< tictoc.time() << " seconds. \n" << endl;
   return 0;
 }
 void optimize_p(const double* g, size_t  u, double T, double r, double* p)
@@ -1032,7 +1032,7 @@ void optimize_p(const double* g, size_t  u, double T, double r, double* p)
       if(isinf(s)) p[i]=0.0;
       else p[i]=1.0/(1.0+s);  
     }
-  cout << " root (nu) = " << nu << " B(nu) = " << Bnu << endl; 
+  //cout << " root (nu) = " << nu << " B(nu) = " << Bnu << endl; 
 }
 double transductive_cost(double normWeights,double *Y, double *Outputs, size_t  m, double lambda,double lambda_u)
 {
@@ -1146,7 +1146,7 @@ void ssl_evaluate(struct vector_double *Outputs, struct vector_double *TrueLabel
   double accuracy=0.0;
   for(size_t  i=0;i<Outputs->d;i++)
     accuracy+=(Outputs->vec[i]*TrueLabels->vec[i])>0;
-  cout << "Accuracy = " << accuracy*100.0/Outputs->d << " %" << endl;
+  //cout << "Accuracy = " << accuracy*100.0/Outputs->d << " %" << endl;
 }
 
 /********************** UTILITIES ********************/
