@@ -174,7 +174,7 @@ size_t  CGLS(const struct sparseData *Data,
 	  r[i] -= lambda*beta[i];
 	  omega1 += r[i]*r[i];
 	}
-      if(VERBOSE_CGLS)
+      //if(VERBOSE_CGLS)
 	//cout << "..." << cgiter << " ( " << omega1 << " )" ; 
       if(omega1 < epsilon2*omega_z)
 	{
@@ -189,7 +189,7 @@ size_t  CGLS(const struct sparseData *Data,
 	  omega_p += p[i]*p[i]; 
 	} 
     }            
-  if(VERBOSE_CGLS)
+  //if(VERBOSE_CGLS)
     //cout << "...Done." << endl;
   tictoc.stop();
   //cout << "CGLS converged in " << cgiter << " iteration(s) and " << tictoc.time() << " seconds." << endl;
