@@ -1,5 +1,7 @@
 code/lib/analysis/libsvm*
 code/lib/analysis/svmLight/
+code/lib/analysis/svmlin-v1.0/svmlin
+code/lib/analysis/svmlin-v1.0/ssl.o
 data/
 literature/
 results/**/*.mat
