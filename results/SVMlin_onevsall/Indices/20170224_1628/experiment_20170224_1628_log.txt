@@ -1,0 +1,351 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	SVM [SVMlin] (Coding: onevsall)
+Extractors:	Indices
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/Samplesets/sampleset_012.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+        27         46         27         46         27         46         27         46         27         46
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+        28         29          4         29         28         26         28         29          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        30         47         30         47         30         47         30         47         30         47
+        31         48         31         48         31         48         31         48         31         48
+        32         49         32         49         32         49         32         49         32         49
+        33         34         33         34         33         34         33         34         33         34
+        35         50         35         50         35         50         35         50         35         50
+         0          0          0          0          0          0          0          0          0          0
+        41         40         44         41         43         40         39         43         36         37
+        45         51         45         51         45         51         45         51         45         51
+--------------------------------------------
+Started: 24-Feb-2017 16:28:21
+2017-02-24 16:28:21,467 INFO  runExperiment - Iteration 1
+2017-02-24 16:28:21,483 DEBUG runExperiment - Loading training set...
+2017-02-24 16:31:44,433 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:31:54,969 DEBUG runExperiment - Training classifier...
+2017-02-24 16:32:00,293 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:32:05,311 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:32:06,126 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:32:06,997 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:32:07,663 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:32:08,287 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:32:08,969 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:32:09,592 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:32:10,506 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:32:11,207 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:32:11,829 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:32:12,478 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:32:13,115 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:32:13,768 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:32:14,405 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:32:15,085 INFO  runExperiment - Classifier trained
+2017-02-24 16:32:15,144 DEBUG runExperiment - Loading test set...
+2017-02-24 16:32:55,962 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:33:10,002 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:33:26,055 INFO  runExperiment - Test instances classified
+2017-02-24 16:33:26,104 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:33:36,063 INFO  runExperiment - Current accuracy: 0.009
+2017-02-24 16:33:36,940 DEBUG runExperiment - Saved classifier
+2017-02-24 16:33:36,994 INFO  runExperiment - Iteration 2
+2017-02-24 16:33:36,997 DEBUG runExperiment - Loading training set...
+2017-02-24 16:38:27,153 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:38:59,960 DEBUG runExperiment - Training classifier...
+2017-02-24 16:39:08,859 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:39:16,653 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:39:18,025 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:39:19,241 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:39:20,917 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:39:23,405 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:39:24,516 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:39:25,439 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:39:26,521 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:39:27,368 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:39:28,344 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:39:29,335 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:39:30,332 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:39:31,273 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:39:32,102 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:39:33,059 INFO  runExperiment - Classifier trained
+2017-02-24 16:39:33,070 DEBUG runExperiment - Loading test set...
+2017-02-24 16:39:43,496 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:39:43,629 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:39:46,541 INFO  runExperiment - Test instances classified
+2017-02-24 16:39:46,545 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:39:48,351 INFO  runExperiment - Current accuracy: 0.016
+2017-02-24 16:39:49,171 DEBUG runExperiment - Saved classifier
+2017-02-24 16:39:49,180 INFO  runExperiment - Iteration 3
+2017-02-24 16:39:49,183 DEBUG runExperiment - Loading training set...
+2017-02-24 16:40:37,144 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:40:42,515 DEBUG runExperiment - Training classifier...
+2017-02-24 16:40:43,342 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:40:45,130 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:40:45,863 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:40:46,510 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:40:47,161 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:40:47,838 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:40:48,655 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:40:49,316 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:41:21,686 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:41:22,834 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:41:23,539 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:41:24,201 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:41:24,864 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:41:25,641 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:41:26,298 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:41:27,086 INFO  runExperiment - Classifier trained
+2017-02-24 16:41:27,126 DEBUG runExperiment - Loading test set...
+2017-02-24 16:41:54,281 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:41:54,485 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:41:59,242 INFO  runExperiment - Test instances classified
+2017-02-24 16:41:59,247 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:42:00,945 INFO  runExperiment - Current accuracy: 0.008
+2017-02-24 16:42:02,523 DEBUG runExperiment - Saved classifier
+2017-02-24 16:42:02,557 INFO  runExperiment - Iteration 4
+2017-02-24 16:42:02,561 DEBUG runExperiment - Loading training set...
+2017-02-24 16:45:55,819 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:46:04,809 DEBUG runExperiment - Training classifier...
+2017-02-24 16:46:07,275 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:46:12,563 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:46:13,604 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:46:14,435 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:46:15,208 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:46:16,180 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:46:17,085 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:46:17,853 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:46:18,642 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:46:19,392 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:46:20,267 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:46:21,032 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:46:21,830 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:46:22,665 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:46:23,415 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:46:24,382 INFO  runExperiment - Classifier trained
+2017-02-24 16:46:24,507 DEBUG runExperiment - Loading test set...
+2017-02-24 16:47:50,244 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:47:50,458 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:47:54,344 INFO  runExperiment - Test instances classified
+2017-02-24 16:47:54,346 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:47:55,477 INFO  runExperiment - Current accuracy: 0.010
+2017-02-24 16:47:56,389 DEBUG runExperiment - Saved classifier
+2017-02-24 16:47:56,413 INFO  runExperiment - Iteration 5
+2017-02-24 16:47:56,416 DEBUG runExperiment - Loading training set...
+2017-02-24 16:48:41,410 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:48:41,590 DEBUG runExperiment - Training classifier...
+2017-02-24 16:48:42,106 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:48:42,796 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:48:43,446 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:48:44,135 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:48:44,845 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:48:45,535 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:48:46,371 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:48:47,021 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:48:47,652 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:48:48,309 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:48:48,999 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:48:49,688 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:48:50,318 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:48:50,959 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:48:51,611 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:48:52,397 INFO  runExperiment - Classifier trained
+2017-02-24 16:48:52,400 DEBUG runExperiment - Loading test set...
+2017-02-24 16:51:41,968 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:51:44,936 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:51:53,244 INFO  runExperiment - Test instances classified
+2017-02-24 16:51:53,250 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:51:57,179 INFO  runExperiment - Current accuracy: 0.007
+2017-02-24 16:51:58,821 DEBUG runExperiment - Saved classifier
+2017-02-24 16:51:58,832 INFO  runExperiment - Iteration 6
+2017-02-24 16:51:58,836 DEBUG runExperiment - Loading training set...
+2017-02-24 16:53:21,888 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:53:22,147 DEBUG runExperiment - Training classifier...
+2017-02-24 16:53:22,324 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:53:23,816 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:53:24,804 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:53:25,682 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:53:26,582 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:53:27,788 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:53:28,664 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:53:29,455 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:53:30,357 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:53:31,137 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:53:31,952 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:53:32,869 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:53:33,721 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:53:34,856 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:53:35,734 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:53:36,586 INFO  runExperiment - Classifier trained
+2017-02-24 16:53:36,644 DEBUG runExperiment - Loading test set...
+2017-02-24 16:53:54,267 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:53:54,429 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:53:57,846 INFO  runExperiment - Test instances classified
+2017-02-24 16:53:57,848 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:53:58,085 INFO  runExperiment - Current accuracy: 0.012
+2017-02-24 16:53:58,302 DEBUG runExperiment - Saved classifier
+2017-02-24 16:53:58,308 INFO  runExperiment - Iteration 7
+2017-02-24 16:53:58,311 DEBUG runExperiment - Loading training set...
+2017-02-24 16:55:35,067 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:55:40,969 DEBUG runExperiment - Training classifier...
+2017-02-24 16:55:41,891 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:55:47,108 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:55:48,000 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:55:49,736 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:55:50,485 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:55:51,206 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:55:52,019 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:55:52,725 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:55:53,428 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:55:54,167 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:55:54,937 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:55:55,754 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:55:56,452 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:55:57,165 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:55:57,872 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:55:58,587 INFO  runExperiment - Classifier trained
+2017-02-24 16:55:58,590 DEBUG runExperiment - Loading test set...
+2017-02-24 16:56:21,459 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:56:21,642 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 16:56:26,177 INFO  runExperiment - Test instances classified
+2017-02-24 16:56:26,215 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 16:56:28,028 INFO  runExperiment - Current accuracy: 0.007
+2017-02-24 16:56:29,035 DEBUG runExperiment - Saved classifier
+2017-02-24 16:56:29,039 INFO  runExperiment - Iteration 8
+2017-02-24 16:56:29,042 DEBUG runExperiment - Loading training set...
+2017-02-24 16:57:54,364 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 16:58:02,526 DEBUG runExperiment - Training classifier...
+2017-02-24 16:58:05,245 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 16:58:10,625 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 16:58:11,436 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 16:58:12,203 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 16:58:12,968 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 16:58:16,378 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 16:58:17,324 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 16:58:20,253 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 16:58:21,174 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 16:58:22,082 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 16:58:22,845 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 16:58:23,652 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 16:58:24,482 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 16:58:25,692 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 16:58:26,687 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 16:58:27,713 INFO  runExperiment - Classifier trained
+2017-02-24 16:58:27,734 DEBUG runExperiment - Loading test set...
+2017-02-24 17:00:19,572 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 17:00:51,392 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 17:00:56,558 INFO  runExperiment - Test instances classified
+2017-02-24 17:00:56,589 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 17:00:59,363 INFO  runExperiment - Current accuracy: 0.017
+2017-02-24 17:01:00,770 DEBUG runExperiment - Saved classifier
+2017-02-24 17:01:00,848 INFO  runExperiment - Iteration 9
+2017-02-24 17:01:00,851 DEBUG runExperiment - Loading training set...
+2017-02-24 17:01:15,364 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 17:01:15,680 DEBUG runExperiment - Training classifier...
+2017-02-24 17:01:17,393 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 17:01:19,395 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 17:01:20,259 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 17:01:21,317 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 17:01:21,971 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 17:01:22,812 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 17:01:23,545 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 17:01:24,236 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 17:01:24,966 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 17:01:25,676 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 17:01:26,390 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 17:01:27,179 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 17:01:27,824 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 17:01:28,579 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 17:01:29,320 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 17:01:29,988 INFO  runExperiment - Classifier trained
+2017-02-24 17:01:29,997 DEBUG runExperiment - Loading test set...
+2017-02-24 17:02:30,536 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 17:02:33,458 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 17:02:38,926 INFO  runExperiment - Test instances classified
+2017-02-24 17:02:38,953 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 17:02:40,220 INFO  runExperiment - Current accuracy: 0.015
+2017-02-24 17:02:40,998 DEBUG runExperiment - Saved classifier
+2017-02-24 17:02:41,019 INFO  runExperiment - Iteration 10
+2017-02-24 17:02:41,023 DEBUG runExperiment - Loading training set...
+2017-02-24 17:04:30,101 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 17:04:48,177 DEBUG runExperiment - Training classifier...
+2017-02-24 17:04:50,239 TRACE SVM 1vsAll - Training 4 vs. All
+2017-02-24 17:04:53,516 TRACE SVM 1vsAll - Training 5 vs. All
+2017-02-24 17:04:54,594 TRACE SVM 1vsAll - Training 6 vs. All
+2017-02-24 17:04:55,517 TRACE SVM 1vsAll - Training 8 vs. All
+2017-02-24 17:04:56,421 TRACE SVM 1vsAll - Training 9 vs. All
+2017-02-24 17:04:57,342 TRACE SVM 1vsAll - Training 10 vs. All
+2017-02-24 17:04:58,261 TRACE SVM 1vsAll - Training 13 vs. All
+2017-02-24 17:04:59,145 TRACE SVM 1vsAll - Training 14 vs. All
+2017-02-24 17:05:00,029 TRACE SVM 1vsAll - Training 17 vs. All
+2017-02-24 17:05:00,913 TRACE SVM 1vsAll - Training 18 vs. All
+2017-02-24 17:05:01,937 TRACE SVM 1vsAll - Training 19 vs. All
+2017-02-24 17:05:02,804 TRACE SVM 1vsAll - Training 20 vs. All
+2017-02-24 17:05:03,783 TRACE SVM 1vsAll - Training 21 vs. All
+2017-02-24 17:05:04,718 TRACE SVM 1vsAll - Training 23 vs. All
+2017-02-24 17:05:05,805 TRACE SVM 1vsAll - Training 24 vs. All
+2017-02-24 17:05:06,775 INFO  runExperiment - Classifier trained
+2017-02-24 17:05:06,920 DEBUG runExperiment - Loading test set...
+2017-02-24 17:05:15,689 DEBUG runExperiment - Applying feature extraction...
+2017-02-24 17:05:15,859 DEBUG runExperiment - Applying trained classifier...
+2017-02-24 17:05:19,335 INFO  runExperiment - Test instances classified
+2017-02-24 17:05:19,359 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-24 17:05:19,938 INFO  runExperiment - Current accuracy: 0.013
+2017-02-24 17:05:20,367 DEBUG runExperiment - Saved classifier
+Stopped: 24-Feb-2017 17:05:20
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      26950          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     393278          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     183008          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     177010          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     306642          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      34920          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     217217          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      99213          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      49930          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      37595          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      30290          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     550615          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      76215          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0     197725          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      71045          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+
+Accuracy:
+0.011
+
+Precisions:
+NaN	NaN	NaN	0.011	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
+
+Sensitivities:
+NaN	NaN	NaN	1.000	0.000	0.000	NaN	0.000	0.000	0.000	NaN	NaN	0.000	0.000	NaN	NaN	0.000	0.000	0.000	0.000	0.000	NaN	0.000	0.000
+
+Specificities:
+0.011	0.011	0.011	0.000	0.013	0.012	0.011	0.012	0.013	0.011	0.011	0.011	0.012	0.011	0.011	0.011	0.011	0.011	0.011	0.014	0.011	0.011	0.012	0.011
+
+PositiveLikelihoods:
+NaN	NaN	NaN	1.000	0.000	0.000	NaN	0.000	0.000	0.000	NaN	NaN	0.000	0.000	NaN	NaN	0.000	0.000	0.000	0.000	0.000	NaN	0.000	0.000
+
+NegativeLikelihoods:
+NaN	NaN	NaN	NaN	76.378	84.180	NaN	84.402	79.592	89.675	NaN	NaN	82.910	87.289	NaN	NaN	89.118	89.575	89.846	70.539	88.142	NaN	83.634	88.334
+
+FScores:
+NaN	NaN	NaN	0.022	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
