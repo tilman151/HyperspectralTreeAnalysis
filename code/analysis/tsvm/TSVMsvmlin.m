@@ -15,12 +15,12 @@ classdef TSVMsvmlin < Classifier
     %                      used for training.
     %
     %% Methods:
-    %    TSVM .......... Constructor. Can take Name, Value pair arguments 
+    %    TSVMsvmlin .... Constructor. Can take Name, Value pair arguments 
     %                    that change the multiclass strategy and the 
     %                    internal parameters of the SVM. 
     %                    Possible arguments:
     %        Coding .......... Coding design for the multiclass model.
-    %                          'onevsone'(default) | 'onevsall'
+    %                          'onevsall'(default) | 'onevsone'
     %        UnlabeledRate ... Rate of the available unlabeled samples to
     %                          be used for training.
     %                          Default: 1.0
@@ -48,7 +48,7 @@ classdef TSVMsvmlin < Classifier
         function obj = TSVMsvmlin(varargin)
             % Create input parser
             p = inputParser;
-            p.addParameter('Coding', 'onevsone');
+            p.addParameter('Coding', 'onevsall');
             p.addParameter('UnlabeledRate', 1.0);
             
             % Parse input arguments

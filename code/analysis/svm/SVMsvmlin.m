@@ -11,12 +11,12 @@ classdef SVMsvmlin < Classifier
     %    coding ........ Name of the multiclass coding design.
     %
     %% Methods:
-    %    SVMlibsvm ..... Constructor. Can take Name, Value pair arguments 
+    %    SVMsvmlin ..... Constructor. Can take Name, Value pair arguments 
     %                    that change the multiclass strategy and the 
     %                    internal parameters of the SVM. 
     %                    Possible arguments:
     %        Coding .......... Coding design for the multiclass model.
-    %                          'onevsone'(default) | 'onevsall'
+    %                          'onevsall'(default) | 'onevsone'
     %    toString ...... See documentation in superclass Classifier.
     %    toShortString . See documentation in superclass Classifier.
     %    trainOn ....... See documentation in superclass Classifier.
@@ -40,7 +40,7 @@ classdef SVMsvmlin < Classifier
         function obj = SVMsvmlin(varargin)
             % Create input parser
             p = inputParser;
-            p.addParameter('Coding', 'onevsone');
+            p.addParameter('Coding', 'onevsall');
             
             % Parse input arguments
             p.parse(varargin{:});
