@@ -29,15 +29,13 @@ function plotConfMat(confMat)
     confMat = flipud(confMat);
     
     % Plot confMat
-    hm = HeatMap(confMat, ...
-        'RowLabels', flipud(classes), 'ColumnLabels', classes, ...
-        'Symmetric', false, 'Colormap', 'jet');
-    
-    % Close HeatMap plot, because it cannot be modified
-    close all hidden;
-    
-    % Plot heatmap into regular axis
-    ax = hm.plot();
+    f = figure('Name', 'Confusion Matrix', 'NumberTitle', 'off');
+    hm = HeatMap(confMat, false); % false prevents display of HeatMap obj
+    hm.set('RowLabels', flipud(classes));
+    hm.set('ColumnLabels', classes);
+    hm.set('Symmetric', false);
+    hm.set('Colormap', jet);
+    ax = hm.plot(f);
     colorbar(ax);
 end
 
