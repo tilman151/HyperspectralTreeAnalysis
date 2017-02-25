@@ -284,35 +284,6 @@ function layers = fillMissingInitialValues(layers)
     end
 end
 
-function [dimMeans, dimStds] = calculateDataStats(featureCube, labelMap)
-    % Initialize mean and std
-    numFeatureDims = size(featureCube, 3);
-    dimMeans = zeros(1, numFeatureDims);
-    dimStds = zeros(1, numFeatureDims);
-    
-    % Exclude fill pixels from calculation
-    valid = find(labelMap >= 0);
-    
-    % Calculate mean and std for each feature dimension
-    for dim = 1:numFeatureDims
-        slice = featureCube(:, :, dim);
-        
-        % Save mean and std
-        dimMeans(dim) = mean(slice(valid));
-        dimStds(dim) = std(slice(valid));
-    end
-end
-
-function featureCube = normalizeData(featureCube, dimMeans, dimStds)
-    [x, y, ~] = size(featureCube);
-    
-    % Extend mean and std to size of feature cube
-    dimMeans = repmat(reshape(dimMeans, 1, 1, []), [x, y]);
-    dimStds = repmat(reshape(dimStds, 1, 1, []), [x, y]);
-    
-    % Normalize feature cube
-    featureCube = (featureCube - dimMeans) ./ dimStds;
-end
 
 function state = initStateMomentum(state, layers)
     if isempty(state) || isempty(state.momentum)
