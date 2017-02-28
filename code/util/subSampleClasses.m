@@ -1,5 +1,4 @@
-function [ subsampleIndices ] = subSampleData( labels, p, ...
-                                               remainClassDistribution)
+function [ subsampleIndices ] = subSampleClasses( labels, p)
 %SUBSAMPLEDATA generate a list of indices which represents a subset of the
 %              given label list
 %
@@ -15,21 +14,16 @@ function [ subsampleIndices ] = subSampleData( labels, p, ...
 
 numData = numel(labels); %number of labels
 
-if remainClassDistribution
     indices = 1:numData;
     availableLabels = num2cell(unique(labels));
-
-    selectionFunction = @(i,p) i(randperm(numel(i), ceil(numel(i) * p)))';
-    splitFunction = @(label) selectionFunction(indices(labels == label), p);
+    availableLabels = availableLabels(randperm(length(availableLabels), ceil(length(availableLabels)*p)));
+    
+    splitFunction = @(label) indices(labels == label)';
 
     subsampleIndices = ...
         cellfun(splitFunction, availableLabels, 'uniformoutput', 0);
 
     subsampleIndices = cat(1,subsampleIndices{:});
-
-else 
-    subsampleIndices = randperm(numData, ceil(numData*p));
-end
 
 end
 
