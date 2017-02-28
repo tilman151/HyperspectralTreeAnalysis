@@ -1,0 +1,960 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	ConvNet:
+
+          backPropDepth: Inf
+              batchSize: 256
+         conserveMemory: 1
+               continue: 1
+                  cudnn: 1
+          errorFunction: @errorMulticlass
+            errorLabels: {'top1err'  'top5err'}
+                 expDir: 'data\exp'
+             filterSize: 5
+                   gpus: 1
+           learningRate: 1.0000e-03
+          memoryMapFile: 'C:\Users\tpham\AppData\Local\Temp\matconvnet.bin'
+               momentum: 0.9000
+         nesterovUpdate: 0
+              numEpochs: 200
+          numSubBatches: 1
+        plotDiagnostics: 0
+         plotErrorRates: 1
+         plotStatistics: 0
+               prefetch: 0
+                profile: 0
+             randomSeed: 0
+             sampleSize: 21
+           saveMomentum: 1
+    stoppingEpochWindow: 10
+    stoppingErrorMargin: 0.0050
+                   sync: 0
+                  train: []
+                    val: []
+            weightDecay: 5.0000e-04
+
+
+Extractors:	SELD (k: 20, numDim: 14)
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/Samplesets/sampleset_012.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+        27         46         27         46         27         46         27         46         27         46
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+        28         29          4         29         28         26         28         29          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        30         47         30         47         30         47         30         47         30         47
+        31         48         31         48         31         48         31         48         31         48
+        32         49         32         49         32         49         32         49         32         49
+        33         34         33         34         33         34         33         34         33         34
+        35         50         35         50         35         50         35         50         35         50
+         0          0          0          0          0          0          0          0          0          0
+        41         40         44         41         43         40         39         43         36         37
+        45         51         45         51         45         51         45         51         45         51
+--------------------------------------------
+Started: 28-Feb-2017 09:27:00
+2017-02-28 09:27:01,004 INFO  runExperiment - Iteration 1
+2017-02-28 09:27:05,653 INFO  SELD - Apply transformation to features...
+2017-02-28 09:27:06,149 INFO  ConvNet - Create network structure
+2017-02-28 09:27:06,220 INFO  ConvNet - Normalize data
+2017-02-28 09:27:07,137 INFO  ConvNet - Epoch 1/200
+2017-02-28 09:28:33,441 INFO  ConvNet - Error rate: 0.39307
+2017-02-28 09:28:33,478 INFO  ConvNet - Epoch 2/200
+2017-02-28 09:29:53,836 INFO  ConvNet - Error rate: 0.14377
+2017-02-28 09:29:53,868 INFO  ConvNet - Epoch 3/200
+2017-02-28 09:31:12,403 INFO  ConvNet - Error rate: 0.1059
+2017-02-28 09:31:12,424 INFO  ConvNet - Epoch 4/200
+2017-02-28 09:32:36,551 INFO  ConvNet - Error rate: 0.085034
+2017-02-28 09:32:36,571 INFO  ConvNet - Epoch 5/200
+2017-02-28 09:33:59,466 INFO  ConvNet - Error rate: 0.074442
+2017-02-28 09:33:59,486 INFO  ConvNet - Epoch 6/200
+2017-02-28 09:35:25,420 INFO  ConvNet - Error rate: 0.067593
+2017-02-28 09:35:25,441 INFO  ConvNet - Epoch 7/200
+2017-02-28 09:36:49,485 INFO  ConvNet - Error rate: 0.062406
+2017-02-28 09:36:49,504 INFO  ConvNet - Epoch 8/200
+2017-02-28 09:38:10,001 INFO  ConvNet - Error rate: 0.057239
+2017-02-28 09:38:10,021 INFO  ConvNet - Epoch 9/200
+2017-02-28 09:39:30,552 INFO  ConvNet - Error rate: 0.051984
+2017-02-28 09:39:30,569 INFO  ConvNet - Epoch 10/200
+2017-02-28 09:40:52,608 INFO  ConvNet - Error rate: 0.047914
+2017-02-28 09:40:52,630 INFO  ConvNet - Epoch 11/200
+2017-02-28 09:42:12,762 INFO  ConvNet - Error rate: 0.044195
+2017-02-28 09:42:12,784 INFO  ConvNet - Epoch 12/200
+2017-02-28 09:43:33,045 INFO  ConvNet - Error rate: 0.041049
+2017-02-28 09:43:33,064 INFO  ConvNet - Epoch 13/200
+2017-02-28 09:44:58,758 INFO  ConvNet - Error rate: 0.038197
+2017-02-28 09:44:58,778 INFO  ConvNet - Epoch 14/200
+2017-02-28 09:46:24,074 INFO  ConvNet - Error rate: 0.035575
+2017-02-28 09:46:24,094 INFO  ConvNet - Epoch 15/200
+2017-02-28 09:47:48,921 INFO  ConvNet - Error rate: 0.033317
+2017-02-28 09:47:48,942 INFO  ConvNet - Epoch 16/200
+2017-02-28 09:49:17,105 INFO  ConvNet - Error rate: 0.03128
+2017-02-28 09:49:17,132 INFO  ConvNet - Epoch 17/200
+2017-02-28 09:50:46,527 INFO  ConvNet - Error rate: 0.029517
+2017-02-28 09:50:46,545 INFO  ConvNet - Epoch 18/200
+2017-02-28 09:52:13,651 INFO  ConvNet - Error rate: 0.028001
+2017-02-28 09:52:13,667 INFO  ConvNet - Epoch 19/200
+2017-02-28 09:53:33,152 INFO  ConvNet - Error rate: 0.026464
+2017-02-28 09:53:33,169 INFO  ConvNet - Epoch 20/200
+2017-02-28 09:54:53,052 INFO  ConvNet - Error rate: 0.025221
+2017-02-28 09:54:53,068 INFO  ConvNet - Epoch 21/200
+2017-02-28 09:56:14,190 INFO  ConvNet - Error rate: 0.023955
+2017-02-28 09:56:14,215 INFO  ConvNet - Epoch 22/200
+2017-02-28 09:57:40,469 INFO  ConvNet - Error rate: 0.02287
+2017-02-28 09:57:40,494 INFO  ConvNet - Epoch 23/200
+2017-02-28 09:59:04,461 INFO  ConvNet - Error rate: 0.021902
+2017-02-28 09:59:04,481 INFO  ConvNet - Epoch 24/200
+2017-02-28 10:00:26,171 INFO  ConvNet - Error rate: 0.020962
+2017-02-28 10:00:26,191 INFO  ConvNet - Epoch 25/200
+2017-02-28 10:01:47,857 INFO  ConvNet - Error rate: 0.020111
+2017-02-28 10:01:47,872 INFO  ConvNet - Epoch 26/200
+2017-02-28 10:03:09,412 INFO  ConvNet - Error rate: 0.019216
+2017-02-28 10:03:09,430 INFO  ConvNet - Epoch 27/200
+2017-02-28 10:04:31,282 INFO  ConvNet - Error rate: 0.018457
+2017-02-28 10:04:31,298 INFO  ConvNet - Epoch 28/200
+2017-02-28 10:05:52,919 INFO  ConvNet - Error rate: 0.017715
+2017-02-28 10:05:52,938 INFO  ConvNet - Epoch 29/200
+2017-02-28 10:07:16,944 INFO  ConvNet - Error rate: 0.017037
+2017-02-28 10:07:16,971 INFO  ConvNet - Epoch 30/200
+2017-02-28 10:08:38,554 INFO  ConvNet - Error rate: 0.016432
+2017-02-28 10:08:38,575 INFO  ConvNet - Epoch 31/200
+2017-02-28 10:10:01,836 INFO  ConvNet - Error rate: 0.015743
+2017-02-28 10:10:01,853 INFO  ConvNet - Epoch 32/200
+2017-02-28 10:11:27,034 INFO  ConvNet - Error rate: 0.015162
+2017-02-28 10:11:27,056 INFO  ConvNet - Epoch 33/200
+2017-02-28 10:12:51,020 INFO  ConvNet - Error rate: 0.014642
+2017-02-28 10:12:51,035 INFO  ConvNet - Epoch 34/200
+2017-02-28 10:14:09,949 INFO  ConvNet - Error rate: 0.01417
+2017-02-28 10:14:09,964 INFO  ConvNet - Epoch 35/200
+2017-02-28 10:15:28,755 INFO  ConvNet - Error rate: 0.013682
+2017-02-28 10:15:28,770 INFO  ConvNet - Epoch 36/200
+2017-02-28 10:16:50,984 INFO  ConvNet - Error rate: 0.013246
+2017-02-28 10:16:51,001 INFO  ConvNet - Epoch 37/200
+2017-02-28 10:18:12,505 INFO  ConvNet - Error rate: 0.01279
+2017-02-28 10:18:12,522 INFO  ConvNet - Epoch 38/200
+2017-02-28 10:19:36,069 INFO  ConvNet - Error rate: 0.012484
+2017-02-28 10:19:36,092 INFO  ConvNet - Epoch 39/200
+2017-02-28 10:20:55,771 INFO  ConvNet - Error rate: 0.012012
+2017-02-28 10:20:55,788 INFO  ConvNet - Epoch 40/200
+2017-02-28 10:22:18,300 INFO  ConvNet - Error rate: 0.011625
+2017-02-28 10:22:18,318 INFO  ConvNet - Epoch 41/200
+2017-02-28 10:23:41,015 INFO  ConvNet - Error rate: 0.011318
+2017-02-28 10:23:41,034 INFO  ConvNet - Epoch 42/200
+2017-02-28 10:25:02,744 INFO  ConvNet - Error rate: 0.010927
+2017-02-28 10:25:02,764 INFO  ConvNet - Epoch 43/200
+2017-02-28 10:26:23,263 INFO  ConvNet - Error rate: 0.010656
+2017-02-28 10:26:23,281 INFO  ConvNet - Epoch 44/200
+2017-02-28 10:27:43,752 INFO  ConvNet - Error rate: 0.010334
+2017-02-28 10:27:43,768 INFO  ConvNet - Stopped training after 44 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 10:27:43,989 INFO  runExperiment - Classifier trained
+2017-02-28 10:27:48,252 INFO  SELD - Apply transformation to features...
+2017-02-28 10:27:48,598 INFO  ConvNet - Normalize data
+2017-02-28 10:29:39,395 INFO  runExperiment - Test instances classified
+2017-02-28 10:29:39,634 INFO  runExperiment - Current accuracy: 0.435
+2017-02-28 10:29:39,866 INFO  runExperiment - Iteration 2
+2017-02-28 10:29:44,865 INFO  SELD - Apply transformation to features...
+2017-02-28 10:29:45,311 INFO  ConvNet - Create network structure
+2017-02-28 10:29:45,353 INFO  ConvNet - Normalize data
+2017-02-28 10:29:46,395 INFO  ConvNet - Epoch 1/200
+2017-02-28 10:31:32,252 INFO  ConvNet - Error rate: 0.26818
+2017-02-28 10:31:32,271 INFO  ConvNet - Epoch 2/200
+2017-02-28 10:33:17,680 INFO  ConvNet - Error rate: 0.082246
+2017-02-28 10:33:17,711 INFO  ConvNet - Epoch 3/200
+2017-02-28 10:35:03,538 INFO  ConvNet - Error rate: 0.056136
+2017-02-28 10:35:03,559 INFO  ConvNet - Epoch 4/200
+2017-02-28 10:36:51,894 INFO  ConvNet - Error rate: 0.042852
+2017-02-28 10:36:51,913 INFO  ConvNet - Epoch 5/200
+2017-02-28 10:38:38,642 INFO  ConvNet - Error rate: 0.035565
+2017-02-28 10:38:38,660 INFO  ConvNet - Epoch 6/200
+2017-02-28 10:40:23,857 INFO  ConvNet - Error rate: 0.030444
+2017-02-28 10:40:23,879 INFO  ConvNet - Epoch 7/200
+2017-02-28 10:42:09,824 INFO  ConvNet - Error rate: 0.026822
+2017-02-28 10:42:09,842 INFO  ConvNet - Epoch 8/200
+2017-02-28 10:43:54,190 INFO  ConvNet - Error rate: 0.023977
+2017-02-28 10:43:54,209 INFO  ConvNet - Epoch 9/200
+2017-02-28 10:45:39,563 INFO  ConvNet - Error rate: 0.021814
+2017-02-28 10:45:39,579 INFO  ConvNet - Epoch 10/200
+2017-02-28 10:47:24,838 INFO  ConvNet - Error rate: 0.019723
+2017-02-28 10:47:24,857 INFO  ConvNet - Epoch 11/200
+2017-02-28 10:49:09,753 INFO  ConvNet - Error rate: 0.017705
+2017-02-28 10:49:09,772 INFO  ConvNet - Epoch 12/200
+2017-02-28 10:50:56,487 INFO  ConvNet - Error rate: 0.015948
+2017-02-28 10:50:56,511 INFO  ConvNet - Epoch 13/200
+2017-02-28 10:52:43,843 INFO  ConvNet - Error rate: 0.014426
+2017-02-28 10:52:43,862 INFO  ConvNet - Epoch 14/200
+2017-02-28 10:54:30,402 INFO  ConvNet - Error rate: 0.013241
+2017-02-28 10:54:30,420 INFO  ConvNet - Epoch 15/200
+2017-02-28 10:56:15,639 INFO  ConvNet - Error rate: 0.012302
+2017-02-28 10:56:15,659 INFO  ConvNet - Epoch 16/200
+2017-02-28 10:58:00,247 INFO  ConvNet - Error rate: 0.011481
+2017-02-28 10:58:00,266 INFO  ConvNet - Epoch 17/200
+2017-02-28 10:59:45,079 INFO  ConvNet - Error rate: 0.010718
+2017-02-28 10:59:45,098 INFO  ConvNet - Epoch 18/200
+2017-02-28 11:01:29,627 INFO  ConvNet - Error rate: 0.010059
+2017-02-28 11:01:29,645 INFO  ConvNet - Epoch 19/200
+2017-02-28 11:03:15,059 INFO  ConvNet - Error rate: 0.0094633
+2017-02-28 11:03:15,079 INFO  ConvNet - Epoch 20/200
+2017-02-28 11:04:58,787 INFO  ConvNet - Error rate: 0.0089254
+2017-02-28 11:04:58,806 INFO  ConvNet - Epoch 21/200
+2017-02-28 11:06:42,592 INFO  ConvNet - Error rate: 0.0084574
+2017-02-28 11:06:42,612 INFO  ConvNet - Epoch 22/200
+2017-02-28 11:08:26,558 INFO  ConvNet - Error rate: 0.0080046
+2017-02-28 11:08:26,579 INFO  ConvNet - Epoch 23/200
+2017-02-28 11:10:10,333 INFO  ConvNet - Error rate: 0.0075822
+2017-02-28 11:10:10,351 INFO  ConvNet - Epoch 24/200
+2017-02-28 11:11:54,599 INFO  ConvNet - Error rate: 0.0072692
+2017-02-28 11:11:54,618 INFO  ConvNet - Epoch 25/200
+2017-02-28 11:13:39,777 INFO  ConvNet - Error rate: 0.0068711
+2017-02-28 11:13:39,797 INFO  ConvNet - Epoch 26/200
+2017-02-28 11:15:23,470 INFO  ConvNet - Error rate: 0.006549
+2017-02-28 11:15:23,487 INFO  ConvNet - Epoch 27/200
+2017-02-28 11:17:07,111 INFO  ConvNet - Error rate: 0.0063332
+2017-02-28 11:17:07,131 INFO  ConvNet - Epoch 28/200
+2017-02-28 11:18:51,620 INFO  ConvNet - Error rate: 0.0060415
+2017-02-28 11:18:51,641 INFO  ConvNet - Epoch 29/200
+2017-02-28 11:20:36,376 INFO  ConvNet - Error rate: 0.0057983
+2017-02-28 11:20:36,396 INFO  ConvNet - Epoch 30/200
+2017-02-28 11:22:23,349 INFO  ConvNet - Error rate: 0.0055735
+2017-02-28 11:22:23,369 INFO  ConvNet - Epoch 31/200
+2017-02-28 11:24:09,469 INFO  ConvNet - Error rate: 0.0053395
+2017-02-28 11:24:09,492 INFO  ConvNet - Epoch 32/200
+2017-02-28 11:25:55,541 INFO  ConvNet - Error rate: 0.0051176
+2017-02-28 11:25:55,577 INFO  ConvNet - Epoch 33/200
+2017-02-28 11:27:42,780 INFO  ConvNet - Error rate: 0.0048471
+2017-02-28 11:27:42,795 INFO  ConvNet - Epoch 34/200
+2017-02-28 11:29:31,330 INFO  ConvNet - Error rate: 0.0046405
+2017-02-28 11:29:31,349 INFO  ConvNet - Epoch 35/200
+2017-02-28 11:31:17,903 INFO  ConvNet - Error rate: 0.0044551
+2017-02-28 11:31:17,921 INFO  ConvNet - Stopped training after 35 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 11:31:18,094 INFO  runExperiment - Classifier trained
+2017-02-28 11:31:21,316 INFO  SELD - Apply transformation to features...
+2017-02-28 11:31:21,637 INFO  ConvNet - Normalize data
+2017-02-28 11:32:35,510 INFO  runExperiment - Test instances classified
+2017-02-28 11:32:35,639 INFO  runExperiment - Current accuracy: 0.481
+2017-02-28 11:32:35,878 INFO  runExperiment - Iteration 3
+2017-02-28 11:32:40,594 INFO  SELD - Apply transformation to features...
+2017-02-28 11:32:41,000 INFO  ConvNet - Create network structure
+2017-02-28 11:32:41,037 INFO  ConvNet - Normalize data
+2017-02-28 11:32:41,939 INFO  ConvNet - Epoch 1/200
+2017-02-28 11:34:06,999 INFO  ConvNet - Error rate: 0.37831
+2017-02-28 11:34:07,031 INFO  ConvNet - Epoch 2/200
+2017-02-28 11:35:32,485 INFO  ConvNet - Error rate: 0.1315
+2017-02-28 11:35:32,504 INFO  ConvNet - Epoch 3/200
+2017-02-28 11:36:58,952 INFO  ConvNet - Error rate: 0.084363
+2017-02-28 11:36:58,974 INFO  ConvNet - Epoch 4/200
+2017-02-28 11:38:24,403 INFO  ConvNet - Error rate: 0.06512
+2017-02-28 11:38:24,421 INFO  ConvNet - Epoch 5/200
+2017-02-28 11:39:48,822 INFO  ConvNet - Error rate: 0.055585
+2017-02-28 11:39:48,843 INFO  ConvNet - Epoch 6/200
+2017-02-28 11:41:12,081 INFO  ConvNet - Error rate: 0.049115
+2017-02-28 11:41:12,103 INFO  ConvNet - Epoch 7/200
+2017-02-28 11:42:35,502 INFO  ConvNet - Error rate: 0.044834
+2017-02-28 11:42:35,518 INFO  ConvNet - Epoch 8/200
+2017-02-28 11:43:58,391 INFO  ConvNet - Error rate: 0.041175
+2017-02-28 11:43:58,410 INFO  ConvNet - Epoch 9/200
+2017-02-28 11:45:21,307 INFO  ConvNet - Error rate: 0.038253
+2017-02-28 11:45:21,328 INFO  ConvNet - Epoch 10/200
+2017-02-28 11:46:43,949 INFO  ConvNet - Error rate: 0.035795
+2017-02-28 11:46:43,968 INFO  ConvNet - Epoch 11/200
+2017-02-28 11:48:05,725 INFO  ConvNet - Error rate: 0.03372
+2017-02-28 11:48:05,745 INFO  ConvNet - Epoch 12/200
+2017-02-28 11:49:28,165 INFO  ConvNet - Error rate: 0.032018
+2017-02-28 11:49:28,186 INFO  ConvNet - Epoch 13/200
+2017-02-28 11:50:50,260 INFO  ConvNet - Error rate: 0.030498
+2017-02-28 11:50:50,280 INFO  ConvNet - Epoch 14/200
+2017-02-28 11:52:13,229 INFO  ConvNet - Error rate: 0.029041
+2017-02-28 11:52:13,247 INFO  ConvNet - Epoch 15/200
+2017-02-28 11:53:36,821 INFO  ConvNet - Error rate: 0.027702
+2017-02-28 11:53:36,846 INFO  ConvNet - Epoch 16/200
+2017-02-28 11:54:59,103 INFO  ConvNet - Error rate: 0.026402
+2017-02-28 11:54:59,121 INFO  ConvNet - Epoch 17/200
+2017-02-28 11:56:20,532 INFO  ConvNet - Error rate: 0.025185
+2017-02-28 11:56:20,553 INFO  ConvNet - Epoch 18/200
+2017-02-28 11:57:41,957 INFO  ConvNet - Error rate: 0.024177
+2017-02-28 11:57:41,977 INFO  ConvNet - Epoch 19/200
+2017-02-28 11:59:03,436 INFO  ConvNet - Error rate: 0.023102
+2017-02-28 11:59:03,457 INFO  ConvNet - Epoch 20/200
+2017-02-28 12:00:24,648 INFO  ConvNet - Error rate: 0.02224
+2017-02-28 12:00:24,667 INFO  ConvNet - Epoch 21/200
+2017-02-28 12:01:46,469 INFO  ConvNet - Error rate: 0.021251
+2017-02-28 12:01:46,488 INFO  ConvNet - Epoch 22/200
+2017-02-28 12:03:07,998 INFO  ConvNet - Error rate: 0.020361
+2017-02-28 12:03:08,021 INFO  ConvNet - Epoch 23/200
+2017-02-28 12:04:29,465 INFO  ConvNet - Error rate: 0.019597
+2017-02-28 12:04:29,484 INFO  ConvNet - Epoch 24/200
+2017-02-28 12:05:51,572 INFO  ConvNet - Error rate: 0.018597
+2017-02-28 12:05:51,590 INFO  ConvNet - Epoch 25/200
+2017-02-28 12:07:14,727 INFO  ConvNet - Error rate: 0.017939
+2017-02-28 12:07:14,745 INFO  ConvNet - Epoch 26/200
+2017-02-28 12:08:36,322 INFO  ConvNet - Error rate: 0.017242
+2017-02-28 12:08:36,342 INFO  ConvNet - Epoch 27/200
+2017-02-28 12:09:57,626 INFO  ConvNet - Error rate: 0.016588
+2017-02-28 12:09:57,647 INFO  ConvNet - Epoch 28/200
+2017-02-28 12:11:19,100 INFO  ConvNet - Error rate: 0.01593
+2017-02-28 12:11:19,119 INFO  ConvNet - Epoch 29/200
+2017-02-28 12:12:40,850 INFO  ConvNet - Error rate: 0.015285
+2017-02-28 12:12:40,867 INFO  ConvNet - Epoch 30/200
+2017-02-28 12:14:02,329 INFO  ConvNet - Error rate: 0.014635
+2017-02-28 12:14:02,349 INFO  ConvNet - Epoch 31/200
+2017-02-28 12:15:23,711 INFO  ConvNet - Error rate: 0.014107
+2017-02-28 12:15:23,730 INFO  ConvNet - Epoch 32/200
+2017-02-28 12:16:47,397 INFO  ConvNet - Error rate: 0.013697
+2017-02-28 12:16:47,417 INFO  ConvNet - Epoch 33/200
+2017-02-28 12:18:08,457 INFO  ConvNet - Error rate: 0.013245
+2017-02-28 12:18:08,473 INFO  ConvNet - Epoch 34/200
+2017-02-28 12:19:31,069 INFO  ConvNet - Error rate: 0.0128
+2017-02-28 12:19:31,087 INFO  ConvNet - Epoch 35/200
+2017-02-28 12:20:53,777 INFO  ConvNet - Error rate: 0.01237
+2017-02-28 12:20:53,798 INFO  ConvNet - Epoch 36/200
+2017-02-28 12:22:17,687 INFO  ConvNet - Error rate: 0.011866
+2017-02-28 12:22:17,708 INFO  ConvNet - Epoch 37/200
+2017-02-28 12:23:39,550 INFO  ConvNet - Error rate: 0.011425
+2017-02-28 12:23:39,571 INFO  ConvNet - Epoch 38/200
+2017-02-28 12:25:03,518 INFO  ConvNet - Error rate: 0.011043
+2017-02-28 12:25:03,539 INFO  ConvNet - Epoch 39/200
+2017-02-28 12:26:27,752 INFO  ConvNet - Error rate: 0.010712
+2017-02-28 12:26:27,770 INFO  ConvNet - Epoch 40/200
+2017-02-28 12:27:49,536 INFO  ConvNet - Error rate: 0.010366
+2017-02-28 12:27:49,555 INFO  ConvNet - Epoch 41/200
+2017-02-28 12:29:11,024 INFO  ConvNet - Error rate: 0.0099757
+2017-02-28 12:29:11,044 INFO  ConvNet - Epoch 42/200
+2017-02-28 12:30:32,349 INFO  ConvNet - Error rate: 0.0096174
+2017-02-28 12:30:32,369 INFO  ConvNet - Stopped training after 42 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 12:30:32,600 INFO  runExperiment - Classifier trained
+2017-02-28 12:30:37,489 INFO  SELD - Apply transformation to features...
+2017-02-28 12:30:37,888 INFO  ConvNet - Normalize data
+2017-02-28 12:32:47,979 INFO  runExperiment - Test instances classified
+2017-02-28 12:32:48,201 INFO  runExperiment - Current accuracy: 0.422
+2017-02-28 12:32:48,433 INFO  runExperiment - Iteration 4
+2017-02-28 12:32:53,384 INFO  SELD - Apply transformation to features...
+2017-02-28 12:32:53,821 INFO  ConvNet - Create network structure
+2017-02-28 12:32:53,864 INFO  ConvNet - Normalize data
+2017-02-28 12:32:54,859 INFO  ConvNet - Epoch 1/200
+2017-02-28 12:34:40,481 INFO  ConvNet - Error rate: 0.28074
+2017-02-28 12:34:40,499 INFO  ConvNet - Epoch 2/200
+2017-02-28 12:36:25,201 INFO  ConvNet - Error rate: 0.088932
+2017-02-28 12:36:25,233 INFO  ConvNet - Epoch 3/200
+2017-02-28 12:38:10,805 INFO  ConvNet - Error rate: 0.0532
+2017-02-28 12:38:10,825 INFO  ConvNet - Epoch 4/200
+2017-02-28 12:39:56,600 INFO  ConvNet - Error rate: 0.04116
+2017-02-28 12:39:56,620 INFO  ConvNet - Epoch 5/200
+2017-02-28 12:41:41,045 INFO  ConvNet - Error rate: 0.034009
+2017-02-28 12:41:41,063 INFO  ConvNet - Epoch 6/200
+2017-02-28 12:43:24,962 INFO  ConvNet - Error rate: 0.029423
+2017-02-28 12:43:24,983 INFO  ConvNet - Epoch 7/200
+2017-02-28 12:45:08,632 INFO  ConvNet - Error rate: 0.026339
+2017-02-28 12:45:08,652 INFO  ConvNet - Epoch 8/200
+2017-02-28 12:46:53,767 INFO  ConvNet - Error rate: 0.023914
+2017-02-28 12:46:53,783 INFO  ConvNet - Epoch 9/200
+2017-02-28 12:48:42,260 INFO  ConvNet - Error rate: 0.021789
+2017-02-28 12:48:42,279 INFO  ConvNet - Epoch 10/200
+2017-02-28 12:50:28,640 INFO  ConvNet - Error rate: 0.019872
+2017-02-28 12:50:28,659 INFO  ConvNet - Epoch 11/200
+2017-02-28 12:52:16,249 INFO  ConvNet - Error rate: 0.018252
+2017-02-28 12:52:16,269 INFO  ConvNet - Epoch 12/200
+2017-02-28 12:54:02,719 INFO  ConvNet - Error rate: 0.016729
+2017-02-28 12:54:02,737 INFO  ConvNet - Epoch 13/200
+2017-02-28 12:55:48,392 INFO  ConvNet - Error rate: 0.015392
+2017-02-28 12:55:48,410 INFO  ConvNet - Epoch 14/200
+2017-02-28 12:57:33,613 INFO  ConvNet - Error rate: 0.014086
+2017-02-28 12:57:33,634 INFO  ConvNet - Epoch 15/200
+2017-02-28 12:59:21,947 INFO  ConvNet - Error rate: 0.013043
+2017-02-28 12:59:21,968 INFO  ConvNet - Epoch 16/200
+2017-02-28 13:01:11,643 INFO  ConvNet - Error rate: 0.012104
+2017-02-28 13:01:11,661 INFO  ConvNet - Epoch 17/200
+2017-02-28 13:03:00,150 INFO  ConvNet - Error rate: 0.011338
+2017-02-28 13:03:00,170 INFO  ConvNet - Epoch 18/200
+2017-02-28 13:04:49,629 INFO  ConvNet - Error rate: 0.010664
+2017-02-28 13:04:49,650 INFO  ConvNet - Epoch 19/200
+2017-02-28 13:06:38,079 INFO  ConvNet - Error rate: 0.0099587
+2017-02-28 13:06:38,097 INFO  ConvNet - Epoch 20/200
+2017-02-28 13:08:27,220 INFO  ConvNet - Error rate: 0.0093661
+2017-02-28 13:08:27,241 INFO  ConvNet - Epoch 21/200
+2017-02-28 13:10:15,888 INFO  ConvNet - Error rate: 0.0087978
+2017-02-28 13:10:15,909 INFO  ConvNet - Epoch 22/200
+2017-02-28 13:12:04,629 INFO  ConvNet - Error rate: 0.0082599
+2017-02-28 13:12:04,649 INFO  ConvNet - Epoch 23/200
+2017-02-28 13:13:52,991 INFO  ConvNet - Error rate: 0.0077797
+2017-02-28 13:13:53,012 INFO  ConvNet - Epoch 24/200
+2017-02-28 13:15:41,288 INFO  ConvNet - Error rate: 0.0073938
+2017-02-28 13:15:41,305 INFO  ConvNet - Epoch 25/200
+2017-02-28 13:17:29,500 INFO  ConvNet - Error rate: 0.0069957
+2017-02-28 13:17:29,521 INFO  ConvNet - Epoch 26/200
+2017-02-28 13:19:17,928 INFO  ConvNet - Error rate: 0.0065976
+2017-02-28 13:19:17,949 INFO  ConvNet - Epoch 27/200
+2017-02-28 13:21:10,821 INFO  ConvNet - Error rate: 0.0062846
+2017-02-28 13:21:10,840 INFO  ConvNet - Epoch 28/200
+2017-02-28 13:23:01,011 INFO  ConvNet - Error rate: 0.0059807
+2017-02-28 13:23:01,030 INFO  ConvNet - Epoch 29/200
+2017-02-28 13:24:50,014 INFO  ConvNet - Error rate: 0.005698
+2017-02-28 13:24:50,032 INFO  ConvNet - Epoch 30/200
+2017-02-28 13:26:38,876 INFO  ConvNet - Error rate: 0.0054154
+2017-02-28 13:26:38,892 INFO  ConvNet - Epoch 31/200
+2017-02-28 13:28:27,885 INFO  ConvNet - Error rate: 0.0051753
+2017-02-28 13:28:27,906 INFO  ConvNet - Epoch 32/200
+2017-02-28 13:30:16,716 INFO  ConvNet - Error rate: 0.0049687
+2017-02-28 13:30:16,737 INFO  ConvNet - Stopped training after 32 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 13:30:16,951 INFO  runExperiment - Classifier trained
+2017-02-28 13:30:21,472 INFO  SELD - Apply transformation to features...
+2017-02-28 13:30:21,871 INFO  ConvNet - Normalize data
+2017-02-28 13:32:24,173 INFO  runExperiment - Test instances classified
+2017-02-28 13:32:24,383 INFO  runExperiment - Current accuracy: 0.480
+2017-02-28 13:32:24,636 INFO  runExperiment - Iteration 5
+2017-02-28 13:32:29,210 INFO  SELD - Apply transformation to features...
+2017-02-28 13:32:29,642 INFO  ConvNet - Create network structure
+2017-02-28 13:32:29,689 INFO  ConvNet - Normalize data
+2017-02-28 13:32:30,683 INFO  ConvNet - Epoch 1/200
+2017-02-28 13:33:55,748 INFO  ConvNet - Error rate: 0.34923
+2017-02-28 13:33:55,780 INFO  ConvNet - Epoch 2/200
+2017-02-28 13:35:19,811 INFO  ConvNet - Error rate: 0.13085
+2017-02-28 13:35:19,829 INFO  ConvNet - Epoch 3/200
+2017-02-28 13:36:43,876 INFO  ConvNet - Error rate: 0.10002
+2017-02-28 13:36:43,895 INFO  ConvNet - Epoch 4/200
+2017-02-28 13:38:07,593 INFO  ConvNet - Error rate: 0.082202
+2017-02-28 13:38:07,612 INFO  ConvNet - Epoch 5/200
+2017-02-28 13:39:29,053 INFO  ConvNet - Error rate: 0.066327
+2017-02-28 13:39:29,072 INFO  ConvNet - Epoch 6/200
+2017-02-28 13:40:54,167 INFO  ConvNet - Error rate: 0.057817
+2017-02-28 13:40:54,184 INFO  ConvNet - Epoch 7/200
+2017-02-28 13:42:18,895 INFO  ConvNet - Error rate: 0.052062
+2017-02-28 13:42:18,916 INFO  ConvNet - Epoch 8/200
+2017-02-28 13:43:43,558 INFO  ConvNet - Error rate: 0.047385
+2017-02-28 13:43:43,579 INFO  ConvNet - Epoch 9/200
+2017-02-28 13:45:08,283 INFO  ConvNet - Error rate: 0.043052
+2017-02-28 13:45:08,304 INFO  ConvNet - Epoch 10/200
+2017-02-28 13:46:32,916 INFO  ConvNet - Error rate: 0.039781
+2017-02-28 13:46:32,934 INFO  ConvNet - Epoch 11/200
+2017-02-28 13:47:57,541 INFO  ConvNet - Error rate: 0.03675
+2017-02-28 13:47:57,563 INFO  ConvNet - Epoch 12/200
+2017-02-28 13:49:22,404 INFO  ConvNet - Error rate: 0.034086
+2017-02-28 13:49:22,427 INFO  ConvNet - Epoch 13/200
+2017-02-28 13:50:48,744 INFO  ConvNet - Error rate: 0.032013
+2017-02-28 13:50:48,766 INFO  ConvNet - Epoch 14/200
+2017-02-28 13:52:14,590 INFO  ConvNet - Error rate: 0.030196
+2017-02-28 13:52:14,612 INFO  ConvNet - Epoch 15/200
+2017-02-28 13:53:40,377 INFO  ConvNet - Error rate: 0.028655
+2017-02-28 13:53:40,399 INFO  ConvNet - Epoch 16/200
+2017-02-28 13:55:05,710 INFO  ConvNet - Error rate: 0.027189
+2017-02-28 13:55:05,734 INFO  ConvNet - Epoch 17/200
+2017-02-28 13:56:31,140 INFO  ConvNet - Error rate: 0.025871
+2017-02-28 13:56:31,163 INFO  ConvNet - Epoch 18/200
+2017-02-28 13:57:55,920 INFO  ConvNet - Error rate: 0.024677
+2017-02-28 13:57:55,940 INFO  ConvNet - Epoch 19/200
+2017-02-28 13:59:21,778 INFO  ConvNet - Error rate: 0.023738
+2017-02-28 13:59:21,799 INFO  ConvNet - Epoch 20/200
+2017-02-28 14:00:47,236 INFO  ConvNet - Error rate: 0.022724
+2017-02-28 14:00:47,257 INFO  ConvNet - Epoch 21/200
+2017-02-28 14:02:12,662 INFO  ConvNet - Error rate: 0.021714
+2017-02-28 14:02:12,685 INFO  ConvNet - Epoch 22/200
+2017-02-28 14:03:36,897 INFO  ConvNet - Error rate: 0.020775
+2017-02-28 14:03:36,919 INFO  ConvNet - Epoch 23/200
+2017-02-28 14:05:02,070 INFO  ConvNet - Error rate: 0.019805
+2017-02-28 14:05:02,092 INFO  ConvNet - Epoch 24/200
+2017-02-28 14:06:26,984 INFO  ConvNet - Error rate: 0.01905
+2017-02-28 14:06:27,007 INFO  ConvNet - Epoch 25/200
+2017-02-28 14:07:49,107 INFO  ConvNet - Error rate: 0.018215
+2017-02-28 14:07:49,124 INFO  ConvNet - Epoch 26/200
+2017-02-28 14:09:10,818 INFO  ConvNet - Error rate: 0.017512
+2017-02-28 14:09:10,837 INFO  ConvNet - Epoch 27/200
+2017-02-28 14:10:32,106 INFO  ConvNet - Error rate: 0.016785
+2017-02-28 14:10:32,125 INFO  ConvNet - Epoch 28/200
+2017-02-28 14:11:52,673 INFO  ConvNet - Error rate: 0.016043
+2017-02-28 14:11:52,692 INFO  ConvNet - Epoch 29/200
+2017-02-28 14:13:13,050 INFO  ConvNet - Error rate: 0.015515
+2017-02-28 14:13:13,070 INFO  ConvNet - Epoch 30/200
+2017-02-28 14:14:37,322 INFO  ConvNet - Error rate: 0.014948
+2017-02-28 14:14:37,347 INFO  ConvNet - Epoch 31/200
+2017-02-28 14:16:03,049 INFO  ConvNet - Error rate: 0.014333
+2017-02-28 14:16:03,071 INFO  ConvNet - Epoch 32/200
+2017-02-28 14:17:28,289 INFO  ConvNet - Error rate: 0.013798
+2017-02-28 14:17:28,310 INFO  ConvNet - Epoch 33/200
+2017-02-28 14:18:52,875 INFO  ConvNet - Error rate: 0.013275
+2017-02-28 14:18:52,897 INFO  ConvNet - Epoch 34/200
+2017-02-28 14:20:16,849 INFO  ConvNet - Error rate: 0.0128
+2017-02-28 14:20:16,871 INFO  ConvNet - Epoch 35/200
+2017-02-28 14:21:41,988 INFO  ConvNet - Error rate: 0.012412
+2017-02-28 14:21:42,009 INFO  ConvNet - Epoch 36/200
+2017-02-28 14:23:06,428 INFO  ConvNet - Error rate: 0.011949
+2017-02-28 14:23:06,448 INFO  ConvNet - Epoch 37/200
+2017-02-28 14:24:31,163 INFO  ConvNet - Error rate: 0.01151
+2017-02-28 14:24:31,188 INFO  ConvNet - Epoch 38/200
+2017-02-28 14:25:56,292 INFO  ConvNet - Error rate: 0.011126
+2017-02-28 14:25:56,314 INFO  ConvNet - Epoch 39/200
+2017-02-28 14:27:21,611 INFO  ConvNet - Error rate: 0.010747
+2017-02-28 14:27:21,635 INFO  ConvNet - Epoch 40/200
+2017-02-28 14:28:47,144 INFO  ConvNet - Error rate: 0.01042
+2017-02-28 14:28:47,164 INFO  ConvNet - Epoch 41/200
+2017-02-28 14:30:12,409 INFO  ConvNet - Error rate: 0.01008
+2017-02-28 14:30:12,431 INFO  ConvNet - Epoch 42/200
+2017-02-28 14:31:44,020 INFO  ConvNet - Error rate: 0.0097805
+2017-02-28 14:31:44,044 INFO  ConvNet - Epoch 43/200
+2017-02-28 14:33:16,199 INFO  ConvNet - Error rate: 0.009513
+2017-02-28 14:33:16,223 INFO  ConvNet - Stopped training after 43 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 14:33:16,543 INFO  runExperiment - Classifier trained
+2017-02-28 14:33:22,107 INFO  SELD - Apply transformation to features...
+2017-02-28 14:33:22,512 INFO  ConvNet - Normalize data
+2017-02-28 14:35:46,250 INFO  runExperiment - Test instances classified
+2017-02-28 14:35:46,525 INFO  runExperiment - Current accuracy: 0.332
+2017-02-28 14:35:46,786 INFO  runExperiment - Iteration 6
+2017-02-28 14:35:52,150 INFO  SELD - Apply transformation to features...
+2017-02-28 14:35:52,654 INFO  ConvNet - Create network structure
+2017-02-28 14:35:52,700 INFO  ConvNet - Normalize data
+2017-02-28 14:35:53,881 INFO  ConvNet - Epoch 1/200
+2017-02-28 14:37:46,681 INFO  ConvNet - Error rate: 0.30398
+2017-02-28 14:37:46,702 INFO  ConvNet - Epoch 2/200
+2017-02-28 14:39:38,293 INFO  ConvNet - Error rate: 0.086681
+2017-02-28 14:39:38,311 INFO  ConvNet - Epoch 3/200
+2017-02-28 14:41:29,702 INFO  ConvNet - Error rate: 0.057274
+2017-02-28 14:41:29,725 INFO  ConvNet - Epoch 4/200
+2017-02-28 14:43:21,193 INFO  ConvNet - Error rate: 0.042769
+2017-02-28 14:43:21,213 INFO  ConvNet - Epoch 5/200
+2017-02-28 14:45:12,066 INFO  ConvNet - Error rate: 0.034466
+2017-02-28 14:45:12,087 INFO  ConvNet - Epoch 6/200
+2017-02-28 14:46:59,741 INFO  ConvNet - Error rate: 0.028908
+2017-02-28 14:46:59,760 INFO  ConvNet - Epoch 7/200
+2017-02-28 14:48:45,437 INFO  ConvNet - Error rate: 0.025228
+2017-02-28 14:48:45,455 INFO  ConvNet - Epoch 8/200
+2017-02-28 14:50:31,105 INFO  ConvNet - Error rate: 0.022246
+2017-02-28 14:50:31,124 INFO  ConvNet - Epoch 9/200
+2017-02-28 14:52:17,448 INFO  ConvNet - Error rate: 0.019725
+2017-02-28 14:52:17,468 INFO  ConvNet - Epoch 10/200
+2017-02-28 14:54:03,259 INFO  ConvNet - Error rate: 0.017601
+2017-02-28 14:54:03,278 INFO  ConvNet - Epoch 11/200
+2017-02-28 14:55:48,541 INFO  ConvNet - Error rate: 0.016015
+2017-02-28 14:55:48,560 INFO  ConvNet - Epoch 12/200
+2017-02-28 14:57:34,368 INFO  ConvNet - Error rate: 0.014648
+2017-02-28 14:57:34,387 INFO  ConvNet - Epoch 13/200
+2017-02-28 14:59:20,059 INFO  ConvNet - Error rate: 0.013655
+2017-02-28 14:59:20,077 INFO  ConvNet - Epoch 14/200
+2017-02-28 15:01:10,645 INFO  ConvNet - Error rate: 0.012788
+2017-02-28 15:01:10,666 INFO  ConvNet - Epoch 15/200
+2017-02-28 15:03:00,487 INFO  ConvNet - Error rate: 0.011998
+2017-02-28 15:03:00,505 INFO  ConvNet - Epoch 16/200
+2017-02-28 15:04:47,927 INFO  ConvNet - Error rate: 0.011193
+2017-02-28 15:04:47,945 INFO  ConvNet - Epoch 17/200
+2017-02-28 15:06:33,992 INFO  ConvNet - Error rate: 0.01055
+2017-02-28 15:06:34,010 INFO  ConvNet - Epoch 18/200
+2017-02-28 15:08:27,376 INFO  ConvNet - Error rate: 0.009955
+2017-02-28 15:08:27,399 INFO  ConvNet - Epoch 19/200
+2017-02-28 15:10:18,339 INFO  ConvNet - Error rate: 0.0094046
+2017-02-28 15:10:18,357 INFO  ConvNet - Epoch 20/200
+2017-02-28 15:12:03,870 INFO  ConvNet - Error rate: 0.008923
+2017-02-28 15:12:03,889 INFO  ConvNet - Epoch 21/200
+2017-02-28 15:13:49,463 INFO  ConvNet - Error rate: 0.0084623
+2017-02-28 15:13:49,484 INFO  ConvNet - Epoch 22/200
+2017-02-28 15:15:35,017 INFO  ConvNet - Error rate: 0.0080555
+2017-02-28 15:15:35,035 INFO  ConvNet - Epoch 23/200
+2017-02-28 15:17:20,227 INFO  ConvNet - Error rate: 0.0076427
+2017-02-28 15:17:20,246 INFO  ConvNet - Epoch 24/200
+2017-02-28 15:19:09,195 INFO  ConvNet - Error rate: 0.0073137
+2017-02-28 15:19:09,215 INFO  ConvNet - Epoch 25/200
+2017-02-28 15:20:55,931 INFO  ConvNet - Error rate: 0.0069547
+2017-02-28 15:20:55,951 INFO  ConvNet - Epoch 26/200
+2017-02-28 15:22:42,434 INFO  ConvNet - Error rate: 0.0066436
+2017-02-28 15:22:42,449 INFO  ConvNet - Epoch 27/200
+2017-02-28 15:24:28,224 INFO  ConvNet - Error rate: 0.0063595
+2017-02-28 15:24:28,243 INFO  ConvNet - Epoch 28/200
+2017-02-28 15:26:18,231 INFO  ConvNet - Error rate: 0.0060603
+2017-02-28 15:26:18,246 INFO  ConvNet - Stopped training after 28 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 15:26:18,450 INFO  runExperiment - Classifier trained
+2017-02-28 15:26:22,634 INFO  SELD - Apply transformation to features...
+2017-02-28 15:26:23,003 INFO  ConvNet - Normalize data
+2017-02-28 15:28:09,863 INFO  runExperiment - Test instances classified
+2017-02-28 15:28:10,035 INFO  runExperiment - Current accuracy: 0.450
+2017-02-28 15:28:10,283 INFO  runExperiment - Iteration 7
+2017-02-28 15:28:15,136 INFO  SELD - Apply transformation to features...
+2017-02-28 15:28:15,589 INFO  ConvNet - Create network structure
+2017-02-28 15:28:15,627 INFO  ConvNet - Normalize data
+2017-02-28 15:28:16,637 INFO  ConvNet - Epoch 1/200
+2017-02-28 15:29:47,012 INFO  ConvNet - Error rate: 0.35874
+2017-02-28 15:29:47,031 INFO  ConvNet - Epoch 2/200
+2017-02-28 15:31:16,507 INFO  ConvNet - Error rate: 0.12603
+2017-02-28 15:31:16,527 INFO  ConvNet - Epoch 3/200
+2017-02-28 15:32:46,090 INFO  ConvNet - Error rate: 0.092954
+2017-02-28 15:32:46,109 INFO  ConvNet - Epoch 4/200
+2017-02-28 15:34:16,194 INFO  ConvNet - Error rate: 0.074452
+2017-02-28 15:34:16,212 INFO  ConvNet - Epoch 5/200
+2017-02-28 15:35:45,925 INFO  ConvNet - Error rate: 0.062827
+2017-02-28 15:35:45,942 INFO  ConvNet - Epoch 6/200
+2017-02-28 15:37:15,916 INFO  ConvNet - Error rate: 0.054922
+2017-02-28 15:37:15,935 INFO  ConvNet - Epoch 7/200
+2017-02-28 15:38:45,705 INFO  ConvNet - Error rate: 0.049349
+2017-02-28 15:38:45,723 INFO  ConvNet - Epoch 8/200
+2017-02-28 15:40:15,071 INFO  ConvNet - Error rate: 0.045333
+2017-02-28 15:40:15,089 INFO  ConvNet - Epoch 9/200
+2017-02-28 15:41:44,684 INFO  ConvNet - Error rate: 0.041981
+2017-02-28 15:41:44,703 INFO  ConvNet - Epoch 10/200
+2017-02-28 15:43:14,184 INFO  ConvNet - Error rate: 0.038918
+2017-02-28 15:43:14,206 INFO  ConvNet - Epoch 11/200
+2017-02-28 15:44:43,754 INFO  ConvNet - Error rate: 0.036186
+2017-02-28 15:44:43,773 INFO  ConvNet - Epoch 12/200
+2017-02-28 15:46:13,072 INFO  ConvNet - Error rate: 0.03362
+2017-02-28 15:46:13,094 INFO  ConvNet - Epoch 13/200
+2017-02-28 15:47:42,461 INFO  ConvNet - Error rate: 0.031377
+2017-02-28 15:47:42,483 INFO  ConvNet - Epoch 14/200
+2017-02-28 15:49:11,995 INFO  ConvNet - Error rate: 0.029456
+2017-02-28 15:49:12,011 INFO  ConvNet - Epoch 15/200
+2017-02-28 15:50:40,930 INFO  ConvNet - Error rate: 0.027746
+2017-02-28 15:50:40,947 INFO  ConvNet - Epoch 16/200
+2017-02-28 15:52:09,977 INFO  ConvNet - Error rate: 0.026274
+2017-02-28 15:52:09,998 INFO  ConvNet - Epoch 17/200
+2017-02-28 15:53:40,593 INFO  ConvNet - Error rate: 0.024802
+2017-02-28 15:53:40,612 INFO  ConvNet - Epoch 18/200
+2017-02-28 15:55:08,833 INFO  ConvNet - Error rate: 0.023664
+2017-02-28 15:55:08,854 INFO  ConvNet - Epoch 19/200
+2017-02-28 15:56:38,022 INFO  ConvNet - Error rate: 0.022492
+2017-02-28 15:56:38,045 INFO  ConvNet - Epoch 20/200
+2017-02-28 15:58:06,529 INFO  ConvNet - Error rate: 0.021473
+2017-02-28 15:58:06,551 INFO  ConvNet - Epoch 21/200
+2017-02-28 15:59:35,395 INFO  ConvNet - Error rate: 0.020564
+2017-02-28 15:59:35,415 INFO  ConvNet - Epoch 22/200
+2017-02-28 16:01:04,387 INFO  ConvNet - Error rate: 0.019656
+2017-02-28 16:01:04,410 INFO  ConvNet - Epoch 23/200
+2017-02-28 16:02:34,856 INFO  ConvNet - Error rate: 0.018784
+2017-02-28 16:02:34,879 INFO  ConvNet - Epoch 24/200
+2017-02-28 16:04:04,209 INFO  ConvNet - Error rate: 0.017983
+2017-02-28 16:04:04,228 INFO  ConvNet - Epoch 25/200
+2017-02-28 16:05:34,884 INFO  ConvNet - Error rate: 0.017101
+2017-02-28 16:05:34,901 INFO  ConvNet - Epoch 26/200
+2017-02-28 16:07:03,410 INFO  ConvNet - Error rate: 0.016389
+2017-02-28 16:07:03,429 INFO  ConvNet - Epoch 27/200
+2017-02-28 16:08:33,287 INFO  ConvNet - Error rate: 0.015844
+2017-02-28 16:08:33,307 INFO  ConvNet - Epoch 28/200
+2017-02-28 16:10:02,846 INFO  ConvNet - Error rate: 0.015254
+2017-02-28 16:10:02,868 INFO  ConvNet - Epoch 29/200
+2017-02-28 16:11:32,465 INFO  ConvNet - Error rate: 0.014676
+2017-02-28 16:11:32,486 INFO  ConvNet - Epoch 30/200
+2017-02-28 16:13:02,138 INFO  ConvNet - Error rate: 0.014116
+2017-02-28 16:13:02,156 INFO  ConvNet - Epoch 31/200
+2017-02-28 16:14:32,534 INFO  ConvNet - Error rate: 0.01353
+2017-02-28 16:14:32,551 INFO  ConvNet - Epoch 32/200
+2017-02-28 16:16:03,669 INFO  ConvNet - Error rate: 0.012963
+2017-02-28 16:16:03,695 INFO  ConvNet - Epoch 33/200
+2017-02-28 16:17:31,890 INFO  ConvNet - Error rate: 0.012496
+2017-02-28 16:17:31,909 INFO  ConvNet - Epoch 34/200
+2017-02-28 16:19:01,416 INFO  ConvNet - Error rate: 0.012073
+2017-02-28 16:19:01,432 INFO  ConvNet - Epoch 35/200
+2017-02-28 16:20:30,400 INFO  ConvNet - Error rate: 0.011673
+2017-02-28 16:20:30,418 INFO  ConvNet - Epoch 36/200
+2017-02-28 16:22:00,871 INFO  ConvNet - Error rate: 0.011261
+2017-02-28 16:22:00,892 INFO  ConvNet - Epoch 37/200
+2017-02-28 16:23:30,180 INFO  ConvNet - Error rate: 0.01089
+2017-02-28 16:23:30,201 INFO  ConvNet - Epoch 38/200
+2017-02-28 16:24:59,303 INFO  ConvNet - Error rate: 0.010538
+2017-02-28 16:24:59,320 INFO  ConvNet - Epoch 39/200
+2017-02-28 16:26:28,486 INFO  ConvNet - Error rate: 0.010149
+2017-02-28 16:26:28,505 INFO  ConvNet - Epoch 40/200
+2017-02-28 16:27:57,385 INFO  ConvNet - Error rate: 0.0098223
+2017-02-28 16:27:57,403 INFO  ConvNet - Epoch 41/200
+2017-02-28 16:29:26,967 INFO  ConvNet - Error rate: 0.0095183
+2017-02-28 16:29:26,986 INFO  ConvNet - Epoch 42/200
+2017-02-28 16:30:55,600 INFO  ConvNet - Error rate: 0.0091771
+2017-02-28 16:30:55,621 INFO  ConvNet - Epoch 43/200
+2017-02-28 16:32:24,780 INFO  ConvNet - Error rate: 0.008862
+2017-02-28 16:32:24,798 INFO  ConvNet - Stopped training after 43 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 16:32:25,035 INFO  runExperiment - Classifier trained
+2017-02-28 16:32:29,906 INFO  SELD - Apply transformation to features...
+2017-02-28 16:32:30,318 INFO  ConvNet - Normalize data
+2017-02-28 16:34:46,716 INFO  runExperiment - Test instances classified
+2017-02-28 16:34:46,938 INFO  runExperiment - Current accuracy: 0.360
+2017-02-28 16:34:47,180 INFO  runExperiment - Iteration 8
+2017-02-28 16:34:52,106 INFO  SELD - Apply transformation to features...
+2017-02-28 16:34:52,526 INFO  ConvNet - Create network structure
+2017-02-28 16:34:52,563 INFO  ConvNet - Normalize data
+2017-02-28 16:34:53,534 INFO  ConvNet - Epoch 1/200
+2017-02-28 16:36:38,188 INFO  ConvNet - Error rate: 0.24592
+2017-02-28 16:36:38,220 INFO  ConvNet - Epoch 2/200
+2017-02-28 16:38:22,464 INFO  ConvNet - Error rate: 0.068285
+2017-02-28 16:38:22,495 INFO  ConvNet - Epoch 3/200
+2017-02-28 16:40:09,871 INFO  ConvNet - Error rate: 0.04703
+2017-02-28 16:40:09,895 INFO  ConvNet - Epoch 4/200
+2017-02-28 16:41:57,527 INFO  ConvNet - Error rate: 0.03795
+2017-02-28 16:41:57,550 INFO  ConvNet - Epoch 5/200
+2017-02-28 16:43:46,254 INFO  ConvNet - Error rate: 0.033792
+2017-02-28 16:43:46,277 INFO  ConvNet - Epoch 6/200
+2017-02-28 16:45:33,872 INFO  ConvNet - Error rate: 0.029707
+2017-02-28 16:45:33,889 INFO  ConvNet - Epoch 7/200
+2017-02-28 16:47:20,561 INFO  ConvNet - Error rate: 0.026418
+2017-02-28 16:47:20,579 INFO  ConvNet - Epoch 8/200
+2017-02-28 16:49:08,506 INFO  ConvNet - Error rate: 0.023699
+2017-02-28 16:49:08,530 INFO  ConvNet - Epoch 9/200
+2017-02-28 16:50:56,885 INFO  ConvNet - Error rate: 0.021362
+2017-02-28 16:50:56,907 INFO  ConvNet - Epoch 10/200
+2017-02-28 16:52:44,806 INFO  ConvNet - Error rate: 0.019411
+2017-02-28 16:52:44,826 INFO  ConvNet - Epoch 11/200
+2017-02-28 16:54:32,863 INFO  ConvNet - Error rate: 0.017678
+2017-02-28 16:54:32,884 INFO  ConvNet - Epoch 12/200
+2017-02-28 16:56:20,729 INFO  ConvNet - Error rate: 0.016129
+2017-02-28 16:56:20,751 INFO  ConvNet - Epoch 13/200
+2017-02-28 16:58:09,360 INFO  ConvNet - Error rate: 0.015039
+2017-02-28 16:58:09,381 INFO  ConvNet - Epoch 14/200
+2017-02-28 16:59:57,681 INFO  ConvNet - Error rate: 0.013967
+2017-02-28 16:59:57,702 INFO  ConvNet - Epoch 15/200
+2017-02-28 17:01:44,961 INFO  ConvNet - Error rate: 0.012972
+2017-02-28 17:01:44,979 INFO  ConvNet - Epoch 16/200
+2017-02-28 17:03:32,624 INFO  ConvNet - Error rate: 0.012093
+2017-02-28 17:03:32,643 INFO  ConvNet - Epoch 17/200
+2017-02-28 17:05:20,858 INFO  ConvNet - Error rate: 0.011269
+2017-02-28 17:05:20,879 INFO  ConvNet - Epoch 18/200
+2017-02-28 17:07:09,595 INFO  ConvNet - Error rate: 0.010595
+2017-02-28 17:07:09,618 INFO  ConvNet - Epoch 19/200
+2017-02-28 17:08:59,332 INFO  ConvNet - Error rate: 0.0099675
+2017-02-28 17:08:59,354 INFO  ConvNet - Epoch 20/200
+2017-02-28 17:10:49,923 INFO  ConvNet - Error rate: 0.0094041
+2017-02-28 17:10:49,944 INFO  ConvNet - Epoch 21/200
+2017-02-28 17:12:38,652 INFO  ConvNet - Error rate: 0.0089876
+2017-02-28 17:12:38,677 INFO  ConvNet - Epoch 22/200
+2017-02-28 17:14:27,612 INFO  ConvNet - Error rate: 0.0085252
+2017-02-28 17:14:27,632 INFO  ConvNet - Epoch 23/200
+2017-02-28 17:16:16,348 INFO  ConvNet - Error rate: 0.0081547
+2017-02-28 17:16:16,370 INFO  ConvNet - Epoch 24/200
+2017-02-28 17:18:03,795 INFO  ConvNet - Error rate: 0.0077811
+2017-02-28 17:18:03,815 INFO  ConvNet - Epoch 25/200
+2017-02-28 17:19:52,140 INFO  ConvNet - Error rate: 0.0074228
+2017-02-28 17:19:52,162 INFO  ConvNet - Epoch 26/200
+2017-02-28 17:21:41,638 INFO  ConvNet - Error rate: 0.0071013
+2017-02-28 17:21:41,661 INFO  ConvNet - Epoch 27/200
+2017-02-28 17:23:31,852 INFO  ConvNet - Error rate: 0.0068502
+2017-02-28 17:23:31,871 INFO  ConvNet - Epoch 28/200
+2017-02-28 17:25:19,766 INFO  ConvNet - Error rate: 0.0065195
+2017-02-28 17:25:19,784 INFO  ConvNet - Epoch 29/200
+2017-02-28 17:27:08,036 INFO  ConvNet - Error rate: 0.0062561
+2017-02-28 17:27:08,055 INFO  ConvNet - Epoch 30/200
+2017-02-28 17:28:55,837 INFO  ConvNet - Error rate: 0.0059713
+2017-02-28 17:28:55,853 INFO  ConvNet - Epoch 31/200
+2017-02-28 17:30:43,114 INFO  ConvNet - Error rate: 0.0057692
+2017-02-28 17:30:43,131 INFO  ConvNet - Epoch 32/200
+2017-02-28 17:32:31,347 INFO  ConvNet - Error rate: 0.0055334
+2017-02-28 17:32:31,366 INFO  ConvNet - Epoch 33/200
+2017-02-28 17:34:19,970 INFO  ConvNet - Error rate: 0.0053283
+2017-02-28 17:34:19,992 INFO  ConvNet - Epoch 34/200
+2017-02-28 17:36:07,168 INFO  ConvNet - Error rate: 0.0051323
+2017-02-28 17:36:07,190 INFO  ConvNet - Epoch 35/200
+2017-02-28 17:37:56,231 INFO  ConvNet - Error rate: 0.0049057
+2017-02-28 17:37:56,252 INFO  ConvNet - Epoch 36/200
+2017-02-28 17:39:44,541 INFO  ConvNet - Error rate: 0.004725
+2017-02-28 17:39:44,567 INFO  ConvNet - Epoch 37/200
+2017-02-28 17:41:32,140 INFO  ConvNet - Error rate: 0.0045566
+2017-02-28 17:41:32,160 INFO  ConvNet - Epoch 38/200
+2017-02-28 17:43:20,751 INFO  ConvNet - Error rate: 0.0043759
+2017-02-28 17:43:20,774 INFO  ConvNet - Stopped training after 38 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 17:43:20,991 INFO  runExperiment - Classifier trained
+2017-02-28 17:43:26,381 INFO  SELD - Apply transformation to features...
+2017-02-28 17:43:26,878 INFO  ConvNet - Normalize data
+2017-02-28 17:45:32,232 INFO  runExperiment - Test instances classified
+2017-02-28 17:45:32,464 INFO  runExperiment - Current accuracy: 0.404
+2017-02-28 17:45:32,735 INFO  runExperiment - Iteration 9
+2017-02-28 17:45:37,550 INFO  SELD - Apply transformation to features...
+2017-02-28 17:45:37,984 INFO  ConvNet - Create network structure
+2017-02-28 17:45:38,022 INFO  ConvNet - Normalize data
+2017-02-28 17:45:39,036 INFO  ConvNet - Epoch 1/200
+2017-02-28 17:47:04,628 INFO  ConvNet - Error rate: 0.37441
+2017-02-28 17:47:04,660 INFO  ConvNet - Epoch 2/200
+2017-02-28 17:48:28,918 INFO  ConvNet - Error rate: 0.10188
+2017-02-28 17:48:28,952 INFO  ConvNet - Epoch 3/200
+2017-02-28 17:49:52,501 INFO  ConvNet - Error rate: 0.066943
+2017-02-28 17:49:52,526 INFO  ConvNet - Epoch 4/200
+2017-02-28 17:51:17,070 INFO  ConvNet - Error rate: 0.05206
+2017-02-28 17:51:17,093 INFO  ConvNet - Epoch 5/200
+2017-02-28 17:52:41,095 INFO  ConvNet - Error rate: 0.044548
+2017-02-28 17:52:41,120 INFO  ConvNet - Epoch 6/200
+2017-02-28 17:54:05,481 INFO  ConvNet - Error rate: 0.03945
+2017-02-28 17:54:05,501 INFO  ConvNet - Epoch 7/200
+2017-02-28 17:55:28,908 INFO  ConvNet - Error rate: 0.035416
+2017-02-28 17:55:28,929 INFO  ConvNet - Epoch 8/200
+2017-02-28 17:56:52,082 INFO  ConvNet - Error rate: 0.032171
+2017-02-28 17:56:52,107 INFO  ConvNet - Epoch 9/200
+2017-02-28 17:58:15,033 INFO  ConvNet - Error rate: 0.029241
+2017-02-28 17:58:15,056 INFO  ConvNet - Epoch 10/200
+2017-02-28 17:59:39,233 INFO  ConvNet - Error rate: 0.026768
+2017-02-28 17:59:39,253 INFO  ConvNet - Epoch 11/200
+2017-02-28 18:01:03,926 INFO  ConvNet - Error rate: 0.024611
+2017-02-28 18:01:03,952 INFO  ConvNet - Epoch 12/200
+2017-02-28 18:02:27,699 INFO  ConvNet - Error rate: 0.022842
+2017-02-28 18:02:27,719 INFO  ConvNet - Epoch 13/200
+2017-02-28 18:03:54,244 INFO  ConvNet - Error rate: 0.021138
+2017-02-28 18:03:54,264 INFO  ConvNet - Epoch 14/200
+2017-02-28 18:05:17,649 INFO  ConvNet - Error rate: 0.019845
+2017-02-28 18:05:17,671 INFO  ConvNet - Epoch 15/200
+2017-02-28 18:06:40,813 INFO  ConvNet - Error rate: 0.018781
+2017-02-28 18:06:40,834 INFO  ConvNet - Epoch 16/200
+2017-02-28 18:08:05,999 INFO  ConvNet - Error rate: 0.017768
+2017-02-28 18:08:06,020 INFO  ConvNet - Epoch 17/200
+2017-02-28 18:09:31,585 INFO  ConvNet - Error rate: 0.016852
+2017-02-28 18:09:31,609 INFO  ConvNet - Epoch 18/200
+2017-02-28 18:10:56,512 INFO  ConvNet - Error rate: 0.015967
+2017-02-28 18:10:56,534 INFO  ConvNet - Epoch 19/200
+2017-02-28 18:12:21,532 INFO  ConvNet - Error rate: 0.015143
+2017-02-28 18:12:21,552 INFO  ConvNet - Epoch 20/200
+2017-02-28 18:13:47,365 INFO  ConvNet - Error rate: 0.014455
+2017-02-28 18:13:47,388 INFO  ConvNet - Epoch 21/200
+2017-02-28 18:15:09,963 INFO  ConvNet - Error rate: 0.01389
+2017-02-28 18:15:09,986 INFO  ConvNet - Epoch 22/200
+2017-02-28 18:16:32,476 INFO  ConvNet - Error rate: 0.013238
+2017-02-28 18:16:32,497 INFO  ConvNet - Epoch 23/200
+2017-02-28 18:17:55,087 INFO  ConvNet - Error rate: 0.012598
+2017-02-28 18:17:55,106 INFO  ConvNet - Epoch 24/200
+2017-02-28 18:19:18,204 INFO  ConvNet - Error rate: 0.012017
+2017-02-28 18:19:18,226 INFO  ConvNet - Epoch 25/200
+2017-02-28 18:20:42,946 INFO  ConvNet - Error rate: 0.011481
+2017-02-28 18:20:42,968 INFO  ConvNet - Epoch 26/200
+2017-02-28 18:22:09,252 INFO  ConvNet - Error rate: 0.011045
+2017-02-28 18:22:09,274 INFO  ConvNet - Epoch 27/200
+2017-02-28 18:23:33,892 INFO  ConvNet - Error rate: 0.010521
+2017-02-28 18:23:33,917 INFO  ConvNet - Epoch 28/200
+2017-02-28 18:24:58,289 INFO  ConvNet - Error rate: 0.010153
+2017-02-28 18:24:58,312 INFO  ConvNet - Epoch 29/200
+2017-02-28 18:26:22,665 INFO  ConvNet - Error rate: 0.0097524
+2017-02-28 18:26:22,686 INFO  ConvNet - Epoch 30/200
+2017-02-28 18:27:46,561 INFO  ConvNet - Error rate: 0.0092882
+2017-02-28 18:27:46,584 INFO  ConvNet - Epoch 31/200
+2017-02-28 18:29:10,733 INFO  ConvNet - Error rate: 0.0089441
+2017-02-28 18:29:10,758 INFO  ConvNet - Epoch 32/200
+2017-02-28 18:30:36,093 INFO  ConvNet - Error rate: 0.0085719
+2017-02-28 18:30:36,114 INFO  ConvNet - Epoch 33/200
+2017-02-28 18:31:58,970 INFO  ConvNet - Error rate: 0.0082518
+2017-02-28 18:31:58,991 INFO  ConvNet - Epoch 34/200
+2017-02-28 18:33:33,589 INFO  ConvNet - Error rate: 0.0079956
+2017-02-28 18:33:33,616 INFO  ConvNet - Epoch 35/200
+2017-02-28 18:35:00,738 INFO  ConvNet - Error rate: 0.0077035
+2017-02-28 18:35:00,760 INFO  ConvNet - Epoch 36/200
+2017-02-28 18:36:24,880 INFO  ConvNet - Error rate: 0.0073794
+2017-02-28 18:36:24,899 INFO  ConvNet - Epoch 37/200
+2017-02-28 18:37:49,347 INFO  ConvNet - Error rate: 0.0071553
+2017-02-28 18:37:49,368 INFO  ConvNet - Epoch 38/200
+2017-02-28 18:39:12,226 INFO  ConvNet - Error rate: 0.0069152
+2017-02-28 18:39:12,247 INFO  ConvNet - Stopped training after 38 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 18:39:12,486 INFO  runExperiment - Classifier trained
+2017-02-28 18:39:17,720 INFO  SELD - Apply transformation to features...
+2017-02-28 18:39:18,142 INFO  ConvNet - Normalize data
+2017-02-28 18:41:40,836 INFO  runExperiment - Test instances classified
+2017-02-28 18:41:41,105 INFO  runExperiment - Current accuracy: 0.333
+2017-02-28 18:41:41,389 INFO  runExperiment - Iteration 10
+2017-02-28 18:41:47,183 INFO  SELD - Apply transformation to features...
+2017-02-28 18:41:47,719 INFO  ConvNet - Create network structure
+2017-02-28 18:41:47,763 INFO  ConvNet - Normalize data
+2017-02-28 18:41:49,043 INFO  ConvNet - Epoch 1/200
+2017-02-28 18:43:49,936 INFO  ConvNet - Error rate: 0.2732
+2017-02-28 18:43:49,961 INFO  ConvNet - Epoch 2/200
+2017-02-28 18:45:46,290 INFO  ConvNet - Error rate: 0.09259
+2017-02-28 18:45:46,326 INFO  ConvNet - Epoch 3/200
+2017-02-28 18:47:35,796 INFO  ConvNet - Error rate: 0.068381
+2017-02-28 18:47:35,817 INFO  ConvNet - Epoch 4/200
+2017-02-28 18:49:24,115 INFO  ConvNet - Error rate: 0.051585
+2017-02-28 18:49:24,134 INFO  ConvNet - Epoch 5/200
+2017-02-28 18:51:16,611 INFO  ConvNet - Error rate: 0.042388
+2017-02-28 18:51:16,636 INFO  ConvNet - Epoch 6/200
+2017-02-28 18:53:12,835 INFO  ConvNet - Error rate: 0.036799
+2017-02-28 18:53:12,857 INFO  ConvNet - Epoch 7/200
+2017-02-28 18:55:09,494 INFO  ConvNet - Error rate: 0.032623
+2017-02-28 18:55:09,520 INFO  ConvNet - Epoch 8/200
+2017-02-28 18:57:08,394 INFO  ConvNet - Error rate: 0.029419
+2017-02-28 18:57:08,429 INFO  ConvNet - Epoch 9/200
+2017-02-28 18:59:07,019 INFO  ConvNet - Error rate: 0.026522
+2017-02-28 18:59:07,040 INFO  ConvNet - Epoch 10/200
+2017-02-28 19:01:01,619 INFO  ConvNet - Error rate: 0.024002
+2017-02-28 19:01:01,647 INFO  ConvNet - Epoch 11/200
+2017-02-28 19:02:55,504 INFO  ConvNet - Error rate: 0.021596
+2017-02-28 19:02:55,525 INFO  ConvNet - Epoch 12/200
+2017-02-28 19:04:49,023 INFO  ConvNet - Error rate: 0.019946
+2017-02-28 19:04:49,046 INFO  ConvNet - Epoch 13/200
+2017-02-28 19:06:43,868 INFO  ConvNet - Error rate: 0.018467
+2017-02-28 19:06:43,889 INFO  ConvNet - Epoch 14/200
+2017-02-28 19:08:34,480 INFO  ConvNet - Error rate: 0.017189
+2017-02-28 19:08:34,499 INFO  ConvNet - Epoch 15/200
+2017-02-28 19:10:26,175 INFO  ConvNet - Error rate: 0.016154
+2017-02-28 19:10:26,193 INFO  ConvNet - Epoch 16/200
+2017-02-28 19:12:18,651 INFO  ConvNet - Error rate: 0.015152
+2017-02-28 19:12:18,672 INFO  ConvNet - Epoch 17/200
+2017-02-28 19:14:08,881 INFO  ConvNet - Error rate: 0.014294
+2017-02-28 19:14:08,902 INFO  ConvNet - Epoch 18/200
+2017-02-28 19:16:00,311 INFO  ConvNet - Error rate: 0.013544
+2017-02-28 19:16:00,330 INFO  ConvNet - Epoch 19/200
+2017-02-28 19:17:51,058 INFO  ConvNet - Error rate: 0.012899
+2017-02-28 19:17:51,077 INFO  ConvNet - Epoch 20/200
+2017-02-28 19:19:42,709 INFO  ConvNet - Error rate: 0.012341
+2017-02-28 19:19:42,730 INFO  ConvNet - Epoch 21/200
+2017-02-28 19:21:34,471 INFO  ConvNet - Error rate: 0.011849
+2017-02-28 19:21:34,491 INFO  ConvNet - Epoch 22/200
+2017-02-28 19:23:26,780 INFO  ConvNet - Error rate: 0.011297
+2017-02-28 19:23:26,799 INFO  ConvNet - Epoch 23/200
+2017-02-28 19:25:19,423 INFO  ConvNet - Error rate: 0.010874
+2017-02-28 19:25:19,443 INFO  ConvNet - Epoch 24/200
+2017-02-28 19:27:10,866 INFO  ConvNet - Error rate: 0.010451
+2017-02-28 19:27:10,887 INFO  ConvNet - Epoch 25/200
+2017-02-28 19:29:01,581 INFO  ConvNet - Error rate: 0.0099954
+2017-02-28 19:29:01,601 INFO  ConvNet - Epoch 26/200
+2017-02-28 19:30:51,377 INFO  ConvNet - Error rate: 0.0096175
+2017-02-28 19:30:51,406 INFO  ConvNet - Epoch 27/200
+2017-02-28 19:32:44,001 INFO  ConvNet - Error rate: 0.0092545
+2017-02-28 19:32:44,021 INFO  ConvNet - Epoch 28/200
+2017-02-28 19:34:33,617 INFO  ConvNet - Error rate: 0.0089755
+2017-02-28 19:34:33,639 INFO  ConvNet - Epoch 29/200
+2017-02-28 19:36:22,740 INFO  ConvNet - Error rate: 0.0086875
+2017-02-28 19:36:22,760 INFO  ConvNet - Epoch 30/200
+2017-02-28 19:38:11,367 INFO  ConvNet - Error rate: 0.0083245
+2017-02-28 19:38:11,388 INFO  ConvNet - Stopped training after 30 epochs, because no improvement of at least 0.005 could be achieved within the last 10 epochs
+2017-02-28 19:38:11,607 INFO  runExperiment - Classifier trained
+2017-02-28 19:38:15,772 INFO  SELD - Apply transformation to features...
+2017-02-28 19:38:16,210 INFO  ConvNet - Normalize data
+2017-02-28 19:39:53,580 INFO  runExperiment - Test instances classified
+2017-02-28 19:39:53,745 INFO  runExperiment - Current accuracy: 0.567
+Stopped: 28-Feb-2017 19:39:53
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       5628       3298        930          0       7341       2104         21          0          0       3095        604          0          0          0        340         94       3191        160          0         91         53
+         0          0          0       7274     261806      14916          0       2325        329       2816          0          0      24614      33249          0          0       1473       1075          0      22335      19662          0       1278        126
+         0          0          0       3243       2824      15036          0       2680      50547      22745          0          0         50        135          0          0        151       1747       2403      80459        427          0        561          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      12421       1361      30920          0      24249      39725      15416          0          0       5473         17          0          0       5822       1352      15748      22346        222          0       1860         78
+         0          0          0       1071        561       1065          0        448     291955        507          0          0         43          0          0          0          0         10        170      10805          7          0          0          0
+         0          0          0        205        463       5820          0       1887       2737       8990          0          0       1758          0          0          0         46        527        123       9814        463          0       2087          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0      24723      13924       2002          0      26092         80       6622          0          0     119545       2909          0          0       1777       3729          0       4918        249          0       2881       7766
+         0          0          0        538       5694       2373          0        109          0         10          0          0        850      13149          0          0      21446       1123          0        163      44948          0         24       8786
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0        800        267       2895          0         42        347        295          0          0        394        486          0          0      12616       3008        540        263       5359          0      19712       2906
+         0          0          0       1569         88        529          0       1343          0        180          0          0        354        265          0          0       1561       4416        146      21648       3606          0          0       1890
+         0          0          0        844         19       2513          0         38          1          5          0          0          5          0          0          0        163        274      25245        943         18          0        222          0
+         0          0          0      26223       7689     103115          0       7284      33164       9975          0          0      11331          0          0          0       1049     227166       2113     101827      16756          0        143       2780
+         0          0          0        564        932       3516          0        967          0         12          0          0        175        323          0          0       7536       3094          0      20594      37120          0       1119        263
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       5014      86500       2895          0       4256         82        363          0          0      16615       5878          0          0      11017       4074         12      12359       8464          0      26889      13307
+         0          0          0       1708         97       1778          0         72          0          0          0          0       1153        424          0          0        207       1345          0       1111       1691          0        126      61333
+
+Accuracy:
+0.412
+
+Precisions:
+NaN	NaN	NaN	0.061	0.679	0.079	NaN	0.306	0.693	0.132	NaN	NaN	0.645	0.229	NaN	NaN	0.194	0.017	0.542	0.326	0.267	NaN	0.472	0.618
+
+Sensitivities:
+NaN	NaN	NaN	0.209	0.666	0.082	NaN	0.137	0.952	0.257	NaN	NaN	0.550	0.133	NaN	NaN	0.253	0.117	0.833	0.185	0.487	NaN	0.136	0.863
+
+Specificities:
+0.412	0.412	0.412	0.414	0.363	0.438	0.412	0.433	0.335	0.414	0.412	0.412	0.398	0.424	0.412	0.412	0.415	0.416	0.407	0.478	0.409	0.412	0.436	0.398
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.356	1.046	0.146	NaN	0.242	1.431	0.439	NaN	NaN	0.915	0.230	NaN	NaN	0.432	0.201	1.405	0.354	0.825	NaN	0.241	1.435
+
+NegativeLikelihoods:
+NaN	NaN	NaN	1.910	0.920	2.093	NaN	1.992	0.143	1.793	NaN	NaN	1.129	2.048	NaN	NaN	1.800	2.119	0.410	1.707	1.253	NaN	1.981	0.343
+
+FScores:
+NaN	NaN	NaN	0.095	0.672	0.081	NaN	0.189	0.802	0.175	NaN	NaN	0.594	0.168	NaN	NaN	0.220	0.030	0.657	0.236	0.345	NaN	0.211	0.720
