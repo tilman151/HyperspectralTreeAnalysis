@@ -1,16 +1,12 @@
 function [ subsampleIndices ] = subSampleClasses( labels, p)
-%SUBSAMPLEDATA generate a list of indices which represents a subset of the
+%SUBSAMPLECLASSES generate a list of indices which represents a subset of the
 %              given label list
 %
 %% Input:
 %    labels .................. a list with the given labels for each
 %                              instance
 %    p ....................... the proportion of the subset
-%    remainClassDistribution . set true if the class
-%                              distribution for the 
-%                              training subsamples should 
-%                              be approximately the same as
-%                              the original distribution
+
 
 numData = numel(labels); %number of labels
 

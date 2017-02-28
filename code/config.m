@@ -10,7 +10,7 @@ randomForest20Config = @() RandomForest(20);
 randomForest100Config = @() RandomForest(100);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest52Config = @() RotationForest(5,10);
+rotationForest52Config = @() RotationForest(5,2);
 
 % SVM - Parameters: Coding
 svmConfig = @() SVMsvmlin(...
