@@ -25,7 +25,7 @@ function runExperiment(configFilePath)
     
     % Clear all functions from memory to avoid side effects 
     % (like persistent logger object)
-    clear functions;
+   % clear functions;
     
     % Init random seed
     rng('shuffle');

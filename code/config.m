@@ -10,7 +10,7 @@ randomForest20Config = @() RandomForest(20);
 randomForest100Config = @() RandomForest(100);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest1002Config = @() RotationForest(100,2);
+rotationForest52Config = @() RotationForest(5,10);
 
 % SVM - Parameters: Coding
 svmConfig = @() SVMsvmlin(...
@@ -116,9 +116,9 @@ indicesConfig = @() Indices();
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = svmConfig();
+CLASSIFIER = rotationForest52Config();
 
-EXTRACTORS = {mclda5Config()};
+EXTRACTORS = {};
 
 
 
