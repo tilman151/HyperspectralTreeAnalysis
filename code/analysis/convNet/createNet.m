@@ -1,17 +1,19 @@
-function net = createNet(sampleSize, numDim, numClasses, filterSize)
+function net = createNet(...
+    sampleSize, numDim, numClasses, filterSize, dropoutRate)
     %CREATENET Creates net as described by Makantasis et al.
     %
     %   This function creates a net with two convolutional layers and a 
     %   fully connected layer.
     %
     %%  Input:
-    %       sampleSize . height/width of the samples
-    %       numDim ..... number of feature dimensions of the input data
-    %       numClasses . number of output classes
-    %       filterSize . length n of the n x n convolution filters 
+    %       sampleSize .. height/width of the samples
+    %       numDim ...... number of feature dimensions of the input data
+    %       numClasses .. number of output classes
+    %       filterSize .. length n of the n x n convolution filters 
+    %       dropoutRate . Rate for dropping values after convolution layers
     %
     % Version: 2017-02-10
-    % Author: Marianne Stecklina
+    % Author: Marianne Stecklina & Cornelius Styp von Rekowski
     %%
     
     lr = [.1 2];
@@ -26,6 +28,7 @@ function net = createNet(sampleSize, numDim, numClasses, filterSize)
         'learningRate', lr, ...
         'stride', 1, ...
         'pad', 0);
+    net.layers{end+1} = struct('type', 'dropout', 'rate', dropoutRate);
 
     % convolutional layer 2
     net.layers{end+1} = struct(...
@@ -35,6 +38,7 @@ function net = createNet(sampleSize, numDim, numClasses, filterSize)
         'learningRate', lr, ...
         'stride', 1, ...
         'pad', 0);
+    net.layers{end+1} = struct('type', 'dropout', 'rate', dropoutRate);
 
     
     % Calculate output size after both convolutional layers

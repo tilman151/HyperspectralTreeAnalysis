@@ -69,7 +69,7 @@ classdef ConvNet < Classifier
             global NUMCLASSES;
             obj.net = createNet(...
                 obj.opts.sampleSize, size(trainFeatureCube, 3), ...
-                NUMCLASSES, obj.opts.filterSize);
+                NUMCLASSES, obj.opts.filterSize, obj.opts.dropoutRate);
             
             % Fill missing initial learning rate and weight decay values
             obj.net.layers = fillMissingInitialValues(obj.net.layers);
