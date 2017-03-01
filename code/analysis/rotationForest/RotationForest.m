@@ -20,7 +20,7 @@ classdef RotationForest < ExampleClassifier
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
-    % Version: 2017-01-11
+    % Version: 2018-01-03
     % Author: Viola Hauffe
     %
     properties

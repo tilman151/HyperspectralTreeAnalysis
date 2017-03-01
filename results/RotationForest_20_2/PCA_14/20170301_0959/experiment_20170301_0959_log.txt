@@ -1,0 +1,47 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	RotationForest (numTrees: 20, splitParam:2)
+Extractors:	PCA (numDim: 14)
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/Samplesets/sampleset_012.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+        27         46         27         46         27         46         27         46         27         46
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+        28         29          4         29         28         26         28         29          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        30         47         30         47         30         47         30         47         30         47
+        31         48         31         48         31         48         31         48         31         48
+        32         49         32         49         32         49         32         49         32         49
+        33         34         33         34         33         34         33         34         33         34
+        35         50         35         50         35         50         35         50         35         50
+         0          0          0          0          0          0          0          0          0          0
+        41         40         44         41         43         40         39         43         36         37
+        45         51         45         51         45         51         45         51         45         51
+--------------------------------------------
+Started: 01-Mar-2017 09:59:12
+2017-03-01 09:59:12,955 INFO  runExperiment - Iteration 1
+2017-03-01 09:59:12,966 DEBUG runExperiment - Loading training set...
+2017-03-01 09:59:22,238 DEBUG runExperiment - Applying feature extraction...
+2017-03-01 09:59:22,301 INFO  PCA - Apply transformation to features
+2017-03-01 09:59:23,088 DEBUG runExperiment - Training classifier...
+2017-03-01 09:59:23,131 DEBUG RotationForest - Train Tree1
+2017-03-01 10:00:02,306 DEBUG RotationForest - Train Tree2
+2017-03-01 10:00:36,076 DEBUG RotationForest - Train Tree3
+2017-03-01 10:01:07,359 DEBUG RotationForest - Train Tree4
+2017-03-01 10:01:42,780 DEBUG RotationForest - Train Tree5
+2017-03-01 10:02:17,207 DEBUG RotationForest - Train Tree6
+2017-03-01 10:02:46,527 DEBUG RotationForest - Train Tree7
+2017-03-01 10:03:20,332 DEBUG RotationForest - Train Tree8
+2017-03-01 10:03:50,898 DEBUG RotationForest - Train Tree9
