@@ -56,7 +56,7 @@ classdef RandomForest < Classifier
             
             % Train the ensemble with the given number of trees.
             obj.treeEnsemble = ...
-                TreeBagger(obj.numTrees, featureList, labelList);
+                compact(TreeBagger(obj.numTrees, featureList, labelList));
         end
         
         function predictedLabelMap = classifyOn(...
