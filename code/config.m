@@ -118,7 +118,7 @@ NUMCLASSES = 24;
 
 CLASSIFIER = rotationForest202Config();
 
-EXTRACTORS = {seld20_14Config()};
+EXTRACTORS = {pca5Config()};
 
 
 
