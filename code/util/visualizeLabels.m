@@ -34,5 +34,4 @@ function visualizeLabels(labelMap, name)
     % Show image and wait for it to be closed
     figure('Name', name);
     s = imshow(labelMap, colors, 'InitialMagnification', 'fit');
-    waitfor(s);
 end

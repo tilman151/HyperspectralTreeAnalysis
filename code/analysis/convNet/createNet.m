@@ -1,17 +1,23 @@
-function net = createNet(sampleSize, numDim, numClasses, filterSize)
+function net = createNet(...
+    sampleSize, numDim, numClasses, filterSize, dropoutRate, doPooling)
     %CREATENET Creates net as described by Makantasis et al.
     %
     %   This function creates a net with two convolutional layers and a 
-    %   fully connected layer.
+    %   fully connected layer. Furthermore, dropout and a pooling layer can
+    %   optionally be added.
     %
     %%  Input:
-    %       sampleSize . height/width of the samples
-    %       numDim ..... number of feature dimensions of the input data
-    %       numClasses . number of output classes
-    %       filterSize . length n of the n x n convolution filters 
+    %       sampleSize .. height/width of the samples
+    %       numDim ...... number of feature dimensions of the input data
+    %       numClasses .. number of output classes
+    %       filterSize .. length n of the n x n convolution filters 
+    %       dropoutRate . rate for zeroing variables in the fully connected 
+    %                     layer
+    %       doPooling ... enable pooling after the first convolutional 
+    %                     layer
     %
-    % Version: 2017-02-10
-    % Author: Marianne Stecklina
+    % Version: 2017-03-01
+    % Author: Marianne Stecklina & Cornelius Styp von Rekowski
     %%
     
     lr = [.1 2];
@@ -26,6 +32,16 @@ function net = createNet(sampleSize, numDim, numClasses, filterSize)
         'learningRate', lr, ...
         'stride', 1, ...
         'pad', 0);
+    
+    % pooling layer
+    if doPooling
+        net.layers{end+1} = struct(...
+            'type', 'pool', ...
+            'method', 'max', ...
+            'pool', [3 3], ...
+            'stride', 2, ...
+            'pad', 0) ;
+    end
 
     % convolutional layer 2
     net.layers{end+1} = struct(...
@@ -37,9 +53,14 @@ function net = createNet(sampleSize, numDim, numClasses, filterSize)
         'pad', 0);
 
     
-    % Calculate output size after both convolutional layers
-    % IMPORTANT: Assumes stride of 1 and padding of 0 for both layers
-    tmpSize = sampleSize - 2*filterSize + 2;
+    % Calculate output size after convolutional and pooling layers
+    % IMPORTANT: Assumes stride of 1 and padding of 0 for both convolution 
+    %            layers
+    if doPooling
+        tmpSize = (sampleSize - filterSize + 1 - 3)/2 - filterSize + 2;
+    else
+        tmpSize = sampleSize - 2*filterSize + 2;
+    end
     
     % Fully connected layers with 6 * numDim hidden units
     net.layers{end+1} = struct(...
@@ -49,6 +70,10 @@ function net = createNet(sampleSize, numDim, numClasses, filterSize)
         'learningRate', lr, ...
         'stride', 1, ...
         'pad', 0);
+    
+    % Apply dropout
+    net.layers{end+1} = struct('type', 'dropout', 'rate', dropoutRate);
+    
     net.layers{end+1} = struct(...
         'type', 'conv', ...
         'weights', {{0.01*randn(1, 1, 6 * numDim, numClasses, 'single'),...

@@ -14,21 +14,13 @@ classdef BestClassifierEnsemble < Classifier
     %       Input:
     %           baseClassifiers ............... a Nx1 cell array with
     %                                           instantiated classifiers
-    %           numClassifiers ................  a Nx1 array with the
-    %                                           number of copies for each
-    %                                           base classifier
-    %           trainingInstanceProportions ...  a Nx1 array with a
-    %                                           number between 0 and 1. For
-    %                                           example a 0.8 says that all
-    %                                           classifiers are trained with
-    %                                           80% of the training 
-    %                                           instances
     %           votingMode .................... VotingMode enum to specify
     %                                           the voting method to get to 
     %                                           a conclusion
-    %           validationSubsampleProportion . VotingMode enum to specify
-    %                                           the voting method to get to 
-    %                                           a conclusion
+    %           loadMatchingClassifier ........ set true if the ensemble
+    %                                           should use the i-th 
+    %                                           classifier for the i-th
+    %                                           fold
     %           remainClassDistribution ....... set true if the class
     %                                           distribution for the 
     %                                           training subsamples should 
@@ -55,6 +47,8 @@ classdef BestClassifierEnsemble < Classifier
     %
     
     properties
+        paths;
+        loadMatchingClassifier;
         samplesetPath;
         multithreadingClassification;
         featureExtractors;
@@ -69,16 +63,22 @@ classdef BestClassifierEnsemble < Classifier
     methods
         
         function obj = BestClassifierEnsemble(baseClassifierPaths, ...
-                votingMode, multithreadingClassification, samplesetPath)
-            'begin'
+                votingMode, loadMatchingClassifier, ...
+                multithreadingClassification, samplesetPath)
+            obj.paths = baseClassifierPaths;
+            
+            obj.loadMatchingClassifier = loadMatchingClassifier;
             
             obj.samplesetPath = samplesetPath;
             
-            'begin load'
-            [baseClassifiers, featureExtractors, accuracies] = ...
-                obj.loadClassifier(baseClassifierPaths); 
-            'loading finished'
-            obj.featureExtractors = featureExtractors;
+            if ~obj.loadMatchingClassifier
+                [baseClassifiers, featureExtractors, accuracies] = ...
+                    obj.loadClassifier(baseClassifierPaths); 
+            else
+                [baseClassifiers, featureExtractors, accuracies] = ...
+                    obj.loadMatchingFoldClassifier(baseClassifierPaths, 1); 
+            end
+            
             
             obj.votingMode = votingMode;
             obj.multithreadingClassification = ...
@@ -93,18 +93,20 @@ classdef BestClassifierEnsemble < Classifier
                         'uniformoutput', 0);
             
             % copy the classifier
+            obj.featureExtractors = featureExtractors;
             obj.baseClassifiers = baseClassifiers;
             
-            if obj.votingMode ~= VotingMode.Majority
-                obj.weights = ones(size(accuracies));
-            elseif obj.votingMode == VotingMode.Presidential
-                [~, bestClassifier] = max(accuracies);
-                obj.weights = ones(size(accuracies));
-                obj.weights(bestClassifier) = numel(accuracies) - 0.5;
-            else
-                obj.weights = normalizeRating( accuracies, [0.1,0.9] );
+            if ~obj.loadMatchingClassifier
+                if obj.votingMode ~= VotingMode.Majority
+                    obj.weights = ones(size(accuracies));
+                elseif obj.votingMode == VotingMode.Presidential
+                    [~, bestClassifier] = max(accuracies);
+                    obj.weights = ones(size(accuracies));
+                    obj.weights(bestClassifier) = numel(accuracies) - 0.5;
+                else
+                    obj.weights = normalizeRating( accuracies, [0.1,0.9] );
+                end
             end
-            'end'
         end
         
         
@@ -137,7 +139,27 @@ classdef BestClassifierEnsemble < Classifier
         end
         
         function predictedLabelMap = ...
-                classifyOn(obj, evalFeatureCube, maskMap)
+                classifyOn(obj, evalFeatureCube, maskMap, foldNr)
+            
+            
+            if obj.loadMatchingClassifier
+                [baseClassifiers, featureExtractors, accuracies] = ...
+                    obj.loadMatchingFoldClassifier(obj.paths, foldNr); 
+            
+                obj.featureExtractors = featureExtractors;
+                obj.baseClassifiers = baseClassifiers;
+                
+                if obj.votingMode ~= VotingMode.Majority
+                    obj.weights = ones(size(accuracies));
+                elseif obj.votingMode == VotingMode.Presidential
+                    [~, bestClassifier] = max(accuracies);
+                    obj.weights = ones(size(accuracies));
+                    obj.weights(bestClassifier) = numel(accuracies) - 0.5;
+                else
+                    obj.weights = normalizeRating( accuracies, [0.1,0.9] );
+                end
+            end
+            
             
             % let each classifier predict
             concatenatedLabels = ...
@@ -170,6 +192,7 @@ classdef BestClassifierEnsemble < Classifier
                     
             if obj.multithreadingClassification
                 classifier = obj.baseClassifiers;
+                extractors = obj.featureExtractors;
                 accumulatedLabels = cell(length(classifier),1);
                 parfor i = 1:length(classifier)
                     newFeatureCube = applyFeatureExtraction(...
@@ -190,6 +213,8 @@ classdef BestClassifierEnsemble < Classifier
                         maskMap, ...
                         obj.featureExtractors{i}, ...
                         obj.samplesetPath);
+                    
+                    
                     accumulatedLabels{i} = ...
                         classifier{i}.classifyOn(...
                             newFeatureCube, maskMap);
@@ -202,13 +227,13 @@ classdef BestClassifierEnsemble < Classifier
         end
         
         function [bC, fE, w] = loadClassifier(obj, baseClassifierPaths)
+           bC = cell(size(baseClassifierPaths));
+           fE = cell(size(baseClassifierPaths));
+           w = zeros(size(baseClassifierPaths));
+           
             for i = 1:numel(baseClassifierPaths)
                p = baseClassifierPaths{i};
                [d,f,e] = fileparts(p);
-               
-               bC = cell(size(baseClassifierPaths));
-               fE = cell(size(baseClassifierPaths));
-               w = cell(size(baseClassifierPaths));
                
                if(isempty(f))
                    searchStr = [d '/model_*'];
@@ -216,10 +241,11 @@ classdef BestClassifierEnsemble < Classifier
                    modelFilePaths = {modelFilePaths.name};
                    accuracies = zeros(size(modelFilePaths));
                    for j = 1:numel(modelFilePaths)
-                      modelFile = load([d '/' modelFilePaths{j}]);
+                      modelFile = ...
+                          load([d '/' modelFilePaths{j}], 'confMat');
                       cMat = modelFile.confMat;
                       accuracies(j) =  ...
-                          Evaluator.getAccuracy(cMat(2:end, 2:end));
+                          Evaluator.getAccuracy(cMat);
                    end
                    [~, bestClassifierIndex] = max(accuracies);
                    f = modelFilePaths{bestClassifierIndex};
@@ -238,8 +264,19 @@ classdef BestClassifierEnsemble < Classifier
                
                bC{i} = classifier;
                fE{i} = featureExtractors;
-               w{i} = accuracy;
+               w(i) = accuracy;
             end
+        end
+        
+        function [bC, fE, w] = ...
+                loadMatchingFoldClassifier(obj, baseClassifierPaths, fold)
+            paths = baseClassifierPaths;
+            for i = 1:numel(baseClassifierPaths)
+                paths{i} = [paths{i} 'model_' num2str(fold)];
+            end
+            
+            disp(['load ' paths])
+            [bC,fE,w] = loadClassifier(obj,paths);
         end
     end
     

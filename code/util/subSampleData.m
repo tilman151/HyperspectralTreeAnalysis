@@ -12,7 +12,8 @@ function [ subsampleIndices ] = subSampleData( labels, p, ...
 %                              training subsamples should 
 %                              be approximately the same as
 %                              the original distribution
-numData = numel(labels);
+
+numData = numel(labels); %number of labels
 
 if remainClassDistribution
     indices = 1:numData;
