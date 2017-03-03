@@ -169,7 +169,6 @@ classdef TSVM < Classifier
                 otherwise
                     logger.error('t-SVM', ['Currently only one-vs-one '...
                         'coding is supported for t-SVMs!']);
-                    exit;
             end
         end
         
