@@ -42,10 +42,11 @@ else
         end
        
         %%%% eliminate from dataset a random subset of classes %%%
-        rateeliminate=0.08;
-        [AsubX,AsubY]=randomsub([trainX_subset,labelList],rateeliminate);
+        rateeliminate=0.8;
+        subSampleIndizes = subSampleClasses(labelList,rateeliminate);
         %%%% using bootstrap algorithm to obtain subset of samples (����bootstrap����) %%%%
-        [trainX_subset_new,~,~]=bootstrapal(AsubX,AsubY,Ratio);
+        [newIndizes] = subSampleData(labelList(subSampleIndizes), Ratio, true);
+        trainX_subset_new = trainX_subset(subSampleIndizes(newIndizes), : );
         %%%% using PCA to transform samples  %%%%
         Coeff=pcasky(trainX_subset_new); 
         coeff = pca(trainX_subset_new);
@@ -63,6 +64,6 @@ else
         end
     end
 
-    R_coeff = R_new1; %oder R_coeff nutzen
+    R_coeff = labelList(subSampleIndizes); %oder R_coeff nutzen
 end
 

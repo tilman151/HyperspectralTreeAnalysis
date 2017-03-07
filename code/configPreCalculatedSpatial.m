@@ -10,7 +10,8 @@ randomForest20Config = @() RandomForest(20);
 randomForest100Config = @() RandomForest(100);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest22Config = @() RotationForest(2,2);
+rotationForest20Config = @() RotationForest(1,20);
+rotationForest100Config = @() RotationForest(100,2);
 
 % SVM - Parameters: KernelFunction, PolynomialOrder, Coding
 svmLinearConfig = @() SVM(...
@@ -38,9 +39,10 @@ tsvmLinearConfig = @() TSVM(...
 
 % Convolutional Network - Parameters: cudnn, gpus, numEpochs
 convNetConfig = @() ConvNet(...
-    'cudnn', false, ...
-    'gpus', [], ...
-    'numEpochs', 20);
+    'cudnn', true, ...
+    'gpus', [1], ...
+    'numEpochs', 2000, ...
+    'plotErrorRates', true);
 
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
@@ -94,17 +96,11 @@ randomForestOutputRegConfig = @() OutputRegularizer(...
 
 % SELD - Parameters: k, numDimensions
 seld20_5Config = @() SELD(20, 5);
-seld40_5Config = @() SELD(40, 5);
-seld60_5Config = @() SELD(60, 5);
 seld20_14Config = @() SELD(20, 14);
-seld40_14Config = @() SELD(40, 14);
-seld60_14Config = @() SELD(60, 14);
 
 % PCA - Parameters: numDimensions
-pca1Config = @() PCA(1);
 pca5Config = @() PCA(5);
-pca20Config = @() PCA(20);
-pca25Config = @() PCA(25);
+pca14Config = @() PCA(14);
 
 % MulticlassLda
 mcldaConfig_5 = @() MulticlassLda(5);
@@ -114,37 +110,35 @@ mcldaConfig_14 = @() MulticlassLda(14);
 continuumRemoval= @() ContinuumRemoval(true);
 
 % SpatialFeatureExtractor - Parameters: radius, implementationType
-spatialFeatureExtractorConfig_20= @() SpatialFeatureExtractor(20, 2);
-spatialFeatureExtractorConfig_15= @() SpatialFeatureExtractor(15, 2);
-spatialFeatureExtractorConfig_10= @() SpatialFeatureExtractor(10, 2);
 spatialFeatureExtractorConfig_5= @() SpatialFeatureExtractor(5, 1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Experiment configurations
 
-global NUMCLASSES;
-NUMCLASSES = 24;
 
-CLASSIFIER = svmLibLinearConfig();
-
-EXTRACTORS = {mcldaConfig_14(), spatialFeatureExtractorConfig_5()};
-EXTRACTORS = cellfun(@(x) NoFeatureExtraction(x), ...
-                     EXTRACTORS, ...
-                     'uniformoutput', false);
-EXTRACTORS_PATHs = ...
-    cellfun(@(x) x.toShortString(), EXTRACTORS, 'uniformoutput', false);
-
-DATA_SET_PATH = ...
-        '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
-DATA_SET_PATH = [fullfile(DATA_SET_PATH, EXTRACTORS_PATHs{:}) '\\'];
 
 SAMPLE_SET_PATH = ...
         ['../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/' ...
             'Samplesets/sampleset_012.mat'];
 
+
         
+global NUMCLASSES;
+NUMCLASSES = 24;
+
+CLASSIFIER = randomForest100Config();
+
+EXTRACTORS = {Indices(), spatialFeatureExtractorConfig_5()};
+EXTRACTORS = cellfun(@(x) NoFeatureExtraction(x), ...
+                     EXTRACTORS, ...
+                     'uniformoutput', false);
+EXTRACTORS_PATHs = ...
+    cellfun(@(x) x.toShortString(), EXTRACTORS, 'uniformoutput', false);
         
-        
+DATA_SET_PATH = ...
+        '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
+DATA_SET_PATH = [fullfile(DATA_SET_PATH, EXTRACTORS_PATHs{:}) '\\'];
+
 RESULTS_PATH = '../results/';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,6 +157,5 @@ LOG_LEVEL = 0;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
-VISUALIZE_PREDICTED_LABELS = false;
-VISUALIZE_PREDICTED_LABELS_WITH_GROUND_TRUTH = true;
+VISUALIZE_PREDICTED_LABELS = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
