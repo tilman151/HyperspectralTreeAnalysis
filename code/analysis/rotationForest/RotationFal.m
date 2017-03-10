@@ -48,8 +48,8 @@ else
         [newIndizes] = subSampleData(labelList(subSampleIndizes), Ratio, true);
         trainX_subset_new = trainX_subset(subSampleIndizes(newIndizes), : );
         %%%% using PCA to transform samples  %%%%
-        Coeff=pcasky(trainX_subset_new); 
-        coeff = pca(trainX_subset_new);
+   %     Coeff=pcasky(trainX_subset_new); 
+        Coeff = pca(trainX_subset_new);
         number3=number1+size(Coeff,2);
         R_coeff(number1+1:number2,number1+1:number3)=Coeff;
     end
