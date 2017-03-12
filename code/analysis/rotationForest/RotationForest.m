@@ -20,7 +20,7 @@ classdef RotationForest < ExampleClassifier
     %    trainOn .... See documentation in superclass Classifier.
     %    classifyOn . See documentation in superclass Classifier.
     %
-    % Version: 2017-01-11
+    % Version: 2018-01-03
     % Author: Viola Hauffe
     %
     properties
@@ -61,7 +61,7 @@ classdef RotationForest < ExampleClassifier
         end
         
         function str = toShortString(obj)
-            str = ['RotationForest_' int2str(obj.numTrees) '' int2str(obj.splitParam)];
+            str = ['RotationForest_' int2str(obj.numTrees) '_' int2str(obj.splitParam)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
@@ -86,7 +86,7 @@ classdef RotationForest < ExampleClassifier
                 %%%% obtain new samples %%%%
  
                 trainRFnew=featureList*R_new;
-                tree = fitctree(trainRFnew,labelList);
+                tree = compact(fitctree(trainRFnew,labelList));
                 obj.treeEnsemble{l} = tree;
                 obj.matrixTransform{l} = R_new;
             end

@@ -10,7 +10,7 @@ randomForest20Config = @() RandomForest(20);
 randomForest100Config = @() RandomForest(100);
 
 % Rotation Forest - Parameters: numTrees, splitParameter
-rotationForest1002Config = @() RotationForest(100,2);
+rotationForest202Config = @() RotationForest(20,2);
 
 % SVM - Parameters: Coding
 svmConfig = @() SVMsvmlin(...
@@ -23,12 +23,14 @@ tsvmLinearConfig = @() TSVM(...
 
 % Convolutional Network - Parameters: cudnn, gpus, numEpochs
 convNetConfig = @() ConvNet(...
-    'cudnn', false, ...
-    'gpus', [], ...
+    'cudnn', true, ...
+    'gpus', [1], ...
     'numEpochs', 500, ...
     'plotErrorRates', true, ...
     'stoppingEpochWindow', 100, ...
-    'stoppingErrorMargin', 0.005);
+    'stoppingErrorMargin', 0.005, ...
+    'dropoutRate', 0.0, ...
+    'doPooling', true);
 
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
@@ -116,7 +118,7 @@ indicesConfig = @() Indices();
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = svmConfig();
+CLASSIFIER = rotationForest202Config();
 
 EXTRACTORS = {mclda5Config()};
 
@@ -142,7 +144,7 @@ RESULTS_PATH = '../results/';
 % ERROR = 5
 % FATAL = 6
 % OFF   = 7
-LOG_LEVEL = 0;
+LOG_LEVEL = 3;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
