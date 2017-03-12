@@ -35,6 +35,8 @@ function opts = setOpts(varargin)
     p.addParameter('profile', false);
     p.addParameter('filterSize', 5);
     p.addParameter('sampleSize', 21);
+    p.addParameter('dropoutRate', 0.5);
+    p.addParameter('doPooling', false);
 
     p.addParameter('conserveMemory', true);
     p.addParameter('backPropDepth', +inf);

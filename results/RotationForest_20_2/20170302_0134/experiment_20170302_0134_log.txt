@@ -1,0 +1,601 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	RotationForest (numTrees: 20, splitParam:2)
+Extractors:	
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/Samplesets/sampleset_012.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+        27         46         27         46         27         46         27         46         27         46
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+        28         29          4         29         28         26         28         29          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        30         47         30         47         30         47         30         47         30         47
+        31         48         31         48         31         48         31         48         31         48
+        32         49         32         49         32         49         32         49         32         49
+        33         34         33         34         33         34         33         34         33         34
+        35         50         35         50         35         50         35         50         35         50
+         0          0          0          0          0          0          0          0          0          0
+        41         40         44         41         43         40         39         43         36         37
+        45         51         45         51         45         51         45         51         45         51
+--------------------------------------------
+Started: 02-Mar-2017 01:34:18
+2017-03-02 01:34:18,595 INFO  runExperiment - Iteration 1
+2017-03-02 01:34:18,602 DEBUG runExperiment - Loading training set...
+2017-03-02 01:34:24,103 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 01:34:24,105 DEBUG runExperiment - Training classifier...
+2017-03-02 01:34:24,385 DEBUG RotationForest - Train Tree1
+2017-03-02 01:38:51,659 DEBUG RotationForest - Train Tree2
+2017-03-02 01:43:29,359 DEBUG RotationForest - Train Tree3
+2017-03-02 01:48:00,877 DEBUG RotationForest - Train Tree4
+2017-03-02 01:52:31,439 DEBUG RotationForest - Train Tree5
+2017-03-02 01:57:02,416 DEBUG RotationForest - Train Tree6
+2017-03-02 02:01:32,707 DEBUG RotationForest - Train Tree7
+2017-03-02 02:06:13,834 DEBUG RotationForest - Train Tree8
+2017-03-02 02:10:40,894 DEBUG RotationForest - Train Tree9
+2017-03-02 02:15:07,545 DEBUG RotationForest - Train Tree10
+2017-03-02 02:19:43,815 DEBUG RotationForest - Train Tree11
+2017-03-02 02:24:03,828 DEBUG RotationForest - Train Tree12
+2017-03-02 02:28:37,528 DEBUG RotationForest - Train Tree13
+2017-03-02 02:33:00,804 DEBUG RotationForest - Train Tree14
+2017-03-02 02:37:27,772 DEBUG RotationForest - Train Tree15
+2017-03-02 02:41:50,965 DEBUG RotationForest - Train Tree16
+2017-03-02 02:46:22,398 DEBUG RotationForest - Train Tree17
+2017-03-02 02:50:55,364 DEBUG RotationForest - Train Tree18
+2017-03-02 02:55:24,705 DEBUG RotationForest - Train Tree19
+2017-03-02 02:59:58,385 DEBUG RotationForest - Train Tree20
+2017-03-02 03:04:28,666 INFO  runExperiment - Classifier trained
+2017-03-02 03:04:28,675 DEBUG runExperiment - Loading test set...
+2017-03-02 03:04:32,615 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 03:04:32,618 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 03:04:35,462 DEBUG RotationForest - predict with tree1
+2017-03-02 03:04:37,776 DEBUG RotationForest - predict with tree2
+2017-03-02 03:04:40,053 DEBUG RotationForest - predict with tree3
+2017-03-02 03:04:42,347 DEBUG RotationForest - predict with tree4
+2017-03-02 03:04:44,727 DEBUG RotationForest - predict with tree5
+2017-03-02 03:04:47,119 DEBUG RotationForest - predict with tree6
+2017-03-02 03:04:49,484 DEBUG RotationForest - predict with tree7
+2017-03-02 03:04:51,877 DEBUG RotationForest - predict with tree8
+2017-03-02 03:04:54,254 DEBUG RotationForest - predict with tree9
+2017-03-02 03:04:56,628 DEBUG RotationForest - predict with tree10
+2017-03-02 03:04:59,023 DEBUG RotationForest - predict with tree11
+2017-03-02 03:05:01,381 DEBUG RotationForest - predict with tree12
+2017-03-02 03:05:03,731 DEBUG RotationForest - predict with tree13
+2017-03-02 03:05:06,084 DEBUG RotationForest - predict with tree14
+2017-03-02 03:05:08,474 DEBUG RotationForest - predict with tree15
+2017-03-02 03:05:10,811 DEBUG RotationForest - predict with tree16
+2017-03-02 03:05:13,204 DEBUG RotationForest - predict with tree17
+2017-03-02 03:05:15,575 DEBUG RotationForest - predict with tree18
+2017-03-02 03:05:17,965 DEBUG RotationForest - predict with tree19
+2017-03-02 03:05:20,342 DEBUG RotationForest - predict with tree20
+2017-03-02 03:05:21,519 INFO  runExperiment - Test instances classified
+2017-03-02 03:05:21,522 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 03:05:21,920 INFO  runExperiment - Current accuracy: 0.537
+2017-03-02 03:05:31,607 DEBUG runExperiment - Saved classifier
+2017-03-02 03:05:31,613 INFO  runExperiment - Iteration 2
+2017-03-02 03:05:31,614 DEBUG runExperiment - Loading training set...
+2017-03-02 03:05:37,375 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 03:05:37,376 DEBUG runExperiment - Training classifier...
+2017-03-02 03:05:37,553 DEBUG RotationForest - Train Tree1
+2017-03-02 03:11:03,068 DEBUG RotationForest - Train Tree2
+2017-03-02 03:16:32,767 DEBUG RotationForest - Train Tree3
+2017-03-02 03:21:48,541 DEBUG RotationForest - Train Tree4
+2017-03-02 03:27:29,225 DEBUG RotationForest - Train Tree5
+2017-03-02 03:32:52,132 DEBUG RotationForest - Train Tree6
+2017-03-02 03:38:14,476 DEBUG RotationForest - Train Tree7
+2017-03-02 03:43:16,686 DEBUG RotationForest - Train Tree8
+2017-03-02 03:48:44,843 DEBUG RotationForest - Train Tree9
+2017-03-02 03:54:09,576 DEBUG RotationForest - Train Tree10
+2017-03-02 03:59:32,750 DEBUG RotationForest - Train Tree11
+2017-03-02 04:04:42,647 DEBUG RotationForest - Train Tree12
+2017-03-02 04:10:16,065 DEBUG RotationForest - Train Tree13
+2017-03-02 04:15:44,547 DEBUG RotationForest - Train Tree14
+2017-03-02 04:21:20,206 DEBUG RotationForest - Train Tree15
+2017-03-02 04:26:25,418 DEBUG RotationForest - Train Tree16
+2017-03-02 04:31:57,565 DEBUG RotationForest - Train Tree17
+2017-03-02 04:36:55,168 DEBUG RotationForest - Train Tree18
+2017-03-02 04:42:20,476 DEBUG RotationForest - Train Tree19
+2017-03-02 04:47:38,337 DEBUG RotationForest - Train Tree20
+2017-03-02 04:52:51,304 INFO  runExperiment - Classifier trained
+2017-03-02 04:52:51,311 DEBUG runExperiment - Loading test set...
+2017-03-02 04:52:54,604 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 04:52:54,605 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 04:52:56,218 DEBUG RotationForest - predict with tree1
+2017-03-02 04:52:57,452 DEBUG RotationForest - predict with tree2
+2017-03-02 04:52:58,689 DEBUG RotationForest - predict with tree3
+2017-03-02 04:52:59,927 DEBUG RotationForest - predict with tree4
+2017-03-02 04:53:01,192 DEBUG RotationForest - predict with tree5
+2017-03-02 04:53:02,507 DEBUG RotationForest - predict with tree6
+2017-03-02 04:53:03,828 DEBUG RotationForest - predict with tree7
+2017-03-02 04:53:05,150 DEBUG RotationForest - predict with tree8
+2017-03-02 04:53:06,742 DEBUG RotationForest - predict with tree9
+2017-03-02 04:53:08,072 DEBUG RotationForest - predict with tree10
+2017-03-02 04:53:09,378 DEBUG RotationForest - predict with tree11
+2017-03-02 04:53:10,691 DEBUG RotationForest - predict with tree12
+2017-03-02 04:53:12,006 DEBUG RotationForest - predict with tree13
+2017-03-02 04:53:13,317 DEBUG RotationForest - predict with tree14
+2017-03-02 04:53:14,615 DEBUG RotationForest - predict with tree15
+2017-03-02 04:53:15,941 DEBUG RotationForest - predict with tree16
+2017-03-02 04:53:17,245 DEBUG RotationForest - predict with tree17
+2017-03-02 04:53:18,560 DEBUG RotationForest - predict with tree18
+2017-03-02 04:53:19,876 DEBUG RotationForest - predict with tree19
+2017-03-02 04:53:21,186 DEBUG RotationForest - predict with tree20
+2017-03-02 04:53:21,653 INFO  runExperiment - Test instances classified
+2017-03-02 04:53:21,655 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 04:53:21,797 INFO  runExperiment - Current accuracy: 0.491
+2017-03-02 04:53:32,106 DEBUG runExperiment - Saved classifier
+2017-03-02 04:53:32,113 INFO  runExperiment - Iteration 3
+2017-03-02 04:53:32,115 DEBUG runExperiment - Loading training set...
+2017-03-02 04:53:36,571 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 04:53:36,573 DEBUG runExperiment - Training classifier...
+2017-03-02 04:53:36,712 DEBUG RotationForest - Train Tree1
+2017-03-02 04:57:59,146 DEBUG RotationForest - Train Tree2
+2017-03-02 05:02:20,280 DEBUG RotationForest - Train Tree3
+2017-03-02 05:06:49,273 DEBUG RotationForest - Train Tree4
+2017-03-02 05:11:23,839 DEBUG RotationForest - Train Tree5
+2017-03-02 05:15:46,170 DEBUG RotationForest - Train Tree6
+2017-03-02 05:20:08,740 DEBUG RotationForest - Train Tree7
+2017-03-02 05:24:27,222 DEBUG RotationForest - Train Tree8
+2017-03-02 05:28:55,518 DEBUG RotationForest - Train Tree9
+2017-03-02 05:33:25,810 DEBUG RotationForest - Train Tree10
+2017-03-02 05:37:56,253 DEBUG RotationForest - Train Tree11
+2017-03-02 05:42:19,883 DEBUG RotationForest - Train Tree12
+2017-03-02 05:46:41,794 DEBUG RotationForest - Train Tree13
+2017-03-02 05:51:05,175 DEBUG RotationForest - Train Tree14
+2017-03-02 05:55:28,499 DEBUG RotationForest - Train Tree15
+2017-03-02 05:59:53,482 DEBUG RotationForest - Train Tree16
+2017-03-02 06:04:21,475 DEBUG RotationForest - Train Tree17
+2017-03-02 06:08:42,408 DEBUG RotationForest - Train Tree18
+2017-03-02 06:13:07,597 DEBUG RotationForest - Train Tree19
+2017-03-02 06:17:35,093 DEBUG RotationForest - Train Tree20
+2017-03-02 06:21:59,062 INFO  runExperiment - Classifier trained
+2017-03-02 06:21:59,069 DEBUG runExperiment - Loading test set...
+2017-03-02 06:22:03,555 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 06:22:03,557 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 06:22:07,207 DEBUG RotationForest - predict with tree1
+2017-03-02 06:22:09,965 DEBUG RotationForest - predict with tree2
+2017-03-02 06:22:12,713 DEBUG RotationForest - predict with tree3
+2017-03-02 06:22:15,529 DEBUG RotationForest - predict with tree4
+2017-03-02 06:22:18,400 DEBUG RotationForest - predict with tree5
+2017-03-02 06:22:21,240 DEBUG RotationForest - predict with tree6
+2017-03-02 06:22:24,147 DEBUG RotationForest - predict with tree7
+2017-03-02 06:22:26,972 DEBUG RotationForest - predict with tree8
+2017-03-02 06:22:29,875 DEBUG RotationForest - predict with tree9
+2017-03-02 06:22:32,710 DEBUG RotationForest - predict with tree10
+2017-03-02 06:22:35,571 DEBUG RotationForest - predict with tree11
+2017-03-02 06:22:38,385 DEBUG RotationForest - predict with tree12
+2017-03-02 06:22:41,300 DEBUG RotationForest - predict with tree13
+2017-03-02 06:22:44,223 DEBUG RotationForest - predict with tree14
+2017-03-02 06:22:47,075 DEBUG RotationForest - predict with tree15
+2017-03-02 06:22:50,295 DEBUG RotationForest - predict with tree16
+2017-03-02 06:22:53,548 DEBUG RotationForest - predict with tree17
+2017-03-02 06:22:56,422 DEBUG RotationForest - predict with tree18
+2017-03-02 06:22:59,290 DEBUG RotationForest - predict with tree19
+2017-03-02 06:23:02,159 DEBUG RotationForest - predict with tree20
+2017-03-02 06:23:03,523 INFO  runExperiment - Test instances classified
+2017-03-02 06:23:03,525 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 06:23:03,770 INFO  runExperiment - Current accuracy: 0.520
+2017-03-02 06:23:12,955 DEBUG runExperiment - Saved classifier
+2017-03-02 06:23:12,963 INFO  runExperiment - Iteration 4
+2017-03-02 06:23:12,964 DEBUG runExperiment - Loading training set...
+2017-03-02 06:23:18,876 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 06:23:18,878 DEBUG runExperiment - Training classifier...
+2017-03-02 06:23:19,053 DEBUG RotationForest - Train Tree1
+2017-03-02 06:28:23,079 DEBUG RotationForest - Train Tree2
+2017-03-02 06:33:51,734 DEBUG RotationForest - Train Tree3
+2017-03-02 06:39:25,231 DEBUG RotationForest - Train Tree4
+2017-03-02 06:44:54,859 DEBUG RotationForest - Train Tree5
+2017-03-02 06:50:21,742 DEBUG RotationForest - Train Tree6
+2017-03-02 06:55:44,821 DEBUG RotationForest - Train Tree7
+2017-03-02 07:01:06,006 DEBUG RotationForest - Train Tree8
+2017-03-02 07:06:42,724 DEBUG RotationForest - Train Tree9
+2017-03-02 07:11:57,042 DEBUG RotationForest - Train Tree10
+2017-03-02 07:17:23,117 DEBUG RotationForest - Train Tree11
+2017-03-02 07:22:44,420 DEBUG RotationForest - Train Tree12
+2017-03-02 07:28:12,417 DEBUG RotationForest - Train Tree13
+2017-03-02 07:33:30,763 DEBUG RotationForest - Train Tree14
+2017-03-02 07:38:57,245 DEBUG RotationForest - Train Tree15
+2017-03-02 07:44:29,839 DEBUG RotationForest - Train Tree16
+2017-03-02 07:49:52,514 DEBUG RotationForest - Train Tree17
+2017-03-02 07:55:16,356 DEBUG RotationForest - Train Tree18
+2017-03-02 08:01:13,431 DEBUG RotationForest - Train Tree19
+2017-03-02 08:07:38,148 DEBUG RotationForest - Train Tree20
+2017-03-02 08:13:27,257 INFO  runExperiment - Classifier trained
+2017-03-02 08:13:27,263 DEBUG runExperiment - Loading test set...
+2017-03-02 08:13:33,178 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 08:13:33,179 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 08:13:38,416 DEBUG RotationForest - predict with tree1
+2017-03-02 08:13:40,888 DEBUG RotationForest - predict with tree2
+2017-03-02 08:13:44,348 DEBUG RotationForest - predict with tree3
+2017-03-02 08:13:47,019 DEBUG RotationForest - predict with tree4
+2017-03-02 08:13:50,178 DEBUG RotationForest - predict with tree5
+2017-03-02 08:13:53,080 DEBUG RotationForest - predict with tree6
+2017-03-02 08:13:55,720 DEBUG RotationForest - predict with tree7
+2017-03-02 08:13:58,269 DEBUG RotationForest - predict with tree8
+2017-03-02 08:14:00,812 DEBUG RotationForest - predict with tree9
+2017-03-02 08:14:03,522 DEBUG RotationForest - predict with tree10
+2017-03-02 08:14:06,736 DEBUG RotationForest - predict with tree11
+2017-03-02 08:14:09,265 DEBUG RotationForest - predict with tree12
+2017-03-02 08:14:12,092 DEBUG RotationForest - predict with tree13
+2017-03-02 08:14:15,129 DEBUG RotationForest - predict with tree14
+2017-03-02 08:14:18,153 DEBUG RotationForest - predict with tree15
+2017-03-02 08:14:20,972 DEBUG RotationForest - predict with tree16
+2017-03-02 08:14:23,621 DEBUG RotationForest - predict with tree17
+2017-03-02 08:14:27,088 DEBUG RotationForest - predict with tree18
+2017-03-02 08:14:30,180 DEBUG RotationForest - predict with tree19
+2017-03-02 08:14:32,898 DEBUG RotationForest - predict with tree20
+2017-03-02 08:14:34,699 INFO  runExperiment - Test instances classified
+2017-03-02 08:14:34,701 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 08:14:35,539 INFO  runExperiment - Current accuracy: 0.520
+2017-03-02 08:14:51,485 DEBUG runExperiment - Saved classifier
+2017-03-02 08:14:52,014 INFO  runExperiment - Iteration 5
+2017-03-02 08:14:52,017 DEBUG runExperiment - Loading training set...
+2017-03-02 08:14:56,964 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 08:14:56,966 DEBUG runExperiment - Training classifier...
+2017-03-02 08:14:57,131 DEBUG RotationForest - Train Tree1
+2017-03-02 08:19:26,531 DEBUG RotationForest - Train Tree2
+2017-03-02 08:23:41,821 DEBUG RotationForest - Train Tree3
+2017-03-02 08:27:44,794 DEBUG RotationForest - Train Tree4
+2017-03-02 08:31:58,413 DEBUG RotationForest - Train Tree5
+2017-03-02 08:36:12,908 DEBUG RotationForest - Train Tree6
+2017-03-02 08:40:33,789 DEBUG RotationForest - Train Tree7
+2017-03-02 08:44:48,371 DEBUG RotationForest - Train Tree8
+2017-03-02 08:49:10,515 DEBUG RotationForest - Train Tree9
+2017-03-02 08:53:32,044 DEBUG RotationForest - Train Tree10
+2017-03-02 08:57:48,568 DEBUG RotationForest - Train Tree11
+2017-03-02 09:02:07,975 DEBUG RotationForest - Train Tree12
+2017-03-02 09:06:31,155 DEBUG RotationForest - Train Tree13
+2017-03-02 09:10:54,937 DEBUG RotationForest - Train Tree14
+2017-03-02 09:15:14,144 DEBUG RotationForest - Train Tree15
+2017-03-02 09:19:33,487 DEBUG RotationForest - Train Tree16
+2017-03-02 09:23:52,875 DEBUG RotationForest - Train Tree17
+2017-03-02 09:28:16,618 DEBUG RotationForest - Train Tree18
+2017-03-02 09:32:36,801 DEBUG RotationForest - Train Tree19
+2017-03-02 09:36:59,306 DEBUG RotationForest - Train Tree20
+2017-03-02 09:41:21,993 INFO  runExperiment - Classifier trained
+2017-03-02 09:41:22,000 DEBUG runExperiment - Loading test set...
+2017-03-02 09:41:26,572 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 09:41:26,573 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 09:41:29,874 DEBUG RotationForest - predict with tree1
+2017-03-02 09:41:32,273 DEBUG RotationForest - predict with tree2
+2017-03-02 09:41:34,552 DEBUG RotationForest - predict with tree3
+2017-03-02 09:41:36,976 DEBUG RotationForest - predict with tree4
+2017-03-02 09:41:39,949 DEBUG RotationForest - predict with tree5
+2017-03-02 09:41:42,329 DEBUG RotationForest - predict with tree6
+2017-03-02 09:41:44,751 DEBUG RotationForest - predict with tree7
+2017-03-02 09:41:47,116 DEBUG RotationForest - predict with tree8
+2017-03-02 09:41:49,514 DEBUG RotationForest - predict with tree9
+2017-03-02 09:41:51,884 DEBUG RotationForest - predict with tree10
+2017-03-02 09:41:54,257 DEBUG RotationForest - predict with tree11
+2017-03-02 09:41:56,657 DEBUG RotationForest - predict with tree12
+2017-03-02 09:41:59,072 DEBUG RotationForest - predict with tree13
+2017-03-02 09:42:01,466 DEBUG RotationForest - predict with tree14
+2017-03-02 09:42:03,834 DEBUG RotationForest - predict with tree15
+2017-03-02 09:42:06,228 DEBUG RotationForest - predict with tree16
+2017-03-02 09:42:08,597 DEBUG RotationForest - predict with tree17
+2017-03-02 09:42:10,952 DEBUG RotationForest - predict with tree18
+2017-03-02 09:42:13,342 DEBUG RotationForest - predict with tree19
+2017-03-02 09:42:15,735 DEBUG RotationForest - predict with tree20
+2017-03-02 09:42:16,566 INFO  runExperiment - Test instances classified
+2017-03-02 09:42:16,568 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 09:42:16,810 INFO  runExperiment - Current accuracy: 0.455
+2017-03-02 09:42:26,152 DEBUG runExperiment - Saved classifier
+2017-03-02 09:42:26,160 INFO  runExperiment - Iteration 6
+2017-03-02 09:42:26,163 DEBUG runExperiment - Loading training set...
+2017-03-02 09:42:31,542 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 09:42:31,543 DEBUG runExperiment - Training classifier...
+2017-03-02 09:42:31,722 DEBUG RotationForest - Train Tree1
+2017-03-02 09:48:02,736 DEBUG RotationForest - Train Tree2
+2017-03-02 09:53:31,766 DEBUG RotationForest - Train Tree3
+2017-03-02 09:58:54,736 DEBUG RotationForest - Train Tree4
+2017-03-02 10:04:30,954 DEBUG RotationForest - Train Tree5
+2017-03-02 10:09:54,891 DEBUG RotationForest - Train Tree6
+2017-03-02 10:14:57,623 DEBUG RotationForest - Train Tree7
+2017-03-02 10:20:18,710 DEBUG RotationForest - Train Tree8
+2017-03-02 10:25:45,872 DEBUG RotationForest - Train Tree9
+2017-03-02 10:31:31,485 DEBUG RotationForest - Train Tree10
+2017-03-02 10:37:07,051 DEBUG RotationForest - Train Tree11
+2017-03-02 10:42:26,913 DEBUG RotationForest - Train Tree12
+2017-03-02 10:48:03,895 DEBUG RotationForest - Train Tree13
+2017-03-02 10:53:44,646 DEBUG RotationForest - Train Tree14
+2017-03-02 10:59:15,598 DEBUG RotationForest - Train Tree15
+2017-03-02 11:04:54,736 DEBUG RotationForest - Train Tree16
+2017-03-02 11:10:44,753 DEBUG RotationForest - Train Tree17
+2017-03-02 11:16:27,626 DEBUG RotationForest - Train Tree18
+2017-03-02 11:21:46,768 DEBUG RotationForest - Train Tree19
+2017-03-02 11:27:19,937 DEBUG RotationForest - Train Tree20
+2017-03-02 11:32:43,668 INFO  runExperiment - Classifier trained
+2017-03-02 11:32:43,674 DEBUG runExperiment - Loading test set...
+2017-03-02 11:32:47,751 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 11:32:47,753 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 11:32:50,361 DEBUG RotationForest - predict with tree1
+2017-03-02 11:32:52,334 DEBUG RotationForest - predict with tree2
+2017-03-02 11:32:54,020 DEBUG RotationForest - predict with tree3
+2017-03-02 11:32:55,665 DEBUG RotationForest - predict with tree4
+2017-03-02 11:32:57,390 DEBUG RotationForest - predict with tree5
+2017-03-02 11:32:59,186 DEBUG RotationForest - predict with tree6
+2017-03-02 11:33:00,978 DEBUG RotationForest - predict with tree7
+2017-03-02 11:33:02,797 DEBUG RotationForest - predict with tree8
+2017-03-02 11:33:04,584 DEBUG RotationForest - predict with tree9
+2017-03-02 11:33:06,381 DEBUG RotationForest - predict with tree10
+2017-03-02 11:33:08,180 DEBUG RotationForest - predict with tree11
+2017-03-02 11:33:09,972 DEBUG RotationForest - predict with tree12
+2017-03-02 11:33:11,773 DEBUG RotationForest - predict with tree13
+2017-03-02 11:33:13,567 DEBUG RotationForest - predict with tree14
+2017-03-02 11:33:15,383 DEBUG RotationForest - predict with tree15
+2017-03-02 11:33:17,198 DEBUG RotationForest - predict with tree16
+2017-03-02 11:33:19,010 DEBUG RotationForest - predict with tree17
+2017-03-02 11:33:20,841 DEBUG RotationForest - predict with tree18
+2017-03-02 11:33:22,651 DEBUG RotationForest - predict with tree19
+2017-03-02 11:33:24,463 DEBUG RotationForest - predict with tree20
+2017-03-02 11:33:25,115 INFO  runExperiment - Test instances classified
+2017-03-02 11:33:25,116 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 11:33:25,332 INFO  runExperiment - Current accuracy: 0.541
+2017-03-02 11:33:36,040 DEBUG runExperiment - Saved classifier
+2017-03-02 11:33:36,046 INFO  runExperiment - Iteration 7
+2017-03-02 11:33:36,047 DEBUG runExperiment - Loading training set...
+2017-03-02 11:33:40,554 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 11:33:40,556 DEBUG runExperiment - Training classifier...
+2017-03-02 11:33:40,709 DEBUG RotationForest - Train Tree1
+2017-03-02 11:38:17,394 DEBUG RotationForest - Train Tree2
+2017-03-02 11:42:51,314 DEBUG RotationForest - Train Tree3
+2017-03-02 11:47:39,945 DEBUG RotationForest - Train Tree4
+2017-03-02 11:52:28,648 DEBUG RotationForest - Train Tree5
+2017-03-02 11:57:06,460 DEBUG RotationForest - Train Tree6
+2017-03-02 12:01:49,757 DEBUG RotationForest - Train Tree7
+2017-03-02 12:06:28,825 DEBUG RotationForest - Train Tree8
+2017-03-02 12:11:11,408 DEBUG RotationForest - Train Tree9
+2017-03-02 12:15:48,586 DEBUG RotationForest - Train Tree10
+2017-03-02 12:20:34,500 DEBUG RotationForest - Train Tree11
+2017-03-02 12:25:26,788 DEBUG RotationForest - Train Tree12
+2017-03-02 12:30:17,142 DEBUG RotationForest - Train Tree13
+2017-03-02 12:35:01,270 DEBUG RotationForest - Train Tree14
+2017-03-02 12:39:41,570 DEBUG RotationForest - Train Tree15
+2017-03-02 12:44:24,574 DEBUG RotationForest - Train Tree16
+2017-03-02 12:49:08,914 DEBUG RotationForest - Train Tree17
+2017-03-02 12:53:52,721 DEBUG RotationForest - Train Tree18
+2017-03-02 12:58:40,190 DEBUG RotationForest - Train Tree19
+2017-03-02 13:03:21,154 DEBUG RotationForest - Train Tree20
+2017-03-02 13:08:03,315 INFO  runExperiment - Classifier trained
+2017-03-02 13:08:03,322 DEBUG runExperiment - Loading test set...
+2017-03-02 13:08:07,611 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 13:08:07,612 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 13:08:10,803 DEBUG RotationForest - predict with tree1
+2017-03-02 13:08:13,359 DEBUG RotationForest - predict with tree2
+2017-03-02 13:08:15,982 DEBUG RotationForest - predict with tree3
+2017-03-02 13:08:18,690 DEBUG RotationForest - predict with tree4
+2017-03-02 13:08:21,371 DEBUG RotationForest - predict with tree5
+2017-03-02 13:08:24,053 DEBUG RotationForest - predict with tree6
+2017-03-02 13:08:26,765 DEBUG RotationForest - predict with tree7
+2017-03-02 13:08:29,449 DEBUG RotationForest - predict with tree8
+2017-03-02 13:08:32,139 DEBUG RotationForest - predict with tree9
+2017-03-02 13:08:34,826 DEBUG RotationForest - predict with tree10
+2017-03-02 13:08:37,615 DEBUG RotationForest - predict with tree11
+2017-03-02 13:08:40,543 DEBUG RotationForest - predict with tree12
+2017-03-02 13:08:43,248 DEBUG RotationForest - predict with tree13
+2017-03-02 13:08:45,912 DEBUG RotationForest - predict with tree14
+2017-03-02 13:08:48,617 DEBUG RotationForest - predict with tree15
+2017-03-02 13:08:51,287 DEBUG RotationForest - predict with tree16
+2017-03-02 13:08:54,225 DEBUG RotationForest - predict with tree17
+2017-03-02 13:08:56,903 DEBUG RotationForest - predict with tree18
+2017-03-02 13:08:59,617 DEBUG RotationForest - predict with tree19
+2017-03-02 13:09:02,298 DEBUG RotationForest - predict with tree20
+2017-03-02 13:09:03,133 INFO  runExperiment - Test instances classified
+2017-03-02 13:09:03,135 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 13:09:03,414 INFO  runExperiment - Current accuracy: 0.492
+2017-03-02 13:09:13,561 DEBUG runExperiment - Saved classifier
+2017-03-02 13:09:13,569 INFO  runExperiment - Iteration 8
+2017-03-02 13:09:13,572 DEBUG runExperiment - Loading training set...
+2017-03-02 13:09:19,797 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 13:09:19,800 DEBUG runExperiment - Training classifier...
+2017-03-02 13:09:19,975 DEBUG RotationForest - Train Tree1
+2017-03-02 13:14:18,678 DEBUG RotationForest - Train Tree2
+2017-03-02 13:19:22,698 DEBUG RotationForest - Train Tree3
+2017-03-02 13:24:39,985 DEBUG RotationForest - Train Tree4
+2017-03-02 13:30:13,096 DEBUG RotationForest - Train Tree5
+2017-03-02 13:35:26,362 DEBUG RotationForest - Train Tree6
+2017-03-02 13:40:45,635 DEBUG RotationForest - Train Tree7
+2017-03-02 13:46:03,749 DEBUG RotationForest - Train Tree8
+2017-03-02 13:51:22,973 DEBUG RotationForest - Train Tree9
+2017-03-02 13:56:46,289 DEBUG RotationForest - Train Tree10
+2017-03-02 14:01:54,682 DEBUG RotationForest - Train Tree11
+2017-03-02 14:06:55,354 DEBUG RotationForest - Train Tree12
+2017-03-02 14:12:06,406 DEBUG RotationForest - Train Tree13
+2017-03-02 14:17:27,599 DEBUG RotationForest - Train Tree14
+2017-03-02 14:22:48,262 DEBUG RotationForest - Train Tree15
+2017-03-02 14:27:49,950 DEBUG RotationForest - Train Tree16
+2017-03-02 14:32:58,135 DEBUG RotationForest - Train Tree17
+2017-03-02 14:38:06,178 DEBUG RotationForest - Train Tree18
+2017-03-02 14:43:08,853 DEBUG RotationForest - Train Tree19
+2017-03-02 14:48:21,890 DEBUG RotationForest - Train Tree20
+2017-03-02 14:53:53,687 INFO  runExperiment - Classifier trained
+2017-03-02 14:53:53,694 DEBUG runExperiment - Loading test set...
+2017-03-02 14:53:58,273 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 14:53:58,274 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 14:54:00,899 DEBUG RotationForest - predict with tree1
+2017-03-02 14:54:03,099 DEBUG RotationForest - predict with tree2
+2017-03-02 14:54:05,487 DEBUG RotationForest - predict with tree3
+2017-03-02 14:54:07,663 DEBUG RotationForest - predict with tree4
+2017-03-02 14:54:09,970 DEBUG RotationForest - predict with tree5
+2017-03-02 14:54:12,281 DEBUG RotationForest - predict with tree6
+2017-03-02 14:54:14,547 DEBUG RotationForest - predict with tree7
+2017-03-02 14:54:16,865 DEBUG RotationForest - predict with tree8
+2017-03-02 14:54:19,134 DEBUG RotationForest - predict with tree9
+2017-03-02 14:54:21,414 DEBUG RotationForest - predict with tree10
+2017-03-02 14:54:23,716 DEBUG RotationForest - predict with tree11
+2017-03-02 14:54:26,005 DEBUG RotationForest - predict with tree12
+2017-03-02 14:54:28,311 DEBUG RotationForest - predict with tree13
+2017-03-02 14:54:30,617 DEBUG RotationForest - predict with tree14
+2017-03-02 14:54:32,855 DEBUG RotationForest - predict with tree15
+2017-03-02 14:54:35,127 DEBUG RotationForest - predict with tree16
+2017-03-02 14:54:37,399 DEBUG RotationForest - predict with tree17
+2017-03-02 14:54:39,683 DEBUG RotationForest - predict with tree18
+2017-03-02 14:54:41,956 DEBUG RotationForest - predict with tree19
+2017-03-02 14:54:44,275 DEBUG RotationForest - predict with tree20
+2017-03-02 14:54:45,034 INFO  runExperiment - Test instances classified
+2017-03-02 14:54:45,035 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 14:54:45,261 INFO  runExperiment - Current accuracy: 0.445
+2017-03-02 14:54:55,553 DEBUG runExperiment - Saved classifier
+2017-03-02 14:54:55,560 INFO  runExperiment - Iteration 9
+2017-03-02 14:54:55,561 DEBUG runExperiment - Loading training set...
+2017-03-02 14:55:00,411 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 14:55:00,413 DEBUG runExperiment - Training classifier...
+2017-03-02 14:55:00,560 DEBUG RotationForest - Train Tree1
+2017-03-02 14:59:06,966 DEBUG RotationForest - Train Tree2
+2017-03-02 15:03:19,618 DEBUG RotationForest - Train Tree3
+2017-03-02 15:07:21,332 DEBUG RotationForest - Train Tree4
+2017-03-02 15:11:33,890 DEBUG RotationForest - Train Tree5
+2017-03-02 15:15:47,647 DEBUG RotationForest - Train Tree6
+2017-03-02 15:19:54,447 DEBUG RotationForest - Train Tree7
+2017-03-02 15:24:04,637 DEBUG RotationForest - Train Tree8
+2017-03-02 15:28:11,593 DEBUG RotationForest - Train Tree9
+2017-03-02 15:32:27,885 DEBUG RotationForest - Train Tree10
+2017-03-02 15:36:33,299 DEBUG RotationForest - Train Tree11
+2017-03-02 15:40:38,292 DEBUG RotationForest - Train Tree12
+2017-03-02 15:44:46,449 DEBUG RotationForest - Train Tree13
+2017-03-02 15:48:54,165 DEBUG RotationForest - Train Tree14
+2017-03-02 15:52:58,701 DEBUG RotationForest - Train Tree15
+2017-03-02 15:57:07,434 DEBUG RotationForest - Train Tree16
+2017-03-02 16:01:20,515 DEBUG RotationForest - Train Tree17
+2017-03-02 16:05:27,988 DEBUG RotationForest - Train Tree18
+2017-03-02 16:09:43,856 DEBUG RotationForest - Train Tree19
+2017-03-02 16:13:47,593 DEBUG RotationForest - Train Tree20
+2017-03-02 16:17:55,970 INFO  runExperiment - Classifier trained
+2017-03-02 16:17:55,978 DEBUG runExperiment - Loading test set...
+2017-03-02 16:18:00,955 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 16:18:00,957 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 16:18:04,963 DEBUG RotationForest - predict with tree1
+2017-03-02 16:18:07,773 DEBUG RotationForest - predict with tree2
+2017-03-02 16:18:10,534 DEBUG RotationForest - predict with tree3
+2017-03-02 16:18:13,290 DEBUG RotationForest - predict with tree4
+2017-03-02 16:18:16,229 DEBUG RotationForest - predict with tree5
+2017-03-02 16:18:19,114 DEBUG RotationForest - predict with tree6
+2017-03-02 16:18:22,023 DEBUG RotationForest - predict with tree7
+2017-03-02 16:18:24,933 DEBUG RotationForest - predict with tree8
+2017-03-02 16:18:27,844 DEBUG RotationForest - predict with tree9
+2017-03-02 16:18:30,741 DEBUG RotationForest - predict with tree10
+2017-03-02 16:18:33,609 DEBUG RotationForest - predict with tree11
+2017-03-02 16:18:36,517 DEBUG RotationForest - predict with tree12
+2017-03-02 16:18:39,405 DEBUG RotationForest - predict with tree13
+2017-03-02 16:18:42,265 DEBUG RotationForest - predict with tree14
+2017-03-02 16:18:45,168 DEBUG RotationForest - predict with tree15
+2017-03-02 16:18:48,044 DEBUG RotationForest - predict with tree16
+2017-03-02 16:18:50,946 DEBUG RotationForest - predict with tree17
+2017-03-02 16:18:53,843 DEBUG RotationForest - predict with tree18
+2017-03-02 16:18:56,712 DEBUG RotationForest - predict with tree19
+2017-03-02 16:18:59,578 DEBUG RotationForest - predict with tree20
+2017-03-02 16:19:00,607 INFO  runExperiment - Test instances classified
+2017-03-02 16:19:00,609 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 16:19:00,863 INFO  runExperiment - Current accuracy: 0.480
+2017-03-02 16:19:09,482 DEBUG runExperiment - Saved classifier
+2017-03-02 16:19:09,489 INFO  runExperiment - Iteration 10
+2017-03-02 16:19:09,490 DEBUG runExperiment - Loading training set...
+2017-03-02 16:19:15,594 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 16:19:15,596 DEBUG runExperiment - Training classifier...
+2017-03-02 16:19:15,776 DEBUG RotationForest - Train Tree1
+2017-03-02 16:24:57,306 DEBUG RotationForest - Train Tree2
+2017-03-02 16:30:23,362 DEBUG RotationForest - Train Tree3
+2017-03-02 16:35:47,455 DEBUG RotationForest - Train Tree4
+2017-03-02 16:41:20,113 DEBUG RotationForest - Train Tree5
+2017-03-02 16:46:54,773 DEBUG RotationForest - Train Tree6
+2017-03-02 16:51:55,422 DEBUG RotationForest - Train Tree7
+2017-03-02 16:56:52,802 DEBUG RotationForest - Train Tree8
+2017-03-02 17:01:58,380 DEBUG RotationForest - Train Tree9
+2017-03-02 17:07:29,633 DEBUG RotationForest - Train Tree10
+2017-03-02 17:13:18,458 DEBUG RotationForest - Train Tree11
+2017-03-02 17:18:53,135 DEBUG RotationForest - Train Tree12
+2017-03-02 17:24:10,963 DEBUG RotationForest - Train Tree13
+2017-03-02 17:29:36,790 DEBUG RotationForest - Train Tree14
+2017-03-02 17:35:46,710 DEBUG RotationForest - Train Tree15
+2017-03-02 17:41:49,034 DEBUG RotationForest - Train Tree16
+2017-03-02 17:47:39,667 DEBUG RotationForest - Train Tree17
+2017-03-02 17:52:48,982 DEBUG RotationForest - Train Tree18
+2017-03-02 17:58:05,278 DEBUG RotationForest - Train Tree19
+2017-03-02 18:04:41,158 DEBUG RotationForest - Train Tree20
+2017-03-02 18:10:48,406 INFO  runExperiment - Classifier trained
+2017-03-02 18:10:48,413 DEBUG runExperiment - Loading test set...
+2017-03-02 18:10:53,659 DEBUG runExperiment - Applying feature extraction...
+2017-03-02 18:10:53,662 DEBUG runExperiment - Applying trained classifier...
+2017-03-02 18:10:56,129 DEBUG RotationForest - predict with tree1
+2017-03-02 18:10:58,479 DEBUG RotationForest - predict with tree2
+2017-03-02 18:11:00,453 DEBUG RotationForest - predict with tree3
+2017-03-02 18:11:02,433 DEBUG RotationForest - predict with tree4
+2017-03-02 18:11:04,476 DEBUG RotationForest - predict with tree5
+2017-03-02 18:11:06,733 DEBUG RotationForest - predict with tree6
+2017-03-02 18:11:08,905 DEBUG RotationForest - predict with tree7
+2017-03-02 18:11:11,002 DEBUG RotationForest - predict with tree8
+2017-03-02 18:11:13,215 DEBUG RotationForest - predict with tree9
+2017-03-02 18:11:15,396 DEBUG RotationForest - predict with tree10
+2017-03-02 18:11:17,493 DEBUG RotationForest - predict with tree11
+2017-03-02 18:11:19,586 DEBUG RotationForest - predict with tree12
+2017-03-02 18:11:21,651 DEBUG RotationForest - predict with tree13
+2017-03-02 18:11:23,770 DEBUG RotationForest - predict with tree14
+2017-03-02 18:11:25,861 DEBUG RotationForest - predict with tree15
+2017-03-02 18:11:28,032 DEBUG RotationForest - predict with tree16
+2017-03-02 18:11:30,294 DEBUG RotationForest - predict with tree17
+2017-03-02 18:11:33,058 DEBUG RotationForest - predict with tree18
+2017-03-02 18:11:34,981 DEBUG RotationForest - predict with tree19
+2017-03-02 18:11:36,820 DEBUG RotationForest - predict with tree20
+2017-03-02 18:11:37,461 INFO  runExperiment - Test instances classified
+2017-03-02 18:11:37,463 DEBUG runExperiment - Calculating confusion matrix...
+2017-03-02 18:11:37,710 INFO  runExperiment - Current accuracy: 0.586
+2017-03-02 18:11:50,574 DEBUG runExperiment - Saved classifier
+Stopped: 02-Mar-2017 18:11:50
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0        784       2894        742          0       1687       7950         32          0          0       6847       2072          0          0         65         85         13       2385        510          0        129        755
+         0          0          0        813     271100       1867          0       1013      19351        500          0          0      51529      13673          0          0        817        122          0      15206       9900          0       6702        685
+         0          0          0        839       6789      31454          0      34380      56142        996          0          0       2520        643          0          0          8        131        276      47938        351          0        519         22
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       2261       2622      49061          0      58194      32384        207          0          0       4200         42          0          0        218       1527       2075      22433        260          0        418       1108
+         0          0          0        567       5341       8937          0       9103     271485        188          0          0       1015         12          0          0         18         99         10       9462        384          0         11         10
+         0          0          0         98       1672       2919          0       1016       8648       3363          0          0       1848         75          0          0          1         26          0      12854       1462          0        552        386
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       1502      35925       1413          0       6242       4464        445          0          0     148258       2534          0          0        517       1147          2       9810        891          0       1326       2741
+         0          0          0        324      26302        314          0        253       1421        275          0          0      16609      19464          0          0       5144       2546          1       3895       9255          0       2096      11314
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0         81        472       1042          0        564       2484         21          0          0       3248       1227          0          0      16805        602       3009        818       2903          0      12964       3690
+         0          0          0       1291        465       2363          0       1575       4791        140          0          0       3418        417          0          0       1715       1713       1349      13514       1038          0        420       3386
+         0          0          0         68         53       2141          0       1330       1886         28          0          0         49          3          0          0        911        444      18740       4135         24          0        474          4
+         0          0          0       3195      16938      98558          0      38976      84512       6794          0          0      14092        383          0          0         19      13788        782     261111       8571          0       1620       1276
+         0          0          0        457       7884        587          0        126       4398        894          0          0       5589       1797          0          0       2919        161          0      14729      33458          0       1743       1473
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       2487      49511       2042          0       1538      13043        332          0          0      31436       6351          0          0       7860       1659        182      21349       9387          0      38882      11666
+         0          0          0        394        465        215          0        167        195        120          0          0       7240        765          0          0       2045        645          4       3918       1235          0        216      53421
+
+Accuracy:
+0.501
+
+Precisions:
+NaN	NaN	NaN	0.052	0.633	0.154	NaN	0.373	0.529	0.235	NaN	NaN	0.498	0.394	NaN	NaN	0.430	0.069	0.709	0.589	0.420	NaN	0.571	0.581
+
+Sensitivities:
+NaN	NaN	NaN	0.029	0.689	0.172	NaN	0.329	0.885	0.096	NaN	NaN	0.683	0.196	NaN	NaN	0.337	0.046	0.619	0.474	0.439	NaN	0.197	0.752
+
+Specificities:
+0.501	0.501	0.501	0.506	0.465	0.528	0.501	0.514	0.446	0.507	0.501	0.501	0.483	0.514	0.501	0.501	0.504	0.508	0.500	0.509	0.503	0.501	0.528	0.493
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.059	1.288	0.364	NaN	0.677	1.598	0.195	NaN	NaN	1.321	0.404	NaN	NaN	0.679	0.093	1.236	0.965	0.883	NaN	0.416	1.485
+
+NegativeLikelihoods:
+NaN	NaN	NaN	1.918	0.668	1.570	NaN	1.305	0.257	1.783	NaN	NaN	0.657	1.564	NaN	NaN	1.315	1.879	0.763	1.034	1.115	NaN	1.522	0.503
+
+FScores:
+NaN	NaN	NaN	0.037	0.660	0.163	NaN	0.349	0.662	0.137	NaN	NaN	0.576	0.262	NaN	NaN	0.378	0.055	0.661	0.525	0.429	NaN	0.293	0.656
