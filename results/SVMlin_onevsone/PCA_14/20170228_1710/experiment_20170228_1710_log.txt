@@ -1,0 +1,1271 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	SVM [SVMlin] (Coding: onevsone)
+Extractors:	PCA (numDim: 14)
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/Samplesets/sampleset_012.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+        27         46         27         46         27         46         27         46         27         46
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+        28         29          4         29         28         26         28         29          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        30         47         30         47         30         47         30         47         30         47
+        31         48         31         48         31         48         31         48         31         48
+        32         49         32         49         32         49         32         49         32         49
+        33         34         33         34         33         34         33         34         33         34
+        35         50         35         50         35         50         35         50         35         50
+         0          0          0          0          0          0          0          0          0          0
+        41         40         44         41         43         40         39         43         36         37
+        45         51         45         51         45         51         45         51         45         51
+--------------------------------------------
+Started: 28-Feb-2017 17:10:54
+2017-02-28 17:10:54,399 INFO  runExperiment - Iteration 1
+2017-02-28 17:10:54,415 DEBUG runExperiment - Loading training set...
+2017-02-28 17:10:57,893 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:10:57,909 INFO  PCA - Apply transformation to features
+2017-02-28 17:10:58,237 DEBUG runExperiment - Training classifier...
+2017-02-28 17:10:58,385 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:11:00,481 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:11:01,729 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:11:03,670 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:11:05,757 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:11:06,105 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:11:08,402 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:11:08,819 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:11:09,236 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:11:09,258 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:11:09,559 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:11:10,859 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:11:11,429 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:11:12,996 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:11:13,466 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:11:16,575 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:11:20,269 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:11:25,843 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:11:28,613 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:11:34,143 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:11:37,136 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:11:39,527 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:11:41,932 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:11:43,806 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:11:47,737 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:11:51,018 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:11:54,506 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:11:57,689 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:12:00,633 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:12:03,820 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:12:04,961 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:12:08,307 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:12:09,626 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:12:10,883 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:12:12,101 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:12:13,248 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:12:15,478 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:12:16,973 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:12:19,744 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:12:21,085 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:12:24,843 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:12:26,648 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:12:30,697 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:12:32,634 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:12:34,592 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:12:36,498 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:12:38,324 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:12:41,236 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:12:43,354 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:12:46,717 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:12:48,789 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:12:51,234 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:12:56,229 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:12:58,937 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:13:01,312 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:13:03,942 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:13:05,898 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:13:09,918 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:13:13,010 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:13:16,559 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:13:19,433 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:13:22,109 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:13:22,626 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:13:22,996 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:13:23,375 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:13:23,397 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:13:24,832 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:13:25,565 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:13:27,054 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:13:27,671 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:13:30,664 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:13:33,387 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:13:36,110 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:13:38,417 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:13:42,350 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:13:45,574 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:13:49,416 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:13:52,362 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:13:52,826 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:13:53,327 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:13:53,665 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:13:55,330 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:13:56,164 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:13:57,721 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:13:58,423 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:13:58,871 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:13:59,210 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:14:00,545 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:14:01,178 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:14:02,704 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:14:03,246 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:14:03,563 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:14:05,036 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:14:05,722 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:14:07,257 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:14:07,790 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:14:08,909 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:14:09,394 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:14:10,834 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:14:11,233 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:14:13,305 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:14:16,039 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:14:17,884 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:14:19,643 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:14:20,576 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:14:22,212 INFO  runExperiment - Classifier trained
+2017-02-28 17:14:22,234 DEBUG runExperiment - Loading test set...
+2017-02-28 17:14:25,257 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:14:25,273 INFO  PCA - Apply transformation to features
+2017-02-28 17:14:25,539 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:15:21,880 INFO  runExperiment - Test instances classified
+2017-02-28 17:15:21,880 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:15:22,081 INFO  runExperiment - Current accuracy: 0.376
+2017-02-28 17:15:22,102 DEBUG runExperiment - Saved classifier
+2017-02-28 17:15:22,118 INFO  runExperiment - Iteration 2
+2017-02-28 17:15:22,118 DEBUG runExperiment - Loading training set...
+2017-02-28 17:15:25,904 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:15:25,912 INFO  PCA - Apply transformation to features
+2017-02-28 17:15:26,202 DEBUG runExperiment - Training classifier...
+2017-02-28 17:15:26,247 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:15:28,197 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:15:29,216 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:15:31,083 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:15:34,737 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:15:35,076 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:15:37,413 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:15:37,830 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:15:38,216 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:15:38,516 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:15:38,802 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:15:44,566 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:15:45,067 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:15:46,654 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:15:47,190 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:15:50,272 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:15:53,810 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:16:00,282 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:16:02,836 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:16:08,270 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:16:11,042 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:16:13,565 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:16:16,033 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:16:17,700 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:16:28,301 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:16:31,225 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:16:34,535 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:16:37,458 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:16:40,166 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:16:45,396 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:16:46,383 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:16:50,093 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:16:51,197 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:16:52,290 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:16:53,242 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:16:54,066 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:17:01,824 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:17:03,096 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:17:05,438 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:17:06,689 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:17:11,933 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:17:13,758 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:17:17,806 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:17:19,767 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:17:21,641 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:17:23,408 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:17:25,166 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:17:32,229 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:17:34,267 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:17:37,647 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:17:39,683 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:17:43,919 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:17:50,645 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:17:55,062 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:17:59,428 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:18:03,358 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:18:06,984 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:18:19,012 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:18:23,593 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:18:28,575 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:18:33,118 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:18:35,873 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:18:36,374 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:18:36,829 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:18:37,190 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:18:37,450 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:18:45,365 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:18:45,983 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:18:47,471 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:18:48,173 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:18:51,231 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:18:54,070 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:18:56,706 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:18:58,984 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:19:08,328 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:19:11,427 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:19:15,307 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:19:18,321 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:19:18,861 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:19:19,277 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:19:19,594 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:19:27,894 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:19:28,637 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:19:30,225 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:19:31,007 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:19:31,023 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:19:31,345 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:19:39,265 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:19:39,914 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:19:41,502 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:19:42,220 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:19:42,236 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:19:50,082 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:19:50,614 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:19:52,025 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:19:52,626 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:19:58,909 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:19:59,315 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:20:00,727 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:20:01,160 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:20:10,021 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:20:16,783 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:20:25,211 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:20:26,900 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:20:27,835 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:20:29,611 INFO  runExperiment - Classifier trained
+2017-02-28 17:20:29,637 DEBUG runExperiment - Loading test set...
+2017-02-28 17:20:31,938 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:20:31,938 INFO  PCA - Apply transformation to features
+2017-02-28 17:20:32,169 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:21:08,491 INFO  runExperiment - Test instances classified
+2017-02-28 17:21:08,497 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:21:08,589 INFO  runExperiment - Current accuracy: 0.358
+2017-02-28 17:21:08,611 DEBUG runExperiment - Saved classifier
+2017-02-28 17:21:08,626 INFO  runExperiment - Iteration 3
+2017-02-28 17:21:08,626 DEBUG runExperiment - Loading training set...
+2017-02-28 17:21:12,020 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:21:12,036 INFO  PCA - Apply transformation to features
+2017-02-28 17:21:12,329 DEBUG runExperiment - Training classifier...
+2017-02-28 17:21:12,356 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:21:13,791 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:21:14,779 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:21:16,721 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:21:20,331 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:21:20,669 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:21:22,960 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:21:23,292 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:21:23,693 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:21:23,724 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:21:24,025 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:21:25,322 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:21:25,874 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:21:27,438 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:21:27,908 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:21:30,161 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:21:33,169 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:21:38,923 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:21:40,574 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:21:45,040 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:21:46,845 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:21:48,233 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:21:49,717 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:21:50,840 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:21:53,780 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:21:55,901 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:21:58,533 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:22:00,500 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:22:03,254 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:22:08,489 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:22:09,492 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:22:13,233 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:22:14,205 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:22:15,255 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:22:16,290 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:22:17,157 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:22:19,370 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:22:20,721 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:22:23,074 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:22:24,262 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:22:29,499 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:22:31,288 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:22:35,236 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:22:37,041 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:22:38,962 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:22:40,880 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:22:42,745 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:22:45,710 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:22:47,831 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:22:51,263 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:22:53,284 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:22:57,558 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:23:04,076 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:23:08,467 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:23:12,479 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:23:16,737 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:23:20,406 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:23:25,829 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:23:30,541 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:23:35,602 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:23:40,081 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:23:42,820 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:23:43,225 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:23:43,595 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:23:43,996 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:23:44,012 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:23:45,474 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:23:46,229 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:23:47,711 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:23:48,331 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:23:51,111 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:23:53,819 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:23:56,496 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:23:58,766 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:24:02,758 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:24:06,019 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:24:09,845 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:24:12,838 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:24:13,208 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:24:13,609 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:24:13,878 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:24:15,360 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:24:16,098 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:24:17,555 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:24:18,157 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:24:18,611 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:24:18,943 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:24:20,263 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:24:20,895 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:24:22,412 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:24:22,961 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:24:23,284 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:24:24,779 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:24:25,465 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:24:27,009 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:24:27,539 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:24:28,673 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:24:29,159 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:24:30,589 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:24:30,990 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:24:33,055 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:24:35,732 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:24:37,552 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:24:39,341 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:24:40,259 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:24:41,880 INFO  runExperiment - Classifier trained
+2017-02-28 17:24:41,911 DEBUG runExperiment - Loading test set...
+2017-02-28 17:24:45,473 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:24:45,473 INFO  PCA - Apply transformation to features
+2017-02-28 17:24:45,782 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:25:52,585 INFO  runExperiment - Test instances classified
+2017-02-28 17:25:52,591 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:25:52,792 INFO  runExperiment - Current accuracy: 0.357
+2017-02-28 17:25:52,803 DEBUG runExperiment - Saved classifier
+2017-02-28 17:25:52,826 INFO  runExperiment - Iteration 4
+2017-02-28 17:25:52,826 DEBUG runExperiment - Loading training set...
+2017-02-28 17:25:56,568 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:25:56,583 INFO  PCA - Apply transformation to features
+2017-02-28 17:25:56,881 DEBUG runExperiment - Training classifier...
+2017-02-28 17:25:56,918 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:25:59,159 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:26:00,141 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:26:02,015 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:26:05,710 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:26:06,064 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:26:08,351 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:26:08,771 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:26:09,172 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:26:09,457 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:26:09,736 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:26:15,554 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:26:16,055 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:26:17,626 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:26:18,151 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:26:21,222 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:26:24,771 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:26:31,359 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:26:33,903 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:26:39,229 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:26:42,004 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:26:44,549 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:26:46,998 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:26:48,676 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:26:58,944 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:27:01,868 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:27:05,197 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:27:08,152 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:27:10,880 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:27:16,184 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:27:17,155 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:27:20,856 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:27:21,969 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:27:23,060 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:27:23,978 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:27:24,818 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:27:32,597 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:27:33,877 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:27:36,174 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:27:37,431 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:27:42,630 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:27:44,435 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:27:48,397 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:27:50,325 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:27:52,230 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:27:53,982 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:27:55,740 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:28:02,663 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:28:04,667 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:28:08,037 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:28:10,032 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:28:14,220 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:28:20,823 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:28:25,329 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:28:29,659 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:28:33,593 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:28:37,160 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:28:48,976 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:28:53,505 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:28:58,567 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:29:03,226 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:29:05,935 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:29:06,432 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:29:06,884 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:29:07,237 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:29:07,486 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:29:15,624 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:29:16,257 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:29:17,714 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:29:18,416 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:29:21,415 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:29:24,305 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:29:26,877 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:29:29,117 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:29:38,381 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:29:41,501 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:29:45,299 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:29:48,350 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:29:48,898 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:29:49,314 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:29:49,629 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:29:58,132 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:29:58,888 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:30:00,491 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:30:01,276 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:30:01,299 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:30:01,599 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:30:09,429 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:30:10,084 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:30:11,635 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:30:12,359 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:30:12,374 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:30:20,189 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:30:20,737 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:30:22,125 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:30:22,727 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:30:28,990 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:30:29,391 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:30:30,795 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:30:31,234 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:30:39,908 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:30:46,623 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:30:54,964 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:30:56,631 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:30:57,565 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:30:59,307 INFO  runExperiment - Classifier trained
+2017-02-28 17:30:59,323 DEBUG runExperiment - Loading test set...
+2017-02-28 17:31:02,377 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:31:02,377 INFO  PCA - Apply transformation to features
+2017-02-28 17:31:02,694 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:32:01,861 INFO  runExperiment - Test instances classified
+2017-02-28 17:32:01,861 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:32:02,030 INFO  runExperiment - Current accuracy: 0.352
+2017-02-28 17:32:02,045 DEBUG runExperiment - Saved classifier
+2017-02-28 17:32:02,061 INFO  runExperiment - Iteration 5
+2017-02-28 17:32:02,077 DEBUG runExperiment - Loading training set...
+2017-02-28 17:32:05,268 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:32:05,283 INFO  PCA - Apply transformation to features
+2017-02-28 17:32:05,586 DEBUG runExperiment - Training classifier...
+2017-02-28 17:32:05,613 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:32:07,866 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:32:09,070 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:32:09,524 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:32:13,173 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:32:13,505 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:32:15,764 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:32:16,197 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:32:16,598 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:32:16,614 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:32:16,930 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:32:18,218 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:32:18,772 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:32:20,339 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:32:20,815 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:32:24,091 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:32:26,382 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:32:33,401 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:32:36,464 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:32:42,280 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:32:45,621 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:32:48,167 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:32:50,875 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:32:52,958 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:32:57,001 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:33:00,447 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:33:04,142 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:33:07,511 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:33:08,843 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:33:13,581 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:33:14,737 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:33:18,166 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:33:19,454 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:33:20,705 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:33:21,935 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:33:23,084 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:33:25,290 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:33:26,779 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:33:29,546 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:33:30,902 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:33:34,682 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:33:35,068 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:33:37,378 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:33:37,895 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:33:38,365 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:33:38,814 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:33:39,199 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:33:40,549 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:33:41,205 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:33:42,872 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:33:43,404 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:33:47,717 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:33:54,259 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:33:58,665 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:34:02,730 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:34:06,956 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:34:10,604 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:34:15,992 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:34:20,757 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:34:25,729 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:34:30,185 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:34:32,877 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:34:33,394 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:34:33,774 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:34:34,159 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:34:34,178 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:34:35,616 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:34:36,371 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:34:37,849 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:34:38,451 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:34:41,437 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:34:44,136 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:34:46,813 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:34:49,073 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:34:52,958 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:34:56,184 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:35:00,056 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:35:02,998 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:35:03,450 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:35:03,951 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:35:04,301 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:35:05,941 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:35:06,775 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:35:08,365 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:35:09,065 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:35:09,513 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:35:09,845 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:35:11,170 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:35:11,803 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:35:13,323 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:35:13,878 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:35:14,194 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:35:15,661 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:35:16,347 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:35:17,867 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:35:18,406 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:35:19,540 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:35:20,010 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:35:21,430 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:35:21,831 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:35:23,905 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:35:26,559 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:35:28,391 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:35:30,174 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:35:31,092 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:35:32,739 INFO  runExperiment - Classifier trained
+2017-02-28 17:35:32,755 DEBUG runExperiment - Loading test set...
+2017-02-28 17:35:36,193 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:35:36,212 INFO  PCA - Apply transformation to features
+2017-02-28 17:35:36,511 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:36:43,897 INFO  runExperiment - Test instances classified
+2017-02-28 17:36:43,912 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:36:44,129 INFO  runExperiment - Current accuracy: 0.270
+2017-02-28 17:36:44,144 DEBUG runExperiment - Saved classifier
+2017-02-28 17:36:44,160 INFO  runExperiment - Iteration 6
+2017-02-28 17:36:44,175 DEBUG runExperiment - Loading training set...
+2017-02-28 17:36:47,831 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:36:47,831 INFO  PCA - Apply transformation to features
+2017-02-28 17:36:48,147 DEBUG runExperiment - Training classifier...
+2017-02-28 17:36:48,185 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:36:50,032 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:36:51,236 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:36:53,110 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:36:56,819 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:36:57,167 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:36:59,484 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:36:59,897 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:37:00,298 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:37:00,594 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:37:00,861 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:37:06,564 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:37:07,066 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:37:08,620 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:37:09,169 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:37:12,049 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:37:15,628 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:37:22,200 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:37:24,773 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:37:30,507 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:37:33,299 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:37:35,840 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:37:38,304 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:37:39,978 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:37:50,445 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:37:53,358 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:37:56,685 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:37:59,594 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:38:02,505 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:38:07,194 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:38:08,366 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:38:11,845 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:38:13,155 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:38:14,425 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:38:15,523 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:38:16,605 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:38:23,494 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:38:24,882 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:38:27,665 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:38:29,047 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:38:34,239 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:38:36,044 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:38:40,103 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:38:42,011 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:38:43,915 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:38:45,692 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:38:47,441 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:38:54,425 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:38:56,431 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:38:59,793 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:39:01,814 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:39:06,042 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:39:13,276 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:39:17,757 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:39:22,069 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:39:26,068 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:39:29,694 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:39:41,515 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:39:46,136 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:39:51,166 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:39:55,757 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:39:59,185 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:39:59,668 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:40:00,138 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:40:00,492 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:40:00,739 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:40:08,698 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:40:09,331 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:40:10,822 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:40:11,522 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:40:14,918 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:40:18,515 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:40:21,654 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:40:24,029 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:40:34,510 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:40:38,088 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:40:42,040 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:40:45,663 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:40:46,211 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:40:46,628 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:40:46,947 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:40:55,391 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:40:56,145 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:40:57,713 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:40:58,516 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:40:58,536 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:40:58,837 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:41:06,757 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:41:07,406 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:41:08,963 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:41:09,665 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:41:09,681 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:41:17,402 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:41:17,957 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:41:19,361 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:41:19,962 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:41:26,182 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:41:26,587 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:41:27,971 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:41:28,394 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:41:37,054 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:41:43,833 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:41:52,022 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:41:53,710 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:41:54,641 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:41:56,393 INFO  runExperiment - Classifier trained
+2017-02-28 17:41:56,415 DEBUG runExperiment - Loading test set...
+2017-02-28 17:41:59,269 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:41:59,269 INFO  PCA - Apply transformation to features
+2017-02-28 17:41:59,533 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:42:50,791 INFO  runExperiment - Test instances classified
+2017-02-28 17:42:50,791 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:42:50,938 INFO  runExperiment - Current accuracy: 0.391
+2017-02-28 17:42:50,954 DEBUG runExperiment - Saved classifier
+2017-02-28 17:42:50,970 INFO  runExperiment - Iteration 7
+2017-02-28 17:42:50,970 DEBUG runExperiment - Loading training set...
+2017-02-28 17:42:54,448 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:42:54,448 INFO  PCA - Apply transformation to features
+2017-02-28 17:42:54,798 DEBUG runExperiment - Training classifier...
+2017-02-28 17:42:54,831 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:42:56,703 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:42:57,906 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:42:59,767 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:43:03,460 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:43:03,808 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:43:06,081 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:43:06,514 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:43:06,915 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:43:06,930 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:43:07,247 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:43:08,519 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:43:09,089 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:43:10,624 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:43:11,094 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:43:13,978 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:43:17,557 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:43:24,088 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:43:26,758 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:43:32,118 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:43:34,904 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:43:37,016 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:43:39,253 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:43:40,943 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:43:44,698 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:43:47,729 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:43:51,003 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:43:53,895 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:43:56,835 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:44:01,548 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:44:02,701 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:44:06,095 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:44:07,404 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:44:08,645 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:44:09,864 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:44:10,998 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:44:13,205 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:44:14,693 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:44:17,444 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:44:18,778 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:44:23,997 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:44:25,787 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:44:29,757 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:44:31,709 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:44:33,605 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:44:35,526 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:44:37,334 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:44:40,231 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:44:42,331 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:44:45,723 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:44:47,713 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:44:51,909 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:44:58,542 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:45:03,063 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:45:07,145 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:45:11,388 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:45:15,041 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:45:20,434 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:45:25,143 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:45:30,224 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:45:34,697 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:45:37,351 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:45:37,868 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:45:38,238 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:45:38,639 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:45:38,655 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:45:40,120 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:45:40,854 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:45:42,341 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:45:42,944 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:45:45,968 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:45:48,663 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:45:51,301 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:45:53,655 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:45:57,521 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:46:00,718 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:46:04,544 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:46:07,461 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:46:07,931 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:46:08,433 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:46:08,784 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:46:10,430 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:46:11,277 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:46:12,879 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:46:13,578 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:46:14,032 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:46:14,364 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:46:15,699 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:46:16,341 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:46:17,855 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:46:18,405 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:46:18,721 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:46:20,179 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:46:20,865 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:46:22,393 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:46:22,926 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:46:24,060 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:46:24,546 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:46:25,965 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:46:26,366 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:46:28,441 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:46:31,133 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:46:32,948 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:46:34,725 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:46:35,664 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:46:37,319 INFO  runExperiment - Classifier trained
+2017-02-28 17:46:37,343 DEBUG runExperiment - Loading test set...
+2017-02-28 17:46:40,627 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:46:40,643 INFO  PCA - Apply transformation to features
+2017-02-28 17:46:40,987 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:47:47,874 INFO  runExperiment - Test instances classified
+2017-02-28 17:47:47,880 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:47:48,050 INFO  runExperiment - Current accuracy: 0.354
+2017-02-28 17:47:48,066 DEBUG runExperiment - Saved classifier
+2017-02-28 17:47:48,088 INFO  runExperiment - Iteration 8
+2017-02-28 17:47:48,088 DEBUG runExperiment - Loading training set...
+2017-02-28 17:47:51,839 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:47:51,846 INFO  PCA - Apply transformation to features
+2017-02-28 17:47:52,158 DEBUG runExperiment - Training classifier...
+2017-02-28 17:47:52,195 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:47:54,776 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:47:55,703 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:47:57,504 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:48:01,320 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:48:01,658 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:48:04,344 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:48:04,799 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:48:05,146 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:48:05,415 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:48:05,616 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:48:13,430 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:48:13,989 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:48:15,355 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:48:15,973 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:48:19,137 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:48:22,678 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:48:29,234 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:48:31,763 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:48:37,186 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:48:39,947 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:48:42,469 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:48:44,929 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:48:46,611 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:48:56,964 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:48:59,885 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:49:03,181 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:49:06,091 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:49:08,762 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:49:14,023 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:49:14,999 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:49:18,746 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:49:19,849 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:49:20,967 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:49:21,887 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:49:22,721 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:49:30,451 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:49:31,723 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:49:34,054 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:49:35,304 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:49:40,557 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:49:42,362 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:49:46,437 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:49:48,357 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:49:50,247 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:49:52,052 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:49:53,788 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:50:00,805 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:50:02,846 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:50:06,264 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:50:08,270 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:50:12,485 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:50:19,125 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:50:23,535 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:50:27,881 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:50:31,887 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:50:35,487 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:50:47,515 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:50:52,049 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:50:57,141 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:51:01,704 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:51:04,476 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:51:04,959 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:51:05,407 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:51:05,761 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:51:06,027 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:51:14,022 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:51:14,640 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:51:16,081 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:51:16,799 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:51:19,793 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:51:22,622 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:51:25,192 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:51:27,436 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:51:36,850 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:51:39,996 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:51:43,812 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:51:46,873 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:51:47,421 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:51:47,838 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:51:48,155 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:51:56,633 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:51:57,382 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:51:58,939 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:51:59,726 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:51:59,757 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:52:00,058 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:52:07,958 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:52:08,606 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:52:10,148 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:52:10,866 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:52:10,881 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:52:18,595 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:52:19,133 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:52:20,537 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:52:21,139 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:52:27,346 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:52:27,747 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:52:29,145 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:52:29,568 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:52:38,271 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:52:45,050 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:52:53,395 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:52:55,062 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:52:55,986 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:52:57,721 INFO  runExperiment - Classifier trained
+2017-02-28 17:52:57,752 DEBUG runExperiment - Loading test set...
+2017-02-28 17:53:01,034 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:53:01,050 INFO  PCA - Apply transformation to features
+2017-02-28 17:53:01,350 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:54:02,271 INFO  runExperiment - Test instances classified
+2017-02-28 17:54:02,272 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:54:02,435 INFO  runExperiment - Current accuracy: 0.304
+2017-02-28 17:54:02,451 DEBUG runExperiment - Saved classifier
+2017-02-28 17:54:02,473 INFO  runExperiment - Iteration 9
+2017-02-28 17:54:02,473 DEBUG runExperiment - Loading training set...
+2017-02-28 17:54:05,807 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:54:05,822 INFO  PCA - Apply transformation to features
+2017-02-28 17:54:06,111 DEBUG runExperiment - Training classifier...
+2017-02-28 17:54:06,141 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:54:08,612 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:54:09,714 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:54:11,505 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:54:15,329 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:54:15,652 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:54:18,770 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:54:19,109 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:54:19,124 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:54:19,456 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:54:19,679 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:54:21,065 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:54:21,720 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:54:22,253 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:54:22,785 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:54:25,702 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:54:29,246 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:54:35,711 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:54:38,326 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:54:44,076 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:54:46,709 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:54:48,830 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:54:51,072 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:54:52,767 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 17:54:56,534 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 17:54:59,543 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 17:55:01,718 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 17:55:04,635 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 17:55:07,603 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 17:55:12,369 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 17:55:13,503 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 17:55:17,081 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 17:55:18,284 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 17:55:19,541 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 17:55:20,775 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 17:55:21,910 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 17:55:24,185 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 17:55:25,720 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 17:55:27,409 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 17:55:28,750 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 17:55:33,961 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 17:55:35,804 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 17:55:39,831 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 17:55:41,683 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 17:55:43,616 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 17:55:45,568 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 17:55:47,378 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 17:55:50,387 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 17:55:52,592 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 17:55:54,899 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 17:55:56,904 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 17:56:01,163 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 17:56:08,398 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 17:56:12,610 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 17:56:16,720 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 17:56:21,085 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 17:56:24,810 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 17:56:30,225 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 17:56:34,970 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 17:56:38,834 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 17:56:43,266 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 17:56:46,375 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 17:56:46,776 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 17:56:47,161 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 17:56:47,562 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 17:56:47,562 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 17:56:49,029 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 17:56:49,769 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 17:56:50,332 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 17:56:50,950 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 17:56:54,043 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 17:56:56,920 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 17:56:59,912 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 17:57:02,303 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 17:57:06,832 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 17:57:10,527 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 17:57:13,184 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 17:57:16,663 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 17:57:17,042 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 17:57:17,471 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 17:57:17,741 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 17:57:19,260 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 17:57:19,978 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 17:57:20,548 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 17:57:21,150 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 17:57:21,604 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 17:57:21,952 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 17:57:23,287 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 17:57:23,911 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 17:57:24,544 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 17:57:25,114 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 17:57:25,431 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 17:57:26,897 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 17:57:27,583 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 17:57:28,220 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 17:57:28,755 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 17:57:29,889 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 17:57:30,375 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 17:57:30,961 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 17:57:31,362 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 17:57:33,452 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 17:57:34,940 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 17:57:36,746 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 17:57:37,564 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 17:57:38,498 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 17:57:39,200 INFO  runExperiment - Classifier trained
+2017-02-28 17:57:39,231 DEBUG runExperiment - Loading test set...
+2017-02-28 17:57:43,025 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:57:43,025 INFO  PCA - Apply transformation to features
+2017-02-28 17:57:43,382 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 17:58:54,652 INFO  runExperiment - Test instances classified
+2017-02-28 17:58:54,652 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 17:58:54,852 INFO  runExperiment - Current accuracy: 0.352
+2017-02-28 17:58:54,868 DEBUG runExperiment - Saved classifier
+2017-02-28 17:58:54,883 INFO  runExperiment - Iteration 10
+2017-02-28 17:58:54,899 DEBUG runExperiment - Loading training set...
+2017-02-28 17:58:58,640 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 17:58:58,646 INFO  PCA - Apply transformation to features
+2017-02-28 17:58:59,035 DEBUG runExperiment - Training classifier...
+2017-02-28 17:58:59,075 TRACE SVM 1vs1 - Training 4 vs. 5
+2017-02-28 17:59:00,985 TRACE SVM 1vs1 - Training 4 vs. 6
+2017-02-28 17:59:02,188 TRACE SVM 1vs1 - Training 4 vs. 8
+2017-02-28 17:59:04,062 TRACE SVM 1vs1 - Training 4 vs. 9
+2017-02-28 17:59:07,735 TRACE SVM 1vs1 - Training 4 vs. 10
+2017-02-28 17:59:08,074 TRACE SVM 1vs1 - Training 4 vs. 13
+2017-02-28 17:59:10,361 TRACE SVM 1vs1 - Training 4 vs. 14
+2017-02-28 17:59:10,781 TRACE SVM 1vs1 - Training 4 vs. 17
+2017-02-28 17:59:11,167 TRACE SVM 1vs1 - Training 4 vs. 18
+2017-02-28 17:59:11,468 TRACE SVM 1vs1 - Training 4 vs. 19
+2017-02-28 17:59:11,746 TRACE SVM 1vs1 - Training 4 vs. 20
+2017-02-28 17:59:17,462 TRACE SVM 1vs1 - Training 4 vs. 21
+2017-02-28 17:59:17,964 TRACE SVM 1vs1 - Training 4 vs. 23
+2017-02-28 17:59:19,537 TRACE SVM 1vs1 - Training 4 vs. 24
+2017-02-28 17:59:20,069 TRACE SVM 1vs1 - Training 5 vs. 6
+2017-02-28 17:59:22,931 TRACE SVM 1vs1 - Training 5 vs. 8
+2017-02-28 17:59:26,474 TRACE SVM 1vs1 - Training 5 vs. 9
+2017-02-28 17:59:32,954 TRACE SVM 1vs1 - Training 5 vs. 10
+2017-02-28 17:59:35,483 TRACE SVM 1vs1 - Training 5 vs. 13
+2017-02-28 17:59:40,829 TRACE SVM 1vs1 - Training 5 vs. 14
+2017-02-28 17:59:43,606 TRACE SVM 1vs1 - Training 5 vs. 17
+2017-02-28 17:59:46,212 TRACE SVM 1vs1 - Training 5 vs. 18
+2017-02-28 17:59:48,715 TRACE SVM 1vs1 - Training 5 vs. 19
+2017-02-28 17:59:50,455 TRACE SVM 1vs1 - Training 5 vs. 20
+2017-02-28 18:00:00,919 TRACE SVM 1vs1 - Training 5 vs. 21
+2017-02-28 18:00:03,896 TRACE SVM 1vs1 - Training 5 vs. 23
+2017-02-28 18:00:07,289 TRACE SVM 1vs1 - Training 5 vs. 24
+2017-02-28 18:00:10,229 TRACE SVM 1vs1 - Training 6 vs. 8
+2017-02-28 18:00:13,199 TRACE SVM 1vs1 - Training 6 vs. 9
+2017-02-28 18:00:18,013 TRACE SVM 1vs1 - Training 6 vs. 10
+2017-02-28 18:00:19,200 TRACE SVM 1vs1 - Training 6 vs. 13
+2017-02-28 18:00:22,569 TRACE SVM 1vs1 - Training 6 vs. 14
+2017-02-28 18:00:23,892 TRACE SVM 1vs1 - Training 6 vs. 17
+2017-02-28 18:00:25,198 TRACE SVM 1vs1 - Training 6 vs. 18
+2017-02-28 18:00:26,317 TRACE SVM 1vs1 - Training 6 vs. 19
+2017-02-28 18:00:27,451 TRACE SVM 1vs1 - Training 6 vs. 20
+2017-02-28 18:00:34,501 TRACE SVM 1vs1 - Training 6 vs. 21
+2017-02-28 18:00:35,927 TRACE SVM 1vs1 - Training 6 vs. 23
+2017-02-28 18:00:38,750 TRACE SVM 1vs1 - Training 6 vs. 24
+2017-02-28 18:00:40,154 TRACE SVM 1vs1 - Training 8 vs. 9
+2017-02-28 18:00:45,314 TRACE SVM 1vs1 - Training 8 vs. 10
+2017-02-28 18:00:47,135 TRACE SVM 1vs1 - Training 8 vs. 13
+2017-02-28 18:00:51,167 TRACE SVM 1vs1 - Training 8 vs. 14
+2017-02-28 18:00:53,120 TRACE SVM 1vs1 - Training 8 vs. 17
+2017-02-28 18:00:55,026 TRACE SVM 1vs1 - Training 8 vs. 18
+2017-02-28 18:00:56,800 TRACE SVM 1vs1 - Training 8 vs. 19
+2017-02-28 18:00:58,536 TRACE SVM 1vs1 - Training 8 vs. 20
+2017-02-28 18:01:05,509 TRACE SVM 1vs1 - Training 8 vs. 21
+2017-02-28 18:01:07,576 TRACE SVM 1vs1 - Training 8 vs. 23
+2017-02-28 18:01:11,055 TRACE SVM 1vs1 - Training 8 vs. 24
+2017-02-28 18:01:13,107 TRACE SVM 1vs1 - Training 9 vs. 10
+2017-02-28 18:01:17,341 TRACE SVM 1vs1 - Training 9 vs. 13
+2017-02-28 18:01:24,038 TRACE SVM 1vs1 - Training 9 vs. 14
+2017-02-28 18:01:28,573 TRACE SVM 1vs1 - Training 9 vs. 17
+2017-02-28 18:01:32,985 TRACE SVM 1vs1 - Training 9 vs. 18
+2017-02-28 18:01:36,974 TRACE SVM 1vs1 - Training 9 vs. 19
+2017-02-28 18:01:40,606 TRACE SVM 1vs1 - Training 9 vs. 20
+2017-02-28 18:01:52,570 TRACE SVM 1vs1 - Training 9 vs. 21
+2017-02-28 18:01:57,167 TRACE SVM 1vs1 - Training 9 vs. 23
+2017-02-28 18:02:02,212 TRACE SVM 1vs1 - Training 9 vs. 24
+2017-02-28 18:02:06,897 TRACE SVM 1vs1 - Training 10 vs. 13
+2017-02-28 18:02:09,710 TRACE SVM 1vs1 - Training 10 vs. 14
+2017-02-28 18:02:10,211 TRACE SVM 1vs1 - Training 10 vs. 17
+2017-02-28 18:02:10,675 TRACE SVM 1vs1 - Training 10 vs. 18
+2017-02-28 18:02:11,029 TRACE SVM 1vs1 - Training 10 vs. 19
+2017-02-28 18:02:11,277 TRACE SVM 1vs1 - Training 10 vs. 20
+2017-02-28 18:02:19,336 TRACE SVM 1vs1 - Training 10 vs. 21
+2017-02-28 18:02:19,968 TRACE SVM 1vs1 - Training 10 vs. 23
+2017-02-28 18:02:21,425 TRACE SVM 1vs1 - Training 10 vs. 24
+2017-02-28 18:02:22,143 TRACE SVM 1vs1 - Training 13 vs. 14
+2017-02-28 18:02:25,171 TRACE SVM 1vs1 - Training 13 vs. 17
+2017-02-28 18:02:28,110 TRACE SVM 1vs1 - Training 13 vs. 18
+2017-02-28 18:02:30,733 TRACE SVM 1vs1 - Training 13 vs. 19
+2017-02-28 18:02:33,024 TRACE SVM 1vs1 - Training 13 vs. 20
+2017-02-28 18:02:42,340 TRACE SVM 1vs1 - Training 13 vs. 21
+2017-02-28 18:02:45,418 TRACE SVM 1vs1 - Training 13 vs. 23
+2017-02-28 18:02:49,266 TRACE SVM 1vs1 - Training 13 vs. 24
+2017-02-28 18:02:52,322 TRACE SVM 1vs1 - Training 14 vs. 17
+2017-02-28 18:02:52,861 TRACE SVM 1vs1 - Training 14 vs. 18
+2017-02-28 18:02:53,278 TRACE SVM 1vs1 - Training 14 vs. 19
+2017-02-28 18:02:53,594 TRACE SVM 1vs1 - Training 14 vs. 20
+2017-02-28 18:03:01,986 TRACE SVM 1vs1 - Training 14 vs. 21
+2017-02-28 18:03:02,719 TRACE SVM 1vs1 - Training 14 vs. 23
+2017-02-28 18:03:04,308 TRACE SVM 1vs1 - Training 14 vs. 24
+2017-02-28 18:03:05,092 TRACE SVM 1vs1 - Training 17 vs. 18
+2017-02-28 18:03:05,114 TRACE SVM 1vs1 - Training 17 vs. 19
+2017-02-28 18:03:05,415 TRACE SVM 1vs1 - Training 17 vs. 20
+2017-02-28 18:03:13,337 TRACE SVM 1vs1 - Training 17 vs. 21
+2017-02-28 18:03:13,986 TRACE SVM 1vs1 - Training 17 vs. 23
+2017-02-28 18:03:15,550 TRACE SVM 1vs1 - Training 17 vs. 24
+2017-02-28 18:03:16,252 TRACE SVM 1vs1 - Training 18 vs. 19
+2017-02-28 18:03:16,267 TRACE SVM 1vs1 - Training 18 vs. 20
+2017-02-28 18:03:24,074 TRACE SVM 1vs1 - Training 18 vs. 21
+2017-02-28 18:03:24,628 TRACE SVM 1vs1 - Training 18 vs. 23
+2017-02-28 18:03:26,027 TRACE SVM 1vs1 - Training 18 vs. 24
+2017-02-28 18:03:26,629 TRACE SVM 1vs1 - Training 19 vs. 20
+2017-02-28 18:03:32,797 TRACE SVM 1vs1 - Training 19 vs. 21
+2017-02-28 18:03:33,198 TRACE SVM 1vs1 - Training 19 vs. 23
+2017-02-28 18:03:34,587 TRACE SVM 1vs1 - Training 19 vs. 24
+2017-02-28 18:03:35,019 TRACE SVM 1vs1 - Training 20 vs. 21
+2017-02-28 18:03:43,578 TRACE SVM 1vs1 - Training 20 vs. 23
+2017-02-28 18:03:50,299 TRACE SVM 1vs1 - Training 20 vs. 24
+2017-02-28 18:03:58,438 TRACE SVM 1vs1 - Training 21 vs. 23
+2017-02-28 18:04:00,124 TRACE SVM 1vs1 - Training 21 vs. 24
+2017-02-28 18:04:01,061 TRACE SVM 1vs1 - Training 23 vs. 24
+2017-02-28 18:04:02,797 INFO  runExperiment - Classifier trained
+2017-02-28 18:04:02,812 DEBUG runExperiment - Loading test set...
+2017-02-28 18:04:05,573 DEBUG runExperiment - Applying feature extraction...
+2017-02-28 18:04:05,573 INFO  PCA - Apply transformation to features
+2017-02-28 18:04:05,863 DEBUG runExperiment - Applying trained classifier...
+2017-02-28 18:04:53,064 INFO  runExperiment - Test instances classified
+2017-02-28 18:04:53,064 DEBUG runExperiment - Calculating confusion matrix...
+2017-02-28 18:04:53,202 INFO  runExperiment - Current accuracy: 0.461
+2017-02-28 18:04:53,202 DEBUG runExperiment - Saved classifier
+Stopped: 28-Feb-2017 18:04:53
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          3       2278        240          0       1904       8591          3          0          0       9545        676          0          0          3          0          0       3221        211          0        147        128
+         0          0          0          3     205617       1520          0       6718      19770        119          0          0      96402       7265          0          0         33         24          7      38667       8792          0       8004        337
+         0          0          0         17       3906      12457          0      32360      71105        382          0          0       2880        247          0          0          3        463         59      56703        741          0       1663         22
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0         20       2386      23152          0      39941      78907       1890          0          0       4859         11          0          0        105         22       1250      22165        155          0       1717        430
+         0          0          0          0       2412       4459          0      14739     247850        105          0          0       1241          0          0          0          7          0         11      34834        102          0        882          0
+         0          0          0          0        752       4504          0       2077       7725       1012          0          0       5257        114          0          0         10        129          0      11098        303          0       1852         87
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0         79      43770       2019          0      13776       5622        486          0          0     127968        773          0          0          3         46          0      19970        433          0       1276        996
+         0          0          0          0      22775        658          0       1248       1159        242          0          0      26255       5990          0          0       4010        661          0       3727      13186          0       3190      16112
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0       1505       1119          0       1585       4283         16          0          0       9426        467          0          0       1389         34         18        870       1732          0      17701       9785
+         0          0          0          2        953       1698          0       6708       3194          1          0          0       4490         43          0          0         49         51         10      13822        624          0       2249       3701
+         0          0          0          0         43       4560          0       7230       6691         16          0          0         71          0          0          0         76         24       1619       4093         11          0       5855          1
+         0          0          0         21      22473     116948          0      84700     145296       3841          0          0      46177        234          0          0        111       5045        211     111901       7579          0       5326        752
+         0          0          0          0      16964        352          0        959       2599        278          0          0       6974        838          0          0        406         20          0      20260      16375          0       9532        658
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          5      54327       2019          0       6209      18594         66          0          0      42441       5245          0          0       1061        176        125      10366       4449          0      43064       9578
+         0          0          0          4        815        275          0        578         29        103          0          0      16495       1283          0          0        910        249          0       3985       1711          0       1965      42643
+
+Accuracy:
+0.350
+
+Precisions:
+NaN	NaN	NaN	0.019	0.540	0.071	NaN	0.181	0.399	0.118	NaN	NaN	0.320	0.258	NaN	NaN	0.170	0.007	0.489	0.315	0.290	NaN	0.412	0.500
+
+Sensitivities:
+NaN	NaN	NaN	0.000	0.523	0.068	NaN	0.226	0.808	0.029	NaN	NaN	0.589	0.060	NaN	NaN	0.028	0.001	0.053	0.203	0.215	NaN	0.218	0.600
+
+Specificities:
+0.350	0.350	0.350	0.354	0.317	0.373	0.350	0.360	0.284	0.355	0.350	0.350	0.327	0.362	0.350	0.350	0.357	0.355	0.354	0.392	0.354	0.350	0.362	0.342
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.000	0.765	0.109	NaN	0.352	1.129	0.045	NaN	NaN	0.875	0.095	NaN	NaN	0.043	0.002	0.083	0.334	0.333	NaN	0.341	0.913
+
+NegativeLikelihoods:
+NaN	NaN	NaN	2.826	1.506	2.501	NaN	2.153	0.674	2.739	NaN	NaN	1.258	2.595	NaN	NaN	2.726	2.810	2.677	2.030	2.216	NaN	2.164	1.167
+
+FScores:
+NaN	NaN	NaN	0.000	0.531	0.069	NaN	0.201	0.534	0.047	NaN	NaN	0.414	0.098	NaN	NaN	0.048	0.002	0.096	0.247	0.247	NaN	0.285	0.546
