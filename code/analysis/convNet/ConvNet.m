@@ -57,7 +57,18 @@ classdef ConvNet < Classifier
         end
         
         function str = toShortString(obj)
-            str = ['ConvNet_e' num2str(obj.opts.numEpochs)];
+            str = 'ConvNet';
+            
+            % Append dropout rate
+            str = [str '_dr' num2str(obj.opts.dropoutRate)];
+            
+            % Append pooling if used
+            if obj.opts.doPooling
+                str = [str '_pooling'];
+            end
+            
+            % Append maximum number of epochs
+            str = [str '_e' num2str(obj.opts.numEpochs)];
         end
         
         function obj = trainOn(obj, trainFeatureCube, trainLabelMap)
