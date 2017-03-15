@@ -44,7 +44,9 @@ function plotConfMat(confMat)
     % Plot confMat
     f = figure('Name', 'Confusion Matrix', 'NumberTitle', 'off');
     hm = HeatMap(confMat, false); % false prevents display of HeatMap obj
+    hm.set('YLabel', 'True class (#samples)');
     hm.set('RowLabels', flipud(namesAndDistribution));
+    hm.set('XLabel', 'Predicted class');
     hm.set('ColumnLabels', classNames);
     hm.set('Symmetric', false);
     hm.set('Colormap', jet);
