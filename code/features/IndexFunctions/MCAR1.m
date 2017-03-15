@@ -38,6 +38,7 @@ function [ result ] = mcar1( rawFeatures )
     result = ((r700 - r670) - 0.2*(r700-r550)).*r700./r670;
     
     isNanMask = isnan(result);
-    result(isNanMask) = 0;
+    isInfMask = isinf(result);
+    result(isNanMask | isInfMask) = 0;
 end
 

@@ -37,6 +37,7 @@ function [ result ] = ndvi( rawFeatures )
     result = (r800 - r670)./(r800 + r670);
     
     isNanMask = isnan(result);
-    result(isNanMask) = 0;
+    isInfMask = isinf(result);
+    result(isNanMask | isInfMask) = 0;
 end
 

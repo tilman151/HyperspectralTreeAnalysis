@@ -37,6 +37,7 @@ function [ result ] = gndvi( rawFeatures )
     result = (r780-r550)./(r780-r550);
     
     isNanMask = isnan(result);
-    result(isNanMask) = 0;
+    isInfMask = isinf(result);
+    result(isNanMask | isInfMask) = 0;
 end
 

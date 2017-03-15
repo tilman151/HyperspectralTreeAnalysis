@@ -35,7 +35,9 @@ function [ result ] = wi( rawFeatures )
     r900 = rawFeatures(:,:,134);
     r970 = rawFeatures(:,:,152);
     result = r900./r970;
+    
     isNanMask = isnan(result);
-    result(isNanMask) = 0;
+    isInfMask = isinf(result);
+    result(isNanMask | isInfMask) = 0;
 end
 
