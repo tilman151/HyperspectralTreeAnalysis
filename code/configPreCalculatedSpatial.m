@@ -85,10 +85,10 @@ randomForestLabelPropConfig = @() LabelPropagator(...
     'PropagationThreshold', 0.0, ...
     'VisualizeSteps', true);
 randomForestOutputRegConfig = @() OutputRegularizer(...
-    ['../results/RandomForest_20/MulticlassLda/20170207_1718/'...
-     'model_1.mat'], ...
+    ['../results/RandomForest_20/MulticlassLda_14/' ...
+     'SpatialFeatureExtractor_5_Max_Mean_Min_Var/20170217_1012/'], ...
     'R', 5, ...
-    'VisualizeSteps', true);
+    'VisualizeSteps', false);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,9 +126,9 @@ SAMPLE_SET_PATH = ...
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = randomForest100Config();
+CLASSIFIER = randomForestOutputRegConfig();
 
-EXTRACTORS = {Indices(), spatialFeatureExtractorConfig_5()};
+EXTRACTORS = {mcldaConfig_14(), spatialFeatureExtractorConfig_5()};
 EXTRACTORS = cellfun(@(x) NoFeatureExtraction(x), ...
                      EXTRACTORS, ...
                      'uniformoutput', false);
@@ -137,7 +137,7 @@ EXTRACTORS_PATHs = ...
         
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/';
-DATA_SET_PATH = [fullfile(DATA_SET_PATH, EXTRACTORS_PATHs{:}) '\\'];
+DATA_SET_PATH = [fullfile(DATA_SET_PATH, EXTRACTORS_PATHs{:}) '/'];
 
 RESULTS_PATH = '../results/';
 
@@ -153,7 +153,7 @@ RESULTS_PATH = '../results/';
 % ERROR = 5
 % FATAL = 6
 % OFF   = 7
-LOG_LEVEL = 0;
+LOG_LEVEL = 2;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
