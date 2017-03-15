@@ -168,8 +168,9 @@ function runExperiment(configFilePath)
                 sprintf('Accuracy standard deviation: %.3f', ...
                         std(accuracies)));
     % Log duration
+    expDuration = datetime('now') - startTime;
     logger.info('runExperiment_Duration', ...
-                datetime('now') - startTime);
+                strtrim(evalc('disp(expDuration)')));
                              
     % Stop logging
     logger = logger.stopExperiment();
