@@ -21,6 +21,19 @@ function plotConfMat(confMat)
     % Reduce confMat to relevant part
     confMat = confMat(classes, classes);
     
+    % Get class names
+    t = readtable(['../data/ftp-iff2.iff.fraunhofer.de/Baumarten/'...
+                   'BaumartenIDsUnique.csv'], ...
+                   'FileEncoding', 'ISO-8859-1');
+    classNames = t.Name(classes);
+    
+    % Append class distribution
+    classDistribution = sum(confMat, 2);
+    namesAndDistribution = cellfun(@(name, dist) ...
+        [name ' (' num2str(dist) ')'], ...
+        classNames, num2cell(classDistribution), ...
+        'UniformOutput', false);
+    
     % Normalize confMat row-based
     sums = repmat(sum(confMat, 2), [1, length(classes)]);
     confMat = confMat./sums;
@@ -31,8 +44,10 @@ function plotConfMat(confMat)
     % Plot confMat
     f = figure('Name', 'Confusion Matrix', 'NumberTitle', 'off');
     hm = HeatMap(confMat, false); % false prevents display of HeatMap obj
-    hm.set('RowLabels', flipud(classes));
-    hm.set('ColumnLabels', classes);
+    hm.set('YLabel', 'True class (#samples)');
+    hm.set('RowLabels', flipud(namesAndDistribution));
+    hm.set('XLabel', 'Predicted class');
+    hm.set('ColumnLabels', classNames);
     hm.set('Symmetric', false);
     hm.set('Colormap', jet);
     ax = hm.plot(f);

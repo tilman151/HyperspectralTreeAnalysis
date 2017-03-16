@@ -64,8 +64,12 @@ function runExperiment(configFilePath)
     
     % Start logging
     logger = logger.startExperiment();
+    startTime = datetime('now');
     
     save([logger.getLogPath() '/FeatureExtractors'], 'EXTRACTORS');
+    
+    % Initialize accuracy variable
+    accuracies = zeros(crossValidator.k, 1);
     
     % For each test and training set
     for i = 1:crossValidator.k
@@ -144,6 +148,7 @@ function runExperiment(configFilePath)
         
         % Calculate accuracy of current classifier
         accuracy = Evaluator.getAccuracy(confMat(2:end, 2:end, i));
+        accuracies(i) = accuracy;
         % Log accuracy
         logger.info('runExperiment', ...
                     sprintf('Current accuracy: %.3f', accuracy));
@@ -158,6 +163,15 @@ function runExperiment(configFilePath)
         
     end
 
+    % Log accuracy statistics
+    logger.info('runExperiment', ...
+                sprintf('Accuracy standard deviation: %.3f', ...
+                        std(accuracies)));
+    % Log duration
+    expDuration = datetime('now') - startTime;
+    logger.info('runExperiment_Duration', ...
+                strtrim(evalc('disp(expDuration)')));
+                             
     % Stop logging
     logger = logger.stopExperiment();
     

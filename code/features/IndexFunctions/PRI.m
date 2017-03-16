@@ -35,5 +35,9 @@ function [ result ] = pri( rawFeatures )
     r531 = rawFeatures(:,:,35);
     r570 = rawFeatures(:,:,46);
     result = (r531-r570)./(r531+r570);
+    
+    isNanMask = isnan(result);
+    isInfMask = isinf(result);
+    result(isNanMask | isInfMask) = 0;
 end
 
