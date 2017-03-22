@@ -25,12 +25,12 @@ tsvmLinearConfig = @() TSVM(...
 convNetConfig = @() ConvNet(...
     'cudnn', true, ...
     'gpus', [1], ...
-    'numEpochs', 500, ...
+    'numEpochs', 2, ...
     'plotErrorRates', true, ...
     'stoppingEpochWindow', 100, ...
     'stoppingErrorMargin', 0.005, ...
     'dropoutRate', 0.0, ...
-    'doPooling', true);
+    'doPooling', false);
 
 % BasicEnsemble - Parameters: baseClassifiers, numClassifiers, 
 %                             trainingInstanceProportions
@@ -118,9 +118,9 @@ indicesConfig = @() Indices();
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-CLASSIFIER = rotationForest202Config();
+CLASSIFIER = convNetConfig();
 
-EXTRACTORS = {mclda5Config()};
+EXTRACTORS = {indicesConfig()};
 
 
 
@@ -148,5 +148,5 @@ LOG_LEVEL = 3;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
-VISUALIZE_PREDICTED_LABELS = false;
+VISUALIZE_PREDICTED_LABELS = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
