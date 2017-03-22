@@ -2,6 +2,7 @@ classdef VotingMode
     enumeration
        Majority,
        WeightedMajority,
-       Presidential
+       Presidential,
+       PrecisionWeighting
     end
 end
