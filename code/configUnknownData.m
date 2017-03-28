@@ -9,7 +9,8 @@ bestEnsembleConfig = @(classifierPaths, sampleSetPath)...
                                         true, ...
                                         sampleSetPath);
                                     
-loadClassifierConfig = @(classifierPath) load(classifierPath);
+loadClassifierConfig = ...
+    @(classifierPath) Classifier.loadFrom(classifierPath);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Feature extractor configurations
@@ -51,19 +52,22 @@ indicesConfig = @() Indices();
 global NUMCLASSES;
 NUMCLASSES = 24;
 
-BASE_CLASSIFIER_PATHS = '';
+BASE_CLASSIFIER_PATHS = ...
+    ['/home/cornelius/Projects/HyperspectralTreeAnalysis/results/'...
+     'RandomForest_20__regularizedOutput_r5/MulticlassLda_14/'...
+     '20170224_1752/model_1.mat'];
 
 DATA_SET_PATH = ...
-        '../data/ftp-iff2.iff.fraunhofer.de/UnknownData/400-1000/';
+        '../data/ftp-iff2.iff.fraunhofer.de/Testdaten/';
 SAMPLE_SET_PATH = ...
         ['../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/' ...
             'Samplesets/sampleset_012.mat'];
 
-RESULTS_PATH = '../results/';
+RESULTS_PATH = '../results/unknown/';
 
-CLASSIFIER = bestEnsembleConfig(BASE_CLASSIFIER_PATHS, SAMPLE_SET_PATH);
+CLASSIFIER = loadClassifierConfig(BASE_CLASSIFIER_PATHS);
 
-EXTRACTORS = {};
+EXTRACTORS = {mclda14Config()};
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations
@@ -77,9 +81,9 @@ EXTRACTORS = {};
 % ERROR = 5
 % FATAL = 6
 % OFF   = 7
-LOG_LEVEL = 0;
+LOG_LEVEL = 2;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
-VISUALIZE_PREDICTED_LABELS = false;
+VISUALIZE_PREDICTED_LABELS = true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -36,9 +36,6 @@ function runUnknownDataExperiment(configFilePath)
     end
     run(configFilePath);
     
-    % Initialize confusion matrix
-    confMat = zeros(NUMCLASSES+1, NUMCLASSES+1, crossValidator.k);
-    
     % Create logger singleton
     logPath = Logger.createLogPath(RESULTS_PATH, CLASSIFIER, EXTRACTORS);
     logger = Logger.getLogger(logPath);
@@ -47,7 +44,7 @@ function runUnknownDataExperiment(configFilePath)
                      EXTRACTORS, ...
                      SAMPLE_SET_PATH, ...
                      DATA_SET_PATH, ...
-                     crossValidator.crossValParts);
+                     []);
     
     % Set log level
     logger.setLogLevel(LOG_LEVEL);
@@ -56,80 +53,48 @@ function runUnknownDataExperiment(configFilePath)
     logger = logger.startExperiment();
     
     % Fetch file names
-    featureFiles = dir(fullfile(DATA_SET_DIRECTORY, 'features*'));
-    labelFiles = dir(fullfile(DATA_SET_DIRECTORY, 'labels*'));
+    featureFiles = dir(fullfile(DATA_SET_PATH, '*.mat'));
+    
+    % Create result data structure
+    predictedLabels = cell(numel(featureFiles), 1);
      
     for i=1:numel(featureFiles)
         % Load test set
         logger.debug('runUnknownDataExperiment', 'Loading data set...');
-        load(fullfile(DATA_SET_PATH, featureFiles{i}.name));
-        load(fullfile(DATA_SET_PATH, labelFiles{i}.name));
+        load(fullfile(DATA_SET_PATH, featureFiles(i).name));
+        
+        % Create mask map (everything is unknown)
+        maskMap = zeros(size(cube, 1), size(cube, 2));
 
-        % Visualize test labels
-        if VISUALIZE_TEST_LABELS
-            visualizeLabels(labels, 'Test Labels');
-        end
-
-        % Create mask map (only showing -1 and 0)
-        maskMap = labels;
-        maskMap(labels > 0) = 0;
-
-        if ENSEMBLE == true
-            % Apply feature extraction
-            logger.debug('runUnknownDataExperiment', ...
-                         'Applying feature extraction...');
-            cube = ...
-                applyFeatureExtraction(cube, EXTRACTORS, ...
-                                       maskMap, SAMPLE_SET_PATH);
-        end
+        % Apply feature extraction
+        logger.debug('runUnknownDataExperiment', ...
+                     'Applying feature extraction...');
+        cube = applyFeatureExtraction(cube, EXTRACTORS, ...
+                                      maskMap, SAMPLE_SET_PATH);
 
         % Apply trained classifier
         logger.debug('runUnknownDataExperiment', 'Applying classifier...');
-        classifiedLabels = ...
-            CLASSIFIER.classifyOn(cube, maskMap, i);
+        predictedFileLabels = CLASSIFIER.classifyOn(cube, maskMap);
         logger.info('runUnknownDataExperiment', 'Instances classified');
 
         % Visualize predicted labels
         if VISUALIZE_PREDICTED_LABELS
-            visMask = labels ~= 0;
-            newLabelMap = cat(1, labels, ...
-                              classifiedLabels.*visMask, ...
-                              classifiedLabels);
-            visualizeLabels(newLabelMap, ...
-                            'Predicted Labels and Ground Truth');
+            visualizeLabels(predictedFileLabels, 'Predicted Labels');
         end
-
-        % Calculate confusion matrix
-        logger.debug('runUnknownDataExperiment', ...
-                     'Calculating confusion matrix...');
-        confMat(:, :, i) = confusionmat(...
-            validListFromSpatial(labels, maskMap), ...
-            validListFromSpatial(classifiedLabels, maskMap), ...
-            'order', 0:24);
-
-        % Calculate accuracy of current classifier
-        accuracy = Evaluator.getAccuracy(confMat(2:end, 2:end, i));
-        % Log accuracy
-        logger.info('runUnknownDataExperiment', ...
-                    sprintf('Current accuracy: %.3f', accuracy));
+        
+        % Store result
+        predictedLabels{i} = predictedFileLabels;
 
         % Free RAM
-        clear('labels', 'cube');
-
+        clear('predictedFileLabels', 'cube');
     end
-
+    
+    % Save results
+    logger.info('runUnknownDataExperiment', 'Save results');
+    save(fullfile(logger.getLogPath(), 'results.mat'), 'predictedLabels');
+    
     % Stop logging
-    logger = logger.stopExperiment();
-    
-    % Sum up all confusion matrices
-    confMat = sum(confMat(2:end, 2:end, :), 3);
-    % Log confusion matrix
-    logger.logConfusionMatrix(confMat);
-    % Compute accuracy measures
-    measures = Evaluator.getAllMeasures(confMat);
-    % Log accuracy measures
-    logger.logMeasures(measures);
-    
+    logger.stopExperiment();
 end
 
 function featureCube = applyFeatureExtraction(featureCube, extractors, ...
