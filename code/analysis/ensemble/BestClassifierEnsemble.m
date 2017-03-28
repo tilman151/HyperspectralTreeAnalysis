@@ -56,6 +56,8 @@ classdef BestClassifierEnsemble < Classifier
         numClassifiersStrings;
         baseClassifiersStrings;
         baseClassifiersShortStrings;
+        feStrings;
+        feShortStrings;
         votingMode;
         weights;
     end
@@ -89,9 +91,27 @@ classdef BestClassifierEnsemble < Classifier
             obj.baseClassifiersStrings = cellfun(@(o)o.toString(), ...
                                                  baseClassifiers, ...
                                                  'uniformoutput', 0);
+                                             
+                                             
+            getfeString = @(f) cellfun( @(e)[e.toString() '__'], ...
+                                        f, 'uniformoutput', 0);
+            getfeShortString = @(f) cellfun( @(e)[e.toShortString(), ...
+                                                  '__'], f, ...
+                                        'uniformoutput', 0);
+            getfeShortString = @(f) cellfun( @(e)[e.toShortString(), ...
+                                             '__'], f, 'uniformoutput', 0);
+            concatfeString = @(s) horzcat(s{:});
+            
+            obj.feStrings = cellfun(@(o)concatfeString(getfeString(o)), ...
+                                                 featureExtractors, ...
+                                                 'uniformoutput', 0);
             obj.baseClassifiersShortStrings = ...
                 cellfun(@(o)o.toShortString(), ...
                         baseClassifiers, ...
+                        'uniformoutput', 0);
+            obj.feShortStrings = ...
+                cellfun(@(o)concatfeString(getfeShortString(o)), ...
+                        featureExtractors, ...
                         'uniformoutput', 0);
             
             % copy the classifier
@@ -99,7 +119,7 @@ classdef BestClassifierEnsemble < Classifier
             obj.baseClassifiers = baseClassifiers;
             
             if ~obj.loadMatchingClassifier
-                if obj.votingMode ~= VotingMode.PrecisionWeighting
+                if obj.votingMode == VotingMode.PrecisionWeighting
                     obj.weights = precisions;
                 elseif obj.votingMode == VotingMode.Majority
                     obj.weights = ones(numel(accuracies), 1);
@@ -124,8 +144,9 @@ classdef BestClassifierEnsemble < Classifier
                          char(obj.votingMode)];
             str = ['BestEnsemble ', paramStr, '[' ];
             stringParts = ...
-                cellfun(@(c) ['( classifier:[' c '] )'], ...
+                cellfun(@(c, f) ['( classifier:[' c ' - ' f '] )'], ...
                         obj.baseClassifiersStrings, ...
+                        obj.feStrings, ...
                         'uniformoutput', 0);
             stringParts{end}(end-2:end) = [];
             str = [str horzcat(stringParts{:}) ']'];
@@ -135,9 +156,9 @@ classdef BestClassifierEnsemble < Classifier
             
             paramStr = char(obj.votingMode);
             
-            str = ['BestEnsemble --' paramStr];
+            str = ['BestEnsemble-' paramStr '--'];
             stringParts = ...
-                cellfun(@(c) [c '--'], ...
+                cellfun(@(c, f) [c, '-'], ...
                         obj.baseClassifiersShortStrings, ...
                         'uniformoutput', 0);
             stringParts{end}(end-1:end) = [];
@@ -159,7 +180,7 @@ classdef BestClassifierEnsemble < Classifier
                 obj.featureExtractors = featureExtractors;
                 obj.baseClassifiers = baseClassifiers;
                 
-                if obj.votingMode ~= VotingMode.PrecisionWeighting
+                if obj.votingMode == VotingMode.PrecisionWeighting
                     obj.weights = precisions;
                 elseif obj.votingMode == VotingMode.Majority
                     obj.weights = ones(numel(accuracies), 1);
@@ -180,7 +201,8 @@ classdef BestClassifierEnsemble < Classifier
             disp('start predicting');
             % let each classifier predict
             concatenatedLabels = ...
-                obj.classifyOnEachClassifier(evalFeatureCube, maskMap);
+                obj.classifyOnEachClassifier(evalFeatureCube, ...
+                                             maskMap,foldNr);
             [x,y,nClassifier] = size(concatenatedLabels);
             concatenatedLabels = ...
                 reshape(concatenatedLabels, x*y, nClassifier);
@@ -195,7 +217,7 @@ classdef BestClassifierEnsemble < Classifier
                     w = weights;
                     predictions = concatenatedLabels(i,:);
                     labels = unique(predictions);
-                    labelWeights = zeros(size(predictions));
+                    labelWeights = zeros(size(labels));
                     for labelIdx = 1:numel(labels)
                         l = labels(labelIdx);
                         wLabel = w(:,l);
@@ -210,7 +232,8 @@ classdef BestClassifierEnsemble < Classifier
         end
         
         function concatenatedLabels = ...
-                    classifyOnEachClassifier(obj, evalFeatureCube, maskMap)
+                    classifyOnEachClassifier(obj, evalFeatureCube, ...
+                                                  maskMap, foldNr)
                     
             if obj.multithreadingClassification
                 classifier = obj.baseClassifiers;
@@ -230,19 +253,42 @@ classdef BestClassifierEnsemble < Classifier
                 classifier = obj.baseClassifiers;
                 accumulatedLabels = cell(length(classifier),1);
                 for i = 1:length(classifier)
-                    i
-                    'start feature extraction'
-                    newFeatureCube = applyFeatureExtraction(...
-                        evalFeatureCube, ...
-                        maskMap, ...
-                        obj.featureExtractors{i}, ...
-                        obj.samplesetPath);
                     
-                    'end feature extraction'
                     
-                    accumulatedLabels{i} = ...
-                        classifier{i}.classifyOn(...
-                            newFeatureCube, maskMap);
+                    
+                    cache = [];
+                    tryToFindCache = ...
+                        obj.loadMatchingClassifier && foldNr > 0;
+                    
+                    if tryToFindCache
+                        cache = loadCache(obj.paths{i}, foldNr);
+                    end
+                    
+                    foundCache = ~isempty(cache);
+%                     foundCache = false;
+                    
+                    
+                    
+                    if ~foundCache
+                    
+                        'start feature extraction'
+                        newFeatureCube = applyFeatureExtraction(...
+                            evalFeatureCube, ...
+                            maskMap, ...
+                            obj.featureExtractors{i}, ...
+                            obj.samplesetPath);
+
+                        'end feature extraction'
+
+                        cache = ...
+                            classifier{i}.classifyOn(...
+                                newFeatureCube, maskMap);
+                        if tryToFindCache
+                            saveCache(cache, obj.paths{i}, foldNr);
+                        end
+                    end
+                    
+                    accumulatedLabels{i} = cache;
                 end
             end
             
@@ -323,4 +369,23 @@ function rawFeatures = applyFeatureExtraction(rawFeatures, maskMap, ...
                             rawFeatures, ...
                             maskMap, samplesetPath);
     end 
+end
+
+function cachePath = getCachePath(p, foldNr)
+    [d,f,e] = fileparts(p);
+    cachePath = [d '/' f 'model_' num2str(foldNr) '_cache.mat'];
+end
+
+function cache = loadCache(p, foldNr)
+    cache = [];
+    cachePath = getCachePath(p, foldNr);
+    if exist(cachePath, 'file')
+       cacheFile = load(cachePath);
+       cache = cacheFile.cache;
+    end
+end
+
+function saveCache(cache, p, foldNr)
+    cachePath = getCachePath(p, foldNr);
+    save(cachePath, 'cache');
 end

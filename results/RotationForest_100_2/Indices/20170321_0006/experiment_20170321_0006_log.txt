@@ -1,0 +1,123 @@
+HyperSpectralTreeExperiment
+--------------------------------------------
+Classifier:	RotationForest (numTrees: 100, splitParam:2)
+Extractors:	Indices
+Sample Set:	../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/Samplesets/sampleset_012.mat
+Data Set:	../data/ftp-iff2.iff.fraunhofer.de/ProcessedData/400-1000/
+CrossValParts:
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+         1          1          1          1          1          1          1         25         25          1
+        24         20         17         19         20         21         19         21         22         19
+         2          3          3          3          2          2          2          3          2          2
+         0          0          0          0          0          0          0          0          0          0
+         6          7          9         10          5         23         10          8          8          8
+        11         12         12         18         18         12         12         18         12         12
+        27         46         27         46         27         46         27         46         27         46
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        16         16         15         15         15         13         14         14         13         16
+        28         29          4         29         28         26         28         29          4         26
+         0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0
+        30         47         30         47         30         47         30         47         30         47
+        31         48         31         48         31         48         31         48         31         48
+        32         49         32         49         32         49         32         49         32         49
+        33         34         33         34         33         34         33         34         33         34
+        35         50         35         50         35         50         35         50         35         50
+         0          0          0          0          0          0          0          0          0          0
+        41         40         44         41         43         40         39         43         36         37
+        45         51         45         51         45         51         45         51         45         51
+--------------------------------------------
+Started: 21-Mar-2017 00:06:57
+2017-03-21 00:06:57,429 INFO  runExperiment - Iteration 1
+2017-03-21 00:22:08,629 INFO  runExperiment - Classifier trained
+2017-03-21 00:23:46,951 INFO  runExperiment - Test instances classified
+2017-03-21 00:23:47,779 INFO  runExperiment - Current accuracy: 0.311
+2017-03-21 00:23:47,779 INFO  runExperiment - Iteration 2
+2017-03-21 00:43:13,243 INFO  runExperiment - Classifier trained
+2017-03-21 00:44:13,906 INFO  runExperiment - Test instances classified
+2017-03-21 00:44:14,171 INFO  runExperiment - Current accuracy: 0.314
+2017-03-21 00:44:14,171 INFO  runExperiment - Iteration 3
+2017-03-21 00:57:56,354 INFO  runExperiment - Classifier trained
+2017-03-21 00:59:41,393 INFO  runExperiment - Test instances classified
+2017-03-21 00:59:41,784 INFO  runExperiment - Current accuracy: 0.314
+2017-03-21 00:59:41,799 INFO  runExperiment - Iteration 4
+2017-03-21 01:18:35,641 INFO  runExperiment - Classifier trained
+2017-03-21 01:20:11,205 INFO  runExperiment - Test instances classified
+2017-03-21 01:20:11,564 INFO  runExperiment - Current accuracy: 0.348
+2017-03-21 01:20:11,580 INFO  runExperiment - Iteration 5
+2017-03-21 01:34:12,056 INFO  runExperiment - Classifier trained
+2017-03-21 01:35:59,571 INFO  runExperiment - Test instances classified
+2017-03-21 01:35:59,993 INFO  runExperiment - Current accuracy: 0.282
+2017-03-21 01:36:00,009 INFO  runExperiment - Iteration 6
+2017-03-21 01:54:53,036 INFO  runExperiment - Classifier trained
+2017-03-21 01:56:18,912 INFO  runExperiment - Test instances classified
+2017-03-21 01:56:19,225 INFO  runExperiment - Current accuracy: 0.364
+2017-03-21 01:56:19,240 INFO  runExperiment - Iteration 7
+2017-03-21 02:11:08,803 INFO  runExperiment - Classifier trained
+2017-03-21 02:12:56,468 INFO  runExperiment - Test instances classified
+2017-03-21 02:12:56,828 INFO  runExperiment - Current accuracy: 0.340
+2017-03-21 02:12:56,843 INFO  runExperiment - Iteration 8
+2017-03-21 02:31:46,798 INFO  runExperiment - Classifier trained
+2017-03-21 02:33:25,370 INFO  runExperiment - Test instances classified
+2017-03-21 02:33:25,713 INFO  runExperiment - Current accuracy: 0.325
+2017-03-21 02:33:25,713 INFO  runExperiment - Iteration 9
+2017-03-21 02:46:39,098 INFO  runExperiment - Classifier trained
+2017-03-21 02:48:32,174 INFO  runExperiment - Test instances classified
+2017-03-21 02:48:32,549 INFO  runExperiment - Current accuracy: 0.363
+2017-03-21 02:48:32,564 INFO  runExperiment - Iteration 10
+2017-03-21 03:07:59,120 INFO  runExperiment - Classifier trained
+2017-03-21 03:09:19,307 INFO  runExperiment - Test instances classified
+2017-03-21 03:09:19,604 INFO  runExperiment - Current accuracy: 0.367
+2017-03-21 03:09:19,620 INFO  runExperiment - Accuracy standard deviation: 0.028
+2017-03-21 03:09:19,729 INFO  runExperiment_Duration - 03:02:22
+Stopped: 21-Mar-2017 03:09:19
+--------------------------------------------
+Confusion Matrix:
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0        335       4375       1082          0       3249       4146        138          0          0       7152        454          0          0        171        196         62       2975        552          0       1489        574
+         0          0          0       3105     188421       4829          0       6043      24694       1329          0          0      69306      13306          0          0       4042       1459         32      42000      15741          0      15088       3883
+         0          0          0       1810       8686      26884          0      30096      43156       2096          0          0       3471        210          0          0        374        613       1440      53021       1092          0       9508        551
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       2885       5171      29074          0      37850      38606       1223          0          0       5986        193          0          0        867       1687       3057      34855        852          0      13842        862
+         0          0          0       1927      11424      14355          0      28748     201894        779          0          0       5048        127          0          0        723       1172        414      26803       1148          0      11716        364
+         0          0          0        507       4285       4194          0       3655       6557        613          0          0       2605        207          0          0         83        162         78       9886        959          0        721        408
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       2176      26735       1695          0       4853       7730        676          0          0     129832       5001          0          0       3832       1202         50      12343       5708          0       3434      11950
+         0          0          0        648      36038       1134          0       1352       3137        464          0          0      23657       5225          0          0       1497       1158         19       9571       7429          0       4203       3681
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0        492       7216        999          0       2046       4240         75          0          0      13172        837          0          0       1422        670       1276       4387       1753          0       9930       1415
+         0          0          0        853       3847       1426          0       2396       6038        224          0          0       4992        225          0          0        819        511        814       8564        809          0       4915       1162
+         0          0          0        210         97       2140          0       4071       2640         70          0          0        222          2          0          0        836        434      12441       4274         27          0       2777         49
+         0          0          0       6037      59525      82732          0      44294      97784      11273          0          0      27162       2942          0          0       2959       5585       3621     164913      16852          0      20212       4724
+         0          0          0        563      21611        881          0       1399       4634        489          0          0      16071       2027          0          0       1294        368         10      15528       5365          0       3461       2514
+         0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0
+         0          0          0       1603      56368       3914          0       7222      20892        731          0          0      32088       4078          0          0       5050       2335        445      24722       9504          0      23770       5003
+         0          0          0        993       6290       1285          0       1572       2616        447          0          0      33362        979          0          0       1460        825         30       5928       3065          0       1211      10982
+
+Accuracy:
+0.331
+
+Precisions:
+NaN	NaN	NaN	0.014	0.428	0.152	NaN	0.212	0.431	0.030	NaN	NaN	0.347	0.146	NaN	NaN	0.056	0.028	0.523	0.393	0.076	NaN	0.188	0.228
+
+Sensitivities:
+NaN	NaN	NaN	0.012	0.479	0.147	NaN	0.214	0.658	0.018	NaN	NaN	0.598	0.053	NaN	NaN	0.028	0.014	0.411	0.300	0.070	NaN	0.120	0.155
+
+Specificities:
+0.331	0.331	0.331	0.334	0.302	0.345	0.331	0.340	0.284	0.335	0.331	0.331	0.305	0.342	0.331	0.331	0.337	0.336	0.330	0.340	0.339	0.331	0.349	0.336
+
+PositiveLikelihoods:
+NaN	NaN	NaN	0.019	0.687	0.224	NaN	0.324	0.919	0.026	NaN	NaN	0.860	0.080	NaN	NaN	0.043	0.020	0.613	0.454	0.106	NaN	0.185	0.233
+
+NegativeLikelihoods:
+NaN	NaN	NaN	2.956	1.724	2.470	NaN	2.315	1.204	2.932	NaN	NaN	1.321	2.768	NaN	NaN	2.884	2.940	1.788	2.063	2.743	NaN	2.521	2.517
+
+FScores:
+NaN	NaN	NaN	0.013	0.452	0.150	NaN	0.213	0.521	0.022	NaN	NaN	0.439	0.077	NaN	NaN	0.038	0.018	0.460	0.340	0.073	NaN	0.147	0.184
