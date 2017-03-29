@@ -54,9 +54,6 @@ function runUnknownDataExperiment(configFilePath)
     
     % Fetch file names
     featureFiles = dir(fullfile(DATA_SET_PATH, '*.mat'));
-    
-    % Create result data structure
-    predictedLabels = cell(numel(featureFiles), 1);
      
     for i=1:numel(featureFiles)
         % Load test set
@@ -74,24 +71,23 @@ function runUnknownDataExperiment(configFilePath)
 
         % Apply trained classifier
         logger.debug('runUnknownDataExperiment', 'Applying classifier...');
-        predictedFileLabels = CLASSIFIER.classifyOn(cube, maskMap);
+        predictedLabels = CLASSIFIER.classifyOn(cube, maskMap);
         logger.info('runUnknownDataExperiment', 'Instances classified');
 
         % Visualize predicted labels
         if VISUALIZE_PREDICTED_LABELS
-            visualizeLabels(predictedFileLabels, 'Predicted Labels');
+            visualizeLabels(predictedLabels, 'Predicted Labels');
         end
         
-        % Store result
-        predictedLabels{i} = predictedFileLabels;
+        % Save results
+        logger.info('runUnknownDataExperiment', 'Save result');
+        save(fullfile(logger.getLogPath(), ...
+                      [featureFiles(i).name(1:end-4) '_results.mat']), ...
+             'predictedLabels');
 
         % Free RAM
-        clear('predictedFileLabels', 'cube');
+        clear('predictedLabels', 'cube');
     end
-    
-    % Save results
-    logger.info('runUnknownDataExperiment', 'Save results');
-    save(fullfile(logger.getLogPath(), 'results.mat'), 'predictedLabels');
     
     % Stop logging
     logger.stopExperiment();
