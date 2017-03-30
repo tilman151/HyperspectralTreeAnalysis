@@ -67,6 +67,7 @@ classdef RandomForest < Classifier
             
             % Predict labels using the ensemble
             predictedLabelList = obj.treeEnsemble.predict(featureList);
+            obj.treeEnsemble = [];
             
             % TreeBagger output is a cell array -> transform to matrix
             predictedLabelList = cellfun(@(x) str2num(x), predictedLabelList);

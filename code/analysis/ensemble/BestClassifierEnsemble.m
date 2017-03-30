@@ -203,6 +203,13 @@ classdef BestClassifierEnsemble < Classifier
             concatenatedLabels = ...
                 obj.classifyOnEachClassifier(evalFeatureCube, ...
                                              maskMap,foldNr);
+                           
+            featureExtractors = [];
+            baseClassifiers = [];
+            obj.featureExtractors = [];
+            obj.baseClassifiers = [];
+                                         
+                                         
             [x,y,nClassifier] = size(concatenatedLabels);
             concatenatedLabels = ...
                 reshape(concatenatedLabels, x*y, nClassifier);
@@ -212,7 +219,7 @@ classdef BestClassifierEnsemble < Classifier
             
             weights = obj.weights;
             
-            for i = 1:numel(maskMap)
+            parfor i = 1:numel(maskMap)
                 if maskMap(i) >= 0
                     w = weights;
                     predictions = concatenatedLabels(i,:);
@@ -254,7 +261,7 @@ classdef BestClassifierEnsemble < Classifier
                 accumulatedLabels = cell(length(classifier),1);
                 for i = 1:length(classifier)
                     
-                    
+                    disp(['classifier' num2str(i)]);
                     
                     cache = [];
                     tryToFindCache = ...
@@ -271,14 +278,14 @@ classdef BestClassifierEnsemble < Classifier
                     
                     if ~foundCache
                     
-                        'start feature extraction'
+                        disp('start feature extraction');
                         newFeatureCube = applyFeatureExtraction(...
                             evalFeatureCube, ...
                             maskMap, ...
                             obj.featureExtractors{i}, ...
                             obj.samplesetPath);
 
-                        'end feature extraction'
+                        disp('end feature extraction');
 
                         cache = ...
                             classifier{i}.classifyOn(...
@@ -286,6 +293,8 @@ classdef BestClassifierEnsemble < Classifier
                         if tryToFindCache
                             saveCache(cache, obj.paths{i}, foldNr);
                         end
+                    else
+                        disp('found cache');
                     end
                     
                     accumulatedLabels{i} = cache;

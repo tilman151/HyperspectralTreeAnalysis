@@ -92,10 +92,10 @@ classdef RotationForest < ExampleClassifier
             end
         end
             
-            function predictedLabelMap = classifyOn(...
+        function predictedLabelMap = classifyOn(...
                 obj, evalFeatureCube, maskMap, ~)
-                logger = Logger.getLogger();
-           % Extract list of unlabeled pixels
+            logger = Logger.getLogger();
+            % Extract list of unlabeled pixels
             featList = validListFromSpatial(evalFeatureCube, maskMap);
             labelMat = zeros(size(featList,1),obj.numTrees);
             % Predict labels using the ensemble
@@ -104,12 +104,15 @@ classdef RotationForest < ExampleClassifier
              str = ['predict with tree' int2str(l)];
              logger.debug('RotationForest',str);
               end
+              
+            obj.treeEnsemble = cell(obj.numTrees);
+            obj.matrixTransform = cell(obj.numTrees);
 
              predictedLabelList = (mode(labelMat'))';
             % Rebuild map representation
             predictedLabelMap = rebuildMap(predictedLabelList, maskMap);
-            end
         end
+    end
         
 end
     

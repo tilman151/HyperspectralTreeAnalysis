@@ -52,4 +52,4 @@ curIndex = curIndex + 1;
 
 accuracies = getAccuraciesForEachFold( paths );
 
-plotBoxPlot(accuracies, names, 'Accuracy', [], 'export/RandomVsRotation_NonSpatial', [1000, 500]);
+plotBoxPlot(accuracies, names, 'Accuracy', [], 'export/RandomVsRotation_20_NonSpatial', [1000, 500]);
