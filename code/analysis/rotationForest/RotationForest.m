@@ -104,9 +104,6 @@ classdef RotationForest < ExampleClassifier
              str = ['predict with tree' int2str(l)];
              logger.debug('RotationForest',str);
               end
-              
-            obj.treeEnsemble = cell(obj.numTrees);
-            obj.matrixTransform = cell(obj.numTrees);
 
              predictedLabelList = (mode(labelMat'))';
             % Rebuild map representation
