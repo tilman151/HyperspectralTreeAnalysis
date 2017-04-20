@@ -55,7 +55,7 @@ function runUnknownDataExperiment(configFilePath)
     % Fetch file names
     featureFiles = dir(fullfile(DATA_SET_PATH, '*.mat'));
      
-    for i=1:numel(featureFiles)
+    for i=1:1%numel(featureFiles)
         % Load test set
         logger.debug('runUnknownDataExperiment', 'Loading data set...');
         load(fullfile(DATA_SET_PATH, featureFiles(i).name));
@@ -81,9 +81,12 @@ function runUnknownDataExperiment(configFilePath)
         
         % Save results
         logger.info('runUnknownDataExperiment', 'Save result');
-        save(fullfile(logger.getLogPath(), ...
-                      [featureFiles(i).name(1:end-4) '_results.mat']), ...
-             'predictedLabels');
+        %save(fullfile(logger.getLogPath(), ...
+        %              [featureFiles(i).name(1:end-4) '_results.mat']), ...
+        %     'predictedLabels');
+        imwrite(uint8(predictedLabels), ...
+            fullfile(logger.getLogPath(), ...
+                     [featureFiles(i).name(1:end-4) '_results.png']));
 
         % Free RAM
         clear('predictedLabels', 'cube');
