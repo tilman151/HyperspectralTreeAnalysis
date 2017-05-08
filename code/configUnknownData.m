@@ -53,9 +53,9 @@ global NUMCLASSES;
 NUMCLASSES = 24;
 
 BASE_CLASSIFIER_PATHS = ...
-    ['/home/cornelius/Projects/HyperspectralTreeAnalysis/results/'...
-     'RandomForest_20__regularizedOutput_r5/MulticlassLda_14/'...
-     '20170224_1752/model_1.mat'];
+    ['../results/ConvNet_dr0_e500/MulticlassLda_14/' ...
+     'SpatialFeatureExtractor_5_Max_Mean_Min_Var/20170317_1019/' ...
+     'model_1.mat'];
 
 DATA_SET_PATH = ...
         '../data/ftp-iff2.iff.fraunhofer.de/Testdaten/';
@@ -63,11 +63,14 @@ SAMPLE_SET_PATH = ...
         ['../data/ftp-iff2.iff.fraunhofer.de/FeatureExtraction/' ...
             'Samplesets/sampleset_012.mat'];
 
-RESULTS_PATH = '../results/unknown/';
+BEGIN_IDX = 1;
+END_IDX = 327;
+
+RESULTS_PATH = '../results/Testdaten/';
 
 CLASSIFIER = loadClassifierConfig(BASE_CLASSIFIER_PATHS);
 
-EXTRACTORS = {mclda14Config()};
+EXTRACTORS = {mclda14Config(), spatialFeatureExtractorConfig_5};
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations
@@ -85,5 +88,5 @@ LOG_LEVEL = 2;
 
 VISUALIZE_TRAIN_LABELS = false;
 VISUALIZE_TEST_LABELS = false;
-VISUALIZE_PREDICTED_LABELS = true;
+VISUALIZE_PREDICTED_LABELS = false;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

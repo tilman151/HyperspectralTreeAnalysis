@@ -55,7 +55,7 @@ function runUnknownDataExperiment(configFilePath)
     % Fetch file names
     featureFiles = dir(fullfile(DATA_SET_PATH, '*.mat'));
      
-    for i=1:1%numel(featureFiles)
+    for i=BEGIN_IDX:END_INDEX %originally: i=1:numel(featureFiles)
         % Load test set
         logger.debug('runUnknownDataExperiment', 'Loading data set...');
         load(fullfile(DATA_SET_PATH, featureFiles(i).name));
