@@ -70,7 +70,7 @@ RESULTS_PATH = '../results/Testdaten/';
 
 CLASSIFIER = loadClassifierConfig(BASE_CLASSIFIER_PATHS);
 
-EXTRACTORS = {mclda14Config(), spatialFeatureExtractorConfig_5};
+EXTRACTORS = {mclda14Config(), spatialFeatureExtractorConfig_5()};
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Output configurations
