@@ -14,3 +14,5 @@ The Fraunhofer IFF will provide appropriate hyperspectral data sets.
 4. Integration and execution of tests
 5. Documentation
 
+## Status
+Project was successfully completed
